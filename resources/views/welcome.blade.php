@@ -160,9 +160,9 @@
 
                         <div
                             class="relative z-10 aspect-[4/5] overflow-hidden rounded-2xl shadow-2xl border border-white/20">
-                            <img src="https://images.unsplash.com/photo-1541099649105-f69ad21f3246?auto=format&fit=crop&q=80&w=2574"
-                                alt="Denim Subject"
-                                class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
+                            <img src="{{ asset('images/hero.png') }}" 
+                                 alt="Denim Subject" 
+                                 class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
                             <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent">
                             </div>
                             <div class="absolute bottom-8 left-8 right-8">
@@ -208,9 +208,8 @@
                     class="group relative overflow-hidden rounded-2xl bg-zinc-100 dark:bg-zinc-800 transition-all duration-500 hover:shadow-2xl">
                     <div class="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/60 to-transparent z-10">
                     </div>
-                    <img src="https://images.unsplash.com/photo-1542272454315-4c01d7edb16b?auto=format&fit=crop&q=80&w=2574"
-                        class="w-full h-[500px] object-cover transition-transform duration-700 group-hover:scale-110"
-                        alt="Denim 1">
+                    <img src="{{ asset('images/collection-1.png') }}" 
+                         class="w-full h-[500px] object-cover transition-transform duration-700 group-hover:scale-110" alt="Denim 1">
                     <div class="absolute inset-0 p-8 flex flex-col justify-end z-20">
                         <p class="text-red-500 font-black text-xs tracking-widest uppercase mb-2">Heritage</p>
                         <h3 class="text-3xl font-black text-white mb-4">RAW CORE</h3>
@@ -230,9 +229,8 @@
                     class="group relative overflow-hidden rounded-2xl bg-zinc-100 dark:bg-zinc-800 transition-all duration-500 hover:shadow-2xl md:-translate-y-8">
                     <div class="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/60 to-transparent z-10">
                     </div>
-                    <img src="https://images.unsplash.com/photo-1582418702059-97ebafb35d09?auto=format&fit=crop&q=80&w=2574"
-                        class="w-full h-[500px] object-cover transition-transform duration-700 group-hover:scale-110"
-                        alt="Denim 2">
+                    <img src="{{ asset('images/collection-2.png') }}" 
+                         class="w-full h-[500px] object-cover transition-transform duration-700 group-hover:scale-110" alt="Denim 2">
                     <div class="absolute inset-0 p-8 flex flex-col justify-end z-20">
                         <p class="text-red-500 font-black text-xs tracking-widest uppercase mb-2">Modernism</p>
                         <h3 class="text-3xl font-black text-white mb-4">URBAN FLOW</h3>
@@ -252,9 +250,8 @@
                     class="group relative overflow-hidden rounded-2xl bg-zinc-100 dark:bg-zinc-800 transition-all duration-500 hover:shadow-2xl">
                     <div class="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/60 to-transparent z-10">
                     </div>
-                    <img src="https://images.unsplash.com/photo-1605192554106-d549b1b975cd?auto=format&fit=crop&q=80&w=2574"
-                        class="w-full h-[500px] object-cover transition-transform duration-700 group-hover:scale-110"
-                        alt="Denim 3">
+                    <img src="{{ asset('images/collection-3.png') }}" 
+                         class="w-full h-[500px] object-cover transition-transform duration-700 group-hover:scale-110" alt="Denim 3">
                     <div class="absolute inset-0 p-8 flex flex-col justify-end z-20">
                         <p class="text-red-500 font-black text-xs tracking-widest uppercase mb-2">Limited</p>
                         <h3 class="text-3xl font-black text-white mb-4">DARK TECH</h3>
@@ -351,9 +348,8 @@
 
                 <div class="relative">
                     <div class="absolute inset-0 bg-red-600 rounded-2xl rotate-3 opacity-20"></div>
-                    <img src="https://images.unsplash.com/photo-1541099649105-f69ad21f3246?auto=format&fit=crop&q=80&w=2574"
-                        class="relative z-10 rounded-2xl grayscale hover:grayscale-0 transition-all duration-700 w-full object-cover h-[700px]"
-                        alt="Detail">
+                    <img src="{{ asset('images/hero.png') }}" 
+                         class="relative z-10 rounded-2xl grayscale hover:grayscale-0 transition-all duration-700 w-full object-cover h-[700px]" alt="Detail">
                 </div>
             </div>
         </div>
