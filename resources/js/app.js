@@ -82,16 +82,7 @@ window.addEventListener('scroll', function() {
     }
 });
 
-// Add keyboard shortcuts
-document.addEventListener('keydown', function(e) {
-    // Press 's' to scroll to shop
-    if (e.key === 's' || e.key === 'S') {
-        const shopBtn = document.querySelector('button:nth-of-type(1)');
-        if (shopBtn) {
-            shopBtn.click();
-        }
-    }
-});
+
 
 // Initialize tooltips on hover for feature cards
 document.querySelectorAll('[data-tooltip]').forEach(elem => {

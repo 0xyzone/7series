@@ -10,3 +10,5 @@ Route::get('/shop', function () {
     $products = \App\Models\Product::where('is_active', true)->get();
     return view('shop', compact('products'));
 });
+
+Route::post('/newsletter/subscribe', [\App\Http\Controllers\NewsletterController::class, 'subscribe'])->name('newsletter.subscribe');
