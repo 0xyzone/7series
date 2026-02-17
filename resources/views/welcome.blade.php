@@ -23,7 +23,7 @@
     </nav>
 
     <!-- Hero Section -->
-    <section class="bg-linear-to-br from-black via-red-900 to-black relative overflow-hidden py-60">
+    <section class="bg-gradient-to-br from-black via-red-900 to-black relative overflow-hidden py-60">
         <!-- Animated background elements -->
         <div class="absolute top-10 left-5 w-72 h-72 bg-red-600 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse"></div>
         <div class="absolute top-40 right-5 w-72 h-72 bg-red-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-bounce" style="animation-delay: 2s;"></div>
@@ -54,7 +54,7 @@
 
                 <!-- Right Visual -->
                 <div class="relative h-96 animate-float">
-                    <div class="absolute inset-0 bg-linear-to-br from-red-600 to-red-900 rounded-lg transform rotate-3 opacity-70"></div>
+                    <div class="absolute inset-0 bg-gradient-to-br from-red-600 to-red-900 rounded-lg transform rotate-3 opacity-70"></div>
                     <div class="absolute inset-4 bg-black rounded-lg flex items-center justify-center overflow-hidden">
                         <div class="text-center space-y-4">
                             <div class="text-6xl font-black text-red-600">7</div>
@@ -78,7 +78,7 @@
                 <!-- Product Card 1 -->
                 <div class="group cursor-pointer transform transition hover:scale-105 duration-300">
                     <div class="relative bg-black rounded-lg overflow-hidden h-96 mb-4 flex items-center justify-center">
-                        <div class="absolute inset-0 bg-linear-to-br from-red-600 to-black opacity-0 group-hover:opacity-100 transition duration-300"></div>
+                        <div class="absolute inset-0 bg-gradient-to-br from-red-600 to-black opacity-0 group-hover:opacity-100 transition duration-300"></div>
                         <div class="relative z-10 text-center space-y-2">
                             <div class="text-6xl font-black text-red-600 group-hover:text-white transition">
                                 01
@@ -96,7 +96,7 @@
                 <!-- Product Card 2 -->
                 <div class="group cursor-pointer transform transition hover:scale-105 duration-300">
                     <div class="relative bg-black rounded-lg overflow-hidden h-96 mb-4 flex items-center justify-center">
-                        <div class="absolute inset-0 bg-linear-to-br from-red-500 to-black opacity-0 group-hover:opacity-100 transition duration-300"></div>
+                        <div class="absolute inset-0 bg-gradient-to-br from-red-500 to-black opacity-0 group-hover:opacity-100 transition duration-300"></div>
                         <div class="relative z-10 text-center space-y-2">
                             <div class="text-6xl font-black text-red-600 group-hover:text-white transition">
                                 02
@@ -114,7 +114,7 @@
                 <!-- Product Card 3 -->
                 <div class="group cursor-pointer transform transition hover:scale-105 duration-300">
                     <div class="relative bg-black rounded-lg overflow-hidden h-96 mb-4 flex items-center justify-center">
-                        <div class="absolute inset-0 bg-linear-to-br from-red-700 to-black opacity-0 group-hover:opacity-100 transition duration-300"></div>
+                        <div class="absolute inset-0 bg-gradient-to-br from-red-700 to-black opacity-0 group-hover:opacity-100 transition duration-300"></div>
                         <div class="relative z-10 text-center space-y-2">
                             <div class="text-6xl font-black text-red-600 group-hover:text-white transition">
                                 03
@@ -133,7 +133,7 @@
     </section>
 
     <!-- Features Section -->
-    <section id="features" class="py-24 bg-linear-to-br from-red-600 to-red-900 text-white">
+    <section id="features" class="py-24 bg-gradient-to-br from-red-600 to-red-900 text-white">
         <div class="max-w-7xl mx-auto px-6">
             <div class="text-center space-y-4 mb-16">
                 <h2 class="text-5xl font-black">Why Choose 7 Series</h2>

@@ -60,7 +60,7 @@
     }
 }
 
-@layer components {
+@layer utilities {
     .animate-fade-in {
         animation: fade-in 0.8s ease-out;
     }
@@ -79,39 +79,5 @@
 
     .glow-pulse {
         animation: glow-pulse 2s ease-in-out infinite;
-    }
-
-    /* Smooth transitions for buttons and links */
-    button, a {
-        @apply transition-all duration-300;
-    }
-
-    /* Hero section styling */
-    .hero-gradient {
-        @apply bg-gradient-to-br from-black via-red-900 to-black;
-    }
-
-    /* Premium badges */
-    .premium-badge {
-        @apply px-4 py-2 bg-red-600 text-white font-bold rounded-full text-sm;
-    }
-
-    /* Product cards special styling */
-    .product-card {
-        @apply group relative overflow-hidden rounded-lg transition-transform duration-300 hover:scale-105;
-    }
-
-    /* Call to action buttons */
-    .cta-button-primary {
-        @apply px-8 py-4 bg-red-600 text-white font-bold rounded-full hover:bg-red-700 transition-all transform hover:scale-110 hover:shadow-lg hover:shadow-red-600/50;
-    }
-
-    .cta-button-secondary {
-        @apply px-8 py-4 border-2 border-white text-white font-bold rounded-full hover:bg-white hover:text-black transition-all transform hover:scale-110;
-    }
-
-    /* Glassmorphism effect */
-    .glass-effect {
-        @apply backdrop-blur-md bg-white/80 dark:bg-black/80;
     }
 }
