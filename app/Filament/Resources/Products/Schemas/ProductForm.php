@@ -2,14 +2,15 @@
 
 namespace App\Filament\Resources\Products\Schemas;
 
-use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\Textarea;
-use Filament\Forms\Components\Toggle;
-use Filament\Forms\Components\Section;
-use Filament\Forms\Set;
 use App\Models\Product;
 use Filament\Schemas\Schema;
+use Filament\Forms\Components\Toggle;
+use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
+use Filament\Schemas\Components\Section;
+use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Select;
+use Filament\Schemas\Components\Utilities\Set;
 
 class ProductForm
 {
@@ -33,7 +34,11 @@ class ProductForm
                             ->required()
                             ->numeric()
                             ->prefix('$'),
-                        TextInput::make('category'),
+                        Select::make('category_id')
+                            ->relationship('category', 'name')
+                            ->searchable()
+                            ->preload()
+                            ->required(),
                     ])->columns(2),
 
                 Section::make('Content & Media')
@@ -42,7 +47,8 @@ class ProductForm
                             ->columnSpanFull(),
                         FileUpload::make('image')
                             ->image()
-                            ->directory('products'),
+                            ->directory('products')
+                            ->disk('public'),
                         Toggle::make('is_active')
                             ->default(true)
                             ->required(),
