@@ -1,0 +1,23 @@
+<?php
+
+namespace App\Filament\Resources\Campaigns\Schemas;
+
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\RichEditor;
+use Filament\Schemas\Schema;
+
+class CampaignForm
+{
+    public static function configure(Schema $schema): Schema
+    {
+        return $schema
+            ->components([
+                TextInput::make('subject')
+                    ->required()
+                    ->columnSpanFull(),
+                RichEditor::make('content')
+                    ->required()
+                    ->columnSpanFull(),
+            ]);
+    }
+}
