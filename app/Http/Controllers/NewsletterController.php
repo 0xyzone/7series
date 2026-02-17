@@ -20,4 +20,11 @@ class NewsletterController extends Controller
 
         return response()->json(['message' => 'Thank you for joining our inner circle!']);
     }
+
+    public function unsubscribe(Request $request, $email)
+    {
+        \App\Models\Subscriber::where('email', $email)->delete();
+
+        return "You have been successfully unsubscribed from our newsletter.";
+    }
 }

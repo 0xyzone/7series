@@ -50,7 +50,7 @@ class CampaignsTable
                         }
 
                         foreach ($subscribers as $subscriber) {
-                            Mail::to($subscriber->email)->queue(new NewsletterMailable($record));
+                            Mail::to($subscriber->email)->queue(new NewsletterMailable($record, $subscriber));
                         }
 
                         $record->update(['sent_at' => now()]);

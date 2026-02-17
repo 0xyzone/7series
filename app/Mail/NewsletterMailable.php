@@ -14,13 +14,17 @@ class NewsletterMailable extends Mailable
     use Queueable, SerializesModels;
 
     public $campaign;
+    public $subscriber;
+    public $unsubscribeUrl;
 
     /**
      * Create a new message instance.
      */
-    public function __construct(\App\Models\Campaign $campaign)
+    public function __construct(\App\Models\Campaign $campaign, \App\Models\Subscriber $subscriber)
     {
         $this->campaign = $campaign;
+        $this->subscriber = $subscriber;
+        $this->unsubscribeUrl = \Illuminate\Support\Facades\URL::signedRoute('newsletter.unsubscribe', ['email' => $subscriber->email]);
     }
 
     /**
