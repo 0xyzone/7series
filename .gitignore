@@ -137,5 +137,5 @@ dist
 
 .vendor/
 .public/hot
-
+public/hot
 vendor/
