@@ -49,7 +49,8 @@ class ProductForm
                             ->image()
                             ->directory('products')
                             ->disk('public')
-                            ->panelLayout('integrated'),
+                            ->panelLayout('integrated')
+                            ->visibility('public'),
                         Toggle::make('is_active')
                             ->default(true)
                             ->required(),
