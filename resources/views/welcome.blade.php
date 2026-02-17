@@ -106,7 +106,7 @@
                         <div
                             class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 text-xs font-bold tracking-widest uppercase">
                             <span class="w-2 h-2 rounded-full bg-red-600 animate-ping"></span>
-                            New Arrival 2024
+                            New Arrival {{ now()->year }}
                         </div>
                         <h1
                             class="text-7xl md:text-8xl font-black tracking-tight leading-[0.9] text-zinc-900 dark:text-white">
@@ -401,7 +401,7 @@
 
             <div
                 class="pt-12 border-t border-zinc-200 dark:border-zinc-900 flex flex-col md:flex-row justify-between items-center gap-6">
-                <p class="text-xs font-bold text-zinc-500 uppercase tracking-widest">&copy; 2024 SEVEN SERIES APPAREL.
+                <p class="text-xs font-bold text-zinc-500 uppercase tracking-widest">&copy; {{ now()->year }} SEVEN SERIES APPAREL.
                     ALL RIGHTS RESERVED.</p>
                 <div class="flex gap-8">
                     <a href="#"
