@@ -48,7 +48,8 @@ class ProductForm
                         FileUpload::make('image')
                             ->image()
                             ->directory('products')
-                            ->disk('public'),
+                            ->disk('public')
+                            ->panelLayout('integrated'),
                         Toggle::make('is_active')
                             ->default(true)
                             ->required(),
