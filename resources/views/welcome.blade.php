@@ -13,8 +13,8 @@
             <div class="absolute inset-0 hero-pattern opacity-50 dark:opacity-20"></div>
         </div>
 
-        <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center relative z-10 w-full">
-            <div class="space-y-10" x-data="{ loaded: false }" x-init="setTimeout(() => loaded = true, 100)">
+        <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center relative z-10 w-full" x-data="{ loaded: false }" x-init="setTimeout(() => loaded = true, 100)">
+            <div class="space-y-10">
                 <div class="space-y-6" x-show="loaded" x-transition:enter="transition ease-out duration-1000" x-transition:enter-start="opacity-0 translate-x-[-50px]" x-transition:enter-end="opacity-100 translate-x-0">
                     <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 text-xs font-bold tracking-widest uppercase">
                         <span class="w-2 h-2 rounded-full bg-red-600 animate-ping"></span>

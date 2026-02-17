@@ -5,7 +5,7 @@
         this.darkMode = !this.darkMode;
         localStorage.setItem('theme', this.darkMode ? 'dark' : 'light');
     }
-}" :class="{ 'dark': darkMode }">
+}" :class="{ 'dark': darkMode }" class="scroll-smooth">
 
 <head>
     <meta charset="utf-8">
