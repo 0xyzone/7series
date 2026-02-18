@@ -50,7 +50,7 @@
                     </div>
                 </div>
                 <!-- Floating Card -->
-                <div class="absolute -right-8 top-1/2 -translate-y-1/2 bg-white/90 dark:bg-black/90 backdrop-blur-xl p-6 rounded-2xl shadow-2xl border border-zinc-200 dark:border-zinc-800 hidden lg:block animate-bounce-slow">
+                <div class="absolute -right-8 top-1/2 -translate-y-1/2 bg-white/90 dark:bg-black/90 backdrop-blur-xl p-6 rounded-2xl shadow-2xl border border-zinc-200 dark:border-zinc-800 hidden lg:block animate-bounce-slow z-10">
                     <div class="text-red-600 font-black text-2xl mb-1">98%</div>
                     <div class="text-zinc-900 dark:text-white text-xs font-black uppercase tracking-widest">Durability Rating</div>
                 </div>
