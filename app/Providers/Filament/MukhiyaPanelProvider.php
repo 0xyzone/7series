@@ -53,7 +53,7 @@ class MukhiyaPanelProvider extends PanelProvider
             ->renderHook(
                 \Filament\View\PanelsRenderHook::HEAD_END,
                 fn () => new \Illuminate\Support\HtmlString('
-                    <link rel="stylesheet" href="' . asset('css/filament-theme.css') . '">
+                    <link rel="stylesheet" href="' . asset('css/filament-theme.css') . '?v=' . filemtime(public_path('css/filament-theme.css')) . '">
                     <script>
                     (function() {
                         var h = window.location.hostname;

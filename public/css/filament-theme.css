@@ -6,7 +6,9 @@
     --theme-warm-light: #faf8f5;
     --theme-warm-card-light: #ffffff;
     --theme-warm-dark: #12100f;
-    --theme-warm-card-dark: #1a1715;
+    --theme-warm-card-dark: #1c1917;
+    --theme-primary: #E51E2B;
+    --theme-primary-hover: #c41320;
 }
 
 body, .fi-body {
@@ -183,3 +185,571 @@ html.dark .fi-ta-record {
     max-width: 100% !important;
     overflow: hidden !important;
 }
+
+/* =========================================================================
+   7SERIES CUSTOM DASHBOARD WIDGETS DESIGN SYSTEM
+   Robust, framework-agnostic CSS styles that render flawlessly without Tailwind
+   ========================================================================= */
+
+/* --- Daemon 3D & Status Widget --- */
+.daemon-widget-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 1.25rem;
+    padding: 1.5rem;
+    box-sizing: border-box;
+    transition: all 0.25s ease;
+}
+
+html:not(.dark) .daemon-widget-card {
+    background: linear-gradient(135deg, #ffffff 0%, #faf8f5 100%);
+    border: 1px solid rgba(214, 211, 209, 0.8);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+}
+
+html.dark .daemon-widget-card {
+    background: linear-gradient(135deg, #1c1917 0%, #141210 100%);
+    border: 1px solid rgba(68, 64, 60, 0.6);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+}
+
+.daemon-widget-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    position: relative;
+    z-index: 2;
+}
+
+@media (min-width: 1024px) {
+    .daemon-widget-inner {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
+}
+
+.daemon-left-section {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+}
+
+.daemon-3d-box {
+    width: 110px;
+    height: 110px;
+    flex-shrink: 0;
+    border-radius: 1rem;
+    overflow: hidden;
+    position: relative;
+    background: #0c0a09;
+    border: 1px solid rgba(120, 113, 108, 0.3);
+    box-shadow: inset 0 2px 6px rgba(0,0,0,0.6);
+}
+
+.daemon-3d-canvas {
+    width: 100% !important;
+    height: 100% !important;
+    display: block;
+    cursor: grab;
+}
+
+.daemon-3d-canvas:active {
+    cursor: grabbing;
+}
+
+.daemon-3d-label {
+    position: absolute;
+    bottom: 4px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-size: 8px;
+    font-weight: 800;
+    letter-spacing: 0.15em;
+    color: #a8a29e;
+    pointer-events: none;
+    text-transform: uppercase;
+}
+
+.daemon-info-section {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.daemon-header-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.daemon-subhead {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #78716c;
+}
+
+.daemon-status-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.2rem 0.6rem;
+    border-radius: 9999px;
+    font-size: 0.65rem;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.daemon-status-pill.online {
+    background: rgba(16, 185, 129, 0.12);
+    color: #10b981;
+    border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.daemon-status-pill.offline {
+    background: rgba(239, 68, 68, 0.12);
+    color: #ef4444;
+    border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.daemon-status-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+}
+
+.daemon-status-pill.online .daemon-status-dot {
+    background: #10b981;
+    box-shadow: 0 0 8px #10b981;
+    animation: daemon-pulse 1.8s infinite;
+}
+
+.daemon-status-pill.offline .daemon-status-dot {
+    background: #ef4444;
+}
+
+@keyframes daemon-pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.85); }
+}
+
+.daemon-title {
+    font-size: 1.15rem;
+    font-weight: 800;
+    margin: 0;
+    letter-spacing: -0.02em;
+}
+
+html:not(.dark) .daemon-title { color: #1c1917; }
+html.dark .daemon-title { color: #f5f5f4; }
+
+.daemon-desc {
+    font-size: 0.75rem;
+    color: #78716c;
+    margin: 0;
+    line-height: 1.4;
+    max-width: 480px;
+}
+
+/* Daemon Right Section: Chips and Buttons */
+.daemon-right-section {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.daemon-chip {
+    padding: 0.5rem 0.85rem;
+    border-radius: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    min-width: 120px;
+}
+
+html:not(.dark) .daemon-chip {
+    background: #ffffff;
+    border: 1px solid rgba(214, 211, 209, 0.8);
+}
+
+html.dark .daemon-chip {
+    background: rgba(41, 37, 36, 0.6);
+    border: 1px solid rgba(68, 64, 60, 0.7);
+}
+
+.daemon-chip-label {
+    font-size: 0.62rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #a8a29e;
+}
+
+.daemon-chip-val {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    font-weight: 700;
+    margin: 0;
+    color: #e5e5e5;
+}
+
+html:not(.dark) .daemon-chip-val { color: #1c1917; }
+.daemon-chip-val.highlight { color: #10b981 !important; }
+
+/* Daemon Buttons */
+.daemon-btn-group {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.daemon-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.55rem 0.95rem;
+    border-radius: 0.75rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: none;
+    text-decoration: none;
+    line-height: 1;
+}
+
+.daemon-btn svg {
+    width: 14px !important;
+    height: 14px !important;
+    max-width: 14px !important;
+    max-height: 14px !important;
+    flex-shrink: 0;
+}
+
+.daemon-btn-start {
+    background: linear-gradient(135deg, #e51e2b 0%, #b91c1c 100%);
+    color: #ffffff;
+    box-shadow: 0 4px 12px rgba(229, 30, 43, 0.35);
+}
+
+.daemon-btn-start:hover {
+    background: linear-gradient(135deg, #f43f5e 0%, #dc2626 100%);
+    transform: translateY(-1px);
+}
+
+.daemon-btn-stop {
+    background: rgba(239, 68, 68, 0.1);
+    color: #ef4444;
+    border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.daemon-btn-stop:hover {
+    background: rgba(239, 68, 68, 0.2);
+}
+
+.daemon-btn-icon {
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.75rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+html:not(.dark) .daemon-btn-icon {
+    background: #ffffff;
+    border: 1px solid rgba(214, 211, 209, 0.8);
+    color: #44403c;
+}
+
+html.dark .daemon-btn-icon {
+    background: rgba(41, 37, 36, 0.6);
+    border: 1px solid rgba(68, 64, 60, 0.7);
+    color: #d6d3d1;
+}
+
+.daemon-btn-icon:hover {
+    transform: translateY(-1px);
+}
+
+.daemon-btn-icon svg {
+    width: 16px !important;
+    height: 16px !important;
+    max-width: 16px !important;
+    max-height: 16px !important;
+}
+
+/* --- Recent Inquiries Feed Widget --- */
+.inquiries-feed-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 0.5rem;
+}
+
+.inquiries-feed-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.inquiries-feed-title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin: 0;
+}
+
+html:not(.dark) .inquiries-feed-title { color: #1c1917; }
+html.dark .inquiries-feed-title { color: #f5f5f4; }
+
+.inquiries-feed-title-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--theme-primary);
+}
+
+.inquiries-feed-link {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--theme-primary);
+    text-decoration: none;
+    transition: color 0.15s ease;
+}
+
+.inquiries-feed-link:hover {
+    color: var(--theme-primary-hover);
+    text-decoration: underline;
+}
+
+.inquiries-grid {
+    display: grid;
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+@media (min-width: 640px) {
+    .inquiries-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (min-width: 1024px) {
+    .inquiries-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+}
+
+.inquiry-card-item {
+    border-radius: 1rem;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-sizing: border-box;
+    transition: all 0.2s ease;
+}
+
+html:not(.dark) .inquiry-card-item {
+    background: #ffffff;
+    border: 1px solid rgba(214, 211, 209, 0.7);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+}
+
+html.dark .inquiry-card-item {
+    background: linear-gradient(180deg, #1c1917 0%, #141210 100%);
+    border: 1px solid rgba(68, 64, 60, 0.6);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.inquiry-card-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+}
+
+.inquiry-company-name {
+    font-size: 0.85rem;
+    font-weight: 800;
+    margin: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+html:not(.dark) .inquiry-company-name { color: #1c1917; }
+html.dark .inquiry-company-name { color: #f5f5f4; }
+
+.inquiry-contact-row {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.75rem;
+    color: #78716c;
+    margin-top: 0.25rem;
+}
+
+.inquiry-contact-row svg {
+    width: 12px !important;
+    height: 12px !important;
+    flex-shrink: 0;
+}
+
+.inquiry-tags-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    margin-top: 0.5rem;
+}
+
+.inquiry-tag {
+    font-size: 0.65rem;
+    font-weight: 600;
+    padding: 0.15rem 0.45rem;
+    border-radius: 0.35rem;
+}
+
+html:not(.dark) .inquiry-tag.general {
+    background: #f5f5f4;
+    color: #44403c;
+}
+
+html.dark .inquiry-tag.general {
+    background: #292524;
+    color: #d6d3d1;
+}
+
+.inquiry-tag.volume {
+    background: rgba(229, 30, 43, 0.1);
+    color: #e51e2b;
+}
+
+.inquiry-tag.sample {
+    background: rgba(245, 158, 11, 0.15);
+    color: #d97706;
+}
+
+.inquiry-status-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 0.85rem;
+    padding-top: 0.65rem;
+    border-top: 1px solid rgba(120, 113, 108, 0.15);
+}
+
+.inquiry-status-label {
+    font-size: 0.62rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #a8a29e;
+}
+
+.inquiry-select {
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.5rem;
+    font-size: 0.72rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: 1px solid rgba(120, 113, 108, 0.3);
+    outline: none;
+}
+
+html:not(.dark) .inquiry-select {
+    background: #ffffff;
+    color: #1c1917;
+}
+
+html.dark .inquiry-select {
+    background: #292524;
+    color: #f5f5f4;
+}
+
+/* --- Mobile Bottom Floating Dock --- */
+.mobile-dock-wrapper {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 50;
+    pointer-events: none;
+    padding-bottom: env(safe-area-inset-bottom, 8px);
+}
+
+@media (min-width: 768px) {
+    .mobile-dock-wrapper {
+        display: none !important;
+    }
+}
+
+.mobile-dock-inner {
+    pointer-events: auto;
+    margin: 0 12px 10px 12px;
+    padding: 6px 8px;
+    border-radius: 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    background: rgba(20, 18, 16, 0.92);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(68, 64, 60, 0.5);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.mobile-dock-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 4px 10px;
+    border-radius: 0.75rem;
+    text-decoration: none;
+    position: relative;
+    color: #a8a29e;
+    transition: all 0.2s ease;
+}
+
+.mobile-dock-item.active {
+    color: #f87171;
+    font-weight: 700;
+}
+
+.mobile-dock-icon svg {
+    width: 20px !important;
+    height: 20px !important;
+    max-width: 20px !important;
+    max-height: 20px !important;
+    display: block;
+}
+
+.mobile-dock-label {
+    font-size: 10px;
+    margin-top: 2px;
+    letter-spacing: -0.01em;
+}
+
+.mobile-dock-pip {
+    position: absolute;
+    bottom: -2px;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: #e51e2b;
+    box-shadow: 0 0 6px #e51e2b;
+}
+

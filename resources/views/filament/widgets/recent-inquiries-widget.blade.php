@@ -1,52 +1,50 @@
 <x-filament-widgets::widget>
-    <div wire:poll.12s class="space-y-4">
-        <div class="flex items-center justify-between">
-            <div class="flex items-center gap-2">
-                <span class="flex h-2.5 w-2.5 rounded-full bg-red-600"></span>
-                <h3 class="text-sm font-black uppercase tracking-wider text-stone-900 dark:text-white">
-                    Recent Wholesale Inquiries Feed
-                </h3>
-            </div>
-            <a href="/mukhiya/wholesale-inquiries" class="text-xs font-bold text-red-600 hover:text-red-500 dark:text-red-400">
+    <div wire:poll.12s class="inquiries-feed-container">
+        <div class="inquiries-feed-header">
+            <h3 class="inquiries-feed-title">
+                <span class="inquiries-feed-title-dot"></span>
+                Recent Wholesale Inquiries Feed
+            </h3>
+            <a href="/mukhiya/wholesale-inquiries" class="inquiries-feed-link">
                 View All Cards →
             </a>
         </div>
 
         @if ($this->inquiries->isEmpty())
-            <div class="rounded-2xl border border-stone-200/80 bg-white/50 p-8 text-center dark:border-stone-800/80 dark:bg-stone-900/40">
-                <p class="text-xs text-stone-500 dark:text-stone-400">No customer wholesale inquiries recorded yet.</p>
+            <div style="padding: 2rem; text-align: center; border-radius: 1rem; border: 1px dashed rgba(120, 113, 108, 0.3);">
+                <p style="font-size: 0.75rem; color: #78716c; margin: 0;">No customer wholesale inquiries recorded yet.</p>
             </div>
         @else
-            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            <div class="inquiries-grid">
                 @foreach ($this->inquiries as $inquiry)
-                    <div class="flex flex-col justify-between rounded-2xl border border-stone-200/80 bg-gradient-to-b from-white to-stone-50/80 p-4 shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md dark:border-stone-800/80 dark:from-[#181615] dark:to-[#12100f]">
-                        <div class="space-y-2.5">
-                            <div class="flex items-start justify-between gap-2">
-                                <h4 class="font-bold text-sm text-stone-900 dark:text-white truncate" title="{{ $inquiry->company_name }}">
+                    <div class="inquiry-card-item">
+                        <div>
+                            <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 0.5rem;">
+                                <h4 class="inquiry-company-name" title="{{ $inquiry->company_name }}">
                                     {{ $inquiry->company_name }}
                                 </h4>
                                 @if ($inquiry->sample_requested)
-                                    <span class="inline-flex shrink-0 items-center rounded-full bg-amber-100 px-2 py-0.5 text-[9px] font-bold text-amber-800 dark:bg-amber-950/80 dark:text-amber-300">
+                                    <span class="inquiry-tag sample">
                                         Sample
                                     </span>
                                 @endif
                             </div>
 
-                            <p class="text-xs text-stone-500 dark:text-stone-400 flex items-center gap-1">
-                                <svg class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <div class="inquiry-contact-row">
+                                <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                                 </svg>
-                                {{ $inquiry->contact_name }}
-                            </p>
+                                <span>{{ $inquiry->contact_name }}</span>
+                            </div>
 
-                            <div class="flex flex-wrap items-center gap-1.5 text-[10px]">
+                            <div class="inquiry-tags-row">
                                 @if ($inquiry->business_type)
-                                    <span class="rounded-md bg-stone-100 px-1.5 py-0.5 font-medium text-stone-600 dark:bg-stone-800 dark:text-stone-300">
+                                    <span class="inquiry-tag general">
                                         {{ $inquiry->business_type }}
                                     </span>
                                 @endif
                                 @if ($inquiry->target_volume)
-                                    <span class="rounded-md bg-red-50 px-1.5 py-0.5 font-medium text-red-700 dark:bg-red-950/50 dark:text-red-400">
+                                    <span class="inquiry-tag volume">
                                         {{ $inquiry->target_volume }}
                                     </span>
                                 @endif
@@ -54,11 +52,11 @@
                         </div>
 
                         {{-- Quick Status Dropdown --}}
-                        <div class="mt-4 pt-3 border-t border-stone-100 dark:border-stone-800/80 flex items-center justify-between gap-2">
-                            <span class="text-[10px] font-bold uppercase tracking-wider text-stone-400">Status</span>
+                        <div class="inquiry-status-row">
+                            <span class="inquiry-status-label">Status</span>
                             <select
                                 wire:change="updateStatus({{ $inquiry->id }}, $event.target.value)"
-                                class="rounded-lg border-stone-200 bg-white px-2 py-1 text-xs font-semibold shadow-sm focus:border-red-500 focus:ring-red-500 dark:border-stone-700 dark:bg-stone-800 dark:text-stone-200"
+                                class="inquiry-select"
                             >
                                 <option value="new" @selected($inquiry->status === 'new')>New</option>
                                 <option value="contacted" @selected($inquiry->status === 'contacted')>Contacted</option>
