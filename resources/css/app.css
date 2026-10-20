@@ -116,10 +116,19 @@
             linear-gradient(to right, rgba(220, 38, 38, 0.06) 1px, transparent 1px),
             linear-gradient(to bottom, rgba(220, 38, 38, 0.06) 1px, transparent 1px);
     }
-    .dark .tech-grid {
-        background-image: 
-            linear-gradient(to right, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
-            linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+    /* Mobile App Horizontal Scrollbar Hide */
+    .no-scrollbar::-webkit-scrollbar {
+        display: none;
     }
+    .no-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+}
+
+html, body {
+    overflow-x: hidden !important;
+    max-width: 100vw !important;
+    width: 100% !important;
 }
 

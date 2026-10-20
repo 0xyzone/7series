@@ -3,7 +3,7 @@
 
     <x-nav />
 
-    <main class="pt-32 pb-24 max-w-7xl mx-auto px-6" x-data="{
+    <main class="pt-28 sm:pt-32 pb-24 max-w-7xl mx-auto px-4 sm:px-6" x-data="{
         selectedCategory: 'all',
         inquiryModalOpen: false,
         activeProduct: '',
@@ -13,22 +13,22 @@
         }
     }">
         <!-- Page Header -->
-        <div class="mb-16 border-b border-zinc-200 pb-12">
+        <div class="mb-12 sm:mb-16 border-b border-zinc-200 pb-8 sm:pb-12">
             <div class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-red-100 border border-red-200 text-red-600 text-xs font-black tracking-widest uppercase mb-4">
                 <img src="{{ asset('images/brand/logo-symbol.png') }}" alt="7" class="w-3.5 h-3.5 object-contain">
                 <span>EXCLUSIVE B2B & WHOLESALE PORTAL</span>
             </div>
             <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
                 <div>
-                    <h1 class="text-5xl md:text-6xl font-black tracking-tight text-zinc-950 uppercase">
+                    <h1 class="text-3xl sm:text-5xl md:text-6xl font-black tracking-tight text-zinc-950 uppercase leading-tight">
                         WHOLESALE & <span class="text-red-600">RETAIL SUPPLY.</span>
                     </h1>
-                    <p class="text-zinc-600 font-medium max-w-2xl text-base mt-3 leading-relaxed">
+                    <p class="text-zinc-600 font-medium max-w-2xl text-sm sm:text-base mt-3 leading-relaxed">
                         Direct-from-factory garment manufacturing for volume wholesalers, retail chains, and private label fashion houses. Managed dynamically by our industrial production team.
                     </p>
                 </div>
                 <div class="flex items-center gap-4">
-                    <a href="#rfq" class="px-8 py-4 bg-red-600 hover:bg-red-700 text-white font-black text-xs uppercase tracking-widest rounded-xl shadow-lg shadow-red-600/25 transition-all">
+                    <a href="#rfq" class="w-full sm:w-auto text-center px-6 sm:px-8 py-3.5 sm:py-4 bg-red-600 hover:bg-red-700 text-white font-black text-xs uppercase tracking-widest rounded-xl shadow-lg shadow-red-600/25 transition-all">
                         Request Line Sheet & Swatches
                     </a>
                 </div>
@@ -38,7 +38,7 @@
         <!-- Dynamic Offerings Section (Managed via Filament Mukhiya Panel) -->
         <div class="mb-20">
             <div class="flex flex-wrap items-center justify-between gap-4 mb-10 pb-6 border-b border-zinc-200">
-                <div class="flex flex-wrap gap-2">
+                <div class="flex items-center gap-2 overflow-x-auto no-scrollbar w-full pb-2">
                     <button type="button" 
                             @click="selectedCategory = 'all'"
                             :class="selectedCategory === 'all' ? 'bg-zinc-950 text-white' : 'bg-zinc-100 text-zinc-700 hover:bg-zinc-200'"

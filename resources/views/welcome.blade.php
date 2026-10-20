@@ -46,13 +46,13 @@
                         </p>
 
                         <!-- Action Buttons (App Pill Style) -->
-                        <div class="flex flex-wrap items-center gap-3 pt-2">
-                            <a href="#stores" class="px-7 py-3.5 bg-red-600 hover:bg-red-700 text-white font-bold text-sm tracking-wide rounded-full shadow-lg shadow-red-600/25 transition-all flex items-center gap-2 hover:scale-105 active:scale-95">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                        <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-2">
+                            <a href="#stores" class="px-6 py-3.5 bg-red-600 hover:bg-red-700 text-white font-bold text-sm tracking-wide rounded-full shadow-lg shadow-red-600/25 transition-all flex items-center justify-center gap-2 hover:scale-105 active:scale-95 text-center">
+                                <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
                                 <span>Find a Store Near You</span>
                             </a>
 
-                            <a href="/b2b" class="px-6 py-3.5 bg-zinc-100 hover:bg-zinc-200 text-zinc-900 font-bold text-sm tracking-wide rounded-full transition-all border border-zinc-200 hover:scale-105 active:scale-95 flex items-center gap-2">
+                            <a href="/b2b" class="px-6 py-3.5 bg-zinc-100 hover:bg-zinc-200 text-zinc-900 font-bold text-sm tracking-wide rounded-full transition-all border border-zinc-200 hover:scale-105 active:scale-95 flex items-center justify-center gap-2 text-center">
                                 <span>Wholesale for Store Owners</span>
                                 <span>&rarr;</span>
                             </a>
@@ -82,7 +82,7 @@
                         <div class="app-card rounded-3xl overflow-hidden border border-zinc-200/90 bg-white shadow-xl">
                             
                             <!-- Widget Header -->
-                            <div class="px-5 py-3.5 bg-zinc-50 border-b border-zinc-100 flex items-center justify-between text-xs">
+                            <div class="px-4 sm:px-5 py-3.5 bg-zinc-50 border-b border-zinc-100 flex items-center justify-between text-xs">
                                 <div class="flex items-center gap-2 font-bold text-zinc-800">
                                     <span class="w-2 h-2 rounded-full bg-red-600 animate-pulse"></span>
                                     <span>3D Brand Emblem</span>
@@ -93,7 +93,7 @@
                             </div>
 
                             <!-- 3D Canvas Viewport -->
-                            <div id="hero-3d-container" class="relative w-full h-[380px] sm:h-[440px] cursor-grab bg-gradient-to-b from-white to-zinc-50 select-none">
+                            <div id="hero-3d-container" class="relative w-full h-[360px] sm:h-[440px] cursor-grab bg-gradient-to-b from-white to-zinc-50 select-none">
                                 <canvas id="hero-3d-canvas" class="w-full h-full block"></canvas>
 
                                 <!-- Drag Hint Pill -->
@@ -106,7 +106,7 @@
                             </div>
 
                             <!-- Widget Controls -->
-                            <div class="px-5 py-3 bg-white border-t border-zinc-100 flex items-center justify-between">
+                            <div class="px-3.5 sm:px-5 py-3 bg-white border-t border-zinc-100 flex flex-wrap items-center justify-between gap-2">
                                 <div class="flex items-center gap-2">
                                     <button id="btn-3d-wireframe" type="button" class="px-3 py-1.5 rounded-full bg-zinc-100 hover:bg-red-50 hover:text-red-600 text-[11px] font-bold text-zinc-700 transition-colors">
                                         Toggle Wireframe
@@ -115,7 +115,7 @@
                                         Reset Position
                                     </button>
                                 </div>
-                                <span class="text-[10px] text-zinc-400 font-mono">SEVEN SERIES EMBLEM</span>
+                                <span class="hidden sm:inline text-[10px] text-zinc-400 font-mono">SEVEN SERIES EMBLEM</span>
                             </div>
 
                         </div>
@@ -142,19 +142,19 @@
             </div>
 
             <!-- 4 Rounded App Metric Widgets -->
-            <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
                 
                 <!-- Metric 1 -->
-                <div class="app-card p-6 bg-white space-y-3">
+                <div class="app-card p-4 sm:p-6 bg-white space-y-2.5 sm:space-y-3">
                     <div class="flex items-center justify-between text-xs text-zinc-500 font-medium">
-                        <span>Loom Weight</span>
-                        <span class="w-2 h-2 rounded-full bg-red-600"></span>
+                        <span class="truncate">Loom Weight</span>
+                        <span class="w-2 h-2 rounded-full bg-red-600 shrink-0"></span>
                     </div>
                     <div>
-                        <div class="text-3xl sm:text-4xl font-extrabold text-zinc-950">
+                        <div class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-zinc-950">
                             <span class="stat-counter" data-target="14.5" data-decimals="1" data-suffix=" oz">14.5 oz</span>
                         </div>
-                        <p class="text-xs text-zinc-500 mt-1">Heavy raw shuttle denim</p>
+                        <p class="text-[11px] sm:text-xs text-zinc-500 mt-1 truncate">Heavy raw shuttle denim</p>
                     </div>
                     <div class="w-full bg-zinc-100 h-1.5 rounded-full overflow-hidden">
                         <div class="bg-red-600 h-full rounded-full w-[85%]"></div>
@@ -162,16 +162,16 @@
                 </div>
 
                 <!-- Metric 2 -->
-                <div class="app-card p-6 bg-white space-y-3">
+                <div class="app-card p-4 sm:p-6 bg-white space-y-2.5 sm:space-y-3">
                     <div class="flex items-center justify-between text-xs text-zinc-500 font-medium">
-                        <span>Factory Output</span>
-                        <span class="w-2 h-2 rounded-full bg-red-600"></span>
+                        <span class="truncate">Factory Output</span>
+                        <span class="w-2 h-2 rounded-full bg-red-600 shrink-0"></span>
                     </div>
                     <div>
-                        <div class="text-3xl sm:text-4xl font-extrabold text-red-600">
+                        <div class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-red-600">
                             <span class="stat-counter" data-target="480000" data-decimals="0" data-suffix="+">480,000+</span>
                         </div>
-                        <p class="text-xs text-zinc-500 mt-1">Monthly clothing production</p>
+                        <p class="text-[11px] sm:text-xs text-zinc-500 mt-1 truncate">Monthly denim production</p>
                     </div>
                     <div class="w-full bg-zinc-100 h-1.5 rounded-full overflow-hidden">
                         <div class="bg-red-600 h-full rounded-full w-[95%]"></div>
@@ -179,16 +179,16 @@
                 </div>
 
                 <!-- Metric 3 -->
-                <div class="app-card p-6 bg-white space-y-3">
+                <div class="app-card p-4 sm:p-6 bg-white space-y-2.5 sm:space-y-3">
                     <div class="flex items-center justify-between text-xs text-zinc-500 font-medium">
-                        <span>Cotton Purity</span>
-                        <span class="w-2 h-2 rounded-full bg-green-600"></span>
+                        <span class="truncate">Cotton Purity</span>
+                        <span class="w-2 h-2 rounded-full bg-green-600 shrink-0"></span>
                     </div>
                     <div>
-                        <div class="text-3xl sm:text-4xl font-extrabold text-zinc-950">
+                        <div class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-zinc-950">
                             <span class="stat-counter" data-target="100" data-decimals="0" data-suffix="%">100%</span>
                         </div>
-                        <p class="text-xs text-zinc-500 mt-1">Pure ring-spun long staple</p>
+                        <p class="text-[11px] sm:text-xs text-zinc-500 mt-1 truncate">Pure ring-spun staple</p>
                     </div>
                     <div class="w-full bg-zinc-100 h-1.5 rounded-full overflow-hidden">
                         <div class="bg-green-600 h-full rounded-full w-full"></div>
@@ -196,16 +196,16 @@
                 </div>
 
                 <!-- Metric 4 -->
-                <div class="app-card p-6 bg-white space-y-3">
+                <div class="app-card p-4 sm:p-6 bg-white space-y-2.5 sm:space-y-3">
                     <div class="flex items-center justify-between text-xs text-zinc-500 font-medium">
-                        <span>Indigo Baths</span>
-                        <span class="w-2 h-2 rounded-full bg-red-600"></span>
+                        <span class="truncate">Indigo Baths</span>
+                        <span class="w-2 h-2 rounded-full bg-red-600 shrink-0"></span>
                     </div>
                     <div>
-                        <div class="text-3xl sm:text-4xl font-extrabold text-zinc-950">
+                        <div class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-zinc-950">
                             <span class="stat-counter" data-target="12" data-decimals="0" data-suffix=" Dips">12 Dips</span>
                         </div>
-                        <p class="text-xs text-zinc-500 mt-1">Deep indigo rope saturation</p>
+                        <p class="text-[11px] sm:text-xs text-zinc-500 mt-1 truncate">Rope dye saturation</p>
                     </div>
                     <div class="w-full bg-zinc-100 h-1.5 rounded-full overflow-hidden">
                         <div class="bg-red-600 h-full rounded-full w-[80%]"></div>
@@ -236,31 +236,31 @@
                 </div>
 
                 <div>
-                    <a href="/b2b" class="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-zinc-950 hover:bg-red-600 text-white text-xs font-bold uppercase tracking-wider transition-all shadow-md">
+                    <a href="/b2b" class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-zinc-950 hover:bg-red-600 text-white text-xs font-bold uppercase tracking-wider transition-all shadow-md w-full sm:w-auto text-center">
                         <span>Want to Sell Seven Series in Your Store?</span>
                         <span>&rarr;</span>
                     </a>
                 </div>
             </div>
 
-            <!-- City Filter Pill Buttons -->
-            <div class="flex flex-wrap items-center gap-2 p-1.5 bg-zinc-100 rounded-2xl max-w-fit">
-                <button type="button" class="store-city-filter px-4 py-2 rounded-xl text-xs font-bold transition-all bg-red-600 text-white shadow-sm" data-city="all">
+            <!-- City Filter Pill Buttons (Horizontally Scrollable on Mobile) -->
+            <div class="flex items-center gap-2 p-1.5 bg-zinc-100 rounded-2xl overflow-x-auto no-scrollbar w-full sm:w-auto sm:max-w-fit">
+                <button type="button" class="store-city-filter shrink-0 whitespace-nowrap px-4 py-2 rounded-xl text-xs font-bold transition-all bg-red-600 text-white shadow-sm" data-city="all">
                     All Stores
                 </button>
-                <button type="button" class="store-city-filter px-4 py-2 rounded-xl text-xs font-bold text-zinc-700 hover:text-red-600 transition-all" data-city="Kathmandu">
+                <button type="button" class="store-city-filter shrink-0 whitespace-nowrap px-4 py-2 rounded-xl text-xs font-bold text-zinc-700 hover:text-red-600 transition-all" data-city="Kathmandu">
                     Kathmandu
                 </button>
-                <button type="button" class="store-city-filter px-4 py-2 rounded-xl text-xs font-bold text-zinc-700 hover:text-red-600 transition-all" data-city="Lalitpur">
+                <button type="button" class="store-city-filter shrink-0 whitespace-nowrap px-4 py-2 rounded-xl text-xs font-bold text-zinc-700 hover:text-red-600 transition-all" data-city="Lalitpur">
                     Lalitpur
                 </button>
-                <button type="button" class="store-city-filter px-4 py-2 rounded-xl text-xs font-bold text-zinc-700 hover:text-red-600 transition-all" data-city="Pokhara">
+                <button type="button" class="store-city-filter shrink-0 whitespace-nowrap px-4 py-2 rounded-xl text-xs font-bold text-zinc-700 hover:text-red-600 transition-all" data-city="Pokhara">
                     Pokhara
                 </button>
-                <button type="button" class="store-city-filter px-4 py-2 rounded-xl text-xs font-bold text-zinc-700 hover:text-red-600 transition-all" data-city="Butwal">
+                <button type="button" class="store-city-filter shrink-0 whitespace-nowrap px-4 py-2 rounded-xl text-xs font-bold text-zinc-700 hover:text-red-600 transition-all" data-city="Butwal">
                     Butwal
                 </button>
-                <button type="button" class="store-city-filter px-4 py-2 rounded-xl text-xs font-bold text-zinc-700 hover:text-red-600 transition-all" data-city="Biratnagar">
+                <button type="button" class="store-city-filter shrink-0 whitespace-nowrap px-4 py-2 rounded-xl text-xs font-bold text-zinc-700 hover:text-red-600 transition-all" data-city="Biratnagar">
                     Biratnagar
                 </button>
             </div>
@@ -270,7 +270,7 @@
                 
                 @if(isset($retailStores) && $retailStores->count() > 0)
                     @foreach($retailStores as $store)
-                        <div class="store-card app-card p-7 flex flex-col justify-between group" data-city="{{ $store->city }}">
+                        <div class="store-card app-card p-5 sm:p-7 flex flex-col justify-between group" data-city="{{ $store->city }}">
                             
                             <div class="space-y-4">
                                 <div class="flex items-center justify-between">
@@ -532,7 +532,7 @@
         <!-- ========================================================================= -->
         <section id="factory" class="space-y-6 pt-6">
             
-            <div class="app-card p-6 sm:p-10 bg-zinc-950 text-white relative overflow-hidden">
+            <div class="app-card p-5 sm:p-10 bg-zinc-950 text-white relative overflow-hidden">
                 <div class="absolute -right-20 -bottom-20 w-80 h-80 bg-red-600/20 rounded-full blur-3xl"></div>
 
                 <div class="grid lg:grid-cols-12 gap-8 items-center relative z-10">
@@ -558,7 +558,7 @@
                         </div>
 
                         <div class="pt-2">
-                            <a href="/b2b" class="inline-flex items-center gap-2 px-7 py-3.5 bg-red-600 hover:bg-red-700 text-white text-xs font-bold uppercase tracking-wider rounded-full shadow-lg shadow-red-600/30 transition-all">
+                            <a href="/b2b" class="inline-flex items-center justify-center gap-2 px-6 sm:px-7 py-3.5 bg-red-600 hover:bg-red-700 text-white text-xs font-bold uppercase tracking-wider rounded-full shadow-lg shadow-red-600/30 transition-all w-full sm:w-auto text-center">
                                 <span>Go to Wholesale Portal & Request Pricing</span>
                                 <span>&rarr;</span>
                             </a>

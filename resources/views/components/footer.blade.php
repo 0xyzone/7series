@@ -1,5 +1,5 @@
 <footer class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-24">
-    <div class="app-card p-8 sm:p-12 bg-white border border-zinc-200/90 shadow-xl space-y-12">
+    <div class="app-card p-5 sm:p-10 lg:p-12 overflow-hidden bg-white border border-zinc-200/90 shadow-xl space-y-10 sm:space-y-12">
         <div class="grid lg:grid-cols-12 gap-10 lg:gap-16">
             
             <!-- Brand Column -->
@@ -40,7 +40,7 @@
                 }
             }">
                 <div class="flex items-center gap-3">
-                    <img src="{{ asset('images/brand/logo-light.png') }}" alt="Seven Series Denim" class="h-10 w-auto">
+                    <img src="{{ asset('images/brand/logo-light.png') }}" alt="Seven Series Denim" class="h-9 sm:h-10 w-auto">
                 </div>
                 <p class="text-sm text-zinc-600 font-medium leading-relaxed max-w-sm">
                     Seven Series Garment Industry crafts heavyweight denim jeans and casual clothing. Supplying bulk wholesale orders to retailers and welcoming shoppers to our official retail outlets.
@@ -50,11 +50,11 @@
                     <span class="text-xs font-bold uppercase tracking-wider text-zinc-900 block">
                         Get Wholesale & Production Updates
                     </span>
-                    <form class="flex max-w-sm gap-2" @submit.prevent="subscribe()">
+                    <form class="relative flex items-center w-full max-w-sm" @submit.prevent="subscribe()">
                         <input type="email" placeholder="Your email address" required x-model="email"
-                            class="flex-1 bg-zinc-50 border border-zinc-200 rounded-full px-4 py-2.5 focus:border-red-600 focus:outline-none text-xs font-medium text-zinc-900 transition-colors">
+                            class="w-full bg-zinc-50 border border-zinc-200 rounded-full pl-4 pr-20 py-2.5 focus:border-red-600 focus:outline-none text-xs font-medium text-zinc-900 transition-colors">
                         <button
-                            class="bg-red-600 text-white px-5 py-2.5 text-xs font-bold rounded-full hover:bg-red-700 transition-colors uppercase disabled:opacity-50 shrink-0"
+                            class="absolute right-1 top-1 bottom-1 bg-red-600 text-white px-4 text-xs font-bold rounded-full hover:bg-red-700 transition-colors uppercase disabled:opacity-50 flex items-center justify-center shadow-sm"
                             :disabled="loading">
                             <span x-show="!loading">Join</span>
                             <span x-show="loading" x-cloak>...</span>
