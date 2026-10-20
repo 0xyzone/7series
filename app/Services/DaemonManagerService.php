@@ -12,26 +12,30 @@ class DaemonManagerService
      */
     public function isReverbRunning(): bool
     {
-        $port = (int) config('reverb.servers.reverb.port', 8080);
+        $port = (int) config('reverb.servers.reverb.port', 8081);
+        $artisan = base_path('artisan');
 
-        // 1. Check socket connection across loopback and local hosts
+        // 1. Check if the specific 7series artisan process is alive
+        $hasProcess = false;
+        try {
+            $pids = @shell_exec("pgrep -f " . escapeshellarg($artisan . ' reverb:start') . " 2>/dev/null");
+            if ($pids && trim($pids)) {
+                $hasProcess = true;
+            }
+        } catch (\Throwable) {}
+
+        // 2. Check socket connection across loopback and local hosts
+        $hasSocket = false;
         foreach (['127.0.0.1', '0.0.0.0', 'localhost'] as $host) {
             $connection = @fsockopen($host, $port, $errno, $errstr, 0.4);
             if (is_resource($connection)) {
                 fclose($connection);
-                return true;
+                $hasSocket = true;
+                break;
             }
         }
 
-        // 2. Check process table via pgrep as fallback
-        try {
-            $pids = @shell_exec("pgrep -f 'artisan reverb:start' 2>/dev/null");
-            if ($pids && trim($pids)) {
-                return true;
-            }
-        } catch (\Throwable) {}
-
-        return false;
+        return $hasProcess || $hasSocket;
     }
 
     /**
@@ -49,7 +53,7 @@ class DaemonManagerService
 
             $php = $this->resolvePhpBinary();
             $artisan = base_path('artisan');
-            $port = (int) config('reverb.servers.reverb.port', 8080);
+            $port = (int) config('reverb.servers.reverb.port', 8081);
             $host = '0.0.0.0';
             $logFile = storage_path('logs/reverb.log');
 
@@ -123,7 +127,8 @@ class DaemonManagerService
     public function stopReverb(): array
     {
         try {
-            @exec("pkill -f 'reverb:start'");
+            $artisan = base_path('artisan');
+            @exec("pkill -f " . escapeshellarg($artisan . ' reverb:start'));
             $running = true;
             for ($i = 0; $i < 10; $i++) {
                 usleep(50000);
@@ -134,8 +139,8 @@ class DaemonManagerService
             }
 
             if ($running) {
-                @exec("pkill -9 -f 'reverb:start'");
-                $port = (int) config('reverb.servers.reverb.port', 8080);
+                @exec("pkill -9 -f " . escapeshellarg($artisan . ' reverb:start'));
+                $port = (int) config('reverb.servers.reverb.port', 8081);
                 @exec("lsof -t -i:{$port} | xargs kill -9 2>/dev/null");
                 usleep(100000);
                 $running = $this->isReverbRunning();
@@ -159,7 +164,7 @@ class DaemonManagerService
      */
     public function getReverbDetails(): array
     {
-        $port = (int) config('reverb.servers.reverb.port', 8080);
+        $port = (int) config('reverb.servers.reverb.port', 8081);
         $running = $this->isReverbRunning();
         $logFile = storage_path('logs/reverb.log');
         $logs = '';
