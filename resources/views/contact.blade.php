@@ -152,11 +152,14 @@
                 loading: false,
                 success: false,
                 successMessage: '',
+                whatsappLink: '',
                 error: '',
+                isRateLimited: false,
                 async submitForm() {
                     this.loading = true;
                     this.error = '';
                     this.success = false;
+                    this.isRateLimited = false;
 
                     try {
                         const res = await fetch('{{ route('contact.submit') }}', {
@@ -173,8 +176,10 @@
                         if (res.ok && data.status === 'success') {
                             this.success = true;
                             this.successMessage = data.message;
+                            this.whatsappLink = data.sms_status?.whatsapp_link || '';
                             this.form = { name: '', email: '', phone: '', subject: 'Factory & Wholesale Inquiry', message: '' };
                         } else {
+                            this.isRateLimited = res.status === 429 || data.rate_limited;
                             this.error = data.message || 'Something went wrong. Please check your fields and try again.';
                         }
                     } catch (e) {
@@ -196,23 +201,32 @@
 
                     <!-- Success Alert -->
                     <template x-if="success">
-                        <div class="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-900 space-y-1">
+                        <div class="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-900 space-y-2">
                             <div class="flex items-center gap-2 font-bold text-sm">
                                 <svg class="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                                <span>Message Received!</span>
+                                <span>Message & Inquiry Confirmed!</span>
                             </div>
-                            <p class="text-xs text-emerald-800" x-text="successMessage"></p>
+                            <p class="text-xs text-emerald-800 leading-relaxed" x-text="successMessage"></p>
+                            <p class="text-[11px] text-emerald-700">A confirmation email has been dispatched to your inbox and an SMS notification logged for your phone.</p>
+                            <div x-show="whatsappLink" class="pt-1">
+                                <a :href="whatsappLink" target="_blank" rel="noopener noreferrer" 
+                                   class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white text-[11px] font-black shadow-xs transition-colors">
+                                    <span>Open WhatsApp Confirmation Copy &rarr;</span>
+                                </a>
+                            </div>
                         </div>
                     </template>
 
-                    <!-- Error Alert -->
+                    <!-- Error / Rate Limited Alert -->
                     <template x-if="error">
-                        <div class="p-4 rounded-2xl bg-red-50 border border-red-200 text-red-900 space-y-1">
+                        <div class="p-4 rounded-2xl text-red-900 space-y-1"
+                             :class="isRateLimited ? 'bg-amber-50 border border-amber-300 text-amber-950' : 'bg-red-50 border border-red-200 text-red-900'">
                             <div class="flex items-center gap-2 font-bold text-sm">
-                                <svg class="w-5 h-5 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                                <span>Submission Issue</span>
+                                <svg x-show="!isRateLimited" class="w-5 h-5 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                                <svg x-show="isRateLimited" class="w-5 h-5 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                                <span x-text="isRateLimited ? 'Submission Limit (15 Min Threshold)' : 'Submission Notice'"></span>
                             </div>
-                            <p class="text-xs text-red-800" x-text="error"></p>
+                            <p class="text-xs leading-relaxed" :class="isRateLimited ? 'text-amber-900' : 'text-red-800'" x-text="error"></p>
                         </div>
                     </template>
 
