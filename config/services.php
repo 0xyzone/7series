@@ -35,4 +35,10 @@ return [
         ],
     ],
 
+    'whatsapp' => [
+        'gateway_url' => env('WHATSAPP_GATEWAY_URL', 'http://127.0.0.1:3000/send-message'),
+        'token' => env('WHATSAPP_CLOUD_TOKEN'),
+        'phone_id' => env('WHATSAPP_PHONE_ID'),
+    ],
+
 ];

@@ -139,3 +139,4 @@ dist
 .public/hot
 public/hot
 vendor/
+whatsapp-gateway/auth_info/
