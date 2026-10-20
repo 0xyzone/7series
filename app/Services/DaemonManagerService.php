@@ -12,7 +12,7 @@ class DaemonManagerService
      */
     public function isReverbRunning(): bool
     {
-        $port = (int) config('reverb.servers.reverb.port', 8081);
+        $port = (int) config('reverb.servers.reverb.port', 8080);
         $artisan = base_path('artisan');
 
         // 1. Check if the specific 7series artisan process is alive
@@ -53,7 +53,7 @@ class DaemonManagerService
 
             $php = $this->resolvePhpBinary();
             $artisan = base_path('artisan');
-            $port = (int) config('reverb.servers.reverb.port', 8081);
+            $port = (int) config('reverb.servers.reverb.port', 8080);
             $host = '0.0.0.0';
             $logFile = storage_path('logs/reverb.log');
 
@@ -140,7 +140,7 @@ class DaemonManagerService
 
             if ($running) {
                 @exec("pkill -9 -f " . escapeshellarg($artisan . ' reverb:start'));
-                $port = (int) config('reverb.servers.reverb.port', 8081);
+                $port = (int) config('reverb.servers.reverb.port', 8080);
                 @exec("lsof -t -i:{$port} | xargs kill -9 2>/dev/null");
                 usleep(100000);
                 $running = $this->isReverbRunning();
@@ -164,7 +164,7 @@ class DaemonManagerService
      */
     public function getReverbDetails(): array
     {
-        $port = (int) config('reverb.servers.reverb.port', 8081);
+        $port = (int) config('reverb.servers.reverb.port', 8080);
         $running = $this->isReverbRunning();
         $logFile = storage_path('logs/reverb.log');
         $logs = '';

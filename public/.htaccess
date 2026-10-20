@@ -9,11 +9,11 @@
     RewriteCond %{HTTPS} off
     RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
-    # Proxy WebSocket connections to Laravel Reverb (Port 8081 to avoid conflict with other apps)
+    # Proxy WebSocket connections to Laravel Reverb
     RewriteCond %{HTTP:Upgrade} =websocket [NC]
-    RewriteRule ^app/(.*) ws://127.0.0.1:8081/app/$1 [P,L]
+    RewriteRule ^app/(.*) ws://127.0.0.1:8080/app/$1 [P,L]
     RewriteCond %{HTTP:Upgrade} =websocket [NC]
-    RewriteRule ^app$ ws://127.0.0.1:8081/app [P,L]
+    RewriteRule ^app$ ws://127.0.0.1:8080/app [P,L]
 
     # Handle Authorization Header
     RewriteCond %{HTTP:Authorization} .
