@@ -12,24 +12,23 @@ class DaemonManagerService
      */
     public function isReverbRunning(): bool
     {
-        $port = (int) config('reverb.servers.reverb.port', 8080);
-
-        // 1. Check if process exists in /proc or via pgrep
+        // 1. Primary check: verify if any process contains 'reverb:start'
         $pids = $this->findPidsByKeyword('reverb:start');
-        $hasProcess = !empty($pids);
-
-        // 2. Check socket connection across loopback and local hosts
-        $hasSocket = false;
-        foreach (['127.0.0.1', '0.0.0.0', 'localhost'] as $host) {
-            $connection = @fsockopen($host, $port, $errno, $errstr, 0.4);
-            if (is_resource($connection)) {
-                fclose($connection);
-                $hasSocket = true;
-                break;
-            }
+        if (!empty($pids)) {
+            return true;
         }
 
-        return $hasProcess || $hasSocket;
+        // 2. Check saved PID file if present
+        $pidFile = storage_path('framework/reverb.pid');
+        if (file_exists($pidFile)) {
+            $savedPid = (int) trim((string) @file_get_contents($pidFile));
+            if ($this->isPidAlive($savedPid)) {
+                return true;
+            }
+            @unlink($pidFile);
+        }
+
+        return false;
     }
 
     /**
@@ -129,6 +128,15 @@ class DaemonManagerService
         try {
             // Signal watchdog cron to not auto-restart
             @file_put_contents(storage_path('framework/reverb.stopped'), time());
+
+            // If already stopped, remove PID file and return immediately
+            if (!$this->isReverbRunning()) {
+                @unlink(storage_path('framework/reverb.pid'));
+                return [
+                    'success' => true,
+                    'message' => 'Laravel Reverb is already stopped.',
+                ];
+            }
 
             $port = (int) config('reverb.servers.reverb.port', 8080);
 
@@ -478,6 +486,27 @@ class DaemonManagerService
 
         // 4. Default to standard CLI command
         return 'php';
+    }
+
+    /**
+     * Check if a process ID is currently alive.
+     */
+    protected function isPidAlive(int $pid): bool
+    {
+        if ($pid <= 1) {
+            return false;
+        }
+
+        if (function_exists('posix_kill')) {
+            return @posix_kill($pid, 0);
+        }
+
+        if (is_dir('/proc')) {
+            return file_exists("/proc/{$pid}");
+        }
+
+        $out = @shell_exec("kill -0 {$pid} 2>&1");
+        return empty($out);
     }
 
     /**
