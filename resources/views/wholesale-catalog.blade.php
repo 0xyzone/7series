@@ -76,7 +76,7 @@
                  x-show="selectedCategory === 'all' || selectedCategory === 'denim'">
                 <div>
                     <div class="relative aspect-[4/3] overflow-hidden bg-zinc-100">
-                        <img src="{{ asset('images/collection-1.png') }}" alt="Series 01 Architectural Selvedge Denim" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                        <img src="{{ asset('images/denim-hero-fold.jpg') }}" alt="Series 01 Architectural Selvedge Denim" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
                         <div class="absolute top-4 left-4">
                             <span class="px-3 py-1 bg-black/80 backdrop-blur rounded-full text-[10px] font-black uppercase tracking-widest text-white border border-white/20">
                                 SERIES 01 • DENIM
@@ -123,10 +123,10 @@
                  x-show="selectedCategory === 'all' || selectedCategory === 'trousers'">
                 <div>
                     <div class="relative aspect-[4/3] overflow-hidden bg-zinc-100">
-                        <img src="{{ asset('images/collection-2.png') }}" alt="Series 02 4-Way Technical Trousers" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                        <img src="{{ asset('images/denim-black-fold.jpg') }}" alt="Series 02 Sulfur Black Denim" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
                         <div class="absolute top-4 left-4">
                             <span class="px-3 py-1 bg-black/80 backdrop-blur rounded-full text-[10px] font-black uppercase tracking-widest text-white border border-white/20">
-                                SERIES 02 • TECH TROUSERS
+                                SERIES 02 • BLACK DENIM
                             </span>
                         </div>
                         <div class="absolute top-4 right-4">
@@ -138,17 +138,17 @@
 
                     <div class="p-8 space-y-4">
                         <div class="flex justify-between items-baseline">
-                            <h3 class="text-xl font-black uppercase tracking-tight text-zinc-950">4-WAY ARTICULATED TROUSER</h3>
+                            <h3 class="text-xl font-black uppercase tracking-tight text-zinc-950">SULFUR DOUBLE BLACK DENIM</h3>
                             <span class="text-base font-black text-red-600">$19.80 – $24.50</span>
                         </div>
 
                         <p class="text-zinc-600 text-sm font-medium leading-relaxed">
-                            280 GSM weatherproof DWR nylon composite. Ergonomic articulated knee construction with magnetic cargo pockets.
+                            13.8 oz sulfur black twill with matte gunmetal rivets, chain-stitched yokes, and sanforized shrinkage control.
                         </p>
 
                         <div class="space-y-1.5 pt-3 border-t border-zinc-200 text-xs font-bold text-zinc-600">
-                            <div class="flex justify-between"><span>Composition:</span> <span class="text-zinc-950">65% Ny / 35% Co DWR</span></div>
-                            <div class="flex justify-between"><span>Stretch Recovery:</span> <span class="text-zinc-950">98.4% Dynamic</span></div>
+                            <div class="flex justify-between"><span>Composition:</span> <span class="text-zinc-950">100% Cotton Twill</span></div>
+                            <div class="flex justify-between"><span>Shrinkage Control:</span> <span class="text-zinc-950">&lt; 1.5% Sanforized</span></div>
                             <div class="flex justify-between"><span>Target Retail MSRP:</span> <span class="text-zinc-950">$75 – $95</span></div>
                         </div>
                     </div>
@@ -170,10 +170,10 @@
                  x-show="selectedCategory === 'all' || selectedCategory === 'outerwear'">
                 <div>
                     <div class="relative aspect-[4/3] overflow-hidden bg-zinc-100">
-                        <img src="{{ asset('images/collection-3.png') }}" alt="Series 03 Industrial Tech Jacket" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                        <img src="{{ asset('images/hero.png') }}" alt="Series 03 Industrial Denim Trucker Jacket" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
                         <div class="absolute top-4 left-4">
                             <span class="px-3 py-1 bg-black/80 backdrop-blur rounded-full text-[10px] font-black uppercase tracking-widest text-white border border-white/20">
-                                SERIES 03 • OUTERWEAR
+                                SERIES 03 • DENIM JACKET
                             </span>
                         </div>
                         <div class="absolute top-4 right-4">

@@ -29,7 +29,7 @@
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
             <!-- Series 01 -->
             <div class="rounded-3xl bg-white border-2 border-zinc-200 overflow-hidden p-6 space-y-4 hover:border-red-600 hover:shadow-2xl transition-all">
-                <img src="{{ asset('images/collection-1.png') }}" class="w-full h-64 object-cover rounded-2xl" alt="Raw Denim">
+                <img src="{{ asset('images/denim-hero-fold.jpg') }}" class="w-full h-64 object-cover rounded-2xl" alt="Raw Denim">
                 <div class="flex justify-between items-baseline">
                     <h3 class="text-xl font-black uppercase text-zinc-950">RAW ARCHITECTURAL SELVEDGE</h3>
                     <span class="text-sm font-black text-red-600">$22.50 – $26.00 FOB</span>
@@ -42,12 +42,12 @@
 
             <!-- Series 02 -->
             <div class="rounded-3xl bg-white border-2 border-zinc-200 overflow-hidden p-6 space-y-4 hover:border-red-600 hover:shadow-2xl transition-all">
-                <img src="{{ asset('images/collection-2.png') }}" class="w-full h-64 object-cover rounded-2xl" alt="Tech Trousers">
+                <img src="{{ asset('images/denim-black-fold.jpg') }}" class="w-full h-64 object-cover rounded-2xl" alt="Black Denim">
                 <div class="flex justify-between items-baseline">
-                    <h3 class="text-xl font-black uppercase text-zinc-950">4-WAY ARTICULATED TROUSER</h3>
+                    <h3 class="text-xl font-black uppercase text-zinc-950">SULFUR DOUBLE BLACK</h3>
                     <span class="text-sm font-black text-red-600">$19.80 – $24.50 FOB</span>
                 </div>
-                <p class="text-zinc-600 text-sm">280 GSM weatherproof DWR nylon-cotton. Articulated knees. MOQ 300 units.</p>
+                <p class="text-zinc-600 text-sm">13.8oz sulfur-dyed black twill. Matte gunmetal rivets. MOQ 300 units.</p>
                 <a href="/b2b#rfq" class="w-full py-3 bg-zinc-950 text-white text-xs font-black uppercase tracking-widest rounded-xl text-center block hover:bg-red-600 transition-colors">
                     Request Spec Pack
                 </a>
@@ -55,12 +55,12 @@
 
             <!-- Series 03 -->
             <div class="rounded-3xl bg-white border-2 border-zinc-200 overflow-hidden p-6 space-y-4 hover:border-red-600 hover:shadow-2xl transition-all">
-                <img src="{{ asset('images/collection-3.png') }}" class="w-full h-64 object-cover rounded-2xl" alt="Outerwear">
+                <img src="{{ asset('images/jeans-product.jpg') }}" class="w-full h-64 object-cover rounded-2xl" alt="Factory Wash Jeans">
                 <div class="flex justify-between items-baseline">
-                    <h3 class="text-xl font-black uppercase text-zinc-950">BONDED TECHNICAL PARKA</h3>
-                    <span class="text-sm font-black text-red-600">$34.00 – $42.00 FOB</span>
+                    <h3 class="text-xl font-black uppercase text-zinc-950">FACTORY VINTAGE WASH</h3>
+                    <span class="text-sm font-black text-red-600">$24.00 – $28.00 FOB</span>
                 </div>
-                <p class="text-zinc-600 text-sm">3-layer stormproof bonded cotton shell. Taped seams. MOQ 200 units.</p>
+                <p class="text-zinc-600 text-sm">14.0oz hand-abraded whiskers wash. Reinforced yoke seams. MOQ 200 units.</p>
                 <a href="/b2b#rfq" class="w-full py-3 bg-zinc-950 text-white text-xs font-black uppercase tracking-widest rounded-xl text-center block hover:bg-red-600 transition-colors">
                     Request Spec Pack
                 </a>

@@ -6,116 +6,211 @@
     <main class="min-h-screen pt-24 sm:pt-28 pb-32 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-12 sm:space-y-16">
 
         <!-- ========================================================================= -->
-        <!-- SECTION 1: HERO APP ONBOARDING (Nomadra App Showcase Style + 3D Brand Symbol) -->
+        <!-- SECTION 1: HERO AUTHENTIC DENIM JEANS SHOWCASE -->
         <!-- ========================================================================= -->
         <section id="hero" class="relative">
             
-            <!-- Main Hero App Board (28px Rounded Canvas) -->
-            <div class="app-card p-6 sm:p-10 lg:p-12 relative overflow-hidden bg-gradient-to-br from-white via-white to-zinc-50">
+            <!-- Main Hero Board -->
+            <div class="app-card p-6 sm:p-10 lg:p-12 relative overflow-hidden bg-gradient-to-br from-white via-slate-50/50 to-blue-50/30 border border-slate-200 shadow-xl">
                 
-                <!-- Ambient Red Aura -->
-                <div class="absolute -right-20 -top-20 w-96 h-96 bg-red-600/10 rounded-full blur-3xl pointer-events-none" data-parallax="0.15"></div>
+                <!-- Ambient Denim Aura -->
+                <div class="absolute -right-20 -top-20 w-96 h-96 bg-blue-900/10 rounded-full blur-3xl pointer-events-none" data-parallax="0.15"></div>
                 <div class="absolute -left-16 bottom-0 w-80 h-80 bg-red-600/5 rounded-full blur-2xl pointer-events-none" data-parallax="-0.1"></div>
 
                 <div class="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center relative z-10">
                     
-                    <!-- Left: Human, Simple Introduction -->
+                    <!-- Left: Simple, Clear Denim Introduction -->
                     <div class="lg:col-span-7 space-y-6">
                         
                         <!-- Top Status Pill -->
-                        <div class="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-red-50 border border-red-200 text-red-600 text-xs font-black tracking-wider uppercase">
-                            <span class="w-2 h-2 rounded-full bg-red-600 animate-pulse"></span>
-                            <span>OFFICIAL CLOTHING BRAND</span>
+                        <div class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-slate-900 text-white text-xs font-black tracking-wider uppercase shadow-sm">
+                            <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
+                            <span>AUTHENTIC DENIM CLOTHING BRAND</span>
                             <span class="text-zinc-400 font-mono text-[10px]">| GARMENT FACTORY</span>
                         </div>
 
                         <!-- Big Clear Headline -->
                         <div class="space-y-2">
                             <h1 class="text-4xl sm:text-6xl xl:text-7xl font-extrabold tracking-tight text-zinc-950 uppercase leading-[1.02]">
-                                REAL HEAVY <br>
-                                <span class="text-red-600">DENIM JEANS.</span>
+                                AUTHENTIC HEAVY <br>
+                                <span class="text-blue-950">DENIM JEANS.</span>
                             </h1>
-                            <p class="text-xl sm:text-2xl font-bold text-zinc-500 tracking-tight">
-                                Built tough to last for years.
+                            <p class="text-base sm:text-xl font-bold text-zinc-600 tracking-tight flex items-center gap-2">
+                                <span class="inline-block w-2.5 h-2.5 rounded-full bg-red-600 shrink-0"></span>
+                                <span>14.5 oz Raw Shuttle-Loom Cotton &bull; Built Tough to Last for Years</span>
                             </p>
                         </div>
 
                         <!-- Friendly Simple Human Copy -->
                         <p class="text-zinc-600 text-base sm:text-lg leading-relaxed max-w-xl font-normal">
-                            <strong class="text-zinc-950 font-bold">Seven Series</strong> is an authentic clothing brand and denim manufacturing factory. We make tough, heavy cotton jeans, jackets, and casual clothing. You can purchase our clothes at our official retail shops, or order bulk wholesale supplies directly for your clothing store.
+                            <strong class="text-zinc-950 font-bold">Seven Series</strong> is an authentic Nepalese clothing brand and denim manufacturing factory. We weave, cut, and craft heavy cotton jeans, denim jackets, and casual clothing. Every pair features reinforced triple chain stitching and solid copper rivets. Visit our official retail stores to try your fit, or order bulk wholesale supplies directly from our factory floor.
                         </p>
 
                         <!-- Action Buttons (App Pill Style) -->
                         <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-2">
-                            <a href="#stores" class="px-6 py-3.5 bg-red-600 hover:bg-red-700 text-white font-bold text-sm tracking-wide rounded-full shadow-lg shadow-red-600/25 transition-all flex items-center justify-center gap-2 hover:scale-105 active:scale-95 text-center">
+                            <a href="#stores" class="px-7 py-3.5 bg-red-600 hover:bg-red-700 text-white font-bold text-sm tracking-wide rounded-full shadow-lg shadow-red-600/25 transition-all flex items-center justify-center gap-2 hover:scale-105 active:scale-95 text-center">
                                 <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
                                 <span>Find a Store Near You</span>
                             </a>
 
-                            <a href="/b2b" class="px-6 py-3.5 bg-zinc-100 hover:bg-zinc-200 text-zinc-900 font-bold text-sm tracking-wide rounded-full transition-all border border-zinc-200 hover:scale-105 active:scale-95 flex items-center justify-center gap-2 text-center">
+                            <a href="/b2b" class="px-7 py-3.5 bg-slate-900 hover:bg-blue-950 text-white font-bold text-sm tracking-wide rounded-full transition-all border border-slate-800 hover:scale-105 active:scale-95 flex items-center justify-center gap-2 text-center shadow-md">
                                 <span>Wholesale for Store Owners</span>
                                 <span>&rarr;</span>
                             </a>
                         </div>
 
                         <!-- Quick Badges Row -->
-                        <div class="flex flex-wrap items-center gap-4 pt-4 border-t border-zinc-100 text-xs text-zinc-500 font-medium">
+                        <div class="flex flex-wrap items-center gap-4 pt-4 border-t border-slate-200 text-xs text-zinc-600 font-semibold">
                             <span class="inline-flex items-center gap-1.5">
-                                <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                                100% Pure Ring-Spun Cotton
+                                <span class="w-2 h-2 rounded-full bg-blue-700"></span>
+                                14.5 oz Pure Ring-Spun Cotton
                             </span>
                             <span class="inline-flex items-center gap-1.5">
-                                <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                                Physical Stores Nationwide
+                                <span class="w-2 h-2 rounded-full bg-red-600"></span>
+                                Red Selvedge Seams
                             </span>
                             <span class="inline-flex items-center gap-1.5">
-                                <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                                Direct Factory Dispatch
+                                <span class="w-2 h-2 rounded-full bg-green-600"></span>
+                                Physical Stores Across Nepal
                             </span>
                         </div>
 
                     </div>
 
-                    <!-- Right: Exact Brand Symbol 3D Model Widget -->
-                    <div class="lg:col-span-5 relative">
+                    <!-- Right: Tactile Denim Jeans Interactive Showcase (Real Denim Product Photography) -->
+                    <div class="lg:col-span-5 relative" x-data="{ activeCut: 'raw' }">
                         
-                        <div class="app-card rounded-3xl overflow-hidden border border-zinc-200/90 bg-white shadow-xl">
+                        <div class="app-card rounded-3xl overflow-hidden border border-slate-200 bg-white shadow-2xl">
                             
-                            <!-- Widget Header -->
-                            <div class="px-4 sm:px-5 py-3.5 bg-zinc-50 border-b border-zinc-100 flex items-center justify-between text-xs">
-                                <div class="flex items-center gap-2 font-bold text-zinc-800">
-                                    <span class="w-2 h-2 rounded-full bg-red-600 animate-pulse"></span>
-                                    <span>3D Brand Emblem</span>
+                            <!-- Denim Selector Pills Header -->
+                            <div class="px-3 sm:px-4 py-2.5 bg-slate-900 text-white flex items-center justify-between text-xs overflow-x-auto no-scrollbar gap-2">
+                                <div class="flex items-center gap-1.5 shrink-0">
+                                    <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
+                                    <span class="text-[11px] font-black uppercase tracking-wider text-zinc-200">SEVEN SERIES DENIM</span>
                                 </div>
-                                <span class="px-2 py-0.5 rounded-full bg-red-100 text-red-600 text-[10px] font-bold">
-                                    TOUCH TO ROTATE
-                                </span>
+                                <div class="flex items-center gap-1 shrink-0 bg-slate-800 p-0.5 rounded-full text-[10px] font-bold">
+                                    <button type="button" @click="activeCut = 'raw'" 
+                                        :class="activeCut === 'raw' ? 'bg-red-600 text-white' : 'text-zinc-300 hover:text-white'" 
+                                        class="px-2.5 py-1 rounded-full transition-all">
+                                        Raw Indigo
+                                    </button>
+                                    <button type="button" @click="activeCut = 'black'" 
+                                        :class="activeCut === 'black' ? 'bg-red-600 text-white' : 'text-zinc-300 hover:text-white'" 
+                                        class="px-2.5 py-1 rounded-full transition-all">
+                                        Black
+                                    </button>
+                                    <button type="button" @click="activeCut = 'wash'" 
+                                        :class="activeCut === 'wash' ? 'bg-red-600 text-white' : 'text-zinc-300 hover:text-white'" 
+                                        class="px-2.5 py-1 rounded-full transition-all">
+                                        Factory Wash
+                                    </button>
+                                    <button type="button" @click="activeCut = 'lookbook'" 
+                                        :class="activeCut === 'lookbook' ? 'bg-red-600 text-white' : 'text-zinc-300 hover:text-white'" 
+                                        class="px-2.5 py-1 rounded-full transition-all">
+                                        Fit Look
+                                    </button>
+                                </div>
                             </div>
 
-                            <!-- 3D Canvas Viewport -->
-                            <div id="hero-3d-container" class="relative w-full h-[360px] sm:h-[440px] cursor-grab bg-gradient-to-b from-white to-zinc-50 select-none">
-                                <canvas id="hero-3d-canvas" class="w-full h-full block"></canvas>
-
-                                <!-- Drag Hint Pill -->
-                                <div class="absolute bottom-4 inset-x-4 pointer-events-none flex justify-center">
-                                    <div class="px-3.5 py-1.5 rounded-full bg-white/90 shadow-md border border-zinc-200 text-[11px] font-bold text-zinc-600 flex items-center gap-2 backdrop-blur-md">
-                                        <svg class="w-3.5 h-3.5 text-red-600 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 11.5V14m0-2.5v-6a1.5 1.5 0 113 0m-3 6a1.5 1.5 0 00-3 0v2a7.5 7.5 0 0015 0v-5a1.5 1.5 0 00-3 0m-6-3V11m0-5.5v-1a1.5 1.5 0 013 0v1m0 0V11"/></svg>
-                                        <span>Drag in 360° to view emblem details</span>
+                            <!-- Photography Viewport -->
+                            <div class="relative w-full h-[360px] sm:h-[420px] bg-slate-950 overflow-hidden group select-none">
+                                
+                                <!-- Cut 1: Raw Indigo Fold -->
+                                <div x-show="activeCut === 'raw'" 
+                                     x-transition:enter="transition ease-out duration-300"
+                                     x-transition:enter-start="opacity-0 scale-95"
+                                     x-transition:enter-end="opacity-100 scale-100"
+                                     class="w-full h-full relative">
+                                    <img src="{{ asset('images/denim-hero-fold.jpg') }}" alt="Seven Series Raw Indigo Selvedge Denim" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                                    <div class="absolute top-4 left-4">
+                                        <span class="px-3 py-1 rounded-full bg-slate-900/90 text-white text-[10px] font-black uppercase tracking-wider backdrop-blur-md border border-slate-700 shadow-md">
+                                            14.5 OZ SHUTTLE RAW
+                                        </span>
+                                    </div>
+                                    <div class="absolute bottom-4 right-4">
+                                        <span class="px-3 py-1 rounded-full bg-red-600 text-white text-[10px] font-black uppercase tracking-wider shadow-md flex items-center gap-1.5">
+                                            <span class="w-1.5 h-1.5 rounded-full bg-white animate-ping"></span>
+                                            RED SELVEDGE ID
+                                        </span>
                                     </div>
                                 </div>
+
+                                <!-- Cut 2: Sulfur Black Fold -->
+                                <div x-show="activeCut === 'black'" x-cloak
+                                     x-transition:enter="transition ease-out duration-300"
+                                     x-transition:enter-start="opacity-0 scale-95"
+                                     x-transition:enter-end="opacity-100 scale-100"
+                                     class="w-full h-full relative">
+                                    <img src="{{ asset('images/denim-black-fold.jpg') }}" alt="Seven Series Sulfur Double Black Denim" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                                    <div class="absolute top-4 left-4">
+                                        <span class="px-3 py-1 rounded-full bg-slate-900/90 text-white text-[10px] font-black uppercase tracking-wider backdrop-blur-md border border-slate-700 shadow-md">
+                                            13.8 OZ SULFUR BLACK
+                                        </span>
+                                    </div>
+                                    <div class="absolute bottom-4 right-4">
+                                        <span class="px-3 py-1 rounded-full bg-zinc-900 text-white text-[10px] font-black uppercase tracking-wider border border-zinc-700 shadow-md">
+                                            GUNMETAL HARDWARE
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <!-- Cut 3: Factory Wash Jeans -->
+                                <div x-show="activeCut === 'wash'" x-cloak
+                                     x-transition:enter="transition ease-out duration-300"
+                                     x-transition:enter-start="opacity-0 scale-95"
+                                     x-transition:enter-end="opacity-100 scale-100"
+                                     class="w-full h-full relative">
+                                    <img src="{{ asset('images/jeans-product.jpg') }}" alt="Seven Series Factory Washed Denim Jeans" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                                    <div class="absolute top-4 left-4">
+                                        <span class="px-3 py-1 rounded-full bg-slate-900/90 text-white text-[10px] font-black uppercase tracking-wider backdrop-blur-md border border-slate-700 shadow-md">
+                                            FACTORY VINTAGE WASH
+                                        </span>
+                                    </div>
+                                    <div class="absolute bottom-4 right-4">
+                                        <span class="px-3 py-1 rounded-full bg-red-600 text-white text-[10px] font-black uppercase tracking-wider shadow-md">
+                                            BACK POCKET EMBOSSED
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <!-- Cut 4: Model Fit Lookbook -->
+                                <div x-show="activeCut === 'lookbook'" x-cloak
+                                     x-transition:enter="transition ease-out duration-300"
+                                     x-transition:enter-start="opacity-0 scale-95"
+                                     x-transition:enter-end="opacity-100 scale-100"
+                                     class="w-full h-full relative">
+                                    <img src="{{ asset('images/hero.png') }}" alt="Seven Series Denim Jacket and Jeans Fit" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                                    <div class="absolute top-4 left-4">
+                                        <span class="px-3 py-1 rounded-full bg-slate-900/90 text-white text-[10px] font-black uppercase tracking-wider backdrop-blur-md border border-slate-700 shadow-md">
+                                            FULL DENIM SUIT FIT
+                                        </span>
+                                    </div>
+                                    <div class="absolute bottom-4 right-4">
+                                        <span class="px-3 py-1 rounded-full bg-red-600 text-white text-[10px] font-black uppercase tracking-wider shadow-md">
+                                            FACTORY DIRECT
+                                        </span>
+                                    </div>
+                                </div>
+
                             </div>
 
-                            <!-- Widget Controls -->
-                            <div class="px-3.5 sm:px-5 py-3 bg-white border-t border-zinc-100 flex flex-wrap items-center justify-between gap-2">
-                                <div class="flex items-center gap-2">
-                                    <button id="btn-3d-wireframe" type="button" class="px-3 py-1.5 rounded-full bg-zinc-100 hover:bg-red-50 hover:text-red-600 text-[11px] font-bold text-zinc-700 transition-colors">
-                                        Toggle Wireframe
-                                    </button>
-                                    <button id="btn-3d-reset" type="button" class="px-3 py-1.5 rounded-full bg-zinc-100 hover:bg-zinc-200 text-[11px] font-bold text-zinc-700 transition-colors">
-                                        Reset Position
-                                    </button>
+                            <!-- Craft Spec Bar Footer -->
+                            <div class="px-4 py-3 bg-slate-50 border-t border-slate-200 flex flex-wrap items-center justify-between gap-2 text-xs">
+                                <div class="flex items-center gap-3 text-zinc-600 font-bold">
+                                    <span class="flex items-center gap-1.5">
+                                        <span class="w-2 h-2 rounded-full bg-blue-900"></span>
+                                        <span>Pure Cotton</span>
+                                    </span>
+                                    <span class="flex items-center gap-1.5">
+                                        <span class="w-2 h-2 rounded-full bg-amber-600"></span>
+                                        <span>Brass Hardware</span>
+                                    </span>
+                                    <span class="flex items-center gap-1.5">
+                                        <span class="w-2 h-2 rounded-full bg-red-600"></span>
+                                        <span>Selvedge Hem</span>
+                                    </span>
                                 </div>
-                                <span class="hidden sm:inline text-[10px] text-zinc-400 font-mono">SEVEN SERIES EMBLEM</span>
+                                <span class="text-[10px] text-zinc-400 font-mono font-bold">GENUINE SEVEN SERIES</span>
                             </div>
 
                         </div>
@@ -374,94 +469,109 @@
                 </a>
             </div>
 
-            <!-- 3 Core Cut Cards -->
+            <!-- 3 Core Cut Cards with Real Denim Photography -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 
-                <!-- Cut 1: Straight Fit -->
-                <div class="app-card overflow-hidden flex flex-col justify-between group">
+                <!-- Cut 1: Raw Selvedge Straight Fit -->
+                <div class="app-card overflow-hidden flex flex-col justify-between group border border-slate-200 hover:border-blue-900 transition-all">
                     <div>
-                        <div class="relative aspect-[4/3] bg-zinc-100 overflow-hidden">
-                            <img src="{{ asset('images/collection-1.png') }}" alt="Straight Cut Jeans" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                        <div class="relative aspect-[4/3] bg-slate-950 overflow-hidden">
+                            <img src="{{ asset('images/denim-hero-fold.jpg') }}" alt="Seven Series Straight Cut Jeans" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
                             <div class="absolute top-4 left-4">
-                                <span class="px-3 py-1 rounded-full bg-white/95 text-zinc-950 text-[10px] font-black uppercase tracking-wider shadow-sm">
-                                    14.5 OZ RAW DENIM
+                                <span class="px-3 py-1 rounded-full bg-slate-900/90 text-white text-[10px] font-black uppercase tracking-wider shadow-sm backdrop-blur-md border border-slate-700">
+                                    14.5 OZ RAW SELVEDGE
+                                </span>
+                            </div>
+                            <div class="absolute bottom-4 right-4">
+                                <span class="px-2.5 py-0.5 rounded-full bg-red-600 text-white text-[9px] font-black uppercase tracking-wider">
+                                    RED ID CUFF
                                 </span>
                             </div>
                         </div>
 
                         <div class="p-6 space-y-3">
                             <div class="flex justify-between items-baseline">
-                                <h3 class="text-xl font-bold text-zinc-950">Architectural Straight</h3>
+                                <h3 class="text-xl font-bold text-zinc-950 group-hover:text-blue-950 transition-colors">Architectural Straight</h3>
                                 <span class="text-xs font-bold text-red-600">Classic Fit</span>
                             </div>
                             <p class="text-zinc-600 text-sm leading-relaxed">
-                                A classic straight leg from hip to ankle. Perfect for daily wear and sturdy enough for work. Genuine red selvedge edge inside the cuff.
+                                Pure deep indigo ring-spun cotton. Classic straight leg from hip to ankle. Hand-riveted copper hardware, golden chain stitching, and authentic red selvedge edge inside the cuff.
                             </p>
                         </div>
                     </div>
 
                     <div class="p-6 pt-0">
-                        <a href="#stores" class="w-full py-3 bg-zinc-100 hover:bg-red-600 hover:text-white text-zinc-900 font-bold text-xs uppercase tracking-wider rounded-full text-center block transition-colors">
+                        <a href="#stores" class="w-full py-3 bg-slate-900 hover:bg-red-600 text-white font-bold text-xs uppercase tracking-wider rounded-full text-center block transition-colors">
                             Find in Nearest Store
                         </a>
                     </div>
                 </div>
 
-                <!-- Cut 2: Tapered Fit -->
-                <div class="app-card overflow-hidden flex flex-col justify-between group">
+                <!-- Cut 2: Sulfur Double Black Tapered Fit -->
+                <div class="app-card overflow-hidden flex flex-col justify-between group border border-slate-200 hover:border-zinc-950 transition-all">
                     <div>
-                        <div class="relative aspect-[4/3] bg-zinc-100 overflow-hidden">
-                            <img src="{{ asset('images/collection-2.png') }}" alt="Modern Tapered Jeans" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                        <div class="relative aspect-[4/3] bg-slate-950 overflow-hidden">
+                            <img src="{{ asset('images/denim-black-fold.jpg') }}" alt="Seven Series Modern Tapered Jeans" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
                             <div class="absolute top-4 left-4">
-                                <span class="px-3 py-1 rounded-full bg-white/95 text-zinc-950 text-[10px] font-black uppercase tracking-wider shadow-sm">
+                                <span class="px-3 py-1 rounded-full bg-slate-900/90 text-white text-[10px] font-black uppercase tracking-wider shadow-sm backdrop-blur-md border border-slate-700">
                                     13.8 OZ DOUBLE BLACK
                                 </span>
                             </div>
-                        </div>
-
-                        <div class="p-6 space-y-3">
-                            <div class="flex justify-between items-baseline">
-                                <h3 class="text-xl font-bold text-zinc-950">Modern Tapered</h3>
-                                <span class="text-xs font-bold text-red-600">Slim Leg</span>
-                            </div>
-                            <p class="text-zinc-600 text-sm leading-relaxed">
-                                Roomy through the thigh with a clean narrow taper down to the shoe. Dyed in deep solid black that keeps its dark color wash after wash.
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="p-6 pt-0">
-                        <a href="#stores" class="w-full py-3 bg-zinc-100 hover:bg-red-600 hover:text-white text-zinc-900 font-bold text-xs uppercase tracking-wider rounded-full text-center block transition-colors">
-                            Find in Nearest Store
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Cut 3: Heavy Workwear Fit -->
-                <div class="app-card overflow-hidden flex flex-col justify-between group">
-                    <div>
-                        <div class="relative aspect-[4/3] bg-zinc-100 overflow-hidden">
-                            <img src="{{ asset('images/collection-3.png') }}" alt="Heavy Workwear Denim" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
-                            <div class="absolute top-4 left-4">
-                                <span class="px-3 py-1 rounded-full bg-white/95 text-zinc-950 text-[10px] font-black uppercase tracking-wider shadow-sm">
-                                    15.2 OZ ARMOR GRADE
+                            <div class="absolute bottom-4 right-4">
+                                <span class="px-2.5 py-0.5 rounded-full bg-zinc-800 text-white text-[9px] font-black uppercase tracking-wider">
+                                    SULFUR DYED
                                 </span>
                             </div>
                         </div>
 
                         <div class="p-6 space-y-3">
                             <div class="flex justify-between items-baseline">
-                                <h3 class="text-xl font-bold text-zinc-950">Heavy Utility Cut</h3>
-                                <span class="text-xs font-bold text-red-600">Extra Durable</span>
+                                <h3 class="text-xl font-bold text-zinc-950 group-hover:text-red-600 transition-colors">Modern Tapered</h3>
+                                <span class="text-xs font-bold text-red-600">Slim Leg</span>
                             </div>
                             <p class="text-zinc-600 text-sm leading-relaxed">
-                                Extra thick denim with reinforced knees, triple stitched back seams, and solid brass hardware. Made for riding and heavy outdoor use.
+                                Yarn-dyed in deep sulfur black that never washes out to gray. Roomy in the thigh with a clean narrow taper down to the shoe. Matte gunmetal hardware and triple back yoke seams.
                             </p>
                         </div>
                     </div>
 
                     <div class="p-6 pt-0">
-                        <a href="#stores" class="w-full py-3 bg-zinc-100 hover:bg-red-600 hover:text-white text-zinc-900 font-bold text-xs uppercase tracking-wider rounded-full text-center block transition-colors">
+                        <a href="#stores" class="w-full py-3 bg-slate-900 hover:bg-red-600 text-white font-bold text-xs uppercase tracking-wider rounded-full text-center block transition-colors">
+                            Find in Nearest Store
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Cut 3: Factory Wash Heavy Utility Fit -->
+                <div class="app-card overflow-hidden flex flex-col justify-between group border border-slate-200 hover:border-blue-900 transition-all">
+                    <div>
+                        <div class="relative aspect-[4/3] bg-slate-950 overflow-hidden">
+                            <img src="{{ asset('images/jeans-product.jpg') }}" alt="Seven Series Heavy Utility Jeans" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                            <div class="absolute top-4 left-4">
+                                <span class="px-3 py-1 rounded-full bg-slate-900/90 text-white text-[10px] font-black uppercase tracking-wider shadow-sm backdrop-blur-md border border-slate-700">
+                                    14.0 OZ VINTAGE WASH
+                                </span>
+                            </div>
+                            <div class="absolute bottom-4 right-4">
+                                <span class="px-2.5 py-0.5 rounded-full bg-blue-700 text-white text-[9px] font-black uppercase tracking-wider">
+                                    FACTORY PRODUCED
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="p-6 space-y-3">
+                            <div class="flex justify-between items-baseline">
+                                <h3 class="text-xl font-bold text-zinc-950 group-hover:text-blue-950 transition-colors">Factory Vintage Wash</h3>
+                                <span class="text-xs font-bold text-red-600">Extra Durable</span>
+                            </div>
+                            <p class="text-zinc-600 text-sm leading-relaxed">
+                                Real factory-washed heavy cotton denim with authentic hand-abraded whiskers, reinforced pocket bags, and triple-needle chain stitching. Built tough for daily riding and workwear.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="p-6 pt-0">
+                        <a href="#stores" class="w-full py-3 bg-slate-900 hover:bg-red-600 text-white font-bold text-xs uppercase tracking-wider rounded-full text-center block transition-colors">
                             Find in Nearest Store
                         </a>
                     </div>
@@ -476,7 +586,7 @@
         <!-- ========================================================================= -->
         <section id="fabric" class="space-y-6 pt-6">
             
-            <div class="app-card p-6 sm:p-10 bg-white">
+            <div class="app-card p-6 sm:p-10 bg-white border border-slate-200">
                 
                 <div class="grid lg:grid-cols-12 gap-8 items-center">
                     
@@ -490,33 +600,33 @@
                         </p>
                         
                         <div class="space-y-2 pt-2 text-sm text-zinc-700 font-medium">
-                            <div class="p-3.5 rounded-2xl bg-zinc-50 border border-zinc-200 flex items-center justify-between">
+                            <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-200 flex items-center justify-between">
                                 <span>No Synthetic Stretch Blends</span>
-                                <span class="font-bold text-red-600">100% Cotton</span>
+                                <span class="font-bold text-blue-950">100% Pure Cotton</span>
                             </div>
-                            <div class="p-3.5 rounded-2xl bg-zinc-50 border border-zinc-200 flex items-center justify-between">
+                            <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-200 flex items-center justify-between">
                                 <span>Triple-Needle Chain Stitching</span>
                                 <span class="font-bold text-zinc-950">Seams Never Rip</span>
                             </div>
-                            <div class="p-3.5 rounded-2xl bg-zinc-50 border border-zinc-200 flex items-center justify-between">
+                            <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-200 flex items-center justify-between">
                                 <span>Solid Brass & Copper Rivets</span>
-                                <span class="font-bold text-zinc-950">Cast Alloy</span>
+                                <span class="font-bold text-amber-800">Cast Alloy</span>
                             </div>
                         </div>
                     </div>
 
                     <div class="lg:col-span-6">
-                        <div class="rounded-3xl overflow-hidden border border-zinc-200 relative group cursor-crosshair" id="specimen-loupe-card">
+                        <div class="rounded-3xl overflow-hidden border border-slate-200 relative group cursor-crosshair shadow-lg" id="specimen-loupe-card">
                             <div class="aspect-[16/10] bg-zinc-950 relative">
-                                <img src="{{ asset('images/craft.png') }}" alt="Raw Fabric Structure" class="w-full h-full object-cover">
-                                <div class="absolute bottom-4 left-4 px-3 py-1.5 rounded-full bg-black/80 text-white text-[10px] font-bold">
-                                    Hover or touch to magnify weave
+                                <img src="{{ asset('images/craft.jpg') }}" alt="Raw Fabric Structure" class="w-full h-full object-cover">
+                                <div class="absolute bottom-4 left-4 px-3 py-1.5 rounded-full bg-slate-900/90 text-white text-[10px] font-bold backdrop-blur-md border border-slate-700">
+                                    Hover or touch to magnify selvedge weave
                                 </div>
                             </div>
 
                             <!-- Loupe Lens -->
-                            <div id="specimen-loupe-lens" class="pointer-events-none absolute top-0 left-0 w-36 h-36 rounded-full border-2 border-red-600 shadow-2xl overflow-hidden opacity-0 z-30 bg-zinc-950">
-                                <div id="specimen-loupe-zoom" class="w-full h-full bg-twill-matrix scale-150"></div>
+                            <div id="specimen-loupe-lens" class="pointer-events-none absolute top-0 left-0 w-40 h-40 rounded-full border-2 border-red-600 shadow-2xl overflow-hidden opacity-0 z-30 bg-zinc-950">
+                                <div id="specimen-loupe-zoom" class="w-full h-full scale-125" style="background-image: url('{{ asset('images/craft.jpg') }}'); background-size: 350%; background-repeat: no-repeat;"></div>
                             </div>
                         </div>
                     </div>

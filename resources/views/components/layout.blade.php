@@ -1,20 +1,55 @@
+@props([
+    'title' => null,
+    'description' => null,
+    'image' => null,
+])
+
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="scroll-smooth bg-white text-zinc-950">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="scroll-smooth bg-white text-zinc-950 overflow-x-hidden">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>{{ $title ?? 'Seven Series Garment Industry | Authentic Jeanswear & Heavy Denim' }}</title>
-    <meta name="description" content="Seven Series Garment Industry crafts authentic heavy denim apparel, supplying wholesale volumes to multi-store retailers and welcoming customers at official brand outlets.">
-    
     @php
+        $pageTitle = $title ?? 'Seven Series Garment Industry | Authentic Denim Jeans & Clothing Factory';
+        $pageDescription = $description ?? 'Seven Series crafts authentic heavyweight denim jeans and casual apparel. Supplying bulk wholesale orders to retailers and welcoming shoppers at official brand stores.';
+        $rawImage = $image ?? asset('images/og-cover.jpg');
+        $pageImage = str_starts_with($rawImage, 'http') ? $rawImage : url($rawImage);
+        $currentUrl = url()->current();
+
         $isLocal = \App\Helpers\FaviconHelper::isLocal();
         $favIco = \App\Helpers\FaviconHelper::getFaviconIcoUrl();
         $favPng = \App\Helpers\FaviconHelper::getFaviconPngUrl();
         $favTouch = \App\Helpers\FaviconHelper::getAppleTouchIconUrl();
         $fav192 = $isLocal ? asset('images/brand/icon-white-192.png') : asset('images/brand/icon-192.png');
     @endphp
+
+    <title>{{ $pageTitle }}</title>
+    <meta name="description" content="{{ $pageDescription }}">
+    <link rel="canonical" href="{{ $currentUrl }}">
+
+    <!-- Open Graph / Facebook / WhatsApp / Instagram / LinkedIn -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Seven Series Garment Industry">
+    <meta property="og:url" content="{{ $currentUrl }}">
+    <meta property="og:title" content="{{ $pageTitle }}">
+    <meta property="og:description" content="{{ $pageDescription }}">
+    <meta property="og:image" content="{{ $pageImage }}">
+    <meta property="og:image:secure_url" content="{{ $pageImage }}">
+    <meta property="og:image:type" content="image/jpeg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="675">
+    <meta property="og:image:alt" content="Seven Series Authentic Denim Jeans Craftsmanship">
+    <meta property="og:locale" content="en_US">
+
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="{{ $currentUrl }}">
+    <meta name="twitter:title" content="{{ $pageTitle }}">
+    <meta name="twitter:description" content="{{ $pageDescription }}">
+    <meta name="twitter:image" content="{{ $pageImage }}">
+    <meta name="twitter:image:alt" content="Seven Series Authentic Denim Jeans">
 
     <!-- Brand Favicons & Icons (Red for 7series.com.np production, White for local setup) -->
     <link rel="icon" type="image/x-icon" href="{{ $favIco }}">
