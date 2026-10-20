@@ -24,6 +24,7 @@ class UserForm
                     ->unique(ignoreRecord: true),
                 TextInput::make('password')
                     ->password()
+                    ->visibleOn('create')
                     ->dehydrated(fn ($state): bool => filled($state))
                     ->dehydrateStateUsing(fn ($state): ?string => filled($state) ? bcrypt($state) : null)
                     ->required(fn (string $operation): bool => $operation === 'create')
@@ -34,8 +35,6 @@ class UserForm
                     ->multiple()
                     ->preload()
                     ->searchable(),
-                DateTimePicker::make('email_verified_at')
-                    ->label('Email Verified At'),
             ]);
     }
 }
