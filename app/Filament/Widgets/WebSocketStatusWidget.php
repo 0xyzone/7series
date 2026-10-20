@@ -33,18 +33,26 @@ class WebSocketStatusWidget extends Widget
 
     public function startReverb(): void
     {
-        $result = app(DaemonManagerService::class)->startReverb();
+        try {
+            $result = app(DaemonManagerService::class)->startReverb();
 
-        if ($result['success']) {
+            if ($result['success']) {
+                Notification::make()
+                    ->title('Laravel Reverb Started')
+                    ->body($result['message'])
+                    ->success()
+                    ->send();
+            } else {
+                Notification::make()
+                    ->title('Reverb Startup Failed')
+                    ->body($result['message'])
+                    ->danger()
+                    ->send();
+            }
+        } catch (\Throwable $e) {
             Notification::make()
-                ->title('Laravel Reverb Started')
-                ->body($result['message'])
-                ->success()
-                ->send();
-        } else {
-            Notification::make()
-                ->title('Reverb Startup Failed')
-                ->body($result['message'])
+                ->title('Unexpected Error')
+                ->body($e->getMessage())
                 ->danger()
                 ->send();
         }
@@ -52,18 +60,26 @@ class WebSocketStatusWidget extends Widget
 
     public function startWhatsApp(): void
     {
-        $result = app(DaemonManagerService::class)->startWhatsApp();
+        try {
+            $result = app(DaemonManagerService::class)->startWhatsApp();
 
-        if ($result['success']) {
+            if ($result['success']) {
+                Notification::make()
+                    ->title('WhatsApp Gateway Started')
+                    ->body($result['message'])
+                    ->success()
+                    ->send();
+            } else {
+                Notification::make()
+                    ->title('WhatsApp Gateway Error')
+                    ->body($result['message'])
+                    ->danger()
+                    ->send();
+            }
+        } catch (\Throwable $e) {
             Notification::make()
-                ->title('WhatsApp Gateway Started')
-                ->body($result['message'])
-                ->success()
-                ->send();
-        } else {
-            Notification::make()
-                ->title('WhatsApp Gateway Error')
-                ->body($result['message'])
+                ->title('Unexpected Error')
+                ->body($e->getMessage())
                 ->danger()
                 ->send();
         }

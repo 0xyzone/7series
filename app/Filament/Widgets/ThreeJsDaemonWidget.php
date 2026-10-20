@@ -35,19 +35,27 @@ class ThreeJsDaemonWidget extends Widget
 
     public function startReverb(): void
     {
-        $result = app(DaemonManagerService::class)->startReverb();
+        try {
+            $result = app(DaemonManagerService::class)->startReverb();
 
-        if ($result['success']) {
+            if ($result['success']) {
+                Notification::make()
+                    ->title('Laravel Reverb WebSocket Online')
+                    ->body('WebSocket daemon is active and listening on port 8080.')
+                    ->success()
+                    ->send();
+                $this->dispatch('daemon-state-changed', state: 'active');
+            } else {
+                Notification::make()
+                    ->title('Reverb Startup Failed')
+                    ->body($result['message'])
+                    ->danger()
+                    ->send();
+            }
+        } catch (\Throwable $e) {
             Notification::make()
-                ->title('Laravel Reverb WebSocket Online')
-                ->body('WebSocket daemon is active and listening on port 8080.')
-                ->success()
-                ->send();
-            $this->dispatch('daemon-state-changed', state: 'active');
-        } else {
-            Notification::make()
-                ->title('Reverb Startup Failed')
-                ->body($result['message'])
+                ->title('Unexpected Error')
+                ->body($e->getMessage())
                 ->danger()
                 ->send();
         }
@@ -55,19 +63,27 @@ class ThreeJsDaemonWidget extends Widget
 
     public function stopReverb(): void
     {
-        $result = app(DaemonManagerService::class)->stopReverb();
+        try {
+            $result = app(DaemonManagerService::class)->stopReverb();
 
-        if ($result['success']) {
+            if ($result['success']) {
+                Notification::make()
+                    ->title('Laravel Reverb Offline')
+                    ->body('WebSocket server daemon was safely stopped.')
+                    ->warning()
+                    ->send();
+                $this->dispatch('daemon-state-changed', state: 'inactive');
+            } else {
+                Notification::make()
+                    ->title('Failed to Stop Reverb')
+                    ->body($result['message'])
+                    ->danger()
+                    ->send();
+            }
+        } catch (\Throwable $e) {
             Notification::make()
-                ->title('Laravel Reverb Offline')
-                ->body('WebSocket server daemon was safely stopped.')
-                ->warning()
-                ->send();
-            $this->dispatch('daemon-state-changed', state: 'inactive');
-        } else {
-            Notification::make()
-                ->title('Failed to Stop Reverb')
-                ->body($result['message'])
+                ->title('Unexpected Error')
+                ->body($e->getMessage())
                 ->danger()
                 ->send();
         }
@@ -75,18 +91,26 @@ class ThreeJsDaemonWidget extends Widget
 
     public function startWhatsApp(): void
     {
-        $result = app(DaemonManagerService::class)->startWhatsApp();
+        try {
+            $result = app(DaemonManagerService::class)->startWhatsApp();
 
-        if ($result['success']) {
+            if ($result['success']) {
+                Notification::make()
+                    ->title('WhatsApp Gateway Online')
+                    ->body($result['message'])
+                    ->success()
+                    ->send();
+            } else {
+                Notification::make()
+                    ->title('WhatsApp Gateway Error')
+                    ->body($result['message'])
+                    ->danger()
+                    ->send();
+            }
+        } catch (\Throwable $e) {
             Notification::make()
-                ->title('WhatsApp Gateway Online')
-                ->body($result['message'])
-                ->success()
-                ->send();
-        } else {
-            Notification::make()
-                ->title('WhatsApp Gateway Error')
-                ->body($result['message'])
+                ->title('Unexpected Error')
+                ->body($e->getMessage())
                 ->danger()
                 ->send();
         }
@@ -94,18 +118,26 @@ class ThreeJsDaemonWidget extends Widget
 
     public function stopWhatsApp(): void
     {
-        $result = app(DaemonManagerService::class)->stopWhatsApp();
+        try {
+            $result = app(DaemonManagerService::class)->stopWhatsApp();
 
-        if ($result['success']) {
+            if ($result['success']) {
+                Notification::make()
+                    ->title('WhatsApp Gateway Stopped')
+                    ->body($result['message'])
+                    ->warning()
+                    ->send();
+            } else {
+                Notification::make()
+                    ->title('Failed to Stop Gateway')
+                    ->body($result['message'])
+                    ->danger()
+                    ->send();
+            }
+        } catch (\Throwable $e) {
             Notification::make()
-                ->title('WhatsApp Gateway Stopped')
-                ->body($result['message'])
-                ->warning()
-                ->send();
-        } else {
-            Notification::make()
-                ->title('Failed to Stop Gateway')
-                ->body($result['message'])
+                ->title('Unexpected Error')
+                ->body($e->getMessage())
                 ->danger()
                 ->send();
         }

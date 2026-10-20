@@ -55,18 +55,26 @@ class SystemServices extends Page
 
     public function startReverb(): void
     {
-        $result = $this->getDaemonManager()->startReverb();
+        try {
+            $result = $this->getDaemonManager()->startReverb();
 
-        if ($result['success']) {
+            if ($result['success']) {
+                Notification::make()
+                    ->title('Laravel Reverb Started')
+                    ->body($result['message'])
+                    ->success()
+                    ->send();
+            } else {
+                Notification::make()
+                    ->title('Reverb Startup Failed')
+                    ->body($result['message'])
+                    ->danger()
+                    ->send();
+            }
+        } catch (\Throwable $e) {
             Notification::make()
-                ->title('Laravel Reverb Started')
-                ->body($result['message'])
-                ->success()
-                ->send();
-        } else {
-            Notification::make()
-                ->title('Reverb Startup Failed')
-                ->body($result['message'])
+                ->title('Unexpected Error')
+                ->body($e->getMessage())
                 ->danger()
                 ->send();
         }
@@ -74,18 +82,26 @@ class SystemServices extends Page
 
     public function stopReverb(): void
     {
-        $result = $this->getDaemonManager()->stopReverb();
+        try {
+            $result = $this->getDaemonManager()->stopReverb();
 
-        if ($result['success']) {
+            if ($result['success']) {
+                Notification::make()
+                    ->title('Laravel Reverb Stopped')
+                    ->body($result['message'])
+                    ->warning()
+                    ->send();
+            } else {
+                Notification::make()
+                    ->title('Action Failed')
+                    ->body($result['message'])
+                    ->danger()
+                    ->send();
+            }
+        } catch (\Throwable $e) {
             Notification::make()
-                ->title('Laravel Reverb Stopped')
-                ->body($result['message'])
-                ->warning()
-                ->send();
-        } else {
-            Notification::make()
-                ->title('Action Failed')
-                ->body($result['message'])
+                ->title('Unexpected Error')
+                ->body($e->getMessage())
                 ->danger()
                 ->send();
         }
@@ -93,18 +109,26 @@ class SystemServices extends Page
 
     public function startWhatsApp(): void
     {
-        $result = $this->getDaemonManager()->startWhatsApp();
+        try {
+            $result = $this->getDaemonManager()->startWhatsApp();
 
-        if ($result['success']) {
+            if ($result['success']) {
+                Notification::make()
+                    ->title('WhatsApp Gateway Started')
+                    ->body($result['message'])
+                    ->success()
+                    ->send();
+            } else {
+                Notification::make()
+                    ->title('WhatsApp Gateway Error')
+                    ->body($result['message'])
+                    ->danger()
+                    ->send();
+            }
+        } catch (\Throwable $e) {
             Notification::make()
-                ->title('WhatsApp Gateway Started')
-                ->body($result['message'])
-                ->success()
-                ->send();
-        } else {
-            Notification::make()
-                ->title('WhatsApp Gateway Error')
-                ->body($result['message'])
+                ->title('Unexpected Error')
+                ->body($e->getMessage())
                 ->danger()
                 ->send();
         }
@@ -112,18 +136,26 @@ class SystemServices extends Page
 
     public function stopWhatsApp(): void
     {
-        $result = $this->getDaemonManager()->stopWhatsApp();
+        try {
+            $result = $this->getDaemonManager()->stopWhatsApp();
 
-        if ($result['success']) {
+            if ($result['success']) {
+                Notification::make()
+                    ->title('WhatsApp Gateway Stopped')
+                    ->body($result['message'])
+                    ->warning()
+                    ->send();
+            } else {
+                Notification::make()
+                    ->title('Action Failed')
+                    ->body($result['message'])
+                    ->danger()
+                    ->send();
+            }
+        } catch (\Throwable $e) {
             Notification::make()
-                ->title('WhatsApp Gateway Stopped')
-                ->body($result['message'])
-                ->warning()
-                ->send();
-        } else {
-            Notification::make()
-                ->title('Action Failed')
-                ->body($result['message'])
+                ->title('Unexpected Error')
+                ->body($e->getMessage())
                 ->danger()
                 ->send();
         }
