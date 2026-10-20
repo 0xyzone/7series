@@ -7,6 +7,7 @@ use App\Filament\Resources\B2bOfferings\Pages\EditB2bOffering;
 use App\Filament\Resources\B2bOfferings\Pages\ListB2bOfferings;
 use App\Models\B2bOffering;
 use BackedEnum;
+use UnitEnum;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
@@ -21,7 +22,13 @@ class B2bOfferingResource extends Resource
 {
     protected static ?string $model = B2bOffering::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedBuildingStorefront;
+
+    protected static UnitEnum|string|null $navigationGroup = 'B2B Operations';
+
+    protected static ?int $navigationSort = 2;
+
+    protected static ?string $navigationLabel = 'B2B Offerings';
 
     protected static ?string $recordTitleAttribute = 'title';
 

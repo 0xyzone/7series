@@ -26,6 +26,8 @@ use Filament\Schemas\Schema;
 use Filament\Support\Enums\FontWeight;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use Filament\Support\Icons\Heroicon;
+use BackedEnum;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rules\Unique;
 use Override;
@@ -40,6 +42,26 @@ class RoleResource extends Resource
     use HasShieldFormComponents;
 
     protected static ?string $recordTitleAttribute = 'name';
+
+    public static function getNavigationGroup(): ?string
+    {
+        return 'Access Control';
+    }
+
+    public static function getNavigationIcon(): string | BackedEnum | null
+    {
+        return Heroicon::OutlinedShieldCheck;
+    }
+
+    public static function getNavigationSort(): ?int
+    {
+        return 2;
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return 'Roles & Permissions';
+    }
 
     #[Override]
     public static function form(Schema $schema): Schema

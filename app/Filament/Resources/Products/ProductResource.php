@@ -10,6 +10,7 @@ use App\Filament\Resources\Products\Tables\ProductsTable;
 use Agroezinger\FilamentShieldEnhanced\Traits\HasResourceShield;
 use App\Models\Product;
 use BackedEnum;
+use UnitEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
@@ -21,7 +22,15 @@ class ProductResource extends Resource
 
     protected static ?string $model = Product::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedTag;
+
+    protected static UnitEnum|string|null $navigationGroup = 'Apparel & Catalog';
+
+    protected static ?int $navigationSort = 1;
+
+    protected static ?string $navigationLabel = 'Products';
+
+    protected static ?string $recordTitleAttribute = 'name';
 
     public static function getShieldResourcePermissions(): array
     {

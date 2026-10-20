@@ -9,6 +9,7 @@ use App\Filament\Resources\Campaigns\Schemas\CampaignForm;
 use App\Filament\Resources\Campaigns\Tables\CampaignsTable;
 use App\Models\Campaign;
 use BackedEnum;
+use UnitEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
@@ -18,7 +19,13 @@ class CampaignResource extends Resource
 {
     protected static ?string $model = Campaign::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedMegaphone;
+
+    protected static UnitEnum|string|null $navigationGroup = 'Marketing & Growth';
+
+    protected static ?int $navigationSort = 1;
+
+    protected static ?string $navigationLabel = 'Campaigns';
 
     protected static ?string $recordTitleAttribute = 'subject';
 

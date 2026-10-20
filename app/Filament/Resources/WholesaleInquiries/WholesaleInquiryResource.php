@@ -10,6 +10,7 @@ use App\Filament\Resources\WholesaleInquiries\Tables\WholesaleInquiriesTable;
 use Agroezinger\FilamentShieldEnhanced\Traits\HasResourceShield;
 use App\Models\WholesaleInquiry;
 use BackedEnum;
+use UnitEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
@@ -21,9 +22,27 @@ class WholesaleInquiryResource extends Resource
 
     protected static ?string $model = WholesaleInquiry::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedInboxStack;
+
+    protected static UnitEnum|string|null $navigationGroup = 'B2B Operations';
+
+    protected static ?int $navigationSort = 1;
+
+    protected static ?string $navigationLabel = 'Wholesale Inquiries';
 
     protected static ?string $recordTitleAttribute = 'company_name';
+
+    public static function getNavigationBadge(): ?string
+    {
+        $count = static::getModel()::where('status', 'new')->count();
+
+        return $count > 0 ? (string) $count : null;
+    }
+
+    public static function getNavigationBadgeColor(): ?string
+    {
+        return 'danger';
+    }
 
     public static function getShieldResourcePermissions(): array
     {
