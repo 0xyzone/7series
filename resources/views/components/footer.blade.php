@@ -76,6 +76,7 @@
                     <li><a href="/#fabric" class="hover:text-red-600 transition-colors">Fabric & Weave Quality</a></li>
                     <li><a href="/#factory" class="hover:text-red-600 transition-colors">Garment Factory Overview</a></li>
                     <li><a href="/b2b" class="hover:text-red-600 transition-colors">Wholesale Portal</a></li>
+                    <li><a href="/brandkit" class="hover:text-red-600 transition-colors">Brand Kit & Guidelines</a></li>
                     <li><a href="/contact" class="hover:text-red-600 transition-colors text-red-600 font-extrabold flex items-center gap-1"><span>Contact Us & Map</span><span>&rarr;</span></a></li>
                 </ul>
             </div>
