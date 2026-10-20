@@ -111,6 +111,25 @@
                             </button>
                         @else
                             <button
+                                wire:click="restartReverb"
+                                wire:loading.attr="disabled"
+                                wire:loading.class="is-loading"
+                                wire:target="restartReverb"
+                                type="button"
+                                class="daemon-btn"
+                                style="background: rgba(234, 179, 8, 0.15); border: 1px solid rgba(234, 179, 8, 0.35); color: #facc15;"
+                            >
+                                <svg wire:loading.remove wire:target="restartReverb" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                                </svg>
+                                <svg wire:loading wire:target="restartReverb" class="animate-spin" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" stroke-dasharray="31.415, 31.415" stroke-linecap="round" fill="none" />
+                                </svg>
+                                <span wire:loading.remove wire:target="restartReverb">Restart Reverb</span>
+                                <span wire:loading wire:target="restartReverb">Restarting...</span>
+                            </button>
+
+                            <button
                                 wire:click="stopReverb"
                                 wire:loading.attr="disabled"
                                 wire:loading.class="is-loading"

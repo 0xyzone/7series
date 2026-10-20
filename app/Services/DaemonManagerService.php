@@ -47,42 +47,15 @@ class DaemonManagerService
                 ];
             }
 
-            $php = $this->resolvePhpBinary();
-            $artisan = base_path('artisan');
-            $port = (int) config('reverb.servers.reverb.port', 8080);
-            $host = '0.0.0.0';
-            $logFile = storage_path('logs/reverb.log');
+            $script = base_path('scripts/run_reverb.sh');
+            @chmod($script, 0755);
 
-            // Ensure log directory exists
-            if (!file_exists(dirname($logFile))) {
-                @mkdir(dirname($logFile), 0755, true);
-            }
+            // 1. Primary start mechanism via run_reverb.sh start
+            @exec("bash " . escapeshellarg($script) . " start > /dev/null 2>&1 &");
 
-            // Detect setsid on Linux to detach from PHP-FPM process group
-            $hasSetsid = !empty(trim((string) @shell_exec('which setsid 2>/dev/null')));
-            $prefix = $hasSetsid ? 'setsid ' : 'nohup ';
-
-            // Completely decouple stdio with < /dev/null to avoid SIGTERM from parent process cleanup
-            $command = sprintf(
-                'cd %s && %s%s %s reverb:start --host=%s --port=%d < /dev/null > %s 2>&1 & echo $!',
-                escapeshellarg(base_path()),
-                $prefix,
-                escapeshellcmd($php),
-                escapeshellcmd($artisan),
-                escapeshellarg($host),
-                $port,
-                escapeshellcmd($logFile)
-            );
-
-            @exec($command, $output);
-            $pid = isset($output[0]) ? trim($output[0]) : null;
-            if ($pid && is_numeric($pid)) {
-                @file_put_contents(storage_path('framework/reverb.pid'), $pid);
-            }
-
-            // Dynamically wait for Reverb to bind to port (up to 2.5s in 150ms intervals)
+            // 2. Poll for Reverb to be running (up to 3.5s in 150ms intervals)
             $running = false;
-            for ($i = 0; $i < 16; $i++) {
+            for ($i = 0; $i < 24; $i++) {
                 usleep(150000);
                 if ($this->isReverbRunning()) {
                     $running = true;
@@ -90,7 +63,38 @@ class DaemonManagerService
                 }
             }
 
-            $errorMessage = 'Failed to start Laravel Reverb.';
+            // 3. Fallback: direct nohup execution with resolved CLI PHP
+            if (!$running) {
+                $php = $this->resolvePhpBinary();
+                $artisan = base_path('artisan');
+                $port = (int) config('reverb.servers.reverb.port', 8080);
+                $logFile = storage_path('logs/reverb.log');
+
+                $command = sprintf(
+                    'cd %s && nohup %s %s reverb:start < /dev/null >> %s 2>&1 & echo $!',
+                    escapeshellarg(base_path()),
+                    escapeshellcmd($php),
+                    escapeshellcmd($artisan),
+                    escapeshellcmd($logFile)
+                );
+
+                @exec($command, $output);
+                $pid = isset($output[0]) ? trim($output[0]) : null;
+                if ($pid && is_numeric($pid)) {
+                    @file_put_contents(storage_path('framework/reverb.pid'), $pid);
+                }
+
+                for ($i = 0; $i < 16; $i++) {
+                    usleep(150000);
+                    if ($this->isReverbRunning()) {
+                        $running = true;
+                        break;
+                    }
+                }
+            }
+
+            $errorMessage = 'Failed to start Laravel Reverb. Please check storage/logs/reverb.log';
+            $logFile = storage_path('logs/reverb.log');
             if (!$running && file_exists($logFile)) {
                 $lines = file($logFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
                 $logSnippet = implode(' ', array_slice($lines, -5));
@@ -98,7 +102,7 @@ class DaemonManagerService
                 if (str_contains($logSnippet, 'no commands defined in the "reverb" namespace')) {
                     $errorMessage = 'Reverb is not installed in production vendor. Run: composer install --no-dev';
                 } elseif (str_contains($logSnippet, 'Address already in use')) {
-                    $errorMessage = "Port {$port} is already bound by another process.";
+                    $errorMessage = "Port 8080 is already bound by another process.";
                 } elseif (!empty($logSnippet)) {
                     $errorMessage = 'Startup error: ' . substr($logSnippet, 0, 120);
                 }
@@ -106,9 +110,8 @@ class DaemonManagerService
 
             return [
                 'success' => $running,
-                'pid' => $pid,
                 'message' => $running
-                    ? 'Laravel Reverb started successfully on port ' . $port
+                    ? 'Laravel Reverb started successfully on port 8080.'
                     : $errorMessage,
             ];
         } catch (\Throwable $e) {
@@ -138,9 +141,13 @@ class DaemonManagerService
                 ];
             }
 
-            $port = (int) config('reverb.servers.reverb.port', 8080);
+            $script = base_path('scripts/run_reverb.sh');
+            @chmod($script, 0755);
 
-            // 1. Kill saved PID from file if available
+            // 1. Run stop via run_reverb.sh
+            @exec("bash " . escapeshellarg($script) . " stop 2>/dev/null");
+
+            // 2. Direct backup termination
             $pidFile = storage_path('framework/reverb.pid');
             if (file_exists($pidFile)) {
                 $savedPid = (int) trim((string) @file_get_contents($pidFile));
@@ -150,26 +157,27 @@ class DaemonManagerService
                 @unlink($pidFile);
             }
 
-            // 2. Kill all processes matching 'reverb:start'
             $pids = $this->findPidsByKeyword('reverb:start');
             if (!empty($pids)) {
                 $this->killPids($pids);
             }
 
-            // 3. Fallback kill commands
-            @exec("pkill -9 -f 'reverb:start' 2>/dev/null");
-            @exec("fuser -k -9 {$port}/tcp 2>/dev/null");
-            @exec("lsof -t -i:{$port} | xargs kill -9 2>/dev/null");
-
-            // 4. Poll until socket closes
+            // 3. Poll for shutdown (up to 4.0s in 200ms intervals to allow Reverb to gracefully flush connections)
             $running = true;
-            for ($i = 0; $i < 12; $i++) {
-                usleep(80000);
+            for ($i = 0; $i < 20; $i++) {
+                usleep(200000);
                 if (!$this->isReverbRunning()) {
                     $running = false;
                     break;
                 }
+                // If still running after 2 seconds, force kill
+                if ($i === 10) {
+                    @exec("pkill -9 -f 'reverb:start' 2>/dev/null");
+                    @exec("fuser -k -9 8080/tcp 2>/dev/null");
+                }
             }
+
+            @unlink(storage_path('framework/reverb.pid'));
 
             return [
                 'success' => !$running,
@@ -182,6 +190,16 @@ class DaemonManagerService
                 'message' => 'Error: ' . $e->getMessage(),
             ];
         }
+    }
+
+    /**
+     * Restart Laravel Reverb WebSocket server.
+     */
+    public function restartReverb(): array
+    {
+        $this->stopReverb();
+        usleep(400000); // 400ms pause
+        return $this->startReverb();
     }
 
     /**
@@ -460,29 +478,34 @@ class DaemonManagerService
             '/opt/cpanel/ea-php83/root/usr/bin/php',
             '/usr/local/bin/ea-php82',
             '/opt/cpanel/ea-php82/root/usr/bin/php',
+            '/usr/bin/ea-php84',
+            '/usr/bin/ea-php83',
+            '/usr/bin/ea-php82',
         ];
 
         foreach ($cpanelCandidates as $candidate) {
-            if (@file_exists($candidate) && @is_executable($candidate)) {
+            if (@file_exists($candidate)) {
                 return $candidate;
             }
         }
 
-        // 2. Try PHP_BINARY if running via CLI and PHP version >= 8.2
-        if (PHP_VERSION_ID >= 80200 && PHP_BINARY && !str_contains(PHP_BINARY, 'php-fpm')) {
-            return PHP_BINARY;
+        // 2. Query shell for ea-php CLI binaries
+        foreach (['ea-php84', 'ea-php83', 'ea-php82', 'php'] as $bin) {
+            try {
+                $which = @shell_exec("which {$bin} 2>/dev/null");
+                if ($which && trim($which)) {
+                    $trimmed = trim($which);
+                    if (!str_contains($trimmed, 'lsphp') && !str_contains($trimmed, 'php-fpm')) {
+                        return $trimmed;
+                    }
+                }
+            } catch (\Throwable) {}
         }
 
-        // 3. Try to query the system shell for the CLI PHP binary
-        try {
-            $which = @shell_exec('which php 2>/dev/null');
-            if ($which && trim($which)) {
-                $trimmed = trim($which);
-                if (!str_contains($trimmed, 'php-fpm')) {
-                    return $trimmed;
-                }
-            }
-        } catch (\Throwable) {}
+        // 3. Try PHP_BINARY only if CLI SAPI
+        if (PHP_SAPI === 'cli' && PHP_VERSION_ID >= 80200 && PHP_BINARY && !str_contains(PHP_BINARY, 'lsphp') && !str_contains(PHP_BINARY, 'php-fpm')) {
+            return PHP_BINARY;
+        }
 
         // 4. Default to standard CLI command
         return 'php';

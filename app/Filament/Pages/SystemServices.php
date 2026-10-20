@@ -107,6 +107,33 @@ class SystemServices extends Page
         }
     }
 
+    public function restartReverb(): void
+    {
+        try {
+            $result = $this->getDaemonManager()->restartReverb();
+
+            if ($result['success']) {
+                Notification::make()
+                    ->title('Laravel Reverb Restarted')
+                    ->body($result['message'])
+                    ->success()
+                    ->send();
+            } else {
+                Notification::make()
+                    ->title('Action Failed')
+                    ->body($result['message'])
+                    ->danger()
+                    ->send();
+            }
+        } catch (\Throwable $e) {
+            Notification::make()
+                ->title('Unexpected Error')
+                ->body($e->getMessage())
+                ->danger()
+                ->send();
+        }
+    }
+
     public function startWhatsApp(): void
     {
         try {
