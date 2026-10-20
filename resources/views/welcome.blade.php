@@ -5,11 +5,21 @@
 
     <!-- Hero Section: Raw & Rebellious Identity -->
     <section class="min-h-screen relative flex items-center pt-28 pb-20 bg-white dark:bg-zinc-950 text-zinc-950 dark:text-zinc-50 overflow-hidden transition-colors duration-500">
-        <!-- Visual Red & White Background Accents -->
-        <div class="absolute inset-0 pointer-events-none z-0">
+        <!-- Visual Red & White Background Accents & Memphis Brand Elements -->
+        <div class="absolute inset-0 pointer-events-none z-0 overflow-hidden select-none">
             <div class="absolute -right-20 -top-20 w-[600px] h-[600px] bg-red-600/10 blur-[150px] rounded-full"></div>
             <div class="absolute left-1/4 bottom-10 w-[450px] h-[450px] bg-red-600/5 blur-[120px] rounded-full"></div>
             <div class="absolute inset-0 hero-grid opacity-40"></div>
+
+            <!-- Signature Red 7 Giant Memphis Watermarks -->
+            <img src="{{ asset('images/brand/logo-symbol.png') }}" alt="" class="absolute -right-16 top-1/4 w-[480px] h-[600px] opacity-[0.035] dark:opacity-[0.05] filter grayscale dark:grayscale-0 rotate-12 transition-transform duration-1000 pointer-events-none">
+            <img src="{{ asset('images/brand/logo-symbol.png') }}" alt="" class="absolute -left-20 bottom-10 w-[360px] h-[450px] opacity-[0.025] dark:opacity-[0.04] -rotate-6 pointer-events-none">
+
+            <!-- Memphis Geometric Accents: Crosshairs, Grid Dots & Angled Rules -->
+            <div class="absolute top-24 left-8 text-red-600/25 text-xs font-mono font-bold tracking-[0.4em] hidden md:block">+ + + + +</div>
+            <div class="absolute top-1/2 left-6 text-zinc-400/30 dark:text-zinc-600/30 text-[10px] font-mono tracking-widest -rotate-90 hidden lg:block">DENIM SPEC // 14.5OZ // SERIES 7</div>
+            <div class="absolute bottom-20 right-12 text-red-600/25 text-xs font-mono font-bold tracking-widest hidden md:block">// 07 // AUTHENTIC DENIM</div>
+            <div class="absolute top-1/4 right-1/3 w-36 h-36 border border-dashed border-red-600/20 rounded-full animate-spin [animation-duration:35s] hidden lg:block"></div>
         </div>
 
         <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-12 gap-12 items-center relative z-10 w-full"
@@ -80,8 +90,11 @@
                             <img src="{{ asset('images/hero.png') }}" alt="Seven Series Signature Denim Piece" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
                             <div class="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/20 to-transparent"></div>
 
-                            <!-- Industrial Stamp Badge -->
-                            <div class="absolute top-5 left-5">
+                            <!-- Industrial Stamp Badge with Signature 7 Symbol -->
+                            <div class="absolute top-5 left-5 flex items-center gap-2">
+                                <span class="p-1 rounded-lg bg-red-600 text-white shadow-md flex items-center justify-center">
+                                    <img src="{{ asset('images/brand/logo-symbol.png') }}" alt="7" class="w-4 h-4 object-contain brightness-0 invert">
+                                </span>
                                 <span class="px-3.5 py-1.5 rounded-full bg-white text-zinc-950 text-[10px] font-black uppercase tracking-widest border border-zinc-950 shadow-md">
                                     SIGNATURE SPECIMEN 01
                                 </span>
@@ -97,9 +110,12 @@
 
                         <!-- Card Footer Strip -->
                         <div class="p-5 bg-white dark:bg-zinc-900 flex items-center justify-between border-t border-zinc-200 dark:border-zinc-800">
-                            <div class="flex items-center gap-2">
-                                <span class="w-2.5 h-2.5 rounded-full bg-red-600"></span>
-                                <span class="text-xs font-black uppercase tracking-wider text-zinc-950 dark:text-white">Seven Series Industry Original</span>
+                            <div class="flex items-center gap-2.5">
+                                <img src="{{ asset('images/brand/logo-symbol.png') }}" alt="7" class="w-6 h-6 object-contain">
+                                <div>
+                                    <span class="text-xs font-black uppercase tracking-wider text-zinc-950 dark:text-white block">Seven Series Original</span>
+                                    <span class="text-[9px] font-mono text-zinc-400 dark:text-zinc-500 uppercase tracking-widest">AUTHENTIC DENIM 14.5OZ</span>
+                                </div>
                             </div>
                             <a href="#craft" class="text-xs font-black uppercase tracking-widest text-red-600 hover:underline">
                                 View Specs &rarr;

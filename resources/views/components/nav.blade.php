@@ -4,14 +4,11 @@
     :class="scrollY > 50 ? 'bg-white/80 dark:bg-black/80 backdrop-blur-xl py-3' : ({{ $transparent ? 'true' : 'false' }} ? 'bg-transparent py-6' : 'bg-white/80 dark:bg-black/80 backdrop-blur-xl py-3')"
     x-data="{ scrollY: 0, mobileMenuOpen: false }" @scroll.window="scrollY = window.scrollY">
     <div class="max-w-7xl mx-auto px-6 flex items-center justify-between">
-        <a href="/" class="group flex items-center gap-3">
-            <div class="flex flex-col">
-                <div class="flex items-center gap-2">
-                    <span class="text-2xl md:text-3xl font-black tracking-tighter text-red-600 group-hover:text-red-500 transition-colors">7SERIES</span>
-                    <span class="w-2 h-2 rounded-full bg-red-600 animate-pulse"></span>
-                </div>
-                <span class="text-[10px] font-black tracking-[0.25em] text-zinc-900 dark:text-zinc-300 uppercase -mt-1">GARMENT INDUSTRY</span>
-            </div>
+        <a href="/" class="group flex items-center gap-3 py-1">
+            <!-- Light Mode Logo (Black Text) -->
+            <img src="{{ asset('images/brand/logo-light.png') }}" alt="Seven Series Authentic Denim" class="h-10 sm:h-12 w-auto block dark:hidden transition-transform duration-300 group-hover:scale-105">
+            <!-- Dark Mode Logo (White Text) -->
+            <img src="{{ asset('images/brand/logo-dark.png') }}" alt="Seven Series Authentic Denim" class="h-10 sm:h-12 w-auto hidden dark:block transition-transform duration-300 group-hover:scale-105">
         </a>
 
         <!-- Desktop Navigation: Brand Showcase -->
@@ -69,6 +66,11 @@
         x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100 translate-y-0"
         x-transition:leave-end="opacity-0 -translate-y-4"
         class="lg:hidden absolute top-full left-0 w-full bg-white/95 dark:bg-zinc-950/95 backdrop-blur-2xl border-b border-zinc-200 dark:border-zinc-800 py-6 px-6 space-y-4 shadow-2xl">
+        <div class="flex items-center justify-between pb-3 border-b border-zinc-200 dark:border-zinc-800">
+            <img src="{{ asset('images/brand/logo-light.png') }}" alt="Seven Series" class="h-8 w-auto block dark:hidden">
+            <img src="{{ asset('images/brand/logo-dark.png') }}" alt="Seven Series" class="h-8 w-auto hidden dark:block">
+            <span class="text-[10px] font-black tracking-widest text-red-600 uppercase border border-red-600/30 px-2 py-0.5 rounded">AUTHENTIC DENIM</span>
+        </div>
         <a href="/#exhibition" @click="mobileMenuOpen = false"
             class="block text-base font-black tracking-tight hover:text-red-600 transition-colors">JEANS EXHIBITION</a>
         <a href="/#craft" @click="mobileMenuOpen = false"

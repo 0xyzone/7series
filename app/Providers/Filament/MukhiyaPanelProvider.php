@@ -32,6 +32,10 @@ class MukhiyaPanelProvider extends PanelProvider
             ->colors([
                 'primary' => Color::Red,
             ])
+            ->brandLogo(fn () => asset('images/brand/logo-light.png'))
+            ->darkModeBrandLogo(fn () => asset('images/brand/logo-dark.png'))
+            ->brandLogoHeight('2.2rem')
+            ->favicon(asset('favicon.png'))
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\Filament\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\Filament\Pages')
             ->pages([

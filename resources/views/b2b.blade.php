@@ -14,8 +14,9 @@
     }">
         <!-- Page Header -->
         <div class="mb-16 border-b border-zinc-200 dark:border-zinc-800 pb-12">
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-100 dark:bg-red-950/40 border border-red-200 dark:border-red-900/60 text-red-600 text-xs font-black tracking-widest uppercase mb-4">
-                <span>EXCLUSIVE B2B PORTAL</span>
+            <div class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-red-100 dark:bg-red-950/40 border border-red-200 dark:border-red-900/60 text-red-600 text-xs font-black tracking-widest uppercase mb-4">
+                <img src="{{ asset('images/brand/logo-symbol.png') }}" alt="7" class="w-3.5 h-3.5 object-contain">
+                <span>EXCLUSIVE B2B & WHOLESALE PORTAL</span>
             </div>
             <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
                 <div>

@@ -40,8 +40,8 @@
                 }
             }">
                 <div class="flex items-center gap-3">
-                    <span class="text-3xl font-black text-zinc-900 dark:text-white tracking-tighter">7SERIES</span>
-                    <span class="text-[10px] font-black tracking-widest text-red-600 uppercase border border-red-600/30 px-2 py-0.5 rounded">GARMENT INDUSTRY</span>
+                    <img src="{{ asset('images/brand/logo-light.png') }}" alt="Seven Series Authentic Denim" class="h-10 sm:h-12 w-auto block dark:hidden">
+                    <img src="{{ asset('images/brand/logo-dark.png') }}" alt="Seven Series Authentic Denim" class="h-10 sm:h-12 w-auto hidden dark:block">
                 </div>
                 <p class="text-base text-zinc-600 dark:text-zinc-400 font-medium max-w-md leading-relaxed">
                     The Apple and Xiaomi of garment manufacturing. Supplying precision architectural denim, technical fabrics, and private-label apparel directly to global wholesalers and retail networks.
