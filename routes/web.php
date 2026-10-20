@@ -14,9 +14,16 @@ Route::get('/shop', function () {
     return redirect()->route('b2b');
 });
 
+Route::get('/contact', function () {
+    return view('contact');
+})->name('contact');
+
+Route::post('/contact', [\App\Http\Controllers\WholesaleController::class, 'submitContact'])->name('contact.submit');
+
 Route::post('/wholesale/inquire', [\App\Http\Controllers\WholesaleController::class, 'submitInquiry'])->name('wholesale.inquire');
 
 Route::post('/newsletter/subscribe', [\App\Http\Controllers\NewsletterController::class, 'subscribe'])->name('newsletter.subscribe');
 Route::get('/newsletter/unsubscribe/{email}', [\App\Http\Controllers\NewsletterController::class, 'unsubscribe'])
     ->name('newsletter.unsubscribe')
     ->middleware('signed');
+

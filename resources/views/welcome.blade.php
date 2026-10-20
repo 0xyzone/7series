@@ -667,10 +667,14 @@
                             </div>
                         </div>
 
-                        <div class="pt-2">
-                            <a href="/b2b" class="inline-flex items-center justify-center gap-2 px-6 sm:px-7 py-3.5 bg-red-600 hover:bg-red-700 text-white text-xs font-bold uppercase tracking-wider rounded-full shadow-lg shadow-red-600/30 transition-all w-full sm:w-auto text-center">
+                        <div class="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+                            <a href="/b2b" class="inline-flex items-center justify-center gap-2 px-6 sm:px-7 py-3.5 bg-red-600 hover:bg-red-700 text-white text-xs font-bold uppercase tracking-wider rounded-full shadow-lg shadow-red-600/30 transition-all text-center">
                                 <span>Go to Wholesale Portal & Request Pricing</span>
                                 <span>&rarr;</span>
+                            </a>
+                            <a href="/contact" class="inline-flex items-center justify-center gap-2 px-5 py-3.5 bg-zinc-900 hover:bg-zinc-800 border border-zinc-700 text-white text-xs font-bold uppercase tracking-wider rounded-full transition-all text-center">
+                                <svg class="w-4 h-4 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                                <span>Factory Location & Contact Us</span>
                             </a>
                         </div>
                     </div>

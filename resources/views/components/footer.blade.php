@@ -76,6 +76,7 @@
                     <li><a href="/#fabric" class="hover:text-red-600 transition-colors">Fabric & Weave Quality</a></li>
                     <li><a href="/#factory" class="hover:text-red-600 transition-colors">Garment Factory Overview</a></li>
                     <li><a href="/b2b" class="hover:text-red-600 transition-colors">Wholesale Portal</a></li>
+                    <li><a href="/contact" class="hover:text-red-600 transition-colors text-red-600 font-extrabold flex items-center gap-1"><span>Contact Us & Map</span><span>&rarr;</span></a></li>
                 </ul>
             </div>
 
@@ -83,13 +84,19 @@
             <div class="lg:col-span-4 space-y-3">
                 <h4 class="text-xs font-black text-red-600 uppercase tracking-wider">Factory & Head Office</h4>
                 <div class="space-y-1.5 text-xs font-medium text-zinc-600">
-                    <p class="font-bold text-zinc-950">Seven Series Garment Industry</p>
-                    <p>Industrial Manufacturing Zone, Nepal</p>
+                    <p class="font-bold text-zinc-950">Seven Series Garment Factory & Production Unit</p>
+                    <p>Near Padma Colony Main Entrance, Sitapaila</p>
+                    <p>Kathmandu, Nepal</p>
                     <p class="text-zinc-500">Working Hours: Sunday – Friday (09:00 – 18:00)</p>
                     <p class="pt-2">
-                        <span class="font-bold text-zinc-950 block">Wholesale & Factory Inquiries:</span>
-                        <a href="mailto:b2b@sevenseries.com" class="text-red-600 font-bold hover:underline">b2b@sevenseries.com</a>
+                        <span class="font-bold text-zinc-950 block">Official Inquiries & Direct Support:</span>
+                        <a href="mailto:samparka@7series.com.np" class="text-red-600 font-bold hover:underline">samparka@7series.com.np</a>
                     </p>
+                    <div class="pt-1">
+                        <a href="/contact" class="inline-flex items-center gap-1 text-[11px] font-bold text-zinc-800 hover:text-red-600 underline">
+                            View Factory Location & Send Message &rarr;
+                        </a>
+                    </div>
                 </div>
             </div>
 

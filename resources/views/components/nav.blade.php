@@ -99,6 +99,11 @@
                     <span class="sm:hidden">Stores</span>
                 </a>
 
+                <a href="/contact" class="inline-flex items-center gap-1.5 text-xs font-bold text-zinc-700 hover:text-red-600 transition-colors py-2 px-3 rounded-full hover:bg-zinc-100 {{ request()->is('contact*') ? 'text-red-600 font-extrabold bg-red-50' : '' }}">
+                    <svg class="w-4 h-4 text-zinc-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                    <span>Contact</span>
+                </a>
+
                 <a href="/b2b" class="inline-flex items-center gap-1.5 px-4 sm:px-5 py-2 sm:py-2.5 rounded-full text-xs font-black uppercase tracking-wider text-white bg-red-600 hover:bg-red-700 shadow-md shadow-red-600/25 transition-all hover:scale-105 active:scale-95">
                     <span>Wholesale B2B</span>
                     <span class="text-xs">&rarr;</span>

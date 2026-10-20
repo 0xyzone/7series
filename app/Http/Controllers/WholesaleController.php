@@ -62,4 +62,39 @@ class WholesaleController extends Controller
             'reference_id' => '7S-RFQ-' . str_pad($inquiry->id, 5, '0', STR_PAD_LEFT),
         ]);
     }
+
+    public function submitContact(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'phone' => 'nullable|string|max:50',
+            'subject' => 'nullable|string|max:255',
+            'message' => 'required|string|max:3000',
+        ]);
+
+        $inquiry = WholesaleInquiry::create([
+            'company_name' => $validated['subject'] ?? 'Website Contact',
+            'contact_name' => $validated['name'],
+            'email' => $validated['email'],
+            'phone' => $validated['phone'] ?? null,
+            'business_type' => 'Contact Inquiry',
+            'target_volume' => 'N/A',
+            'product_series' => 'Contact Page',
+            'sample_requested' => false,
+            'notes' => $validated['message'],
+            'status' => 'new',
+        ]);
+
+        try {
+            Subscriber::firstOrCreate(['email' => $validated['email']]);
+        } catch (\Exception $e) {}
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Thank you! Your message has been received. Our team will get back to you shortly.',
+            'reference_id' => '7S-MSG-' . str_pad($inquiry->id, 5, '0', STR_PAD_LEFT),
+        ]);
+    }
 }
+
