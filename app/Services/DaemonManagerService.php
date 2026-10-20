@@ -44,7 +44,8 @@ class DaemonManagerService
         $logFile = storage_path('logs/reverb.log');
 
         $command = sprintf(
-            'nohup %s %s reverb:start --host=%s --port=%d > %s 2>&1 & echo $!',
+            'cd %s && nohup %s %s reverb:start --host=%s --port=%d > %s 2>&1 & echo $!',
+            escapeshellarg(base_path()),
             escapeshellcmd($php),
             escapeshellcmd($artisan),
             escapeshellarg($host),
@@ -176,7 +177,8 @@ class DaemonManagerService
         $node = $this->resolveNodeBinary();
 
         $command = sprintf(
-            'nohup %s %s > %s 2>&1 & echo $!',
+            'cd %s && nohup %s %s > %s 2>&1 & echo $!',
+            escapeshellarg(base_path()),
             escapeshellcmd($node),
             escapeshellcmd($serverJs),
             escapeshellcmd($logFile)
@@ -236,22 +238,24 @@ class DaemonManagerService
      */
     protected function resolvePhpBinary(): string
     {
-        if (defined('PHP_BINARY') && is_executable(PHP_BINARY) && !str_contains(PHP_BINARY, 'fpm')) {
-            return PHP_BINARY;
-        }
+        $version = PHP_MAJOR_VERSION . PHP_MINOR_VERSION;
 
         $candidates = [
-            '/usr/local/bin/php',
-            '/usr/bin/php',
+            defined('PHP_BINDIR') ? PHP_BINDIR . '/php' : null,
+            defined('PHP_BINARY') && is_executable(PHP_BINARY) && !str_contains(PHP_BINARY, 'fpm') ? PHP_BINARY : null,
+            "/opt/cpanel/ea-php{$version}/root/usr/bin/php",
+            "/usr/local/bin/ea-php{$version}",
             '/opt/cpanel/ea-php84/root/usr/bin/php',
             '/opt/cpanel/ea-php83/root/usr/bin/php',
             '/opt/cpanel/ea-php82/root/usr/bin/php',
+            '/usr/local/bin/php',
+            '/usr/bin/php',
             '/Applications/MAMP/bin/php/php8.4.1/bin/php',
             'php',
         ];
 
         foreach ($candidates as $candidate) {
-            if ($candidate !== 'php' && file_exists($candidate) && is_executable($candidate)) {
+            if ($candidate && $candidate !== 'php' && file_exists($candidate) && is_executable($candidate)) {
                 return $candidate;
             }
         }
