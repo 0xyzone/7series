@@ -26,7 +26,7 @@
     <meta name="theme-color" content="{{ $isLocal ? '#18181b' : '#dc2626' }}">
 
     <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=outfit:300,400,500,600,700,800,900|space-grotesk:500,700" rel="stylesheet" />
+    <link href="https://fonts.bunny.net/css?family=poppins:300,400,500,600,700,800,900|inter:400,500,600,700|space-grotesk:500,700" rel="stylesheet" />
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <style>
@@ -34,18 +34,37 @@
             display: none !important;
         }
 
+        body {
+            font-family: 'Poppins', system-ui, -apple-system, sans-serif;
+        }
+
+        .font-mono {
+            font-family: 'Space Grotesk', monospace;
+        }
+
         .text-glow {
-            text-shadow: 0 0 15px rgba(220, 38, 38, 0.45);
+            text-shadow: 0 0 15px rgba(229, 30, 43, 0.4);
         }
 
-        .text-glow-white {
-            text-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
+        .app-card {
+            border-radius: 24px;
+            background: #ffffff;
+            border: 1px solid rgba(226, 232, 240, 0.9);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.04), 0 8px 10px -6px rgba(0, 0, 0, 0.02);
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .bg-glass {
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            background-color: rgba(255, 255, 255, 0.75);
+        .app-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.08);
+            border-color: rgba(229, 30, 43, 0.3);
+        }
+
+        .app-glass {
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            background-color: rgba(255, 255, 255, 0.88);
+            border: 1px solid rgba(255, 255, 255, 0.8);
         }
 
         .dark .bg-glass {
