@@ -3,7 +3,7 @@
 
     <x-nav transparent="true" />
 
-    <main class="min-h-screen pt-24 sm:pt-28 pb-32 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-12 sm:space-y-16">
+    <main class="min-h-screen pt-24 sm:pt-28 pb-36 px-4 sm:px-6 lg:px-10 xl:px-12 w-full space-y-12 sm:space-y-16">
 
         <!-- ========================================================================= -->
         <!-- SECTION 1: HERO AUTHENTIC DENIM JEANS SHOWCASE -->
