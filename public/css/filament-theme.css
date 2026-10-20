@@ -463,26 +463,6 @@ html:not(.dark) .daemon-chip-val { color: #1c1917; }
     box-shadow: none !important;
 }
 
-/* Daemon Button States */
-.daemon-btn .daemon-idle-state {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-}
-
-.daemon-btn .daemon-loading-state {
-    display: none;
-    align-items: center;
-    gap: 0.4rem;
-}
-
-.daemon-btn.is-loading .daemon-idle-state {
-    display: none !important;
-}
-
-.daemon-btn.is-loading .daemon-loading-state {
-    display: inline-flex !important;
-}
 
 @keyframes spin {
     from {

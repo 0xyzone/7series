@@ -66,19 +66,15 @@
                             type="button"
                             class="daemon-btn daemon-btn-start"
                         >
-                            <span wire:loading.remove wire:target="startReverb" class="daemon-idle-state">
-                                <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                </svg>
-                                <span>Start Reverb</span>
-                            </span>
-                            <span wire:loading wire:target="startReverb" class="daemon-loading-state">
-                                <svg class="animate-spin" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                                    <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" stroke-dasharray="31.415, 31.415" stroke-linecap="round" fill="none" />
-                                </svg>
-                                <span>Starting...</span>
-                            </span>
+                            <svg wire:loading.remove wire:target="startReverb" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            <svg wire:loading wire:target="startReverb" class="animate-spin" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" stroke-dasharray="31.415, 31.415" stroke-linecap="round" fill="none" />
+                            </svg>
+                            <span wire:loading.remove wire:target="startReverb">Start Reverb</span>
+                            <span wire:loading wire:target="startReverb">Starting...</span>
                         </button>
                     @else
                         <button
@@ -89,19 +85,15 @@
                             type="button"
                             class="daemon-btn daemon-btn-stop"
                         >
-                            <span wire:loading.remove wire:target="stopReverb" class="daemon-idle-state">
-                                <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 10a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1v-4z" />
-                                </svg>
-                                <span>Stop Reverb</span>
-                            </span>
-                            <span wire:loading wire:target="stopReverb" class="daemon-loading-state">
-                                <svg class="animate-spin" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                                    <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" stroke-dasharray="31.415, 31.415" stroke-linecap="round" fill="none" />
-                                </svg>
-                                <span>Stopping...</span>
-                            </span>
+                            <svg wire:loading.remove wire:target="stopReverb" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 10a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1v-4z" />
+                            </svg>
+                            <svg wire:loading wire:target="stopReverb" class="animate-spin" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" stroke-dasharray="31.415, 31.415" stroke-linecap="round" fill="none" />
+                            </svg>
+                            <span wire:loading.remove wire:target="stopReverb">Stop Reverb</span>
+                            <span wire:loading wire:target="stopReverb">Stopping...</span>
                         </button>
                     @endif
 
@@ -115,18 +107,14 @@
                             class="daemon-btn daemon-btn-start"
                             style="background: linear-gradient(135deg, #059669 0%, #047857 100%);"
                         >
-                            <span wire:loading.remove wire:target="startWhatsApp" class="daemon-idle-state">
-                                <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
-                                </svg>
-                                <span>Start WA</span>
-                            </span>
-                            <span wire:loading wire:target="startWhatsApp" class="daemon-loading-state">
-                                <svg class="animate-spin" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                                    <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" stroke-dasharray="31.415, 31.415" stroke-linecap="round" fill="none" />
-                                </svg>
-                                <span>Starting...</span>
-                            </span>
+                            <svg wire:loading.remove wire:target="startWhatsApp" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                            </svg>
+                            <svg wire:loading wire:target="startWhatsApp" class="animate-spin" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" stroke-dasharray="31.415, 31.415" stroke-linecap="round" fill="none" />
+                            </svg>
+                            <span wire:loading.remove wire:target="startWhatsApp">Start WA</span>
+                            <span wire:loading wire:target="startWhatsApp">Starting...</span>
                         </button>
                     @endif
 
