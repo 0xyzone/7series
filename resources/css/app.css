@@ -90,4 +90,36 @@
     .glow-pulse {
         animation: glow-pulse 2s ease-in-out infinite;
     }
+
+    /* 3D Canvas Grab Cursor */
+    .cursor-3d-grab {
+        cursor: grab;
+    }
+    .cursor-3d-grab:active {
+        cursor: grabbing;
+    }
+
+    /* Microscopic Denim Weave Pattern for Loupe Zoom */
+    .bg-twill-matrix {
+        background-color: #0b0f19;
+        background-image: 
+            radial-gradient(#dc2626 0.75px, transparent 0.75px),
+            repeating-linear-gradient(45deg, rgba(220, 38, 38, 0.12) 0, rgba(220, 38, 38, 0.12) 1px, transparent 0, transparent 8px),
+            repeating-linear-gradient(-45deg, rgba(255, 255, 255, 0.08) 0, rgba(255, 255, 255, 0.08) 1px, #0b0f19 0, #0b0f19 8px);
+        background-size: 16px 16px, 12px 12px, 12px 12px;
+    }
+
+    /* Architectural Tech Grid Lines */
+    .tech-grid {
+        background-size: 32px 32px;
+        background-image: 
+            linear-gradient(to right, rgba(220, 38, 38, 0.06) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(220, 38, 38, 0.06) 1px, transparent 1px);
+    }
+    .dark .tech-grid {
+        background-image: 
+            linear-gradient(to right, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+    }
 }
+
