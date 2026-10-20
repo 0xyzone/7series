@@ -753,3 +753,588 @@ html.dark .inquiry-select {
     box-shadow: 0 0 6px #e51e2b;
 }
 
+/* =========================================================================
+   TELEMETRY WIDGET & SYSTEM SERVICES PAGE STYLES
+   ========================================================================= */
+
+/* SVG Safety Rule for all custom panels */
+.telemetry-widget-card svg,
+.sys-supervisor-banner svg,
+.sys-card svg,
+.daemon-widget-card svg,
+.inquiries-feed-container svg {
+    max-width: 24px !important;
+    max-height: 24px !important;
+    flex-shrink: 0;
+}
+
+/* --- Telemetry Strip Widget (Bottom Dashboard) --- */
+.telemetry-widget-card {
+    border-radius: 1.25rem;
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    box-sizing: border-box;
+    transition: all 0.2s ease;
+}
+
+@media (min-width: 768px) {
+    .telemetry-widget-card {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
+}
+
+html:not(.dark) .telemetry-widget-card {
+    background: #ffffff;
+    border: 1px solid rgba(214, 211, 209, 0.8);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+html.dark .telemetry-widget-card {
+    background: linear-gradient(135deg, #1c1917 0%, #151312 100%);
+    border: 1px solid rgba(68, 64, 60, 0.6);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+.telemetry-left {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.telemetry-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.8rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+
+html:not(.dark) .telemetry-header { color: #1c1917; }
+html.dark .telemetry-header { color: #f5f5f4; }
+
+.telemetry-header a {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: #e51e2b;
+    text-decoration: none;
+    text-transform: none;
+    letter-spacing: normal;
+}
+
+.telemetry-header a:hover {
+    text-decoration: underline;
+}
+
+.telemetry-pills-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.telemetry-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.3rem 0.65rem;
+    border-radius: 9999px;
+    font-size: 0.7rem;
+    font-weight: 700;
+}
+
+.telemetry-pill.live {
+    background: rgba(16, 185, 129, 0.12);
+    color: #10b981;
+    border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.telemetry-pill.live .telemetry-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #10b981;
+    box-shadow: 0 0 6px #10b981;
+    animation: daemon-pulse 1.8s infinite;
+}
+
+.telemetry-pill.offline {
+    background: rgba(239, 68, 68, 0.12);
+    color: #ef4444;
+    border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.telemetry-pill.offline .telemetry-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #ef4444;
+}
+
+.telemetry-pill.qr {
+    background: rgba(245, 158, 11, 0.12);
+    color: #f59e0b;
+    border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.telemetry-pill.qr .telemetry-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #f59e0b;
+    animation: daemon-pulse 1s infinite;
+}
+
+.telemetry-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* --- System Services (WebSockets & WhatsApp Page) --- */
+.sys-page-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.sys-supervisor-banner {
+    border-radius: 1.25rem;
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    box-sizing: border-box;
+}
+
+@media (min-width: 768px) {
+    .sys-supervisor-banner {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
+}
+
+html:not(.dark) .sys-supervisor-banner {
+    background: #ffffff;
+    border: 1px solid rgba(214, 211, 209, 0.8);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+html.dark .sys-supervisor-banner {
+    background: linear-gradient(135deg, #1c1917 0%, #151312 100%);
+    border: 1px solid rgba(68, 64, 60, 0.6);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+.sys-banner-title {
+    font-size: 1.05rem;
+    font-weight: 800;
+    margin: 0;
+    letter-spacing: -0.01em;
+}
+
+html:not(.dark) .sys-banner-title { color: #1c1917; }
+html.dark .sys-banner-title { color: #f5f5f4; }
+
+.sys-banner-desc {
+    font-size: 0.78rem;
+    color: #78716c;
+    margin: 0.25rem 0 0 0;
+    max-width: 650px;
+    line-height: 1.4;
+}
+
+.sys-banner-status {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-shrink: 0;
+}
+
+.sys-sync-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    background: none;
+    border: none;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: #78716c;
+    cursor: pointer;
+    padding: 0.2rem 0.4rem;
+    border-radius: 0.35rem;
+    transition: color 0.15s ease;
+}
+
+.sys-sync-btn:hover {
+    color: #e51e2b;
+}
+
+.sys-sync-btn svg {
+    width: 14px !important;
+    height: 14px !important;
+}
+
+/* 2-Column Services Grid */
+.sys-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+}
+
+@media (min-width: 1024px) {
+    .sys-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+.sys-card {
+    border-radius: 1.25rem;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-sizing: border-box;
+    transition: all 0.2s ease;
+}
+
+html:not(.dark) .sys-card {
+    background: #ffffff;
+    border: 1px solid rgba(214, 211, 209, 0.8);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
+}
+
+html.dark .sys-card {
+    background: linear-gradient(135deg, #1c1917 0%, #141210 100%);
+    border: 1px solid rgba(68, 64, 60, 0.6);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.sys-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(120, 113, 108, 0.15);
+}
+
+.sys-card-header-left {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.sys-icon-badge {
+    width: 40px;
+    height: 40px;
+    border-radius: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.sys-icon-badge svg {
+    width: 20px !important;
+    height: 20px !important;
+    display: block;
+}
+
+.sys-icon-badge.red {
+    background: rgba(229, 30, 43, 0.1);
+    color: #e51e2b;
+}
+
+.sys-icon-badge.green {
+    background: rgba(16, 185, 129, 0.1);
+    color: #10b981;
+}
+
+.sys-card-title {
+    font-size: 0.95rem;
+    font-weight: 800;
+    margin: 0;
+}
+
+html:not(.dark) .sys-card-title { color: #1c1917; }
+html.dark .sys-card-title { color: #f5f5f4; }
+
+.sys-card-sub {
+    font-size: 0.7rem;
+    color: #78716c;
+    margin: 0.15rem 0 0 0;
+}
+
+/* 4-Quadrant Metrics Grid */
+.sys-metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem;
+    margin-top: 1.25rem;
+}
+
+.sys-metric-cell {
+    padding: 0.75rem 1rem;
+    border-radius: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+html:not(.dark) .sys-metric-cell {
+    background: #f5f5f4;
+    border: 1px solid rgba(214, 211, 209, 0.6);
+}
+
+html.dark .sys-metric-cell {
+    background: rgba(41, 37, 36, 0.5);
+    border: 1px solid rgba(68, 64, 60, 0.6);
+}
+
+.sys-metric-cell-label {
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #a8a29e;
+}
+
+.sys-metric-cell-val {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    font-weight: 700;
+    margin: 0;
+}
+
+html:not(.dark) .sys-metric-cell-val { color: #1c1917; }
+html.dark .sys-metric-cell-val { color: #f5f5f4; }
+
+/* Terminal Logs Box */
+.sys-terminal-wrap {
+    margin-top: 1.25rem;
+}
+
+.sys-terminal-label {
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #a8a29e;
+    margin-bottom: 0.35rem;
+    display: block;
+}
+
+.sys-terminal-box {
+    margin: 0;
+    padding: 0.75rem 1rem;
+    border-radius: 0.75rem;
+    background: #09090b;
+    border: 1px solid rgba(68, 64, 60, 0.5);
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    line-height: 1.4;
+    color: #a1a1aa;
+    max-height: 140px;
+    overflow-x: auto;
+    overflow-y: auto;
+    white-space: pre-wrap;
+}
+
+/* WhatsApp Paired State */
+.sys-paired-box {
+    margin-top: 1.25rem;
+    border-radius: 0.75rem;
+    padding: 1rem;
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    background: rgba(16, 185, 129, 0.06);
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.sys-paired-head {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.sys-paired-check {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: #10b981;
+    color: white;
+    font-weight: 800;
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.sys-paired-title {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: #10b981;
+}
+
+.sys-paired-num {
+    font-family: var(--font-mono);
+    font-size: 0.95rem;
+    font-weight: 800;
+    margin: 0;
+}
+
+html:not(.dark) .sys-paired-num { color: #1c1917; }
+html.dark .sys-paired-num { color: #f5f5f4; }
+
+.sys-paired-desc {
+    font-size: 0.72rem;
+    color: #78716c;
+    margin: 0;
+    line-height: 1.35;
+}
+
+/* WhatsApp QR Pairing Box */
+.sys-qr-box {
+    margin-top: 1.25rem;
+    border-radius: 0.75rem;
+    padding: 1.25rem;
+    border: 1px solid rgba(245, 158, 11, 0.3);
+    background: rgba(245, 158, 11, 0.05);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.75rem;
+}
+
+.sys-qr-img-wrap {
+    padding: 0.5rem;
+    border-radius: 0.75rem;
+    background: #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.sys-qr-img-wrap img {
+    width: 170px !important;
+    height: 170px !important;
+    display: block;
+}
+
+.sys-qr-steps {
+    text-align: left;
+    font-size: 0.72rem;
+    color: #a8a29e;
+    margin: 0;
+    padding-left: 1.25rem;
+    line-height: 1.5;
+}
+
+.sys-qr-steps strong {
+    color: #f5f5f4;
+}
+
+/* WhatsApp Offline Box */
+.sys-offline-box {
+    margin-top: 1.25rem;
+    border-radius: 0.75rem;
+    padding: 1.25rem;
+    text-align: center;
+    border: 1px dashed rgba(120, 113, 108, 0.3);
+    color: #78716c;
+    font-size: 0.75rem;
+}
+
+/* Test Message Form */
+.sys-test-box {
+    margin-top: 1.25rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(120, 113, 108, 0.15);
+}
+
+.sys-test-label {
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #a8a29e;
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+.sys-test-inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+@media (min-width: 640px) {
+    .sys-test-inputs {
+        flex-direction: row;
+        align-items: center;
+    }
+}
+
+.sys-input {
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.625rem;
+    font-size: 0.75rem;
+    border: 1px solid rgba(120, 113, 108, 0.3);
+    outline: none;
+    box-sizing: border-box;
+}
+
+html:not(.dark) .sys-input {
+    background: #ffffff;
+    color: #1c1917;
+}
+
+html.dark .sys-input {
+    background: rgba(41, 37, 36, 0.7);
+    color: #f5f5f4;
+}
+
+.sys-input:focus {
+    border-color: #e51e2b;
+}
+
+.sys-btn-send {
+    padding: 0.5rem 1rem;
+    border-radius: 0.625rem;
+    background: #059669;
+    color: #ffffff;
+    font-size: 0.75rem;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+}
+
+.sys-btn-send:hover {
+    background: #10b981;
+}
+
+/* Card Action Footer */
+.sys-card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(120, 113, 108, 0.15);
+}
+
+.sys-footer-label {
+    font-size: 0.72rem;
+    color: #78716c;
+}
+
+
