@@ -13,16 +13,10 @@ class DaemonManagerService
     public function isReverbRunning(): bool
     {
         $port = (int) config('reverb.servers.reverb.port', 8080);
-        $artisan = base_path('artisan');
 
-        // 1. Check if the specific 7series artisan process is alive
-        $hasProcess = false;
-        try {
-            $pids = @shell_exec("pgrep -f " . escapeshellarg($artisan . ' reverb:start') . " 2>/dev/null");
-            if ($pids && trim($pids)) {
-                $hasProcess = true;
-            }
-        } catch (\Throwable) {}
+        // 1. Check if process exists in /proc or via pgrep
+        $pids = $this->findPidsByKeyword('reverb:start');
+        $hasProcess = !empty($pids);
 
         // 2. Check socket connection across loopback and local hosts
         $hasSocket = false;
@@ -44,6 +38,9 @@ class DaemonManagerService
     public function startReverb(): array
     {
         try {
+            // Remove stopped watchdog barrier
+            @unlink(storage_path('framework/reverb.stopped'));
+
             if ($this->isReverbRunning()) {
                 return [
                     'success' => true,
@@ -80,6 +77,9 @@ class DaemonManagerService
 
             @exec($command, $output);
             $pid = isset($output[0]) ? trim($output[0]) : null;
+            if ($pid && is_numeric($pid)) {
+                @file_put_contents(storage_path('framework/reverb.pid'), $pid);
+            }
 
             // Dynamically wait for Reverb to bind to port (up to 2.5s in 150ms intervals)
             $running = false;
@@ -127,23 +127,40 @@ class DaemonManagerService
     public function stopReverb(): array
     {
         try {
-            $artisan = base_path('artisan');
-            @exec("pkill -f " . escapeshellarg($artisan . ' reverb:start'));
+            // Signal watchdog cron to not auto-restart
+            @file_put_contents(storage_path('framework/reverb.stopped'), time());
+
+            $port = (int) config('reverb.servers.reverb.port', 8080);
+
+            // 1. Kill saved PID from file if available
+            $pidFile = storage_path('framework/reverb.pid');
+            if (file_exists($pidFile)) {
+                $savedPid = (int) trim((string) @file_get_contents($pidFile));
+                if ($savedPid > 1) {
+                    $this->killPids([$savedPid]);
+                }
+                @unlink($pidFile);
+            }
+
+            // 2. Kill all processes matching 'reverb:start'
+            $pids = $this->findPidsByKeyword('reverb:start');
+            if (!empty($pids)) {
+                $this->killPids($pids);
+            }
+
+            // 3. Fallback kill commands
+            @exec("pkill -9 -f 'reverb:start' 2>/dev/null");
+            @exec("fuser -k -9 {$port}/tcp 2>/dev/null");
+            @exec("lsof -t -i:{$port} | xargs kill -9 2>/dev/null");
+
+            // 4. Poll until socket closes
             $running = true;
-            for ($i = 0; $i < 10; $i++) {
-                usleep(50000);
+            for ($i = 0; $i < 12; $i++) {
+                usleep(80000);
                 if (!$this->isReverbRunning()) {
                     $running = false;
                     break;
                 }
-            }
-
-            if ($running) {
-                @exec("pkill -9 -f " . escapeshellarg($artisan . ' reverb:start'));
-                $port = (int) config('reverb.servers.reverb.port', 8080);
-                @exec("lsof -t -i:{$port} | xargs kill -9 2>/dev/null");
-                usleep(100000);
-                $running = $this->isReverbRunning();
             }
 
             return [
@@ -257,6 +274,10 @@ class DaemonManagerService
             @exec($command, $output);
             $pid = isset($output[0]) ? trim($output[0]) : null;
 
+            if ($pid && is_numeric($pid)) {
+                @file_put_contents(storage_path('framework/whatsapp.pid'), $pid);
+            }
+
             // Dynamically wait for WhatsApp to respond (up to 2.5s in 150ms intervals)
             $status = ['running' => false];
             for ($i = 0; $i < 16; $i++) {
@@ -291,11 +312,33 @@ class DaemonManagerService
     public function stopWhatsApp(): array
     {
         try {
-            @exec("pkill -f 'whatsapp-gateway/server.js'");
+            // 1. Kill saved PID from file if available
+            $pidFile = storage_path('framework/whatsapp.pid');
+            if (file_exists($pidFile)) {
+                $savedPid = (int) trim((string) @file_get_contents($pidFile));
+                if ($savedPid > 1) {
+                    $this->killPids([$savedPid]);
+                }
+                @unlink($pidFile);
+            }
+
+            // 2. Kill all processes matching 'whatsapp-gateway' or 'server.js'
+            $pids = array_unique(array_merge(
+                $this->findPidsByKeyword('whatsapp-gateway/server.js'),
+                $this->findPidsByKeyword('whatsapp-gateway')
+            ));
+            if (!empty($pids)) {
+                $this->killPids($pids);
+            }
+
+            // 3. Fallback kill commands
+            @exec("pkill -9 -f 'whatsapp-gateway' 2>/dev/null");
+            @exec("fuser -k -9 3000/tcp 2>/dev/null");
             @exec("lsof -t -i:3000 | xargs kill -9 2>/dev/null");
+
             $status = ['running' => true];
-            for ($i = 0; $i < 10; $i++) {
-                usleep(50000);
+            for ($i = 0; $i < 12; $i++) {
+                usleep(80000);
                 $status = $this->getWhatsAppStatus();
                 if (!$status['running']) {
                     break;
@@ -330,11 +373,99 @@ class DaemonManagerService
     }
 
     /**
+     * Find PIDs associated with a keyword by inspecting /proc and pgrep.
+     */
+    protected function findPidsByKeyword(string $keyword): array
+    {
+        $pids = [];
+
+        // 1. Scan Linux /proc filesystem directly (independent of shell tools)
+        if (is_dir('/proc')) {
+            $dirs = @glob('/proc/[0-9]*');
+            if ($dirs) {
+                foreach ($dirs as $procDir) {
+                    $pid = (int) basename($procDir);
+                    if ($pid <= 1) continue;
+                    $cmdlineFile = $procDir . '/cmdline';
+                    if (@is_readable($cmdlineFile)) {
+                        $cmd = @file_get_contents($cmdlineFile);
+                        if ($cmd && str_contains($cmd, $keyword)) {
+                            $pids[] = $pid;
+                        }
+                    }
+                }
+            }
+        }
+
+        // 2. Fallback to pgrep if available
+        if (empty($pids)) {
+            try {
+                $output = @shell_exec("pgrep -f " . escapeshellarg($keyword) . " 2>/dev/null");
+                if ($output) {
+                    foreach (explode("\n", trim($output)) as $line) {
+                        $p = (int) trim($line);
+                        if ($p > 1 && !in_array($p, $pids, true)) {
+                            $pids[] = $p;
+                        }
+                    }
+                }
+            } catch (\Throwable) {}
+        }
+
+        return array_values(array_unique($pids));
+    }
+
+    /**
+     * Terminate a list of PIDs safely (SIGTERM then SIGKILL).
+     */
+    protected function killPids(array $pids): void
+    {
+        foreach ($pids as $pid) {
+            if ($pid <= 1) continue;
+            if (function_exists('posix_kill')) {
+                @posix_kill($pid, 15); // SIGTERM
+            }
+            @exec("kill -15 {$pid} 2>/dev/null");
+        }
+
+        usleep(80000);
+
+        foreach ($pids as $pid) {
+            if ($pid <= 1) continue;
+            if (function_exists('posix_kill')) {
+                @posix_kill($pid, 9); // SIGKILL
+            }
+            @exec("kill -9 {$pid} 2>/dev/null");
+        }
+    }
+
+    /**
      * Resolve the PHP CLI binary across environments (MAMP, cPanel ea-php, VPS).
      */
     protected function resolvePhpBinary(): string
     {
-        // 1. Try to query the system shell for the CLI PHP binary
+        // 1. Prioritize cPanel / EasyApache PHP >= 8.3 candidates
+        $cpanelCandidates = [
+            '/usr/local/bin/ea-php84',
+            '/opt/cpanel/ea-php84/root/usr/bin/php',
+            '/usr/local/bin/ea-php83',
+            '/opt/cpanel/ea-php83/root/usr/bin/php',
+            '/usr/local/bin/ea-php82',
+            '/opt/cpanel/ea-php82/root/usr/bin/php',
+        ];
+
+        foreach ($cpanelCandidates as $candidate) {
+            if (@file_exists($candidate) && @is_executable($candidate)) {
+                return $candidate;
+            }
+        }
+
+        // 2. Try PHP_BINARY if running via CLI and PHP version >= 8.2
+        if (PHP_VERSION_ID >= 80200 && PHP_BINARY && !str_contains(PHP_BINARY, 'php-fpm')) {
+            return PHP_BINARY;
+        }
+
+        // 3. Try to query the system shell for the CLI PHP binary
         try {
             $which = @shell_exec('which php 2>/dev/null');
             if ($which && trim($which)) {
@@ -344,25 +475,6 @@ class DaemonManagerService
                 }
             }
         } catch (\Throwable) {}
-
-        // 2. Try cPanel version-specific ea-php binary via shell
-        $version = PHP_MAJOR_VERSION . PHP_MINOR_VERSION;
-        try {
-            $which = @shell_exec("which ea-php{$version} 2>/dev/null");
-            if ($which && trim($which)) {
-                return trim($which);
-            }
-        } catch (\Throwable) {}
-
-        // 3. Fallback to PHP_BINDIR if defined
-        if (defined('PHP_BINDIR') && PHP_BINDIR) {
-            $candidate = PHP_BINDIR . '/php';
-            try {
-                if (@file_exists($candidate)) {
-                    return $candidate;
-                }
-            } catch (\Throwable) {}
-        }
 
         // 4. Default to standard CLI command
         return 'php';

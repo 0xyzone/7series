@@ -35,6 +35,11 @@ if [ -z "$PHP_BIN" ]; then
     exit 1
 fi
 
+# Check if Reverb was manually stopped via admin panel
+if [ -f "$APP_DIR/storage/framework/reverb.stopped" ]; then
+    exit 0
+fi
+
 # Check if Reverb is already running
 if pgrep -f "$APP_DIR/artisan reverb:start" > /dev/null 2>&1 || pgrep -f "artisan reverb:start" > /dev/null 2>&1; then
     exit 0
@@ -50,3 +55,4 @@ fi
 # Start Reverb in the background with nohup using absolute path
 cd "$APP_DIR" || exit 1
 nohup "$PHP_BIN" "$APP_DIR/artisan" reverb:start >> "$LOG_FILE" 2>&1 &
+echo $! > "$APP_DIR/storage/framework/reverb.pid"
