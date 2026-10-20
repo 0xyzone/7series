@@ -36,7 +36,7 @@
                         <span>SEVEN SERIES GARMENT INDUSTRY</span>
                     </div>
 
-                    <h1 class="text-6xl sm:text-7xl xl:text-8xl font-black tracking-tighter leading-[0.92] uppercase">
+                    <h1 class="text-5xl sm:text-7xl xl:text-8xl font-black tracking-tighter leading-[0.92] uppercase">
                         RAW. RUGGED. <br>
                         <span class="text-red-600 text-glow">REBELLIOUS.</span>
                     </h1>
