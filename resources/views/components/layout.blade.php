@@ -1,24 +1,59 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" x-data="{ 
-    darkMode: localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches),
-    toggleTheme() {
-        this.darkMode = !this.darkMode;
-        localStorage.setItem('theme', this.darkMode ? 'dark' : 'light');
-    }
-}" :class="{ 'dark': darkMode }" class="scroll-smooth">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}"
+    x-data="{ 
+        darkMode: document.documentElement.classList.contains('dark'),
+        toggleTheme() {
+            this.darkMode = !this.darkMode;
+            if (this.darkMode) {
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+            }
+        }
+    }"
+    class="scroll-smooth">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <!-- Instant Early Theme Application to prevent any flash of light mode -->
+    <script>
+        (function() {
+            try {
+                const storedTheme = localStorage.getItem('theme');
+                const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                const isDark = storedTheme === 'dark' || (!storedTheme && systemPrefersDark);
+                if (isDark) {
+                    document.documentElement.classList.add('dark');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                }
+            } catch (e) {}
+        })();
+    </script>
+
     <title>{{ $title ?? 'Seven Series Garment Industry | Precision Apparel for Wholesalers & Retailers' }}</title>
     <meta name="description" content="Seven Series Garment Industry is the technology-driven apparel manufacturer engineered like Apple and scaled like Xiaomi. Supplying high-grade denim, technical fabrics, and bulk apparel to global retailers and wholesalers.">
     
-    <!-- Brand Favicons & Icons -->
-    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
-    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('favicon.png') }}">
-    <link rel="icon" type="image/png" sizes="192x192" href="{{ asset('images/brand/icon-192.png') }}">
-    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('apple-touch-icon.png') }}">
-    <meta name="theme-color" content="#dc2626">
+    @php
+        $isLocal = \App\Helpers\FaviconHelper::isLocal();
+        $favIco = \App\Helpers\FaviconHelper::getFaviconIcoUrl();
+        $favPng = \App\Helpers\FaviconHelper::getFaviconPngUrl();
+        $favTouch = \App\Helpers\FaviconHelper::getAppleTouchIconUrl();
+        $fav192 = $isLocal ? asset('images/brand/icon-white-192.png') : asset('images/brand/icon-192.png');
+    @endphp
+
+    <!-- Brand Favicons & Icons (Red for 7series.com.np production, White for local setup) -->
+    <link rel="icon" type="image/x-icon" href="{{ $favIco }}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ $favIco }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ $favPng }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ $favPng }}">
+    <link rel="icon" type="image/png" sizes="192x192" href="{{ $fav192 }}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ $favTouch }}">
+    <meta name="theme-color" content="{{ $isLocal ? '#18181b' : '#dc2626' }}">
 
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=outfit:300,400,500,600,700,800,900|space-grotesk:500,700" rel="stylesheet" />

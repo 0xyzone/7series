@@ -35,7 +35,33 @@ class MukhiyaPanelProvider extends PanelProvider
             ->brandLogo(fn () => asset('images/brand/logo-light.png'))
             ->darkModeBrandLogo(fn () => asset('images/brand/logo-dark.png'))
             ->brandLogoHeight('2.2rem')
-            ->favicon(asset('favicon.png'))
+            ->favicon(fn () => \App\Helpers\FaviconHelper::getFaviconPngUrl())
+            ->renderHook(
+                \Filament\View\PanelsRenderHook::HEAD_END,
+                fn () => new \Illuminate\Support\HtmlString('<script>
+                    (function() {
+                        var h = window.location.hostname;
+                        var isLocal = ' . (\App\Helpers\FaviconHelper::isLocal() ? 'true' : 'false') . ' || h === "localhost" || h === "127.0.0.1" || h === "7series" || h.endsWith(".test") || h.endsWith(".local") || h.startsWith("192.168.");
+                        var targetPng = isLocal ? "' . asset('favicon-white.png') . '" : "' . asset('favicon.png') . '";
+                        var targetIco = isLocal ? "' . asset('favicon-white.ico') . '" : "' . asset('favicon.ico') . '";
+                        var links = document.querySelectorAll("link[rel*=\'icon\']");
+                        if (links.length === 0) {
+                            var l = document.createElement("link");
+                            l.rel = "icon";
+                            l.href = targetPng;
+                            document.head.appendChild(l);
+                        } else {
+                            links.forEach(function(l) {
+                                if (l.getAttribute("type") === "image/x-icon" || l.href.indexOf(".ico") !== -1) {
+                                    l.href = targetIco;
+                                } else {
+                                    l.href = targetPng;
+                                }
+                            });
+                        }
+                    })();
+                </script>')
+            )
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\Filament\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\Filament\Pages')
             ->pages([

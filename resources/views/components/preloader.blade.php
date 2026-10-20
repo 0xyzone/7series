@@ -15,10 +15,10 @@
         }
     }"
     x-show="visible"
-    x-transition:leave="transition-opacity ease-in-out duration-500"
+    x-transition:leave="transition-opacity ease-out duration-400"
     x-transition:leave-start="opacity-100"
     x-transition:leave-end="opacity-0 pointer-events-none"
-    class="fixed inset-0 z-[9999] bg-white dark:bg-zinc-950 flex flex-col items-center justify-center overflow-hidden transition-colors duration-500"
+    class="fixed inset-0 z-[9999] bg-white dark:bg-zinc-950 flex flex-col items-center justify-center overflow-hidden"
     style="display: flex;">
     
     <!-- Memphis & Symbol Background Accents -->
