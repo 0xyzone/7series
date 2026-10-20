@@ -29,21 +29,24 @@ class UsersTable
                         TextColumn::make('name')
                             ->searchable()
                             ->weight('bold')
-                            ->size('lg')
-                            ->icon('heroicon-o-user-circle'),
+                            ->size('base')
+                            ->icon('heroicon-o-user-circle')
+                            ->wrap(),
                         TextColumn::make('roles.name')
                             ->badge()
                             ->color(fn (string $state): string => match ($state) {
                                 'super_admin' => 'danger',
                                 'panel_user' => 'info',
                                 default => 'primary',
-                            }),
+                            })
+                            ->grow(false),
                     ]),
 
                     Split::make([
                         TextColumn::make('email')
                             ->icon('heroicon-o-envelope')
                             ->color('gray')
+                            ->wrap()
                             ->copyable(),
                     ]),
 

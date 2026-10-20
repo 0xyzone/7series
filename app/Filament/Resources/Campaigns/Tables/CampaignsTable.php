@@ -33,8 +33,9 @@ class CampaignsTable
                         TextColumn::make('subject')
                             ->searchable()
                             ->weight('bold')
-                            ->size('lg')
-                            ->icon('heroicon-o-megaphone'),
+                            ->size('base')
+                            ->icon('heroicon-o-megaphone')
+                            ->wrap(),
                     ]),
 
                     Split::make([

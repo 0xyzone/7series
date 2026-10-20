@@ -8,7 +8,6 @@ use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\ViewAction;
 use Filament\Tables\Columns\ImageColumn;
-use Filament\Tables\Columns\Layout\Panel;
 use Filament\Tables\Columns\Layout\Split;
 use Filament\Tables\Columns\Layout\Stack;
 use Filament\Tables\Columns\TextColumn;
@@ -30,51 +29,58 @@ class RetailStoresTable
                 Stack::make([
                     ImageColumn::make('image')
                         ->disk('public')
-                        ->height('160px')
+                        ->height('140px')
                         ->width('100%')
                         ->extraImgAttributes(['class' => 'object-cover rounded-lg w-full mb-2'])
-                        ->defaultImageUrl(asset('images/brand/logo-dark.png')),
+                        ->defaultImageUrl('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="300" height="140" viewBox="0 0 300 140"><rect width="300" height="140" fill="%2318181b"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="%2371717a" font-family="sans-serif" font-size="14" font-weight="bold">STORE OUTLET</text></svg>'),
 
                     Split::make([
                         TextColumn::make('name')
                             ->searchable()
                             ->weight('bold')
-                            ->size('lg')
-                            ->icon('heroicon-o-building-storefront'),
+                            ->size('base')
+                            ->icon('heroicon-o-building-storefront')
+                            ->wrap(),
                         TextColumn::make('city')
                             ->badge()
                             ->color('info')
-                            ->searchable(),
+                            ->searchable()
+                            ->grow(false),
                     ]),
 
                     Split::make([
                         TextColumn::make('store_type')
                             ->badge()
-                            ->color('primary'),
+                            ->color('primary')
+                            ->grow(false),
                         TextColumn::make('phone')
                             ->icon('heroicon-o-phone')
                             ->color('gray')
-                            ->size('xs'),
+                            ->size('xs')
+                            ->wrap(),
                     ]),
+
+                    TextColumn::make('address')
+                        ->icon('heroicon-o-map-pin')
+                        ->color('gray')
+                        ->size('xs')
+                        ->wrap(),
+
+                    TextColumn::make('operating_hours')
+                        ->icon('heroicon-o-clock')
+                        ->color('gray')
+                        ->size('xs')
+                        ->wrap(),
 
                     Split::make([
                         ToggleColumn::make('is_active')
-                            ->label('Active'),
+                            ->label('Active')
+                            ->grow(false),
                         ToggleColumn::make('featured')
-                            ->label('Featured'),
+                            ->label('Featured')
+                            ->grow(false),
                     ]),
-
-                    Panel::make([
-                        TextColumn::make('address')
-                            ->icon('heroicon-o-map-pin')
-                            ->color('gray')
-                            ->size('xs'),
-                        TextColumn::make('operating_hours')
-                            ->icon('heroicon-o-clock')
-                            ->color('gray')
-                            ->size('xs'),
-                    ])->collapsible(),
-                ])->space(3),
+                ])->space(2),
             ])
             ->filters([
                 SelectFilter::make('city')

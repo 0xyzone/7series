@@ -28,8 +28,9 @@ class SubscribersTable
                         TextColumn::make('email')
                             ->searchable()
                             ->weight('bold')
-                            ->size('lg')
+                            ->size('base')
                             ->icon('heroicon-o-envelope')
+                            ->wrap()
                             ->copyable(),
                     ]),
                     Split::make([

@@ -80,52 +80,59 @@ class B2bOfferingResource extends Resource
                 \Filament\Tables\Columns\Layout\Stack::make([
                     \Filament\Tables\Columns\ImageColumn::make('image')
                         ->disk('public')
-                        ->height('160px')
+                        ->height('140px')
                         ->width('100%')
                         ->extraImgAttributes(['class' => 'object-cover rounded-lg w-full mb-2'])
-                        ->defaultImageUrl(asset('images/brand/logo-dark.png')),
+                        ->defaultImageUrl('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="300" height="140" viewBox="0 0 300 140"><rect width="300" height="140" fill="%2318181b"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="%2371717a" font-family="sans-serif" font-size="14" font-weight="bold">7SERIES B2B</text></svg>'),
 
                     \Filament\Tables\Columns\Layout\Split::make([
                         TextColumn::make('title')
                             ->searchable()
                             ->weight('bold')
-                            ->size('lg'),
+                            ->size('base')
+                            ->wrap(),
                         TextColumn::make('category')
                             ->badge()
-                            ->color('info'),
+                            ->color('info')
+                            ->grow(false),
                     ]),
+
+                    TextColumn::make('fabric_spec')
+                        ->color('gray')
+                        ->size('xs')
+                        ->icon('heroicon-o-sparkles')
+                        ->wrap(),
 
                     \Filament\Tables\Columns\Layout\Split::make([
                         TextColumn::make('moq')
                             ->label('MOQ')
                             ->icon('heroicon-o-cube')
-                            ->color('gray'),
-                        TextColumn::make('fob_price_range')
-                            ->label('FOB Range')
-                            ->weight('bold')
-                            ->color('primary'),
-                    ]),
-
-                    \Filament\Tables\Columns\Layout\Split::make([
+                            ->color('gray')
+                            ->size('xs'),
                         TextColumn::make('turnaround_time')
                             ->icon('heroicon-o-clock')
                             ->color('gray')
                             ->size('xs'),
-                        \Filament\Tables\Columns\ToggleColumn::make('is_active')
-                            ->label('Active'),
                     ]),
 
-                    \Filament\Tables\Columns\Layout\Panel::make([
-                        TextColumn::make('fabric_spec')
-                            ->label('Fabric Spec')
-                            ->color('gray')
-                            ->size('xs'),
-                        TextColumn::make('description')
-                            ->limit(90)
-                            ->color('gray')
-                            ->size('xs'),
-                    ])->collapsible(),
-                ])->space(3),
+                    \Filament\Tables\Columns\Layout\Split::make([
+                        TextColumn::make('fob_price_range')
+                            ->weight('bold')
+                            ->color('primary')
+                            ->size('sm')
+                            ->wrap(),
+                        \Filament\Tables\Columns\ToggleColumn::make('is_active')
+                            ->label('Active')
+                            ->grow(false),
+                    ]),
+
+                    TextColumn::make('description')
+                        ->limit(100)
+                        ->wrap()
+                        ->color('gray')
+                        ->size('xs')
+                        ->placeholder('No description provided.'),
+                ])->space(2),
             ])
             ->filters([
                 //

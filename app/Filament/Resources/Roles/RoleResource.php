@@ -166,15 +166,17 @@ class RoleResource extends Resource
                     \Filament\Tables\Columns\Layout\Split::make([
                         TextColumn::make('name')
                             ->weight(FontWeight::Bold)
-                            ->size('lg')
+                            ->size('base')
                             ->label(__('filament-shield::filament-shield.column.name'))
                             ->formatStateUsing(fn (string $state): string => Str::headline($state))
                             ->icon('heroicon-o-shield-check')
+                            ->wrap()
                             ->searchable(),
                         TextColumn::make('guard_name')
                             ->badge()
                             ->color('warning')
-                            ->label(__('filament-shield::filament-shield.column.guard_name')),
+                            ->label(__('filament-shield::filament-shield.column.guard_name'))
+                            ->grow(false),
                     ]),
                     \Filament\Tables\Columns\Layout\Split::make([
                         TextColumn::make('permissions_count')

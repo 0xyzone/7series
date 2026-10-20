@@ -28,24 +28,26 @@ class WholesaleInquiriesTable
             ])
             ->columns([
                 Stack::make([
-                    // Top Split: Company Name & Direct Inline Status Dropdown
-                    Split::make([
-                        TextColumn::make('company_name')
-                            ->searchable()
-                            ->weight('bold')
-                            ->size('lg')
-                            ->icon('heroicon-o-building-office-2'),
-                    ]),
+                    // Header: Company Name
+                    TextColumn::make('company_name')
+                        ->searchable()
+                        ->weight('bold')
+                        ->size('base')
+                        ->icon('heroicon-o-building-office-2')
+                        ->wrap(),
 
                     // Contact Info Line
                     Split::make([
                         TextColumn::make('contact_name')
                             ->searchable()
                             ->icon('heroicon-o-user')
-                            ->color('gray'),
+                            ->color('gray')
+                            ->size('xs')
+                            ->wrap(),
                         TextColumn::make('business_type')
                             ->badge()
-                            ->color('primary'),
+                            ->color('primary')
+                            ->grow(false),
                     ]),
 
                     // Communication Details
@@ -53,11 +55,13 @@ class WholesaleInquiriesTable
                         TextColumn::make('email')
                             ->icon('heroicon-o-envelope')
                             ->color('gray')
-                            ->copyable(),
+                            ->size('xs')
+                            ->wrap(),
                         TextColumn::make('phone')
                             ->icon('heroicon-o-phone')
                             ->color('gray')
-                            ->copyable(),
+                            ->size('xs')
+                            ->wrap(),
                     ]),
 
                     // Volume & Series
@@ -65,42 +69,48 @@ class WholesaleInquiriesTable
                         TextColumn::make('target_volume')
                             ->badge()
                             ->color('warning')
-                            ->icon('heroicon-o-archive-box'),
+                            ->icon('heroicon-o-archive-box')
+                            ->grow(false),
                         TextColumn::make('product_series')
                             ->badge()
-                            ->color('info'),
+                            ->color('info')
+                            ->grow(false),
                     ]),
 
-                    // Inline Controls: Status Select & Sample Toggle
+                    // Status Dropdown Full Width
+                    SelectColumn::make('status')
+                        ->options([
+                            'new' => 'New Inquiry',
+                            'contacted' => 'Contacted',
+                            'in_review' => 'In Review',
+                            'sample_sent' => 'Sample Dispatched',
+                            'quoted' => 'Quotation Sent',
+                            'approved' => 'Approved (B2B)',
+                            'closed' => 'Closed',
+                        ])
+                        ->selectablePlaceholder(false),
+
+                    // Sample Toggle & Date
                     Split::make([
-                        SelectColumn::make('status')
-                            ->options([
-                                'new' => 'New Inquiry',
-                                'contacted' => 'Contacted',
-                                'in_review' => 'In Review',
-                                'sample_sent' => 'Sample Dispatched',
-                                'quoted' => 'Quoted',
-                                'approved' => 'Approved (B2B)',
-                                'closed' => 'Closed',
-                            ])
-                            ->selectablePlaceholder(false),
                         ToggleColumn::make('sample_requested')
-                            ->label('Sample Needed'),
-                    ]),
-
-                    // Optional Notes Panel
-                    Panel::make([
-                        TextColumn::make('notes')
-                            ->label('Notes')
-                            ->limit(100)
-                            ->placeholder('No notes provided.')
-                            ->color('gray'),
+                            ->label('Sample Needed')
+                            ->grow(false),
                         TextColumn::make('created_at')
                             ->dateTime('M d, Y · h:i A')
                             ->color('gray')
-                            ->size('xs'),
-                    ])->collapsible(),
-                ])->space(3),
+                            ->size('xs')
+                            ->grow(false),
+                    ]),
+
+                    // Notes
+                    TextColumn::make('notes')
+                        ->label('Notes')
+                        ->limit(120)
+                        ->wrap()
+                        ->placeholder('No additional notes.')
+                        ->color('gray')
+                        ->size('xs'),
+                ])->space(2),
             ])
             ->filters([
                 SelectFilter::make('status')

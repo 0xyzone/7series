@@ -28,13 +28,15 @@ class CategoriesTable
                         TextColumn::make('name')
                             ->searchable()
                             ->weight('bold')
-                            ->size('lg')
-                            ->icon('heroicon-o-tag'),
+                            ->size('base')
+                            ->icon('heroicon-o-tag')
+                            ->wrap(),
                         TextColumn::make('products_count')
                             ->counts('products')
                             ->badge()
                             ->color('info')
-                            ->suffix(' items'),
+                            ->suffix(' items')
+                            ->grow(false),
                     ]),
                     Split::make([
                         TextColumn::make('slug')

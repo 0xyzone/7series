@@ -31,41 +31,48 @@ class ProductsTable
                 Stack::make([
                     ImageColumn::make('image')
                         ->disk('public')
-                        ->height('180px')
+                        ->height('150px')
                         ->width('100%')
-                        ->extraImgAttributes(['class' => 'object-cover rounded-lg w-full mb-2']),
+                        ->extraImgAttributes(['class' => 'object-cover rounded-lg w-full mb-2'])
+                        ->defaultImageUrl('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="300" height="150" viewBox="0 0 300 150"><rect width="300" height="150" fill="%2318181b"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="%2371717a" font-family="sans-serif" font-size="14" font-weight="bold">7SERIES PRODUCT</text></svg>'),
 
                     Split::make([
                         TextColumn::make('name')
                             ->searchable()
                             ->weight('bold')
-                            ->size('lg'),
+                            ->size('base')
+                            ->wrap(),
                         TextColumn::make('price')
                             ->money('USD')
                             ->weight('bold')
-                            ->color('primary'),
+                            ->color('primary')
+                            ->grow(false),
                     ]),
 
                     Split::make([
                         TextColumn::make('category.name')
                             ->badge()
                             ->color('info')
-                            ->searchable(),
+                            ->searchable()
+                            ->grow(false),
                         ToggleColumn::make('is_active')
-                            ->label('Active'),
+                            ->label('Active')
+                            ->grow(false),
                     ]),
 
-                    Panel::make([
+                    Split::make([
                         TextColumn::make('slug')
                             ->color('gray')
                             ->size('xs')
-                            ->icon('heroicon-o-link'),
+                            ->icon('heroicon-o-link')
+                            ->limit(30),
                         TextColumn::make('created_at')
                             ->dateTime('M d, Y')
                             ->color('gray')
-                            ->size('xs'),
-                    ])->collapsible(),
-                ])->space(3),
+                            ->size('xs')
+                            ->grow(false),
+                    ]),
+                ])->space(2),
             ])
             ->filters([
                 SelectFilter::make('category')
