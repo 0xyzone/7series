@@ -13,7 +13,9 @@ export function initMotionExperience() {
     initMagneticButtons();
     initSpecimenLoupe();
     initAnatomyScrubber();
-    initScrollReveals();
+    initScrollParallax();
+    initCityStoreFilters();
+    initFloatingStamps();
 }
 
 /**
@@ -32,10 +34,10 @@ function initHeroKineticText() {
         delay: 0.1
     })
     .from('.hero-title-line', {
-        y: 40,
+        y: 45,
         opacity: 0,
         duration: 1,
-        stagger: 0.15,
+        stagger: 0.12,
         ease: 'power4.out'
     }, '-=0.5')
     .from('.hero-narrative', {
@@ -154,7 +156,6 @@ function initSpecimenLoupe() {
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
 
-        // Position the physical magnifying circle lens
         gsap.to(loupe, {
             x: x - loupe.offsetWidth / 2,
             y: y - loupe.offsetHeight / 2,
@@ -162,7 +163,6 @@ function initSpecimenLoupe() {
             ease: 'none'
         });
 
-        // Translate the high-res zoom canvas inversely
         const percentX = (x / rect.width) * 100;
         const percentY = (y / rect.height) * 100;
 
@@ -208,23 +208,81 @@ function initAnatomyScrubber() {
 }
 
 /**
- * 6. Smooth ScrollTrigger Section Reveals
+ * 6. Multi-Speed Scroll Parallax
  */
-function initScrollReveals() {
-    const sections = document.querySelectorAll('.scroll-reveal');
-    if (sections.length === 0) return;
+function initScrollParallax() {
+    const parallaxItems = document.querySelectorAll('[data-parallax]');
+    if (parallaxItems.length === 0) return;
 
-    sections.forEach((section) => {
-        gsap.from(section, {
+    parallaxItems.forEach((el) => {
+        const speed = parseFloat(el.getAttribute('data-parallax') || '0.2');
+        const yDist = speed * 120;
+
+        gsap.to(el, {
+            y: -yDist,
+            ease: 'none',
             scrollTrigger: {
-                trigger: section,
-                start: 'top 85%',
-                toggleActions: 'play none none none'
-            },
-            y: 35,
-            opacity: 0,
-            duration: 0.9,
-            ease: 'power3.out'
+                trigger: el,
+                start: 'top bottom',
+                end: 'bottom top',
+                scrub: 1.2
+            }
+        });
+    });
+}
+
+/**
+ * 7. Official Retail Stores & Stockists Filter
+ */
+function initCityStoreFilters() {
+    const filterBtns = document.querySelectorAll('.store-city-filter');
+    const storeCards = document.querySelectorAll('.store-card');
+    if (filterBtns.length === 0 || storeCards.length === 0) return;
+
+    filterBtns.forEach((btn) => {
+        btn.addEventListener('click', () => {
+            const city = btn.getAttribute('data-city');
+
+            filterBtns.forEach(b => {
+                const active = b === btn;
+                b.classList.toggle('bg-red-600', active);
+                b.classList.toggle('text-white', active);
+                b.classList.toggle('bg-white', !active);
+                b.classList.toggle('dark:bg-zinc-900', !active);
+                b.classList.toggle('text-zinc-700', !active);
+                b.classList.toggle('dark:text-zinc-300', !active);
+            });
+
+            storeCards.forEach(card => {
+                const storeCity = card.getAttribute('data-city');
+                const show = city === 'all' || storeCity === city;
+
+                if (show) {
+                    card.style.display = 'block';
+                    gsap.fromTo(card, { opacity: 0, scale: 0.96 }, { opacity: 1, scale: 1, duration: 0.4, ease: 'power2.out' });
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+    });
+}
+
+/**
+ * 8. Organic Floating Denim Stamps & Factory Badges
+ */
+function initFloatingStamps() {
+    const stamps = document.querySelectorAll('.floating-stamp');
+    if (stamps.length === 0) return;
+
+    stamps.forEach((stamp, idx) => {
+        gsap.to(stamp, {
+            y: idx % 2 === 0 ? -12 : 12,
+            rotation: idx % 2 === 0 ? 3 : -3,
+            duration: 3 + (idx * 0.8),
+            repeat: -1,
+            yoyo: true,
+            ease: 'sine.inOut'
         });
     });
 }

@@ -11,14 +11,17 @@
             <img src="{{ asset('images/brand/logo-dark.png') }}" alt="Seven Series Authentic Denim" class="h-10 sm:h-12 w-auto hidden dark:block transition-transform duration-300 group-hover:scale-105">
         </a>
 
-        <!-- Desktop Navigation: Industrial Telemetry -->
+        <!-- Desktop Navigation: Seven Series Brand -->
         <div class="hidden lg:flex gap-7 items-center font-black text-xs tracking-widest uppercase text-zinc-900 dark:text-zinc-200">
-            <a href="/#hero-section" class="hover:text-red-600 transition-colors">3D CAD Specimen</a>
+            <a href="/#stores" class="hover:text-red-600 transition-colors flex items-center gap-1.5 text-red-600">
+                <span class="w-1.5 h-1.5 rounded-full bg-red-600"></span>
+                <span>Official Stores</span>
+            </a>
             <a href="/#specimen-lab" class="hover:text-red-600 transition-colors">Weave Lab</a>
-            <a href="/#anatomy" class="hover:text-red-600 transition-colors">Anatomy Blueprint</a>
-            <a href="/#exhibition" class="hover:text-red-600 transition-colors">Factory Specimens</a>
-            <a href="/#facility" class="hover:text-red-600 transition-colors">Infrastructure</a>
-            <a href="/b2b" class="text-red-600 font-extrabold hover:underline transition-all">Wholesale B2B &rarr;</a>
+            <a href="/#anatomy" class="hover:text-red-600 transition-colors">Jeans Anatomy</a>
+            <a href="/#exhibition" class="hover:text-red-600 transition-colors">Cuts Archive</a>
+            <a href="/#facility" class="hover:text-red-600 transition-colors">Factory</a>
+            <a href="/b2b" class="text-zinc-900 dark:text-white font-extrabold hover:text-red-600 transition-all">Wholesale &rarr;</a>
         </div>
 
         <div class="flex items-center gap-4">
@@ -71,16 +74,16 @@
             <img src="{{ asset('images/brand/logo-dark.png') }}" alt="Seven Series" class="h-8 w-auto hidden dark:block">
             <span class="text-[10px] font-black tracking-widest text-red-600 uppercase border border-red-600/30 px-2 py-0.5 rounded">AUTHENTIC DENIM</span>
         </div>
-        <a href="/#hero-section" @click="mobileMenuOpen = false"
-            class="block text-base font-black tracking-tight hover:text-red-600 transition-colors">3D CAD SPECIMEN</a>
+        <a href="/#stores" @click="mobileMenuOpen = false"
+            class="block text-base font-black tracking-tight text-red-600 hover:text-red-700 transition-colors">OFFICIAL RETAIL STORES</a>
         <a href="/#specimen-lab" @click="mobileMenuOpen = false"
             class="block text-base font-black tracking-tight hover:text-red-600 transition-colors">WEAVE LABORATORY</a>
         <a href="/#anatomy" @click="mobileMenuOpen = false"
-            class="block text-base font-black tracking-tight hover:text-red-600 transition-colors">ANATOMY BLUEPRINT</a>
+            class="block text-base font-black tracking-tight hover:text-red-600 transition-colors">JEANS ANATOMY</a>
         <a href="/#exhibition" @click="mobileMenuOpen = false"
-            class="block text-base font-black tracking-tight hover:text-red-600 transition-colors">FACTORY SPECIMENS</a>
+            class="block text-base font-black tracking-tight hover:text-red-600 transition-colors">CUTS ARCHIVE</a>
         <a href="/#facility" @click="mobileMenuOpen = false"
-            class="block text-base font-black tracking-tight hover:text-red-600 transition-colors">INFRASTRUCTURE</a>
+            class="block text-base font-black tracking-tight hover:text-red-600 transition-colors">FACTORY INFRASTRUCTURE</a>
         <div class="pt-4 border-t border-zinc-200 dark:border-zinc-800">
             <a href="/b2b" @click="mobileMenuOpen = false"
                 class="flex items-center justify-center w-full py-3.5 bg-red-600 text-white font-black rounded-xl uppercase tracking-widest text-xs shadow-lg shadow-red-600/30">

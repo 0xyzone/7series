@@ -3,7 +3,8 @@
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    $retailStores = \App\Models\RetailStore::active()->get();
+    return view('welcome', compact('retailStores'));
 });
 
 Route::get('/b2b', [\App\Http\Controllers\WholesaleController::class, 'b2b'])->name('b2b');

@@ -44,7 +44,7 @@
                     <img src="{{ asset('images/brand/logo-dark.png') }}" alt="Seven Series Authentic Denim" class="h-10 sm:h-12 w-auto hidden dark:block">
                 </div>
                 <p class="text-base text-zinc-600 dark:text-zinc-400 font-medium max-w-md leading-relaxed">
-                    The Apple and Xiaomi of garment manufacturing. Supplying precision architectural denim, technical fabrics, and private-label apparel directly to global wholesalers and retail networks.
+                    Seven Series Garment Industry crafts authentic heavy denim apparel, supplying wholesale quantities to multi-store retailers and welcoming customers at authorized official brand stores.
                 </p>
                 
                 <div class="space-y-3">

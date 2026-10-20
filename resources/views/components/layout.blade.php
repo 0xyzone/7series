@@ -35,8 +35,8 @@
         })();
     </script>
 
-    <title>{{ $title ?? 'Seven Series Garment Industry | Precision Apparel for Wholesalers & Retailers' }}</title>
-    <meta name="description" content="Seven Series Garment Industry is the technology-driven apparel manufacturer engineered like Apple and scaled like Xiaomi. Supplying high-grade denim, technical fabrics, and bulk apparel to global retailers and wholesalers.">
+    <title>{{ $title ?? 'Seven Series Garment Industry | Authentic Jeanswear & Heavy Denim' }}</title>
+    <meta name="description" content="Seven Series Garment Industry crafts authentic heavy denim apparel, supplying wholesale volumes to multi-store retailers and welcoming customers at official brand outlets.">
     
     @php
         $isLocal = \App\Helpers\FaviconHelper::isLocal();
