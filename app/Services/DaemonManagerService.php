@@ -13,14 +13,23 @@ class DaemonManagerService
     public function isReverbRunning(): bool
     {
         $port = (int) config('reverb.servers.reverb.port', 8080);
-        $host = '127.0.0.1';
 
-        $connection = @fsockopen($host, $port, $errno, $errstr, 1.0);
-
-        if (is_resource($connection)) {
-            fclose($connection);
-            return true;
+        // 1. Check socket connection across loopback and local hosts
+        foreach (['127.0.0.1', '0.0.0.0', 'localhost'] as $host) {
+            $connection = @fsockopen($host, $port, $errno, $errstr, 0.4);
+            if (is_resource($connection)) {
+                fclose($connection);
+                return true;
+            }
         }
+
+        // 2. Check process table via pgrep as fallback
+        try {
+            $pids = @shell_exec("pgrep -f 'artisan reverb:start' 2>/dev/null");
+            if ($pids && trim($pids)) {
+                return true;
+            }
+        } catch (\Throwable) {}
 
         return false;
     }
@@ -44,9 +53,20 @@ class DaemonManagerService
             $host = '0.0.0.0';
             $logFile = storage_path('logs/reverb.log');
 
+            // Ensure log directory exists
+            if (!file_exists(dirname($logFile))) {
+                @mkdir(dirname($logFile), 0755, true);
+            }
+
+            // Detect setsid on Linux to detach from PHP-FPM process group
+            $hasSetsid = !empty(trim((string) @shell_exec('which setsid 2>/dev/null')));
+            $prefix = $hasSetsid ? 'setsid ' : 'nohup ';
+
+            // Completely decouple stdio with < /dev/null to avoid SIGTERM from parent process cleanup
             $command = sprintf(
-                'cd %s && nohup %s %s reverb:start --host=%s --port=%d > %s 2>&1 & echo $!',
+                'cd %s && %s%s %s reverb:start --host=%s --port=%d < /dev/null > %s 2>&1 & echo $!',
                 escapeshellarg(base_path()),
+                $prefix,
                 escapeshellcmd($php),
                 escapeshellcmd($artisan),
                 escapeshellarg($host),
@@ -57,10 +77,10 @@ class DaemonManagerService
             @exec($command, $output);
             $pid = isset($output[0]) ? trim($output[0]) : null;
 
-            // Dynamically wait for Reverb to bind to port (up to 1.5s in 100ms intervals)
+            // Dynamically wait for Reverb to bind to port (up to 2.5s in 150ms intervals)
             $running = false;
-            for ($i = 0; $i < 15; $i++) {
-                usleep(100000);
+            for ($i = 0; $i < 16; $i++) {
+                usleep(150000);
                 if ($this->isReverbRunning()) {
                     $running = true;
                     break;
@@ -111,6 +131,14 @@ class DaemonManagerService
                     $running = false;
                     break;
                 }
+            }
+
+            if ($running) {
+                @exec("pkill -9 -f 'reverb:start'");
+                $port = (int) config('reverb.servers.reverb.port', 8080);
+                @exec("lsof -t -i:{$port} | xargs kill -9 2>/dev/null");
+                usleep(100000);
+                $running = $this->isReverbRunning();
             }
 
             return [
@@ -203,9 +231,19 @@ class DaemonManagerService
             // Locate node executable
             $node = $this->resolveNodeBinary();
 
+            // Ensure log directory exists
+            if (!file_exists(dirname($logFile))) {
+                @mkdir(dirname($logFile), 0755, true);
+            }
+
+            // Detect setsid on Linux to detach from PHP-FPM process group
+            $hasSetsid = !empty(trim((string) @shell_exec('which setsid 2>/dev/null')));
+            $prefix = $hasSetsid ? 'setsid ' : 'nohup ';
+
             $command = sprintf(
-                'cd %s && nohup %s %s > %s 2>&1 & echo $!',
+                'cd %s && %s%s %s < /dev/null > %s 2>&1 & echo $!',
                 escapeshellarg(base_path()),
+                $prefix,
                 escapeshellcmd($node),
                 escapeshellcmd($serverJs),
                 escapeshellcmd($logFile)
