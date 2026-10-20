@@ -8,7 +8,7 @@
         <!-- ========================================================================= -->
         <!-- SECTION 1: HERO AUTHENTIC DENIM JEANS SHOWCASE -->
         <!-- ========================================================================= -->
-        <section id="hero" class="relative">
+        <section id="hero" class="scroll-mt-28 relative">
             
             <!-- Main Hero Board -->
             <div class="app-card p-6 sm:p-10 lg:p-12 relative overflow-hidden bg-gradient-to-br from-white via-slate-50/50 to-blue-50/30 border border-slate-200 shadow-xl">
@@ -226,7 +226,7 @@
         <!-- ========================================================================= -->
         <!-- SECTION 2: LIVE FABRIC & CAPACITY METRICS (Aeris Weather Cards Style) -->
         <!-- ========================================================================= -->
-        <section id="fabric-metrics" class="space-y-4">
+        <section id="fabric-metrics" class="scroll-mt-28 space-y-4">
             
             <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 px-2">
                 <div>
@@ -314,7 +314,7 @@
         <!-- ========================================================================= -->
         <!-- SECTION 3: PHYSICAL RETAIL STORES DIRECTORY (Portrait Stories Style) -->
         <!-- ========================================================================= -->
-        <section id="stores" class="space-y-6 pt-6">
+        <section id="stores" class="scroll-mt-28 space-y-6 pt-6">
             
             <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 px-2">
                 <div class="space-y-2">
@@ -452,7 +452,7 @@
         <!-- ========================================================================= -->
         <!-- SECTION 4: POPULAR JEANS CUTS (Nomadra Cards Style) -->
         <!-- ========================================================================= -->
-        <section id="cuts" class="space-y-6 pt-6">
+        <section id="cuts" class="scroll-mt-28 space-y-6 pt-6">
             
             <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 px-2">
                 <div class="space-y-2">
@@ -584,7 +584,7 @@
         <!-- ========================================================================= -->
         <!-- SECTION 5: INTERACTIVE WEAVE INSPECTOR (Tactile Loupe Widget) -->
         <!-- ========================================================================= -->
-        <section id="fabric" class="space-y-6 pt-6">
+        <section id="fabric" class="scroll-mt-28 space-y-6 pt-6">
             
             <div class="app-card p-6 sm:p-10 bg-white border border-slate-200">
                 
@@ -640,7 +640,7 @@
         <!-- ========================================================================= -->
         <!-- SECTION 6: FACTORY PRODUCTION & WHOLESALE CONTRACTS -->
         <!-- ========================================================================= -->
-        <section id="factory" class="space-y-6 pt-6">
+        <section id="factory" class="scroll-mt-28 space-y-6 pt-6">
             
             <div class="app-card p-5 sm:p-10 bg-zinc-950 text-white relative overflow-hidden">
                 <div class="absolute -right-20 -bottom-20 w-80 h-80 bg-red-600/20 rounded-full blur-3xl"></div>

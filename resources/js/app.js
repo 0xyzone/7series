@@ -17,19 +17,36 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-// Smooth anchor scrolling
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        const href = this.getAttribute('href');
-        if (href === '#' || href === '') return;
-        
-        const target = document.querySelector(href);
-        if (target) {
-            e.preventDefault();
-            target.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
+// Smooth anchor scrolling with top bar offset
+document.addEventListener('click', (e) => {
+    if (e.defaultPrevented) return;
+    const anchor = e.target.closest('a[href*="#"]');
+    if (!anchor) return;
+
+    const href = anchor.getAttribute('href');
+    if (!href || href === '#' || href === '/#') return;
+
+    try {
+        const url = new URL(anchor.href, window.location.href);
+        if (url.pathname === window.location.pathname && url.hash) {
+            const targetId = url.hash.substring(1);
+            const target = document.getElementById(targetId);
+            if (target) {
+                e.preventDefault();
+                const header = document.querySelector('header');
+                const headerOffset = (header ? header.offsetHeight : 72) + 24;
+                const elementPosition = target.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                });
+
+                if (history.pushState) {
+                    history.pushState(null, null, url.hash);
+                }
+            }
         }
-    });
+    } catch (_) {}
 });
