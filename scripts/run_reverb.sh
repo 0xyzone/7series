@@ -108,7 +108,7 @@ case "$ACTION" in
         fi
 
         cd "$APP_DIR" || exit 1
-        nohup "$PHP_BIN" "$APP_DIR/artisan" reverb:start >> "$LOG_FILE" 2>&1 &
+        nohup "$PHP_BIN" "$APP_DIR/artisan" reverb:start --host=0.0.0.0 --port=8080 >> "$LOG_FILE" 2>&1 &
         NEW_PID=$!
         echo "$NEW_PID" > "$PID_FILE"
 
@@ -133,7 +133,7 @@ case "$ACTION" in
 
     restart)
         "$0" stop
-        sleep 0.5
+        sleep 0.8
         "$0" start
         ;;
 
@@ -163,7 +163,7 @@ case "$ACTION" in
         fi
 
         cd "$APP_DIR" || exit 1
-        nohup "$PHP_BIN" "$APP_DIR/artisan" reverb:start >> "$LOG_FILE" 2>&1 &
+        nohup "$PHP_BIN" "$APP_DIR/artisan" reverb:start --host=0.0.0.0 --port=8080 >> "$LOG_FILE" 2>&1 &
         echo $! > "$PID_FILE"
         ;;
 esac

@@ -8,24 +8,40 @@ use Illuminate\Support\Facades\Log;
 class DaemonManagerService
 {
     /**
-     * Check if Laravel Reverb WebSocket server is running.
+     * Check if Laravel Reverb WebSocket server is running and accepting connections.
      */
     public function isReverbRunning(): bool
     {
-        // 1. Primary check: verify if any process contains 'reverb:start'
-        $pids = $this->findPidsByKeyword('reverb:start');
-        if (!empty($pids)) {
-            return true;
-        }
+        $port = (int) config('reverb.servers.reverb.port', 8080);
 
-        // 2. Check saved PID file if present
-        $pidFile = storage_path('framework/reverb.pid');
-        if (file_exists($pidFile)) {
-            $savedPid = (int) trim((string) @file_get_contents($pidFile));
-            if ($this->isPidAlive($savedPid)) {
+        // 1. Direct socket verification: probe port 8080 specifically for Laravel Reverb
+        $fp = @fsockopen('127.0.0.1', $port, $errno, $errstr, 0.3);
+        if ($fp) {
+            stream_set_timeout($fp, 0, 300000); // 300ms
+            fwrite($fp, "GET / HTTP/1.1\r\nHost: 127.0.0.1:{$port}\r\nConnection: close\r\n\r\n");
+            $response = '';
+            while (!feof($fp)) {
+                $chunk = fgets($fp, 512);
+                if ($chunk === false) break;
+                $response .= $chunk;
+                if (str_contains($response, "\r\n\r\n")) break;
+            }
+            fclose($fp);
+
+            if (str_contains($response, 'Laravel Reverb') || str_contains($response, 'X-Powered-By: Laravel Reverb')) {
                 return true;
             }
-            @unlink($pidFile);
+        }
+
+        // 2. Secondary check: verify if process exists in /proc or via pgrep
+        $pids = $this->findPidsByKeyword('reverb:start');
+        if (!empty($pids)) {
+            // Check if socket is open/binding
+            $sock = @fsockopen('127.0.0.1', $port, $errno, $errstr, 0.2);
+            if ($sock) {
+                fclose($sock);
+                return true;
+            }
         }
 
         return false;
@@ -39,6 +55,7 @@ class DaemonManagerService
         try {
             // Remove stopped watchdog barrier
             @unlink(storage_path('framework/reverb.stopped'));
+            @unlink(storage_path('framework/reverb.pid'));
 
             if ($this->isReverbRunning()) {
                 return [
@@ -197,9 +214,35 @@ class DaemonManagerService
      */
     public function restartReverb(): array
     {
-        $this->stopReverb();
-        usleep(400000); // 400ms pause
-        return $this->startReverb();
+        $script = base_path('scripts/run_reverb.sh');
+        @chmod($script, 0755);
+        @unlink(storage_path('framework/reverb.stopped'));
+        @unlink(storage_path('framework/reverb.pid'));
+
+        // 1. Run restart via unified script
+        @exec("bash " . escapeshellarg($script) . " restart > /dev/null 2>&1 &");
+
+        // 2. Poll for Reverb to respond to the socket probe (up to 4.5 seconds)
+        $running = false;
+        for ($i = 0; $i < 25; $i++) {
+            usleep(180000);
+            if ($this->isReverbRunning()) {
+                $running = true;
+                break;
+            }
+        }
+
+        // 3. Fallback: full stop and clean start
+        if (!$running) {
+            $this->stopReverb();
+            usleep(400000);
+            return $this->startReverb();
+        }
+
+        return [
+            'success' => true,
+            'message' => 'Laravel Reverb restarted successfully on port 8080.',
+        ];
     }
 
     /**
