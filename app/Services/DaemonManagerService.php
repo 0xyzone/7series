@@ -56,10 +56,15 @@ class DaemonManagerService
         @exec($command, $output);
         $pid = isset($output[0]) ? trim($output[0]) : null;
 
-        // Give it 1.5 seconds to bind to port
-        usleep(1500000);
-
-        $running = $this->isReverbRunning();
+        // Dynamically wait for Reverb to bind to port (up to 1.5s in 100ms intervals)
+        $running = false;
+        for ($i = 0; $i < 15; $i++) {
+            usleep(100000);
+            if ($this->isReverbRunning()) {
+                $running = true;
+                break;
+            }
+        }
 
         $errorMessage = 'Failed to start Laravel Reverb.';
         if (!$running && file_exists($logFile)) {
@@ -90,9 +95,14 @@ class DaemonManagerService
     public function stopReverb(): array
     {
         @exec("pkill -f 'reverb:start'");
-        usleep(500000);
-
-        $running = $this->isReverbRunning();
+        $running = true;
+        for ($i = 0; $i < 10; $i++) {
+            usleep(50000);
+            if (!$this->isReverbRunning()) {
+                $running = false;
+                break;
+            }
+        }
 
         return [
             'success' => !$running,
@@ -187,10 +197,15 @@ class DaemonManagerService
         @exec($command, $output);
         $pid = isset($output[0]) ? trim($output[0]) : null;
 
-        // Give it 2 seconds to initialize
-        usleep(2000000);
-
-        $status = $this->getWhatsAppStatus();
+        // Dynamically wait for WhatsApp to respond (up to 2.5s in 150ms intervals)
+        $status = ['running' => false];
+        for ($i = 0; $i < 16; $i++) {
+            usleep(150000);
+            $status = $this->getWhatsAppStatus();
+            if ($status['running']) {
+                break;
+            }
+        }
 
         return [
             'success' => $status['running'],
@@ -209,9 +224,14 @@ class DaemonManagerService
     {
         @exec("pkill -f 'whatsapp-gateway/server.js'");
         @exec("lsof -t -i:3000 | xargs kill -9 2>/dev/null");
-        usleep(500000);
-
-        $status = $this->getWhatsAppStatus();
+        $status = ['running' => true];
+        for ($i = 0; $i < 10; $i++) {
+            usleep(50000);
+            $status = $this->getWhatsAppStatus();
+            if (!$status['running']) {
+                break;
+            }
+        }
 
         return [
             'success' => !$status['running'],

@@ -49,28 +49,50 @@
             @if (!$this->reverbRunning)
                 <button
                     wire:click="startReverb"
+                    wire:loading.attr="disabled"
+                    wire:loading.class="is-loading"
+                    wire:target="startReverb"
                     type="button"
                     class="daemon-btn daemon-btn-start"
                 >
-                    <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                    Start Reverb
+                    <span wire:loading.remove wire:target="startReverb" style="display: inline-flex; align-items: center; gap: 0.4rem;">
+                        <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <span>Start Reverb</span>
+                    </span>
+                    <span wire:loading wire:target="startReverb" style="display: inline-flex; align-items: center; gap: 0.4rem;">
+                        <svg class="animate-spin" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" stroke-dasharray="31.415, 31.415" stroke-linecap="round" fill="none" />
+                        </svg>
+                        <span>Starting...</span>
+                    </span>
                 </button>
             @endif
 
             @if (!$this->whatsAppStatus['running'])
                 <button
                     wire:click="startWhatsApp"
+                    wire:loading.attr="disabled"
+                    wire:loading.class="is-loading"
+                    wire:target="startWhatsApp"
                     type="button"
                     class="daemon-btn daemon-btn-start"
                     style="background: linear-gradient(135deg, #059669 0%, #047857 100%);"
                 >
-                    <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
-                    </svg>
-                    Start WA
+                    <span wire:loading.remove wire:target="startWhatsApp" style="display: inline-flex; align-items: center; gap: 0.4rem;">
+                        <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                        </svg>
+                        <span>Start WA</span>
+                    </span>
+                    <span wire:loading wire:target="startWhatsApp" style="display: inline-flex; align-items: center; gap: 0.4rem;">
+                        <svg class="animate-spin" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" stroke-dasharray="31.415, 31.415" stroke-linecap="round" fill="none" />
+                        </svg>
+                        <span>Starting...</span>
+                    </span>
                 </button>
             @endif
 
