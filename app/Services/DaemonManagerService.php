@@ -37,7 +37,7 @@ class DaemonManagerService
             ];
         }
 
-        $php = PHP_BINARY ?: 'php';
+        $php = $this->resolvePhpBinary();
         $artisan = base_path('artisan');
         $port = (int) config('reverb.servers.reverb.port', 8080);
         $host = '0.0.0.0';
@@ -60,12 +60,26 @@ class DaemonManagerService
 
         $running = $this->isReverbRunning();
 
+        $errorMessage = 'Failed to start Laravel Reverb.';
+        if (!$running && file_exists($logFile)) {
+            $lines = file($logFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+            $logSnippet = implode(' ', array_slice($lines, -5));
+
+            if (str_contains($logSnippet, 'no commands defined in the "reverb" namespace')) {
+                $errorMessage = 'Reverb is not installed in production vendor. Run: composer install --no-dev';
+            } elseif (str_contains($logSnippet, 'Address already in use')) {
+                $errorMessage = "Port {$port} is already bound by another process.";
+            } elseif (!empty($logSnippet)) {
+                $errorMessage = 'Startup error: ' . substr($logSnippet, 0, 120);
+            }
+        }
+
         return [
             'success' => $running,
             'pid' => $pid,
             'message' => $running
                 ? 'Laravel Reverb started successfully on port ' . $port
-                : 'Failed to start Laravel Reverb. Please check storage/logs/reverb.log',
+                : $errorMessage,
         ];
     }
 
@@ -215,6 +229,34 @@ class DaemonManagerService
 
         $lines = file($logFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
         return implode("\n", array_slice($lines, -25));
+    }
+
+    /**
+     * Resolve the PHP CLI binary across environments (MAMP, cPanel ea-php, VPS).
+     */
+    protected function resolvePhpBinary(): string
+    {
+        if (defined('PHP_BINARY') && is_executable(PHP_BINARY) && !str_contains(PHP_BINARY, 'fpm')) {
+            return PHP_BINARY;
+        }
+
+        $candidates = [
+            '/usr/local/bin/php',
+            '/usr/bin/php',
+            '/opt/cpanel/ea-php84/root/usr/bin/php',
+            '/opt/cpanel/ea-php83/root/usr/bin/php',
+            '/opt/cpanel/ea-php82/root/usr/bin/php',
+            '/Applications/MAMP/bin/php/php8.4.1/bin/php',
+            'php',
+        ];
+
+        foreach ($candidates as $candidate) {
+            if ($candidate !== 'php' && file_exists($candidate) && is_executable($candidate)) {
+                return $candidate;
+            }
+        }
+
+        return 'php';
     }
 
     /**
