@@ -316,41 +316,16 @@ class DaemonManagerService
                 ];
             }
 
-            $serverJs = base_path('whatsapp-gateway/server.js');
-            $logFile = storage_path('logs/whatsapp-gateway.log');
+            $script = base_path('scripts/run_whatsapp.sh');
+            @chmod($script, 0755);
 
-            // Locate node executable
-            $node = $this->resolveNodeBinary();
+            // 1. Start via unified run_whatsapp.sh
+            @exec("bash " . escapeshellarg($script) . " start > /dev/null 2>&1 &");
 
-            // Ensure log directory exists
-            if (!file_exists(dirname($logFile))) {
-                @mkdir(dirname($logFile), 0755, true);
-            }
-
-            // Detect setsid on Linux to detach from PHP-FPM process group
-            $hasSetsid = !empty(trim((string) @shell_exec('which setsid 2>/dev/null')));
-            $prefix = $hasSetsid ? 'setsid ' : 'nohup ';
-
-            $command = sprintf(
-                'cd %s && %s%s %s < /dev/null > %s 2>&1 & echo $!',
-                escapeshellarg(base_path()),
-                $prefix,
-                escapeshellcmd($node),
-                escapeshellcmd($serverJs),
-                escapeshellcmd($logFile)
-            );
-
-            @exec($command, $output);
-            $pid = isset($output[0]) ? trim($output[0]) : null;
-
-            if ($pid && is_numeric($pid)) {
-                @file_put_contents(storage_path('framework/whatsapp.pid'), $pid);
-            }
-
-            // Dynamically wait for WhatsApp to respond (up to 2.5s in 150ms intervals)
+            // 2. Poll for WhatsApp to respond (up to 4.5s in 200ms intervals)
             $status = ['running' => false];
-            for ($i = 0; $i < 16; $i++) {
-                usleep(150000);
+            for ($i = 0; $i < 22; $i++) {
+                usleep(200000);
                 $status = $this->getWhatsAppStatus();
                 if ($status['running']) {
                     break;
@@ -359,7 +334,6 @@ class DaemonManagerService
 
             return [
                 'success' => $status['running'],
-                'pid' => $pid,
                 'status' => $status,
                 'message' => $status['running']
                     ? 'WhatsApp Gateway started successfully on port 3000.'
@@ -381,7 +355,13 @@ class DaemonManagerService
     public function stopWhatsApp(): array
     {
         try {
-            // 1. Kill saved PID from file if available
+            $script = base_path('scripts/run_whatsapp.sh');
+            @chmod($script, 0755);
+
+            // 1. Stop via unified run_whatsapp.sh
+            @exec("bash " . escapeshellarg($script) . " stop 2>/dev/null");
+
+            // 2. Direct kill backup
             $pidFile = storage_path('framework/whatsapp.pid');
             if (file_exists($pidFile)) {
                 $savedPid = (int) trim((string) @file_get_contents($pidFile));
@@ -391,7 +371,6 @@ class DaemonManagerService
                 @unlink($pidFile);
             }
 
-            // 2. Kill all processes matching 'whatsapp-gateway' or 'server.js'
             $pids = array_unique(array_merge(
                 $this->findPidsByKeyword('whatsapp-gateway/server.js'),
                 $this->findPidsByKeyword('whatsapp-gateway')
@@ -400,14 +379,12 @@ class DaemonManagerService
                 $this->killPids($pids);
             }
 
-            // 3. Fallback kill commands
             @exec("pkill -9 -f 'whatsapp-gateway' 2>/dev/null");
             @exec("fuser -k -9 3000/tcp 2>/dev/null");
-            @exec("lsof -t -i:3000 | xargs kill -9 2>/dev/null");
 
             $status = ['running' => true];
-            for ($i = 0; $i < 12; $i++) {
-                usleep(80000);
+            for ($i = 0; $i < 15; $i++) {
+                usleep(100000);
                 $status = $this->getWhatsAppStatus();
                 if (!$status['running']) {
                     break;
