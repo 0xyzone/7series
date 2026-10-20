@@ -10,10 +10,10 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ $title ?? '7 Series Denim' }}</title>
+    <title>{{ $title ?? 'Seven Series Garment Industry | Precision Apparel for Wholesalers & Retailers' }}</title>
+    <meta name="description" content="Seven Series Garment Industry is the technology-driven apparel manufacturer engineered like Apple and scaled like Xiaomi. Supplying high-grade denim, technical fabrics, and bulk apparel to global retailers and wholesalers.">
     <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=outfit:300,400,600,700,800|playfair-display:700,900"
-        rel="stylesheet" />
+    <link href="https://fonts.bunny.net/css?family=outfit:300,400,500,600,700,800,900|space-grotesk:500,700" rel="stylesheet" />
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <style>
@@ -22,16 +22,33 @@
         }
 
         .text-glow {
-            text-shadow: 0 0 10px rgba(220, 38, 38, 0.5);
+            text-shadow: 0 0 15px rgba(220, 38, 38, 0.45);
+        }
+
+        .text-glow-white {
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
         }
 
         .bg-glass {
-            @apply backdrop-blur-lg bg-white/70 dark:bg-black/70;
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            background-color: rgba(255, 255, 255, 0.75);
         }
 
-        .hero-pattern {
-            background-image: radial-gradient(circle at 2px 2px, rgba(220, 38, 38, 0.1) 1px, transparent 0);
-            background-size: 40px 40px;
+        .dark .bg-glass {
+            background-color: rgba(9, 9, 11, 0.78);
+        }
+
+        .hero-grid {
+            background-image: linear-gradient(to right, rgba(220, 38, 38, 0.08) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(220, 38, 38, 0.08) 1px, transparent 1px);
+            background-size: 60px 60px;
+        }
+
+        .dark .hero-grid {
+            background-image: linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+            background-size: 60px 60px;
         }
     </style>
 </head>

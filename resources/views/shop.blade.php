@@ -1,58 +1,72 @@
 <x-layout>
-    <x-slot:title>Shop - 7 Series Denim</x-slot>
+    <x-slot:title>Wholesale Line Sheet & Catalog - Seven Series Garment Industry</x-slot>
 
-        <x-nav />
+    <x-nav />
 
-        <main class="pt-32 pb-20 max-w-7xl mx-auto px-6">
-            <div class="mb-16">
-                <h1 class="text-6xl font-black tracking-tighter mb-4">THE <span class="text-red-600">ARCHIVE</span></h1>
-                <p class="text-zinc-500 dark:text-zinc-400 font-medium max-w-xl">Explore our latest drops and
-                    architectural denim pieces.</p>
+    <main class="pt-32 pb-20 max-w-7xl mx-auto px-6">
+        <div class="mb-12">
+            <div class="inline-block px-3 py-1 bg-red-100 dark:bg-red-950/40 border border-red-200 dark:border-red-900/60 rounded-full text-red-600 text-xs font-black tracking-widest uppercase mb-3">
+                B2B WHOLESALE & BULK PRODUCTION
+            </div>
+            <h1 class="text-5xl font-black tracking-tighter mb-4 text-zinc-900 dark:text-white uppercase">
+                WHOLESALE <span class="text-red-600">LINE SHEET</span>
+            </h1>
+            <p class="text-zinc-500 dark:text-zinc-400 font-medium max-w-xl">
+                Seven Series Garment Industry manufactures exclusively for volume wholesalers, retail chains, and private label apparel brands. Direct factory FOB allocation.
+            </p>
+        </div>
+
+        <div class="p-8 mb-12 rounded-3xl bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 flex flex-col sm:flex-row justify-between items-center gap-6">
+            <div class="space-y-1 text-center sm:text-left">
+                <h3 class="text-xl font-black text-zinc-900 dark:text-white uppercase">Looking for 2026 Volume Allocation?</h3>
+                <p class="text-sm text-zinc-500 font-medium">Download the complete technical line sheet or schedule a physical fabric swatch box delivery.</p>
+            </div>
+            <a href="/#rfq" class="px-8 py-4 bg-red-600 hover:bg-red-700 text-white font-black text-xs uppercase tracking-widest rounded-xl shadow-lg shadow-red-600/25 transition-all">
+                Request Line Sheet & Swatches
+            </a>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+            <!-- Series 01 -->
+            <div class="rounded-3xl bg-zinc-50 dark:bg-zinc-900/60 border border-zinc-200 dark:border-zinc-800 overflow-hidden p-6 space-y-4">
+                <img src="{{ asset('images/collection-1.png') }}" class="w-full h-64 object-cover rounded-2xl" alt="Raw Denim">
+                <div class="flex justify-between items-baseline">
+                    <h3 class="text-xl font-black uppercase text-zinc-900 dark:text-white">RAW ARCHITECTURAL SELVEDGE</h3>
+                    <span class="text-sm font-black text-red-600">$22.50 – $26.00 FOB</span>
+                </div>
+                <p class="text-zinc-500 text-sm">14.5oz Japanese Kurabo weave. Triple-felled seams. MOQ 250 units.</p>
+                <a href="/#rfq" class="w-full py-3 bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 text-xs font-black uppercase tracking-widest rounded-xl text-center block hover:bg-red-600 dark:hover:bg-red-600 dark:hover:text-white transition-colors">
+                    Request Spec Pack
+                </a>
             </div>
 
-            @if($products->isEmpty())
-                <div class="py-20 text-center border-2 border-dashed border-zinc-200 dark:border-zinc-800 rounded-2xl">
-                    <p class="text-zinc-500 font-bold uppercase tracking-widest">No pieces available in the archive yet.</p>
-                    <p class="text-sm mt-2 text-zinc-400">Admin: Check Filament panel to add products.</p>
+            <!-- Series 02 -->
+            <div class="rounded-3xl bg-zinc-50 dark:bg-zinc-900/60 border border-zinc-200 dark:border-zinc-800 overflow-hidden p-6 space-y-4">
+                <img src="{{ asset('images/collection-2.png') }}" class="w-full h-64 object-cover rounded-2xl" alt="Tech Trousers">
+                <div class="flex justify-between items-baseline">
+                    <h3 class="text-xl font-black uppercase text-zinc-900 dark:text-white">4-WAY ARTICULATED TROUSER</h3>
+                    <span class="text-sm font-black text-red-600">$19.80 – $24.50 FOB</span>
                 </div>
-            @else
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
-                    @foreach($products as $product)
-                        <div class="group">
-                            <div
-                                class="relative aspect-[4/5] overflow-hidden rounded-2xl bg-zinc-100 dark:bg-zinc-900 mb-6 transition-transform duration-500 hover:-translate-y-2">
-                                @if($product->image)
-                                    <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}"
-                                        class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
-                                @else
-                                    <div class="w-full h-full flex items-center justify-center text-zinc-300 dark:text-zinc-700">
-                                        <svg class="w-20 h-20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z">
-                                            </path>
-                                        </svg>
-                                    </div>
-                                @endif
-                                <div class="absolute top-4 right-4">
-                                    <span
-                                        class="px-3 py-1 bg-white/90 dark:bg-black/90 backdrop-blur rounded-full text-xs font-bold uppercase tracking-widest shadow-xl">{{ $product->category->name ?? 'General' }}</span>
-                                </div>
-                            </div>
-                            <div class="flex justify-between items-start mb-2">
-                                <h3 class="text-xl font-black uppercase tracking-tight">{{ $product->name }}</h3>
-                                <span class="text-xl font-black text-red-600">${{ $product->price }}</span>
-                            </div>
-                            <p class="text-zinc-500 dark:text-zinc-400 text-sm font-medium line-clamp-2 mb-6">
-                                {{ $product->description }}</p>
-                            <button
-                                class="w-full py-4 bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 font-black rounded-lg transition-all hover:bg-red-600 hover:text-white active:scale-95 uppercase">
-                                Add to Cart
-                            </button>
-                        </div>
-                    @endforeach
-                </div>
-            @endif
-        </main>
+                <p class="text-zinc-500 text-sm">280 GSM weatherproof DWR nylon-cotton. Articulated knees. MOQ 300 units.</p>
+                <a href="/#rfq" class="w-full py-3 bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 text-xs font-black uppercase tracking-widest rounded-xl text-center block hover:bg-red-600 dark:hover:bg-red-600 dark:hover:text-white transition-colors">
+                    Request Spec Pack
+                </a>
+            </div>
 
-        <x-footer />
+            <!-- Series 03 -->
+            <div class="rounded-3xl bg-zinc-50 dark:bg-zinc-900/60 border border-zinc-200 dark:border-zinc-800 overflow-hidden p-6 space-y-4">
+                <img src="{{ asset('images/collection-3.png') }}" class="w-full h-64 object-cover rounded-2xl" alt="Outerwear">
+                <div class="flex justify-between items-baseline">
+                    <h3 class="text-xl font-black uppercase text-zinc-900 dark:text-white">BONDED TECHNICAL PARKA</h3>
+                    <span class="text-sm font-black text-red-600">$34.00 – $42.00 FOB</span>
+                </div>
+                <p class="text-zinc-500 text-sm">3-layer stormproof bonded cotton shell. Taped seams. MOQ 200 units.</p>
+                <a href="/#rfq" class="w-full py-3 bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 text-xs font-black uppercase tracking-widest rounded-xl text-center block hover:bg-red-600 dark:hover:bg-red-600 dark:hover:text-white transition-colors">
+                    Request Spec Pack
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <x-footer />
 </x-layout>

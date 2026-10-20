@@ -4,23 +4,31 @@
     :class="scrollY > 50 ? 'bg-white/80 dark:bg-black/80 backdrop-blur-xl py-3' : ({{ $transparent ? 'true' : 'false' }} ? 'bg-transparent py-6' : 'bg-white/80 dark:bg-black/80 backdrop-blur-xl py-3')"
     x-data="{ scrollY: 0, mobileMenuOpen: false }" @scroll.window="scrollY = window.scrollY">
     <div class="max-w-7xl mx-auto px-6 flex items-center justify-between">
-        <a href="/" class="group flex items-center gap-2">
-            <span
-                class="text-3xl font-black tracking-tighter text-red-600 group-hover:text-red-500 transition-colors">7SERIES</span>
-            <span class="w-1.5 h-1.5 rounded-full bg-red-600 animate-pulse"></span>
+        <a href="/" class="group flex items-center gap-3">
+            <div class="flex flex-col">
+                <div class="flex items-center gap-2">
+                    <span class="text-2xl md:text-3xl font-black tracking-tighter text-red-600 group-hover:text-red-500 transition-colors">7SERIES</span>
+                    <span class="w-2 h-2 rounded-full bg-red-600 animate-pulse"></span>
+                </div>
+                <span class="text-[10px] font-black tracking-[0.25em] text-zinc-900 dark:text-zinc-300 uppercase -mt-1">GARMENT INDUSTRY</span>
+            </div>
         </a>
 
-        <!-- Desktop Navigation -->
-        <div class="hidden md:flex gap-10 items-center font-semibold text-sm tracking-wide">
-            <a href="/#collections" class="hover:text-red-600 dark:hover:text-red-500 transition-colors">COLLECTIONS</a>
-            <a href="/shop" class="hover:text-red-600 dark:hover:text-red-500 transition-colors">SHOP</a>
-            <a href="/#about" class="hover:text-red-600 dark:hover:text-red-500 transition-colors">JOURNEY</a>
+        <!-- Desktop Navigation: Brand Showcase -->
+        <div class="hidden lg:flex gap-8 items-center font-black text-xs tracking-widest uppercase text-zinc-900 dark:text-zinc-200">
+            <a href="/#exhibition" class="hover:text-red-600 transition-colors">Jeans Exhibition</a>
+            <a href="/#craft" class="hover:text-red-600 transition-colors">Material & Craft</a>
+            <a href="/#manifesto" class="hover:text-red-600 transition-colors">Manifesto</a>
+            <a href="/#lookbook" class="hover:text-red-600 transition-colors">Lookbook</a>
+            <a href="/#roots" class="hover:text-red-600 transition-colors">Factory Roots</a>
+            <a href="/b2b" class="text-red-600 font-extrabold hover:underline transition-all">B2B Portal &rarr;</a>
         </div>
 
         <div class="flex items-center gap-4">
             <!-- Theme Toggle -->
             <button @click="toggleTheme()"
-                class="p-2.5 rounded-full bg-zinc-200/50 dark:bg-zinc-800/50 hover:bg-red-100 dark:hover:bg-red-900/30 transition-all duration-300 text-zinc-600 dark:text-zinc-400 hover:text-red-600">
+                aria-label="Toggle visual theme"
+                class="p-2.5 rounded-full bg-zinc-100 dark:bg-zinc-800 hover:bg-red-50 dark:hover:bg-red-950/40 transition-all text-zinc-800 dark:text-zinc-200 hover:text-red-600 border border-zinc-200 dark:border-zinc-700">
                 <svg x-show="!darkMode" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z">
@@ -33,8 +41,15 @@
                 </svg>
             </button>
 
-            <!-- Hamburger Button -->
-            <button @click="mobileMenuOpen = !mobileMenuOpen" class="md:hidden p-2.5 text-zinc-600 dark:text-zinc-400">
+            <!-- Dedicated B2B Page Button -->
+            <a href="/b2b"
+                class="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 bg-zinc-950 hover:bg-red-600 text-white text-xs font-black tracking-widest uppercase rounded-full shadow-md transition-all hover:scale-105 active:scale-95 border border-zinc-800">
+                <span>B2B & WHOLESALE</span>
+                <span class="w-1.5 h-1.5 rounded-full bg-red-500"></span>
+            </a>
+
+            <!-- Mobile Hamburger Button -->
+            <button @click="mobileMenuOpen = !mobileMenuOpen" aria-label="Open mobile menu" class="lg:hidden p-2.5 text-zinc-900 dark:text-zinc-100">
                 <svg x-show="!mobileMenuOpen" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7">
                     </path>
@@ -45,14 +60,6 @@
                     </path>
                 </svg>
             </button>
-
-            <a href="/shop"
-                class="hidden sm:flex group relative px-6 py-2.5 bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 text-sm font-bold overflow-hidden rounded-full transition-all hover:scale-105 active:scale-95">
-                <span class="relative z-10">SHOP NOW</span>
-                <div
-                    class="absolute inset-0 bg-red-600 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-                </div>
-            </a>
         </div>
     </div>
 
@@ -61,17 +68,21 @@
         x-transition:enter-start="opacity-0 -translate-y-4" x-transition:enter-end="opacity-100 translate-y-0"
         x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100 translate-y-0"
         x-transition:leave-end="opacity-0 -translate-y-4"
-        class="md:hidden absolute top-full left-0 w-full bg-white dark:bg-black border-b border-zinc-200 dark:border-zinc-800 py-6 px-6 space-y-4 shadow-xl">
-        <a href="/#collections" @click="mobileMenuOpen = false"
-            class="block text-lg font-black tracking-tight hover:text-red-600 transition-colors">COLLECTIONS</a>
-        <a href="/shop" @click="mobileMenuOpen = false"
-            class="block text-lg font-black tracking-tight hover:text-red-600 transition-colors">SHOP ALL</a>
-        <a href="/#about" @click="mobileMenuOpen = false"
-            class="block text-lg font-black tracking-tight hover:text-red-600 transition-colors">JOURNEY</a>
-        <div class="pt-4 border-t border-zinc-100 dark:border-zinc-900">
-            <a href="/shop"
-                class="flex items-center justify-center w-full py-4 bg-red-600 text-white font-black rounded-xl uppercase tracking-widest text-sm">
-                Enter Shop
+        class="lg:hidden absolute top-full left-0 w-full bg-white/95 dark:bg-zinc-950/95 backdrop-blur-2xl border-b border-zinc-200 dark:border-zinc-800 py-6 px-6 space-y-4 shadow-2xl">
+        <a href="/#exhibition" @click="mobileMenuOpen = false"
+            class="block text-base font-black tracking-tight hover:text-red-600 transition-colors">JEANS EXHIBITION</a>
+        <a href="/#craft" @click="mobileMenuOpen = false"
+            class="block text-base font-black tracking-tight hover:text-red-600 transition-colors">MATERIAL & CRAFT</a>
+        <a href="/#manifesto" @click="mobileMenuOpen = false"
+            class="block text-base font-black tracking-tight hover:text-red-600 transition-colors">BRAND MANIFESTO</a>
+        <a href="/#lookbook" @click="mobileMenuOpen = false"
+            class="block text-base font-black tracking-tight hover:text-red-600 transition-colors">EDITORIAL LOOKBOOK</a>
+        <a href="/#roots" @click="mobileMenuOpen = false"
+            class="block text-base font-black tracking-tight hover:text-red-600 transition-colors">FACTORY ROOTS</a>
+        <div class="pt-4 border-t border-zinc-200 dark:border-zinc-800">
+            <a href="/b2b" @click="mobileMenuOpen = false"
+                class="flex items-center justify-center w-full py-3.5 bg-red-600 text-white font-black rounded-xl uppercase tracking-widest text-xs shadow-lg shadow-red-600/30">
+                Go to Dedicated B2B Portal &rarr;
             </a>
         </div>
     </div>

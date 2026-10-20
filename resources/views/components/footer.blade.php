@@ -1,8 +1,9 @@
 <footer
-    class="bg-zinc-100 dark:bg-zinc-950 pt-32 pb-12 border-t border-zinc-200 dark:border-zinc-900 transition-colors duration-500">
+    class="bg-zinc-100 dark:bg-zinc-950 pt-28 pb-12 border-t border-zinc-200 dark:border-zinc-900 transition-colors duration-500">
     <div class="max-w-7xl mx-auto px-6">
-        <div class="grid md:grid-cols-4 gap-16 mb-24">
-            <div class="col-span-2 space-y-8" x-data="{ 
+        <div class="grid lg:grid-cols-12 gap-16 mb-20">
+            <!-- Brand & B2B Briefing Column -->
+            <div class="lg:col-span-5 space-y-6" x-data="{ 
                 email: '', 
                 message: '',
                 status: '', 
@@ -24,7 +25,7 @@
                         const data = await response.json();
                         if (response.ok) {
                             this.status = 'success';
-                            this.message = data.message;
+                            this.message = 'Subscription confirmed. Quarterly textile & capacity briefing will be dispatched to your inbox.';
                             this.email = '';
                         } else {
                             this.status = 'error';
@@ -38,70 +39,83 @@
                     }
                 }
             }">
-                <div class="text-5xl font-black text-zinc-900 dark:text-white tracking-tighter">7SERIES</div>
-                <p class="text-xl text-zinc-500 max-w-sm">Join our inner circle for exclusive drops and limited release
-                    access.</p>
-                <form class="flex max-w-md" @submit.prevent="subscribe()">
-                    <input type="email" placeholder="ENTER EMAIL" required x-model="email"
-                        class="flex-1 bg-white dark:bg-zinc-900 border border-zinc-300 dark:border-zinc-800 px-6 py-4 focus:border-red-600 focus:outline-none dark:text-white transition-colors">
-                    <button
-                        class="bg-red-600 text-white px-8 py-4 font-black hover:bg-red-700 transition-colors uppercase disabled:opacity-50"
-                        :disabled="loading">
-                        <span x-show="!loading">JOIN</span>
-                        <span x-show="loading" x-cloak>...</span>
-                    </button>
-                </form>
-                <template x-if="message">
-                    <p class="text-sm font-bold uppercase tracking-widest mt-4"
-                        :class="status === 'success' ? 'text-green-600' : 'text-red-600'" x-text="message"></p>
-                </template>
+                <div class="flex items-center gap-3">
+                    <span class="text-3xl font-black text-zinc-900 dark:text-white tracking-tighter">7SERIES</span>
+                    <span class="text-[10px] font-black tracking-widest text-red-600 uppercase border border-red-600/30 px-2 py-0.5 rounded">GARMENT INDUSTRY</span>
+                </div>
+                <p class="text-base text-zinc-600 dark:text-zinc-400 font-medium max-w-md leading-relaxed">
+                    The Apple and Xiaomi of garment manufacturing. Supplying precision architectural denim, technical fabrics, and private-label apparel directly to global wholesalers and retail networks.
+                </p>
+                
+                <div class="space-y-3">
+                    <span class="text-xs font-black uppercase tracking-wider text-zinc-900 dark:text-white block">
+                        B2B CAPACITY & TEXTILE BRIEFING
+                    </span>
+                    <form class="flex max-w-md" @submit.prevent="subscribe()">
+                        <input type="email" placeholder="ENTER CORPORATE EMAIL" required x-model="email"
+                            class="flex-1 bg-white dark:bg-zinc-900 border border-zinc-300 dark:border-zinc-800 px-5 py-3.5 focus:border-red-600 focus:outline-none text-xs font-bold text-zinc-900 dark:text-white transition-colors">
+                        <button
+                            class="bg-red-600 text-white px-6 py-3.5 text-xs font-black hover:bg-red-700 transition-colors uppercase disabled:opacity-50"
+                            :disabled="loading">
+                            <span x-show="!loading">SUBSCRIBE</span>
+                            <span x-show="loading" x-cloak>...</span>
+                        </button>
+                    </form>
+                    <template x-if="message">
+                        <p class="text-xs font-bold uppercase tracking-wider mt-2"
+                            :class="status === 'success' ? 'text-green-600' : 'text-red-600'" x-text="message"></p>
+                    </template>
+                </div>
             </div>
-            <div class="space-y-6">
-                <h4 class="text-xs font-black text-red-600 uppercase tracking-widest">Navigation</h4>
-                <ul class="space-y-4 font-bold text-zinc-600 dark:text-zinc-400">
-                    <li><a href="/shop"
-                            class="hover:text-zinc-900 dark:hover:text-white transition-colors uppercase">Shop All</a>
-                    </li>
-                    <li><a href="/#collections"
-                            class="hover:text-zinc-900 dark:hover:text-white transition-colors uppercase">Archive</a>
-                    </li>
-                    <li><a href="#"
-                            class="hover:text-zinc-900 dark:hover:text-white transition-colors uppercase">Locations</a>
-                    </li>
-                    <li><a href="#"
-                            class="hover:text-zinc-900 dark:hover:text-white transition-colors uppercase">Studio</a>
-                    </li>
+
+            <!-- B2B Manufacturing Links -->
+            <div class="lg:col-span-3 space-y-4">
+                <h4 class="text-xs font-black text-red-600 uppercase tracking-widest">Industrial Solutions</h4>
+                <ul class="space-y-3 text-xs font-bold text-zinc-600 dark:text-zinc-400">
+                    <li><a href="/catalog" class="hover:text-red-600 transition-colors uppercase">Wholesale Line Sheet</a></li>
+                    <li><a href="/#capabilities" class="hover:text-red-600 transition-colors uppercase">Robotic CNC Cutting</a></li>
+                    <li><a href="/#capabilities" class="hover:text-red-600 transition-colors uppercase">Ozone Waterless Wash Lab</a></li>
+                    <li><a href="/#oem-odm" class="hover:text-red-600 transition-colors uppercase">Private Label & OEM Services</a></li>
+                    <li><a href="/#calculator" class="hover:text-red-600 transition-colors uppercase">Retailer Margin Calculator</a></li>
                 </ul>
             </div>
-            <div class="space-y-6">
-                <h4 class="text-xs font-black text-red-600 uppercase tracking-widest">Legal</h4>
-                <ul class="space-y-4 font-bold text-zinc-600 dark:text-zinc-400">
-                    <li><a href="#"
-                            class="hover:text-zinc-900 dark:hover:text-white transition-colors uppercase">Privacy
-                            Policy</a></li>
-                    <li><a href="#" class="hover:text-zinc-900 dark:hover:text-white transition-colors uppercase">Terms
-                            of Use</a></li>
-                    <li><a href="#"
-                            class="hover:text-zinc-900 dark:hover:text-white transition-colors uppercase">Shipping</a>
-                    </li>
-                    <li><a href="#"
-                            class="hover:text-zinc-900 dark:hover:text-white transition-colors uppercase">Refunds</a>
-                    </li>
+
+            <!-- Compliance & Procurement Desk -->
+            <div class="lg:col-span-2 space-y-4">
+                <h4 class="text-xs font-black text-red-600 uppercase tracking-widest">Procurement Desk</h4>
+                <ul class="space-y-3 text-xs font-bold text-zinc-600 dark:text-zinc-400">
+                    <li><a href="/#rfq" class="hover:text-red-600 transition-colors uppercase">Submit RFQ</a></li>
+                    <li><a href="/#rfq" class="hover:text-red-600 transition-colors uppercase">Request Swatch Kit</a></li>
+                    <li><a href="/#specs" class="hover:text-red-600 transition-colors uppercase">ISO 9001:2015 Audit</a></li>
+                    <li><a href="/#specs" class="hover:text-red-600 transition-colors uppercase">OEKO-TEX 100 Cert</a></li>
+                    <li><a href="/#specs" class="hover:text-red-600 transition-colors uppercase">FOB Export Guidelines</a></li>
                 </ul>
+            </div>
+
+            <!-- Contact & Facility -->
+            <div class="lg:col-span-2 space-y-4">
+                <h4 class="text-xs font-black text-red-600 uppercase tracking-widest">Direct Desk</h4>
+                <div class="space-y-2 text-xs font-medium text-zinc-600 dark:text-zinc-400">
+                    <p class="font-bold text-zinc-900 dark:text-white">Seven Series Garment Industry</p>
+                    <p>Industrial Manufacturing Zone</p>
+                    <p class="text-zinc-500">Hours: Mon – Sat (08:00 – 19:00 UTC)</p>
+                    <p class="pt-2">
+                        <span class="font-bold text-zinc-900 dark:text-white block">Procurement Inquiries:</span>
+                        <span class="text-red-600 font-bold">b2b@sevenseries.com</span>
+                    </p>
+                </div>
             </div>
         </div>
 
         <div
-            class="pt-12 border-t border-zinc-200 dark:border-zinc-900 flex flex-col md:flex-row justify-between items-center gap-6">
-            <p class="text-xs font-bold text-zinc-500 uppercase tracking-widest">&copy; {{ now()->year }} SEVEN SERIES
-                APPAREL. ALL RIGHTS RESERVED.</p>
-            <div class="flex gap-8">
-                <a href="#"
-                    class="text-xs font-black text-zinc-900 dark:text-white uppercase tracking-widest hover:text-red-600 transition-colors">Instagram</a>
-                <a href="#"
-                    class="text-xs font-black text-zinc-900 dark:text-white uppercase tracking-widest hover:text-red-600 transition-colors">Twitter</a>
-                <a href="#"
-                    class="text-xs font-black text-zinc-900 dark:text-white uppercase tracking-widest hover:text-red-600 transition-colors">Behance</a>
+            class="pt-8 border-t border-zinc-200 dark:border-zinc-900 flex flex-col md:flex-row justify-between items-center gap-6">
+            <p class="text-[11px] font-bold text-zinc-500 uppercase tracking-widest">&copy; {{ now()->year }} SEVEN SERIES GARMENT INDUSTRY. ALL RIGHTS RESERVED.</p>
+            <div class="flex gap-6 text-[11px] font-bold uppercase tracking-wider text-zinc-500">
+                <span>Direct-To-Wholesaler Model</span>
+                <span>•</span>
+                <span>ISO 9001:2015</span>
+                <span>•</span>
+                <span>OEKO-TEX STANDARD 100</span>
             </div>
         </div>
     </div>
