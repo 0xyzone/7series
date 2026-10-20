@@ -1,6 +1,7 @@
 import express from 'express';
 import { fileURLToPath } from 'url';
 import path from 'path';
+import fs from 'fs';
 import pino from 'pino';
 import QRCode from 'qrcode';
 import qrcodeTerminal from 'qrcode-terminal';
@@ -29,8 +30,19 @@ const logger = pino({ level: 'silent' });
 async function connectToWhatsApp() {
     connectionStatus = 'connecting';
     const authDir = path.join(__dirname, 'auth_info');
+    if (!fs.existsSync(authDir)) {
+        fs.mkdirSync(authDir, { recursive: true });
+    }
+
     const { state, saveCreds } = await useMultiFileAuthState(authDir);
-    const { version } = await fetchLatestBaileysVersion();
+
+    let version = [2, 3000, 1015901307];
+    try {
+        const v = await fetchLatestBaileysVersion();
+        if (v?.version) version = v.version;
+    } catch (e) {
+        console.log('[WhatsApp] Using fallback Baileys version');
+    }
 
     sock = makeWASocket({
         version,
@@ -53,8 +65,6 @@ async function connectToWhatsApp() {
             console.log('\n=========================================');
             console.log('  7SERIES WHATSAPP GATEWAY - PAIRING QR  ');
             console.log('=========================================');
-            console.log('Scan this QR in WhatsApp (Linked Devices) or open:');
-            console.log(`  http://localhost:${PORT}/qr\n`);
             qrcodeTerminal.generate(qr, { small: true });
         }
 
@@ -77,7 +87,7 @@ async function connectToWhatsApp() {
             connectionStatus = 'connected';
             latestQR = null;
             latestQRDataUrl = null;
-            connectedUser = sock?.user?.id ? sock.user.id.split(':')[0] : 'Unknown';
+            connectedUser = sock?.user?.id ? sock.user.id.split(':')[0] : 'Connected';
             console.log(`\n✅ [WhatsApp] Connected successfully! Logged in as: ${connectedUser}\n`);
         }
     });
@@ -90,7 +100,7 @@ function formatJid(phone) {
     if (!phone) return null;
     let clean = phone.toString().replace(/[^0-9]/g, '');
 
-    // If starts with 0 and 10 digits (e.g. 09800000000)
+    // If starts with 0 and 11 digits (e.g. 09800000000)
     if (clean.startsWith('0') && clean.length === 11) {
         clean = clean.substring(1);
     }
@@ -103,8 +113,14 @@ function formatJid(phone) {
     return `${clean}@s.whatsapp.net`;
 }
 
-// Health & Status endpoint
-app.get('/status', (req, res) => {
+// Core routes router
+const router = express.Router();
+
+router.get('/', (req, res) => {
+    res.redirect('qr');
+});
+
+router.get('/status', (req, res) => {
     res.json({
         success: true,
         status: connectionStatus,
@@ -113,8 +129,7 @@ app.get('/status', (req, res) => {
     });
 });
 
-// QR Code Web Page for instant scanning from phone browser or desktop
-app.get('/qr', (req, res) => {
+router.get('/qr', (req, res) => {
     const isConnected = connectionStatus === 'connected';
 
     const html = `
@@ -164,7 +179,7 @@ app.get('/qr', (req, res) => {
                     </div>
                 ` : `
                     <div style="padding: 40px; color: #9ca3af; font-size: 14px;">
-                        Generating secure QR code... (auto-refreshing)
+                        Generating secure QR code... (page auto-refreshes every 5s)
                     </div>
                 `}
 
@@ -184,8 +199,7 @@ app.get('/qr', (req, res) => {
     res.send(html);
 });
 
-// Endpoint to send WhatsApp message
-app.post('/send-message', async (req, res) => {
+router.post('/send-message', async (req, res) => {
     try {
         const { phone, message } = req.body;
 
@@ -199,7 +213,7 @@ app.post('/send-message', async (req, res) => {
         if (connectionStatus !== 'connected' || !sock) {
             return res.status(503).json({
                 success: false,
-                error: 'WhatsApp Gateway not connected. Please scan QR at http://localhost:' + PORT + '/qr',
+                error: 'WhatsApp Gateway not connected. Please scan QR at the /qr page.',
                 status: connectionStatus
             });
         }
@@ -230,12 +244,14 @@ app.post('/send-message', async (req, res) => {
     }
 });
 
+// Mount router on root and common subpaths for Phusion Passenger compatibility
+app.use('/', router);
+app.use('/whatsapp', router);
+
 // Start the server
 app.listen(PORT, () => {
     console.log(`================================================`);
     console.log(`  7Series WhatsApp Gateway running on port ${PORT}`);
-    console.log(`  Web QR / Status Page: http://localhost:${PORT}/qr`);
-    console.log(`  API Status Endpoint:  http://localhost:${PORT}/status`);
     console.log(`================================================`);
     connectToWhatsApp().catch(err => console.error('[WhatsApp Init Error]', err));
 });
