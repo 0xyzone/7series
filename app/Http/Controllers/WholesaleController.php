@@ -82,19 +82,18 @@ class WholesaleController extends Controller
         // 4. Send Confirmation Email to the recipient's provided address
         $this->sendConfirmationEmail($inquiry, $referenceId, 'Wholesale RFQ');
 
-        // 5. Send Free SMS Notification to provided phone number
-        $smsResult = $this->sendNotificationSms($inquiry, $referenceId);
+        // 5. Automatically send WhatsApp notification from server to the user's phone
+        $this->sendServerWhatsApp($inquiry, $referenceId);
 
         return response()->json([
             'status' => 'success',
-            'message' => 'Wholesale inquiry logged. A confirmation email has been sent to ' . $inquiry->email . ', and our factory account manager will contact you within 24 hours.',
+            'message' => 'Wholesale inquiry logged! An automated confirmation email and WhatsApp message have been sent from our server to ' . $inquiry->email . ' and ' . ($inquiry->phone ?? 'your phone') . '.',
             'reference_id' => $referenceId,
-            'sms_status' => $smsResult,
         ]);
     }
 
     /**
-     * Submit Contact Form with 15-minute rate limit, confirmation email, and SMS.
+     * Submit Contact Form with 15-minute rate limit, confirmation email, and automated WhatsApp message.
      */
     public function submitContact(Request $request)
     {
@@ -137,14 +136,13 @@ class WholesaleController extends Controller
         // 3. Send Confirmation Email to the recipient's provided address
         $this->sendConfirmationEmail($inquiry, $referenceId, 'Direct Contact');
 
-        // 4. Send Free SMS Notification to provided phone number
-        $smsResult = $this->sendNotificationSms($inquiry, $referenceId);
+        // 4. Automatically send WhatsApp notification from server to the user's phone
+        $this->sendServerWhatsApp($inquiry, $referenceId);
 
         return response()->json([
             'status' => 'success',
-            'message' => 'Thank you! Your message has been received. A confirmation has been sent to ' . $inquiry->email . '.',
+            'message' => 'Thank you! Your message has been received. An automated confirmation email and WhatsApp message have been sent to ' . $inquiry->email . ' and ' . ($inquiry->phone ?? 'your phone') . '.',
             'reference_id' => $referenceId,
-            'sms_status' => $smsResult,
         ]);
     }
 
@@ -201,21 +199,21 @@ class WholesaleController extends Controller
     }
 
     /**
-     * Dispatch free SMS notification to the user's phone.
+     * Automatically send server-side WhatsApp message directly to the user's phone.
      */
-    protected function sendNotificationSms(WholesaleInquiry $inquiry, string $referenceId): ?array
+    protected function sendServerWhatsApp(WholesaleInquiry $inquiry, string $referenceId): void
     {
         if (empty($inquiry->phone)) {
-            return null;
+            return;
         }
 
         try {
-            $smsService = app(FreeSmsService::class);
-            $message = "Seven Series: Namaste {$inquiry->contact_name}, your inquiry has been logged (Ref: {$referenceId}). Our Sitapaila factory team will contact you shortly.";
-            return $smsService->send($inquiry->phone, $message);
+            $whatsAppService = app(\App\Services\ServerWhatsAppService::class);
+            $message = "Seven Series Denim:\n\nNamaste {$inquiry->contact_name}, your inquiry has been logged successfully at our factory (Ref: {$referenceId}).\n\nOur team in Sitapaila, Kathmandu is reviewing your details and will get in touch with you shortly.\n\nOfficial Email: samparka@7series.com.np\nWebsite: https://7series.com.np";
+            
+            $whatsAppService->send($inquiry->phone, $message);
         } catch (\Throwable $e) {
-            Log::warning("SMS dispatch error: " . $e->getMessage());
-            return null;
+            Log::warning("Server WhatsApp dispatch error: " . $e->getMessage());
         }
     }
 }

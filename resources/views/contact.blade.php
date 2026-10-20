@@ -152,7 +152,6 @@
                 loading: false,
                 success: false,
                 successMessage: '',
-                whatsappLink: '',
                 error: '',
                 isRateLimited: false,
                 async submitForm() {
@@ -176,7 +175,6 @@
                         if (res.ok && data.status === 'success') {
                             this.success = true;
                             this.successMessage = data.message;
-                            this.whatsappLink = data.sms_status?.whatsapp_link || '';
                             this.form = { name: '', email: '', phone: '', subject: 'Factory & Wholesale Inquiry', message: '' };
                         } else {
                             this.isRateLimited = res.status === 429 || data.rate_limited;
@@ -204,15 +202,18 @@
                         <div class="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-900 space-y-2">
                             <div class="flex items-center gap-2 font-bold text-sm">
                                 <svg class="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                                <span>Message & Inquiry Confirmed!</span>
+                                <span>Inquiry Logged & Dispatched!</span>
                             </div>
                             <p class="text-xs text-emerald-800 leading-relaxed" x-text="successMessage"></p>
-                            <p class="text-[11px] text-emerald-700">A confirmation email has been dispatched to your inbox and an SMS notification logged for your phone.</p>
-                            <div x-show="whatsappLink" class="pt-1">
-                                <a :href="whatsappLink" target="_blank" rel="noopener noreferrer" 
-                                   class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white text-[11px] font-black shadow-xs transition-colors">
-                                    <span>Open WhatsApp Confirmation Copy &rarr;</span>
-                                </a>
+                            <div class="text-[11px] text-emerald-700 bg-white/70 p-2.5 rounded-xl border border-emerald-100 space-y-1">
+                                <div class="flex items-center gap-1.5 font-semibold">
+                                    <svg class="w-3.5 h-3.5 text-emerald-600" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l7.59-7.59L20 8l-9 9z"/></svg>
+                                    <span>Confirmation email sent to your inbox.</span>
+                                </div>
+                                <div class="flex items-center gap-1.5 font-semibold">
+                                    <svg class="w-3.5 h-3.5 text-emerald-600" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l7.59-7.59L20 8l-9 9z"/></svg>
+                                    <span>Automated WhatsApp confirmation dispatched to your phone number from our server.</span>
+                                </div>
                             </div>
                         </div>
                     </template>
