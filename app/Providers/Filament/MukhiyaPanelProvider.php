@@ -38,7 +38,9 @@ class MukhiyaPanelProvider extends PanelProvider
             ->favicon(fn () => \App\Helpers\FaviconHelper::getFaviconPngUrl())
             ->renderHook(
                 \Filament\View\PanelsRenderHook::HEAD_END,
-                fn () => new \Illuminate\Support\HtmlString('<script>
+                fn () => new \Illuminate\Support\HtmlString('
+                    <link rel="stylesheet" href="' . asset('css/filament-theme.css') . '">
+                    <script>
                     (function() {
                         var h = window.location.hostname;
                         var isLocal = ' . (\App\Helpers\FaviconHelper::isLocal() ? 'true' : 'false') . ' || h === "localhost" || h === "127.0.0.1" || h === "7series" || h.endsWith(".test") || h.endsWith(".local") || h.startsWith("192.168.");

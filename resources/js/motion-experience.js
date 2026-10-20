@@ -185,10 +185,9 @@ function initAnatomyScrubber() {
             tabs.forEach(t => {
                 const isSelected = t.getAttribute('data-index') === index;
                 t.classList.toggle('border-red-600', isSelected);
-                t.classList.toggle('bg-red-600/10', isSelected);
-                t.classList.toggle('dark:bg-red-950/40', isSelected);
+                t.classList.toggle('bg-red-50', isSelected);
                 t.classList.toggle('border-zinc-200', !isSelected);
-                t.classList.toggle('dark:border-zinc-800', !isSelected);
+                t.classList.toggle('bg-white', !isSelected);
             });
 
             cards.forEach(c => {
@@ -248,9 +247,8 @@ function initCityStoreFilters() {
                 b.classList.toggle('bg-red-600', active);
                 b.classList.toggle('text-white', active);
                 b.classList.toggle('bg-white', !active);
-                b.classList.toggle('dark:bg-zinc-900', !active);
                 b.classList.toggle('text-zinc-700', !active);
-                b.classList.toggle('dark:text-zinc-300', !active);
+                b.classList.toggle('border-zinc-200', !active);
             });
 
             storeCards.forEach(card => {

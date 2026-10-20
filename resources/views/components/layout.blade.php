@@ -1,39 +1,9 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}"
-    x-data="{ 
-        darkMode: document.documentElement.classList.contains('dark'),
-        toggleTheme() {
-            this.darkMode = !this.darkMode;
-            if (this.darkMode) {
-                document.documentElement.classList.add('dark');
-                localStorage.setItem('theme', 'dark');
-            } else {
-                document.documentElement.classList.remove('dark');
-                localStorage.setItem('theme', 'light');
-            }
-        }
-    }"
-    class="scroll-smooth">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="scroll-smooth bg-white text-zinc-950">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    
-    <!-- Instant Early Theme Application to prevent any flash of light mode -->
-    <script>
-        (function() {
-            try {
-                const storedTheme = localStorage.getItem('theme');
-                const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-                const isDark = storedTheme === 'dark' || (!storedTheme && systemPrefersDark);
-                if (isDark) {
-                    document.documentElement.classList.add('dark');
-                } else {
-                    document.documentElement.classList.remove('dark');
-                }
-            } catch (e) {}
-        })();
-    </script>
 
     <title>{{ $title ?? 'Seven Series Garment Industry | Authentic Jeanswear & Heavy Denim' }}</title>
     <meta name="description" content="Seven Series Garment Industry crafts authentic heavy denim apparel, supplying wholesale volumes to multi-store retailers and welcoming customers at official brand outlets.">
@@ -106,7 +76,7 @@
 </head>
 
 <body
-    class="bg-slate-50 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 font-sans transition-colors duration-500 overflow-x-hidden">
+    class="bg-white text-zinc-950 font-sans antialiased selection:bg-red-600 selection:text-white overflow-x-hidden">
     <x-preloader />
     {{ $slot }}
 </body>

@@ -1,5 +1,5 @@
 <footer
-    class="bg-zinc-100 dark:bg-zinc-950 pt-28 pb-12 border-t border-zinc-200 dark:border-zinc-900 transition-colors duration-500">
+    class="bg-zinc-50 pt-28 pb-12 border-t border-zinc-200">
     <div class="max-w-7xl mx-auto px-6">
         <div class="grid lg:grid-cols-12 gap-16 mb-20">
             <!-- Brand & B2B Briefing Column -->
@@ -40,20 +40,19 @@
                 }
             }">
                 <div class="flex items-center gap-3">
-                    <img src="{{ asset('images/brand/logo-light.png') }}" alt="Seven Series Authentic Denim" class="h-10 sm:h-12 w-auto block dark:hidden">
-                    <img src="{{ asset('images/brand/logo-dark.png') }}" alt="Seven Series Authentic Denim" class="h-10 sm:h-12 w-auto hidden dark:block">
+                    <img src="{{ asset('images/brand/logo-light.png') }}" alt="Seven Series Authentic Denim" class="h-10 sm:h-12 w-auto block">
                 </div>
-                <p class="text-base text-zinc-600 dark:text-zinc-400 font-medium max-w-md leading-relaxed">
+                <p class="text-base text-zinc-600 font-medium max-w-md leading-relaxed">
                     Seven Series Garment Industry crafts authentic heavy denim apparel, supplying wholesale quantities to multi-store retailers and welcoming customers at authorized official brand stores.
                 </p>
                 
                 <div class="space-y-3">
-                    <span class="text-xs font-black uppercase tracking-wider text-zinc-900 dark:text-white block">
+                    <span class="text-xs font-black uppercase tracking-wider text-zinc-950 block">
                         B2B CAPACITY & TEXTILE BRIEFING
                     </span>
                     <form class="flex max-w-md" @submit.prevent="subscribe()">
                         <input type="email" placeholder="ENTER CORPORATE EMAIL" required x-model="email"
-                            class="flex-1 bg-white dark:bg-zinc-900 border border-zinc-300 dark:border-zinc-800 px-5 py-3.5 focus:border-red-600 focus:outline-none text-xs font-bold text-zinc-900 dark:text-white transition-colors">
+                            class="flex-1 bg-white border border-zinc-300 px-5 py-3.5 focus:border-red-600 focus:outline-none text-xs font-bold text-zinc-900 transition-colors">
                         <button
                             class="bg-red-600 text-white px-6 py-3.5 text-xs font-black hover:bg-red-700 transition-colors uppercase disabled:opacity-50"
                             :disabled="loading">
@@ -71,7 +70,7 @@
             <!-- B2B Manufacturing Links -->
             <div class="lg:col-span-3 space-y-4">
                 <h4 class="text-xs font-black text-red-600 uppercase tracking-widest">Industrial Solutions</h4>
-                <ul class="space-y-3 text-xs font-bold text-zinc-600 dark:text-zinc-400">
+                <ul class="space-y-3 text-xs font-bold text-zinc-600">
                     <li><a href="/catalog" class="hover:text-red-600 transition-colors uppercase">Wholesale Line Sheet</a></li>
                     <li><a href="/#capabilities" class="hover:text-red-600 transition-colors uppercase">Robotic CNC Cutting</a></li>
                     <li><a href="/#capabilities" class="hover:text-red-600 transition-colors uppercase">Ozone Waterless Wash Lab</a></li>
@@ -83,7 +82,7 @@
             <!-- Compliance & Procurement Desk -->
             <div class="lg:col-span-2 space-y-4">
                 <h4 class="text-xs font-black text-red-600 uppercase tracking-widest">Procurement Desk</h4>
-                <ul class="space-y-3 text-xs font-bold text-zinc-600 dark:text-zinc-400">
+                <ul class="space-y-3 text-xs font-bold text-zinc-600">
                     <li><a href="/#rfq" class="hover:text-red-600 transition-colors uppercase">Submit RFQ</a></li>
                     <li><a href="/#rfq" class="hover:text-red-600 transition-colors uppercase">Request Swatch Kit</a></li>
                     <li><a href="/#specs" class="hover:text-red-600 transition-colors uppercase">ISO 9001:2015 Audit</a></li>
@@ -95,12 +94,12 @@
             <!-- Contact & Facility -->
             <div class="lg:col-span-2 space-y-4">
                 <h4 class="text-xs font-black text-red-600 uppercase tracking-widest">Direct Desk</h4>
-                <div class="space-y-2 text-xs font-medium text-zinc-600 dark:text-zinc-400">
-                    <p class="font-bold text-zinc-900 dark:text-white">Seven Series Garment Industry</p>
+                <div class="space-y-2 text-xs font-medium text-zinc-600">
+                    <p class="font-bold text-zinc-950">Seven Series Garment Industry</p>
                     <p>Industrial Manufacturing Zone</p>
                     <p class="text-zinc-500">Hours: Mon – Sat (08:00 – 19:00 UTC)</p>
                     <p class="pt-2">
-                        <span class="font-bold text-zinc-900 dark:text-white block">Procurement Inquiries:</span>
+                        <span class="font-bold text-zinc-950 block">Procurement Inquiries:</span>
                         <span class="text-red-600 font-bold">b2b@sevenseries.com</span>
                     </p>
                 </div>
@@ -108,7 +107,7 @@
         </div>
 
         <div
-            class="pt-8 border-t border-zinc-200 dark:border-zinc-900 flex flex-col md:flex-row justify-between items-center gap-6">
+            class="pt-8 border-t border-zinc-200 flex flex-col md:flex-row justify-between items-center gap-6">
             <p class="text-[11px] font-bold text-zinc-500 uppercase tracking-widest">&copy; {{ now()->year }} SEVEN SERIES GARMENT INDUSTRY. ALL RIGHTS RESERVED.</p>
             <div class="flex gap-6 text-[11px] font-bold uppercase tracking-wider text-zinc-500">
                 <span>Direct-To-Wholesaler Model</span>
