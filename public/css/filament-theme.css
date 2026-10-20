@@ -1,8 +1,12 @@
-@import url('https://fonts.bunny.net/css?family=outfit:400,500,600,700,800,900|space-grotesk:500,700');
+@import url('https://fonts.bunny.net/css?family=plus-jakarta-sans:400,500,600,700,800|space-grotesk:500,700');
 
 :root {
-    --font-sans: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
     --font-mono: 'Space Grotesk', monospace;
+    --theme-warm-light: #faf8f5;
+    --theme-warm-card-light: #ffffff;
+    --theme-warm-dark: #12100f;
+    --theme-warm-card-dark: #1a1715;
 }
 
 body, .fi-body {
@@ -10,9 +14,27 @@ body, .fi-body {
     letter-spacing: -0.01em;
 }
 
-/* Sidebar Custom Styling */
+/* Mobile safe area padding for bottom dock */
+@media (max-width: 768px) {
+    body, .fi-body {
+        padding-bottom: 5.5rem !important;
+    }
+}
+
+/* Warm Mode Canvas Overrides */
+html:not(.dark) body,
+html:not(.dark) .fi-body {
+    background-color: var(--theme-warm-light) !important;
+}
+
+html.dark body,
+html.dark .fi-body {
+    background-color: var(--theme-warm-dark) !important;
+}
+
+/* Sidebar Custom Warm Styling */
 .fi-sidebar {
-    border-right: 1px solid rgba(228, 228, 231, 0.8) !important;
+    border-right: 1px solid rgba(120, 113, 108, 0.15) !important;
 }
 
 .fi-sidebar-item-active .fi-sidebar-item-button {
@@ -28,7 +50,7 @@ body, .fi-body {
 
 /* Header & Topbar */
 .fi-topbar {
-    border-bottom: 1px solid rgba(228, 228, 231, 0.8) !important;
+    border-bottom: 1px solid rgba(120, 113, 108, 0.15) !important;
 }
 
 /* Tables & Cards */
@@ -71,7 +93,7 @@ body, .fi-body {
     background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-    background: rgba(229, 30, 43, 0.2);
+    background: rgba(229, 30, 43, 0.25);
     border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
@@ -91,10 +113,26 @@ body, .fi-body {
     max-width: 100% !important;
     overflow: hidden !important;
     box-sizing: border-box !important;
-    border-radius: 1rem !important;
-    border: 1px solid rgba(255, 255, 255, 0.08) !important;
-    background: rgba(255, 255, 255, 0.02) !important;
+    border-radius: 1.25rem !important;
+    border: 1px solid rgba(120, 113, 108, 0.2) !important;
     padding: 1.25rem !important;
+    transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+}
+
+html:not(.dark) .fi-ta-record {
+    background-color: #ffffff !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04) !important;
+}
+
+html.dark .fi-ta-record {
+    background-color: rgba(28, 25, 23, 0.7) !important;
+    backdrop-filter: blur(12px) !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3) !important;
+}
+
+.fi-ta-record:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12) !important;
 }
 
 .fi-ta-record-content-ctn,
@@ -115,9 +153,9 @@ body, .fi-body {
     max-height: 150px !important;
     object-fit: cover !important;
     object-position: center !important;
-    border-radius: 0.625rem !important;
+    border-radius: 0.75rem !important;
     display: block !important;
-    background-color: rgba(255, 255, 255, 0.03) !important;
+    background-color: rgba(120, 113, 108, 0.1) !important;
 }
 
 /* Prevent any text, badge, or container from bleeding outside the card */
@@ -136,11 +174,11 @@ body, .fi-body {
 
 /* Constrain internal panels and accordions */
 .fi-ta-record .fi-ta-panel {
-    border-radius: 0.5rem !important;
+    border-radius: 0.75rem !important;
     padding: 0.625rem 0.75rem !important;
     margin-top: 0.5rem !important;
-    background: rgba(255, 255, 255, 0.03) !important;
-    border: 1px solid rgba(255, 255, 255, 0.06) !important;
+    background: rgba(120, 113, 108, 0.06) !important;
+    border: 1px solid rgba(120, 113, 108, 0.15) !important;
     width: 100% !important;
     max-width: 100% !important;
     overflow: hidden !important;

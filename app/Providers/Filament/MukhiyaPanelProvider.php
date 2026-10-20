@@ -30,8 +30,22 @@ class MukhiyaPanelProvider extends PanelProvider
             ->login()
             ->passwordReset()
             ->colors([
-                'primary' => Color::Red,
+                'primary' => [
+                    50 => '#fef2f2',
+                    100 => '#fee2e2',
+                    200 => '#fecaca',
+                    300 => '#fca5a5',
+                    400 => '#f87171',
+                    500 => '#E51E2B',
+                    600 => '#dc2626',
+                    700 => '#b91c1c',
+                    800 => '#991b1b',
+                    900 => '#7f1d1d',
+                    950 => '#450a0a',
+                ],
+                'gray' => Color::Stone,
             ])
+            ->font('Plus Jakarta Sans', 'https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700&display=swap')
             ->brandLogo(fn () => asset('images/brand/logo-light.png'))
             ->darkModeBrandLogo(fn () => asset('images/brand/logo-dark.png'))
             ->brandLogoHeight('2.2rem')
@@ -64,6 +78,10 @@ class MukhiyaPanelProvider extends PanelProvider
                     })();
                 </script>')
             )
+            ->renderHook(
+                \Filament\View\PanelsRenderHook::BODY_END,
+                fn () => view('filament.components.mobile-dock')
+            )
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\Filament\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\Filament\Pages')
             ->pages([
@@ -71,9 +89,9 @@ class MukhiyaPanelProvider extends PanelProvider
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\Filament\Widgets')
             ->widgets([
-                \App\Filament\Widgets\WebSocketStatusWidget::class,
-                AccountWidget::class,
-                FilamentInfoWidget::class,
+                \App\Filament\Widgets\ThreeJsDaemonWidget::class,
+                \App\Filament\Widgets\WholesaleStatsWidget::class,
+                \App\Filament\Widgets\RecentInquiriesWidget::class,
             ])
             ->navigationGroups([
                 \Filament\Navigation\NavigationGroup::make('B2B Operations'),

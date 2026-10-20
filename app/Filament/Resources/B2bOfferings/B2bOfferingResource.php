@@ -79,11 +79,18 @@ class B2bOfferingResource extends Resource
             ->columns([
                 \Filament\Tables\Columns\Layout\Stack::make([
                     \Filament\Tables\Columns\ImageColumn::make('image')
-                        ->disk('public')
+                        ->getStateUsing(function ($record) {
+                            if (empty($record->image)) {
+                                return asset('images/collection-1.png');
+                            }
+                            if (str_starts_with($record->image, 'http') || str_starts_with($record->image, 'images/')) {
+                                return asset($record->image);
+                            }
+                            return asset('storage/' . $record->image);
+                        })
                         ->height('140px')
                         ->width('100%')
-                        ->extraImgAttributes(['class' => 'object-cover rounded-lg w-full mb-2'])
-                        ->defaultImageUrl('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="300" height="140" viewBox="0 0 300 140"><rect width="300" height="140" fill="%2318181b"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="%2371717a" font-family="sans-serif" font-size="14" font-weight="bold">7SERIES B2B</text></svg>'),
+                        ->extraImgAttributes(['class' => 'object-cover rounded-lg w-full mb-2']),
 
                     \Filament\Tables\Columns\Layout\Split::make([
                         TextColumn::make('title')
