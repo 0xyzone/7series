@@ -125,7 +125,8 @@ router.get('/status', (req, res) => {
         success: true,
         status: connectionStatus,
         user: connectedUser,
-        has_qr: !!latestQRDataUrl
+        has_qr: !!latestQRDataUrl,
+        qr_data_url: latestQRDataUrl
     });
 });
 
