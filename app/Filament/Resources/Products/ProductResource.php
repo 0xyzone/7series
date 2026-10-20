@@ -7,6 +7,7 @@ use App\Filament\Resources\Products\Pages\EditProduct;
 use App\Filament\Resources\Products\Pages\ListProducts;
 use App\Filament\Resources\Products\Schemas\ProductForm;
 use App\Filament\Resources\Products\Tables\ProductsTable;
+use Agroezinger\FilamentShieldEnhanced\Traits\HasResourceShield;
 use App\Models\Product;
 use BackedEnum;
 use Filament\Resources\Resource;
@@ -16,9 +17,19 @@ use Filament\Tables\Table;
 
 class ProductResource extends Resource
 {
+    use HasResourceShield;
+
     protected static ?string $model = Product::class;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+
+    public static function getShieldResourcePermissions(): array
+    {
+        return [
+            'export' => 'Can export products',
+            'publish' => 'Can toggle product live visibility',
+        ];
+    }
 
     public static function form(Schema $schema): Schema
     {

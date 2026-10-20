@@ -24,5 +24,10 @@ class AppServiceProvider extends ServiceProvider
             \Illuminate\Support\Facades\URL::forceScheme('https');
         }
         Model::unguard();
+
+        \Illuminate\Support\Facades\Gate::policy(
+            \Spatie\Permission\Models\Role::class,
+            \App\Policies\RolePolicy::class
+        );
     }
 }
