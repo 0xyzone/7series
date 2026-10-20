@@ -49,8 +49,6 @@ class RetailStoreResource extends Resource
     {
         return [
             'index' => ListRetailStores::route('/'),
-            'create' => CreateRetailStore::route('/create'),
-            'edit' => EditRetailStore::route('/{record}/edit'),
         ];
     }
 }

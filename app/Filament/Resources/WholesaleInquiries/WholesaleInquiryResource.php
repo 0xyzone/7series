@@ -73,8 +73,6 @@ class WholesaleInquiryResource extends Resource
     {
         return [
             'index' => ListWholesaleInquiries::route('/'),
-            'create' => CreateWholesaleInquiry::route('/create'),
-            'edit' => EditWholesaleInquiry::route('/{record}/edit'),
         ];
     }
 }

@@ -70,29 +70,70 @@ class B2bOfferingResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->contentGrid([
+                'sm' => 1,
+                'md' => 2,
+                'xl' => 3,
+            ])
             ->recordTitleAttribute('title')
             ->columns([
-                TextColumn::make('title')
-                    ->searchable()
-                    ->sortable(),
-                TextColumn::make('category')
-                    ->badge()
-                    ->sortable(),
-                TextColumn::make('moq')
-                    ->label('MOQ'),
-                TextColumn::make('fob_price_range')
-                    ->label('FOB Range'),
-                \Filament\Tables\Columns\IconColumn::make('is_active')
-                    ->boolean(),
-                TextColumn::make('created_at')
-                    ->dateTime()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                \Filament\Tables\Columns\Layout\Stack::make([
+                    \Filament\Tables\Columns\ImageColumn::make('image')
+                        ->disk('public')
+                        ->height('160px')
+                        ->width('100%')
+                        ->extraImgAttributes(['class' => 'object-cover rounded-lg w-full mb-2'])
+                        ->defaultImageUrl(asset('images/brand/logo-dark.png')),
+
+                    \Filament\Tables\Columns\Layout\Split::make([
+                        TextColumn::make('title')
+                            ->searchable()
+                            ->weight('bold')
+                            ->size('lg'),
+                        TextColumn::make('category')
+                            ->badge()
+                            ->color('info'),
+                    ]),
+
+                    \Filament\Tables\Columns\Layout\Split::make([
+                        TextColumn::make('moq')
+                            ->label('MOQ')
+                            ->icon('heroicon-o-cube')
+                            ->color('gray'),
+                        TextColumn::make('fob_price_range')
+                            ->label('FOB Range')
+                            ->weight('bold')
+                            ->color('primary'),
+                    ]),
+
+                    \Filament\Tables\Columns\Layout\Split::make([
+                        TextColumn::make('turnaround_time')
+                            ->icon('heroicon-o-clock')
+                            ->color('gray')
+                            ->size('xs'),
+                        \Filament\Tables\Columns\ToggleColumn::make('is_active')
+                            ->label('Active'),
+                    ]),
+
+                    \Filament\Tables\Columns\Layout\Panel::make([
+                        TextColumn::make('fabric_spec')
+                            ->label('Fabric Spec')
+                            ->color('gray')
+                            ->size('xs'),
+                        TextColumn::make('description')
+                            ->limit(90)
+                            ->color('gray')
+                            ->size('xs'),
+                    ])->collapsible(),
+                ])->space(3),
             ])
             ->filters([
                 //
             ])
             ->recordActions([
-                EditAction::make(),
+                \Filament\Actions\ViewAction::make()->slideOver(),
+                EditAction::make()->slideOver(),
+                \Filament\Actions\DeleteAction::make(),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
@@ -112,8 +153,6 @@ class B2bOfferingResource extends Resource
     {
         return [
             'index' => ListB2bOfferings::route('/'),
-            'create' => CreateB2bOffering::route('/create'),
-            'edit' => EditB2bOffering::route('/{record}/edit'),
         ];
     }
 }

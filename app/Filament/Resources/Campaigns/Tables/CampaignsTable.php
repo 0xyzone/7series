@@ -2,31 +2,53 @@
 
 namespace App\Filament\Resources\Campaigns\Tables;
 
-use App\Models\Subscriber;
-use Filament\Tables\Table;
-use Filament\Actions\Action;
 use App\Mail\NewsletterMailable;
-use Filament\Actions\EditAction;
-use Illuminate\Support\Facades\Mail;
+use App\Models\Subscriber;
+use Filament\Actions\Action;
 use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
+use Filament\Actions\EditAction;
+use Filament\Actions\ViewAction;
 use Filament\Notifications\Notification;
+use Filament\Tables\Columns\Layout\Split;
+use Filament\Tables\Columns\Layout\Stack;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Table;
+use Illuminate\Support\Facades\Mail;
 
 class CampaignsTable
 {
     public static function configure(Table $table): Table
     {
         return $table
+            ->contentGrid([
+                'sm' => 1,
+                'md' => 2,
+                'xl' => 3,
+            ])
             ->columns([
-                \Filament\Tables\Columns\TextColumn::make('subject')
-                    ->searchable(),
-                \Filament\Tables\Columns\TextColumn::make('sent_at')
-                    ->dateTime()
-                    ->sortable(),
-                \Filament\Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                Stack::make([
+                    Split::make([
+                        TextColumn::make('subject')
+                            ->searchable()
+                            ->weight('bold')
+                            ->size('lg')
+                            ->icon('heroicon-o-megaphone'),
+                    ]),
+
+                    Split::make([
+                        TextColumn::make('sent_at')
+                            ->label('Status')
+                            ->formatStateUsing(fn ($state) => $state ? 'Sent on ' . $state->format('M d, Y · h:i A') : 'Draft / Unsent')
+                            ->badge()
+                            ->color(fn ($record) => $record->sent_at ? 'success' : 'warning'),
+                        TextColumn::make('created_at')
+                            ->dateTime('M d, Y')
+                            ->color('gray')
+                            ->size('xs'),
+                    ]),
+                ])->space(3),
             ])
             ->filters([
                 //
@@ -37,7 +59,7 @@ class CampaignsTable
                     ->icon('heroicon-o-paper-airplane')
                     ->color('success')
                     ->requiresConfirmation()
-                    ->hidden(fn($record) => $record->sent_at !== null)
+                    ->hidden(fn ($record) => $record->sent_at !== null)
                     ->action(function ($record) {
                         $subscribers = Subscriber::all();
 
@@ -56,11 +78,13 @@ class CampaignsTable
                         $record->update(['sent_at' => now()]);
 
                         Notification::make()
-                            ->title('Newsletter sent successfully!')
+                            ->title('Newsletter queued and dispatched!')
                             ->success()
                             ->send();
                     }),
-                EditAction::make(),
+                ViewAction::make()->slideOver(),
+                EditAction::make()->slideOver(),
+                DeleteAction::make(),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

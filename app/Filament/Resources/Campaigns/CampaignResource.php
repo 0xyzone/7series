@@ -50,8 +50,6 @@ class CampaignResource extends Resource
     {
         return [
             'index' => ListCampaigns::route('/'),
-            'create' => CreateCampaign::route('/create'),
-            'edit' => EditCampaign::route('/{record}/edit'),
         ];
     }
 }
