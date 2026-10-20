@@ -43,14 +43,10 @@ class MukhiyaPanelProvider extends PanelProvider
                 FilamentInfoWidget::class,
             ])
             ->navigationGroups([
-                \Filament\Navigation\NavigationGroup::make('B2B Operations')
-                    ->icon(\Filament\Support\Icons\Heroicon::OutlinedBuildingStorefront),
-                \Filament\Navigation\NavigationGroup::make('Apparel & Catalog')
-                    ->icon(\Filament\Support\Icons\Heroicon::OutlinedTag),
-                \Filament\Navigation\NavigationGroup::make('Marketing & Growth')
-                    ->icon(\Filament\Support\Icons\Heroicon::OutlinedMegaphone),
-                \Filament\Navigation\NavigationGroup::make('Access Control')
-                    ->icon(\Filament\Support\Icons\Heroicon::OutlinedShieldCheck),
+                \Filament\Navigation\NavigationGroup::make('B2B Operations'),
+                \Filament\Navigation\NavigationGroup::make('Apparel & Catalog'),
+                \Filament\Navigation\NavigationGroup::make('Marketing & Growth'),
+                \Filament\Navigation\NavigationGroup::make('Access Control'),
             ])
             ->plugins([
                 \BezhanSalleh\FilamentShield\FilamentShieldPlugin::make()
