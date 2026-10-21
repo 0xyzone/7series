@@ -6,7 +6,7 @@
 
     <x-nav transparent="true" />
 
-    <main class="min-h-screen pt-20 sm:pt-28 pb-32 sm:pb-36 px-3.5 sm:px-6 lg:px-10 xl:px-12 w-full max-w-full overflow-hidden space-y-10 sm:space-y-16"
+    <main class="min-h-screen pt-6 sm:pt-10 pb-32 sm:pb-36 px-3.5 sm:px-6 lg:px-10 xl:px-12 w-full max-w-full overflow-hidden space-y-10 sm:space-y-16"
           x-data="{ activeCategory: 'all', copiedText: '' }">
 
         <!-- ========================================================================= -->

@@ -71,7 +71,7 @@
             <div class="lg:col-span-3 space-y-3">
                 <h4 class="text-xs font-black text-red-600 uppercase tracking-wider">Quick Navigation</h4>
                 <ul class="space-y-2.5 text-xs font-bold text-zinc-700">
-                    <li><a href="/#stores" class="hover:text-red-600 transition-colors">Official Retail Stores</a></li>
+                    <li><a href="{{ route('stores') }}" class="hover:text-red-600 transition-colors">Official Retail Stores</a></li>
                     <li><a href="/#cuts" class="hover:text-red-600 transition-colors">Jeans Cut Archive</a></li>
                     <li><a href="/#fabric" class="hover:text-red-600 transition-colors">Fabric & Weave Quality</a></li>
                     <li><a href="/#factory" class="hover:text-red-600 transition-colors">Garment Factory Overview</a></li>
@@ -81,17 +81,22 @@
                 </ul>
             </div>
 
-            <!-- Factory & Head Office -->
+            <!-- Factory & Head Office (Dynamic) -->
+            @php
+                $footerCompany = \App\Models\CompanySetting::getSettings();
+            @endphp
             <div class="lg:col-span-4 space-y-3">
                 <h4 class="text-xs font-black text-red-600 uppercase tracking-wider">Factory & Head Office</h4>
                 <div class="space-y-1.5 text-xs font-medium text-zinc-600">
-                    <p class="font-bold text-zinc-950">Seven Series Garment Factory & Production Unit</p>
-                    <p>Near Padma Colony Main Entrance, Sitapaila</p>
-                    <p>Kathmandu, Nepal</p>
-                    <p class="text-zinc-500">Working Hours: Sunday – Friday (09:00 – 18:00)</p>
+                    <p class="font-bold text-zinc-950">{{ $footerCompany->company_name ?? 'Seven Series Garment Factory & Production Unit' }}</p>
+                    <p>{{ $footerCompany->primary_address ?? 'Near Padma Colony Main Entrance, Sitapaila' }}</p>
+                    <p>{{ $footerCompany->city ?? 'Kathmandu' }}, {{ $footerCompany->state ?? 'Nepal' }}</p>
+                    <p class="text-zinc-500">Working Hours: {{ $footerCompany->operating_hours ?? 'Sunday – Friday (09:00 – 18:00)' }}</p>
                     <p class="pt-2">
                         <span class="font-bold text-zinc-950 block">Official Inquiries & Direct Support:</span>
-                        <a href="mailto:samparka@7series.com.np" class="text-red-600 font-bold hover:underline">samparka@7series.com.np</a>
+                        <a href="mailto:{{ $footerCompany->primary_email ?? 'samparka@7series.com.np' }}" class="text-red-600 font-bold hover:underline">
+                            {{ $footerCompany->primary_email ?? 'samparka@7series.com.np' }}
+                        </a>
                     </p>
                     <div class="pt-1">
                         <a href="/contact" class="inline-flex items-center gap-1 text-[11px] font-bold text-zinc-800 hover:text-red-600 underline">

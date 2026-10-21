@@ -1,22 +1,29 @@
+@php
+    $company = $company ?? \App\Models\CompanySetting::getSettings();
+@endphp
 <x-layout>
-    <x-slot:title>Contact Us & Factory Location | Seven Series Garment Industry</x-slot>
+    <x-slot:title>Contact Us & Factory Location | {{ $company->company_name ?? 'Seven Series Garment Industry' }}</x-slot>
 
     <x-nav transparent="true" />
 
-    <main class="min-h-screen pt-20 sm:pt-28 pb-32 sm:pb-36 px-3.5 sm:px-6 lg:px-10 xl:px-12 w-full max-w-full overflow-hidden space-y-8 sm:space-y-14">
+    <!-- Leaflet CSS & JS for Custom Interactive Map -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+    <main class="min-h-screen pt-6 sm:pt-10 pb-32 sm:pb-36 px-3.5 sm:px-6 lg:px-10 xl:px-12 w-full max-w-full overflow-hidden space-y-8 sm:space-y-12">
 
         <!-- ========================================================================= -->
         <!-- CONTACT HERO HEADER -->
         <!-- ========================================================================= -->
         <section class="relative">
-            <div class="app-card p-4 sm:p-8 lg:p-12 relative overflow-hidden bg-gradient-to-br from-white via-slate-50 to-red-50/20 border border-slate-200 shadow-xl">
+            <div class="app-card p-5 sm:p-8 lg:p-12 relative overflow-hidden bg-gradient-to-br from-white via-slate-50 to-red-50/20 border border-slate-200 shadow-xl">
                 <div class="absolute -right-20 -top-20 w-96 h-96 bg-red-600/10 rounded-full blur-3xl pointer-events-none"></div>
 
                 <div class="max-w-3xl space-y-4 relative z-10">
                     <div class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-slate-900 text-white text-xs font-black tracking-wider uppercase shadow-sm">
                         <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
                         <span>FACTORY LOCATION & CONTACT</span>
-                        <span class="text-zinc-400 font-mono text-[10px]">| SEVEN SERIES</span>
+                        <span class="text-zinc-400 font-mono text-[10px]">| {{ strtoupper($company->company_name ?? 'SEVEN SERIES') }}</span>
                     </div>
 
                     <h1 class="text-2xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-zinc-950 uppercase leading-tight break-words">
@@ -25,7 +32,7 @@
                     </h1>
 
                     <p class="text-zinc-600 text-base sm:text-lg leading-relaxed font-normal">
-                        Visit our manufacturing facility in Sitapaila, Kathmandu or reach out directly for wholesale supply, dealership inquiries, and customer assistance.
+                        Visit our manufacturing plant in {{ $company->city ?? 'Kathmandu' }} or connect directly with our dispatch team for wholesale supply, dealership appointments, and inquiries.
                     </p>
                 </div>
             </div>
@@ -39,7 +46,7 @@
             <!-- Left: Factory & Contact Details (7 cols) -->
             <div class="lg:col-span-7 space-y-6">
 
-                <!-- 1. Factory Location Card -->
+                <!-- 1. Factory Location Card (Dynamic) -->
                 <div class="app-card p-4 sm:p-7 bg-white border border-slate-200 shadow-md space-y-4">
                     <div class="flex items-start gap-4">
                         <div class="w-12 h-12 rounded-2xl bg-red-50 text-red-600 flex items-center justify-center shrink-0 border border-red-100 shadow-xs">
@@ -47,30 +54,43 @@
                         </div>
                         <div class="space-y-1">
                             <span class="text-[10px] font-black uppercase tracking-wider text-red-600">MAIN MANUFACTURING PLANT</span>
-                            <h2 class="text-xl sm:text-2xl font-extrabold text-zinc-950">Seven Series Garment Factory</h2>
+                            <h2 class="text-xl sm:text-2xl font-extrabold text-zinc-950">{{ $company->company_name ?? 'Seven Series Garment Factory' }}</h2>
                             <p class="text-base text-zinc-700 font-semibold pt-1">
-                                Near Padma Colony Main Entrance, Sitapaila
+                                {{ $company->primary_address ?? 'Near Padma Colony Main Entrance, Sitapaila' }}
                             </p>
                             <p class="text-sm text-zinc-500">
-                                Kathmandu, Bagmati Province, Nepal
+                                {{ $company->city ?? 'Kathmandu' }}, {{ $company->state ?? 'Bagmati Province, Nepal' }}
                             </p>
-                            <p class="text-xs text-zinc-500 pt-2 flex items-center gap-1.5">
-                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-                                <span>Easily accessible from Sitapaila Chowk, Ring Road. Direct freight and loading bay available.</span>
-                            </p>
+                            @if(!empty($company->directions_note))
+                                <p class="text-xs text-zinc-500 pt-2 flex items-center gap-1.5">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0"></span>
+                                    <span>{{ $company->directions_note }}</span>
+                                </p>
+                            @endif
                         </div>
                     </div>
 
                     <div class="pt-2 flex flex-wrap gap-3">
-                        <a href="https://maps.google.com/?q=Padma+Colony+Sitapaila+Kathmandu" target="_blank" rel="noopener noreferrer" 
+                        @php
+                            $mapsUrl = !empty($company->google_maps_url) ? $company->google_maps_url : 'https://maps.google.com/?q=' . urlencode(($company->primary_address ?? 'Sitapaila') . ' ' . ($company->city ?? 'Kathmandu'));
+                        @endphp
+                        <a href="{{ $mapsUrl }}" target="_blank" rel="noopener noreferrer" 
                            class="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-zinc-900 hover:bg-zinc-800 text-white text-xs font-bold transition-all shadow-sm">
                             <svg class="w-4 h-4 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
                             <span>Open in Google Maps & Directions</span>
                         </a>
+
+                        @if(!empty($company->primary_phone))
+                            <a href="tel:{{ $company->primary_phone }}" 
+                               class="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-red-50 hover:bg-red-100 text-red-700 border border-red-200 text-xs font-bold transition-all">
+                                <svg class="w-4 h-4 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+                                <span>{{ $company->primary_phone }}</span>
+                            </a>
+                        @endif
                     </div>
                 </div>
 
-                <!-- 2. Official Email & Operating Hours Grid -->
+                <!-- 2. Official Email & Operating Hours Grid (Dynamic) -->
                 <div class="grid sm:grid-cols-2 gap-4">
                     
                     <!-- Official Email Card -->
@@ -81,14 +101,17 @@
                         <div>
                             <span class="text-[10px] font-black uppercase tracking-wider text-zinc-400">OFFICIAL EMAIL</span>
                             <h3 class="text-base font-bold text-zinc-950 pt-0.5">Direct Correspondence</h3>
-                            <a href="mailto:samparka@7series.com.np" class="text-sm font-extrabold text-red-600 hover:underline block pt-1 break-all">
-                                samparka@7series.com.np
+                            @php
+                                $primaryEmail = $company->primary_email ?? 'samparka@7series.com.np';
+                            @endphp
+                            <a href="mailto:{{ $primaryEmail }}" class="text-sm font-extrabold text-red-600 hover:underline block pt-1 break-all">
+                                {{ $primaryEmail }}
                             </a>
                             <p class="text-xs text-zinc-500 pt-1">
-                                For Line sheets, volume pricing, and customer inquiries.
+                                {{ $company->email_note ?? 'For Line sheets, volume pricing, and customer inquiries.' }}
                             </p>
                         </div>
-                        <button type="button" @click="navigator.clipboard.writeText('samparka@7series.com.np'); copied = true; setTimeout(() => copied = false, 2000)" 
+                        <button type="button" @click="navigator.clipboard.writeText('{{ $primaryEmail }}'); copied = true; setTimeout(() => copied = false, 2000)" 
                                 class="inline-flex items-center gap-1.5 text-[11px] font-bold text-zinc-600 hover:text-zinc-950 pt-1">
                             <svg class="w-3.5 h-3.5 text-zinc-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/></svg>
                             <span x-text="copied ? 'Copied to clipboard!' : 'Copy Email Address'"></span>
@@ -104,37 +127,149 @@
                             <span class="text-[10px] font-black uppercase tracking-wider text-zinc-400">FACTORY TIMINGS</span>
                             <h3 class="text-base font-bold text-zinc-950 pt-0.5">Operating Hours</h3>
                             <p class="text-sm font-bold text-zinc-800 pt-1">
-                                Sunday – Friday: 09:00 – 18:00
+                                {{ $company->operating_hours ?? 'Sunday – Friday: 09:00 – 18:00' }}
                             </p>
                             <p class="text-xs text-zinc-500 pt-1">
-                                Saturday: Factory Closed (Machinery Maintenance & Dispatch Prep)
+                                {{ $company->operating_hours_note ?? 'Saturday: Factory Closed (Machinery Maintenance & Dispatch Prep)' }}
                             </p>
                         </div>
                     </div>
 
                 </div>
 
-                <!-- 3. Interactive Map Preview Card -->
-                <div class="app-card p-6 bg-white border border-slate-200 shadow-md space-y-4">
-                    <div class="flex items-center justify-between">
+                <!-- 3. BRANDED INTERACTIVE LEAFLET MAP WITH DYNAMIC FILAMENT PINS -->
+                <div class="app-card p-5 sm:p-7 bg-white border border-slate-200 shadow-md space-y-4"
+                     x-data="{
+                         pins: {{ Js::from($company->map_pins ?? []) }},
+                         activePinIndex: 0,
+                         map: null,
+                         markers: [],
+                         init() {
+                             this.$nextTick(() => {
+                                 if (!document.getElementById('brand-contact-map')) return;
+
+                                 const defaultCenter = (this.pins.length > 0 && this.pins[0].latitude) 
+                                     ? [parseFloat(this.pins[0].latitude), parseFloat(this.pins[0].longitude)] 
+                                     : [27.7125, 85.2850];
+
+                                 this.map = L.map('brand-contact-map', {
+                                     zoomControl: true,
+                                     scrollWheelZoom: false
+                                 }).setView(defaultCenter, 14);
+
+                                 // CartoDB Voyager Tiles (clean, elegant, non-clustered, brand-aligned)
+                                 L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+                                     attribution: '&copy; <a href=\'https://www.openstreetmap.org/copyright\'>OSM</a> &copy; <a href=\'https://carto.com/\'>CARTO</a>',
+                                     subdomains: 'abcd',
+                                     maxZoom: 19
+                                 }).addTo(this.map);
+
+                                 const bounds = [];
+
+                                 this.pins.forEach((pin, index) => {
+                                     if (pin.latitude && pin.longitude) {
+                                         const latLng = [parseFloat(pin.latitude), parseFloat(pin.longitude)];
+                                         bounds.push(latLng);
+
+                                         const customIcon = L.divIcon({
+                                             className: 'brand-map-pin',
+                                             html: `<div class='relative flex items-center justify-center'>
+                                                     <span class='absolute w-8 h-8 rounded-full bg-red-400 opacity-40 animate-ping'></span>
+                                                     <div class='relative w-9 h-9 rounded-full bg-red-600 shadow-xl flex items-center justify-center border-2 border-white text-white'>
+                                                         <svg class='w-4 h-4' fill='currentColor' viewBox='0 0 24 24'>
+                                                             <path d='M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z'/>
+                                                         </svg>
+                                                     </div>
+                                                 </div>`,
+                                             iconSize: [36, 36],
+                                             iconAnchor: [18, 36],
+                                             popupAnchor: [0, -36]
+                                         });
+
+                                         const marker = L.marker(latLng, { icon: customIcon }).addTo(this.map);
+                                         marker.bindPopup(`
+                                             <div class='p-3 max-w-xs space-y-2 font-sans'>
+                                                 <div class='flex items-center gap-2'>
+                                                     <span class='px-2 py-0.5 rounded-full bg-red-600 text-white text-[9px] font-black uppercase'>${pin.type || 'FACILITY'}</span>
+                                                     ${pin.is_primary ? '<span class=\'px-2 py-0.5 rounded-full bg-zinc-900 text-white text-[9px] font-bold\'>PRIMARY</span>' : ''}
+                                                 </div>
+                                                 <h4 class='text-sm font-extrabold text-zinc-950 leading-tight'>${pin.title}</h4>
+                                                 <p class='text-xs text-zinc-600 leading-snug'>${pin.address || ''}</p>
+                                                 ${pin.phone ? `<a href='tel:${pin.phone}' class='text-xs text-red-600 font-bold block pt-1'>${pin.phone}</a>` : ''}
+                                                 ${pin.google_maps_url ? `<a href='${pin.google_maps_url}' target='_blank' class='inline-block mt-2 px-3 py-1 bg-zinc-900 text-white text-[10px] font-bold rounded-full'>Open in Google Maps &rarr;</a>` : ''}
+                                             </div>
+                                         `);
+
+                                         this.markers.push(marker);
+                                     }
+                                 });
+
+                                 if (bounds.length > 1) {
+                                     this.map.fitBounds(bounds, { padding: [50, 50], maxZoom: 15 });
+                                 } else if (bounds.length === 1) {
+                                     this.map.setView(bounds[0], 14);
+                                 }
+
+                                 // Open primary marker popup
+                                 if (this.markers.length > 0) {
+                                     setTimeout(() => this.markers[0].openPopup(), 400);
+                                 }
+                             });
+                         },
+                         selectPin(index) {
+                             this.activePinIndex = index;
+                             if (this.pins[index] && this.map) {
+                                 const lat = parseFloat(this.pins[index].latitude);
+                                 const lng = parseFloat(this.pins[index].longitude);
+                                 this.map.flyTo([lat, lng], 15, { duration: 1.2 });
+                                 if (this.markers[index]) {
+                                     this.markers[index].openPopup();
+                                 }
+                             }
+                         }
+                     }">
+                    
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                         <div>
-                            <span class="text-[10px] font-black uppercase tracking-wider text-red-600">MAP LOCATION</span>
-                            <h3 class="text-lg font-bold text-zinc-950">Sitapaila Manufacturing Facility</h3>
+                            <span class="text-[10px] font-black uppercase tracking-wider text-red-600">INTERACTIVE LOCATION MAP</span>
+                            <h3 class="text-lg font-bold text-zinc-950">Official Facility & Office Pins</h3>
                         </div>
-                        <span class="px-2.5 py-1 rounded-full bg-zinc-100 text-[10px] font-mono font-bold text-zinc-700">Kathmandu, Nepal</span>
+                        <span class="px-2.5 py-1 rounded-full bg-red-50 text-[10px] font-mono font-bold text-red-700 border border-red-200">
+                            {{ count($company->map_pins ?? []) }} Verified Location{{ count($company->map_pins ?? []) > 1 ? 's' : '' }}
+                        </span>
                     </div>
 
-                    <!-- OpenStreetMap Embed -->
-                    <div class="aspect-[16/9] w-full rounded-2xl overflow-hidden border border-zinc-200 relative bg-zinc-100">
-                        <iframe 
-                            class="w-full h-full border-0" 
-                            src="https://www.openstreetmap.org/export/embed.html?bbox=85.2750%2C27.7050%2C85.2950%2C27.7200&amp;layer=mapnik&amp;marker=27.7125%2C85.2850" 
-                            loading="lazy">
-                        </iframe>
-                        <div class="absolute bottom-3 left-3 bg-white/95 backdrop-blur-md px-3 py-1.5 rounded-full border border-zinc-200 shadow-sm text-[11px] font-bold text-zinc-800 flex items-center gap-1.5 pointer-events-none">
-                            <span class="w-2 h-2 rounded-full bg-red-600 animate-pulse"></span>
-                            <span>Sitapaila, Near Padma Colony Gate</span>
+                    <!-- Dynamic Pin Switcher Tabs -->
+                    @if(!empty($company->map_pins) && count($company->map_pins) > 1)
+                        <div class="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1">
+                            @foreach($company->map_pins as $idx => $pin)
+                                <button type="button" @click="selectPin({{ $idx }})"
+                                        :class="activePinIndex === {{ $idx }} ? 'bg-red-600 text-white shadow-sm' : 'bg-zinc-100 text-zinc-700 hover:bg-zinc-200'"
+                                        class="shrink-0 whitespace-nowrap px-3.5 py-1.5 rounded-full text-xs font-bold transition-all flex items-center gap-1.5">
+                                    <span class="w-2 h-2 rounded-full" :class="activePinIndex === {{ $idx }} ? 'bg-white' : 'bg-red-600'"></span>
+                                    <span>{{ $pin['title'] ?? 'Pin ' . ($idx + 1) }}</span>
+                                    @if(!empty($pin['type']))
+                                        <span class="opacity-75 text-[10px]">({{ $pin['type'] }})</span>
+                                    @endif
+                                </button>
+                            @endforeach
                         </div>
+                    @endif
+
+                    <!-- Leaflet Map Container -->
+                    <div class="aspect-[16/10] sm:aspect-[16/9] w-full rounded-2xl overflow-hidden border border-zinc-200 relative bg-zinc-100 shadow-inner">
+                        <div id="brand-contact-map" class="w-full h-full z-10"></div>
+                        <div class="absolute bottom-3 left-3 z-20 bg-white/95 backdrop-blur-md px-3 py-1.5 rounded-full border border-zinc-200 shadow-sm text-[11px] font-bold text-zinc-800 flex items-center gap-1.5 pointer-events-none">
+                            <span class="w-2 h-2 rounded-full bg-red-600 animate-pulse"></span>
+                            <span>{{ $company->primary_address ?? 'Sitapaila Factory Floor' }}</span>
+                        </div>
+                    </div>
+
+                    <div class="pt-1 flex items-center justify-between text-xs text-zinc-500">
+                        <span>Managed dynamically in Filament Admin &bull; Clean CartoDB tile theme</span>
+                        <a href="{{ route('stores') }}" class="font-bold text-red-600 hover:underline">
+                            View all retail stores &rarr;
+                        </a>
                     </div>
                 </div>
 
@@ -181,19 +316,19 @@
                             this.error = data.message || 'Something went wrong. Please check your fields and try again.';
                         }
                     } catch (e) {
-                        this.error = 'Unable to send message. Please email us directly at samparka@7series.com.np';
+                        this.error = 'Unable to send message. Please email us directly at {{ $company->primary_email ?? 'samparka@7series.com.np' }}';
                     } finally {
                         this.loading = false;
                     }
                 }
             }">
-                <div class="app-card p-4 sm:p-7 lg:p-8 bg-white border border-slate-200 shadow-xl space-y-5 sm:space-y-6 sticky top-28">
+                <div class="app-card p-4 sm:p-7 lg:p-8 bg-white border border-slate-200 shadow-xl space-y-5 sm:space-y-6 sticky top-8">
                     
                     <div class="space-y-1">
                         <span class="text-[10px] font-black uppercase tracking-wider text-red-600">DIRECT INQUIRY</span>
                         <h2 class="text-2xl font-extrabold text-zinc-950 uppercase tracking-tight">Send Us a Message</h2>
                         <p class="text-xs text-zinc-500">
-                            Sent directly to our team at <strong class="text-zinc-900">samparka@7series.com.np</strong>
+                            Sent directly to our team at <strong class="text-zinc-900">{{ $company->primary_email ?? 'samparka@7series.com.np' }}</strong>
                         </p>
                     </div>
 

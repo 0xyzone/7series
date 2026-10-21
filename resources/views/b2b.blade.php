@@ -3,7 +3,7 @@
 
     <x-nav />
 
-    <main class="pt-24 sm:pt-32 pb-24 max-w-7xl mx-auto px-3.5 sm:px-6 w-full max-w-full overflow-hidden" x-data="{
+    <main class="pt-6 sm:pt-10 pb-24 max-w-7xl mx-auto px-3.5 sm:px-6 w-full max-w-full overflow-hidden" x-data="{
         selectedCategory: 'all',
         inquiryModalOpen: false,
         activeProduct: '',

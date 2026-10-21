@@ -6,7 +6,7 @@
 
     <x-nav transparent="true" />
 
-    <main class="min-h-screen pt-20 sm:pt-28 pb-32 sm:pb-36 px-3.5 sm:px-6 lg:px-10 xl:px-12 w-full max-w-full overflow-hidden space-y-10 sm:space-y-16">
+    <main class="min-h-screen pt-6 sm:pt-10 pb-32 sm:pb-36 px-3.5 sm:px-6 lg:px-10 xl:px-12 w-full max-w-full overflow-hidden space-y-10 sm:space-y-16">
 
         <!-- ========================================================================= -->
         <!-- SECTION 1: HERO AUTHENTIC DENIM JEANS SHOWCASE -->
@@ -51,7 +51,7 @@
 
                         <!-- Action Buttons (App Pill Style) -->
                         <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-2">
-                            <a href="#stores" class="px-7 py-3.5 bg-red-600 hover:bg-red-700 text-white font-bold text-sm tracking-wide rounded-full shadow-lg shadow-red-600/25 transition-all flex items-center justify-center gap-2 hover:scale-105 active:scale-95 text-center">
+                            <a href="{{ route('stores') }}" class="px-7 py-3.5 bg-red-600 hover:bg-red-700 text-white font-bold text-sm tracking-wide rounded-full shadow-lg shadow-red-600/25 transition-all flex items-center justify-center gap-2 hover:scale-105 active:scale-95 text-center">
                                 <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
                                 <span>Find a Store Near You</span>
                             </a>
@@ -317,58 +317,43 @@
         <!-- ========================================================================= -->
         <!-- SECTION 3: PHYSICAL RETAIL STORES DIRECTORY (Portrait Stories Style) -->
         <!-- ========================================================================= -->
+        <!-- ========================================================================= -->
+        <!-- SECTION 3: PHYSICAL RETAIL STORES PREVIEW (Partial Glance) -->
+        <!-- ========================================================================= -->
         <section id="stores" class="scroll-mt-28 space-y-6 pt-6">
             
             <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 px-2">
                 <div class="space-y-2">
                     <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-100 text-red-600 text-xs font-black uppercase">
                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
-                        <span>OFFICIAL RETAIL OUTLETS</span>
+                        <span>OFFICIAL RETAIL OUTLETS &bull; PARTIAL GLANCE</span>
                     </div>
                     <h2 class="text-3xl sm:text-4xl font-extrabold text-zinc-950 uppercase tracking-tight">
                         Where to Buy Seven Series
                     </h2>
                     <p class="text-zinc-600 text-base max-w-xl">
-                        You can visit our official retail stores and authorized partner shops to try on our jeans, find your exact size, and buy in person.
+                        Visit our official retail stores and authorized partner shops across Nepal to try on our jeans, verify your size, and buy in person.
                     </p>
                 </div>
 
-                <div>
-                    <a href="/b2b" class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-zinc-950 hover:bg-red-600 text-white text-xs font-bold uppercase tracking-wider transition-all shadow-md w-full sm:w-auto text-center">
-                        <span>Want to Sell Seven Series in Your Store?</span>
+                <div class="flex flex-wrap items-center gap-3">
+                    <a href="{{ route('stores') }}" class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-red-600 hover:bg-red-700 text-white text-xs font-black uppercase tracking-wider transition-all shadow-md shadow-red-600/30 w-full sm:w-auto text-center hover:scale-105 active:scale-95">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                        <span>Open Full Store Locator & Map</span>
                         <span>&rarr;</span>
+                    </a>
+                    <a href="/b2b" class="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-full bg-zinc-950 hover:bg-zinc-800 text-white text-xs font-bold uppercase tracking-wider transition-all shadow-sm w-full sm:w-auto text-center">
+                        <span>Sell in Your Shop</span>
                     </a>
                 </div>
             </div>
 
-            <!-- City Filter Pill Buttons (Horizontally Scrollable on Mobile) -->
-            <div class="flex items-center gap-2 p-1.5 bg-zinc-100 rounded-2xl overflow-x-auto no-scrollbar w-full sm:w-auto sm:max-w-fit">
-                <button type="button" class="store-city-filter shrink-0 whitespace-nowrap px-4 py-2 rounded-xl text-xs font-bold transition-all bg-red-600 text-white shadow-sm" data-city="all">
-                    All Stores
-                </button>
-                <button type="button" class="store-city-filter shrink-0 whitespace-nowrap px-4 py-2 rounded-xl text-xs font-bold text-zinc-700 hover:text-red-600 transition-all" data-city="Kathmandu">
-                    Kathmandu
-                </button>
-                <button type="button" class="store-city-filter shrink-0 whitespace-nowrap px-4 py-2 rounded-xl text-xs font-bold text-zinc-700 hover:text-red-600 transition-all" data-city="Lalitpur">
-                    Lalitpur
-                </button>
-                <button type="button" class="store-city-filter shrink-0 whitespace-nowrap px-4 py-2 rounded-xl text-xs font-bold text-zinc-700 hover:text-red-600 transition-all" data-city="Pokhara">
-                    Pokhara
-                </button>
-                <button type="button" class="store-city-filter shrink-0 whitespace-nowrap px-4 py-2 rounded-xl text-xs font-bold text-zinc-700 hover:text-red-600 transition-all" data-city="Butwal">
-                    Butwal
-                </button>
-                <button type="button" class="store-city-filter shrink-0 whitespace-nowrap px-4 py-2 rounded-xl text-xs font-bold text-zinc-700 hover:text-red-600 transition-all" data-city="Biratnagar">
-                    Biratnagar
-                </button>
-            </div>
-
-            <!-- Stores Cards Grid -->
+            <!-- Stores Cards Grid (Partial Glance - First 2 Featured + Partnership Card) -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 
                 @if(isset($retailStores) && $retailStores->count() > 0)
-                    @foreach($retailStores as $store)
-                        <div class="store-card app-card p-5 sm:p-7 flex flex-col justify-between group" data-city="{{ $store->city }}">
+                    @foreach($retailStores->take(2) as $store)
+                        <div class="store-card app-card p-5 sm:p-7 flex flex-col justify-between group">
                             
                             <div class="space-y-4">
                                 <div class="flex items-center justify-between">
@@ -423,7 +408,7 @@
                 @endif
 
                 <!-- Store Partnership Invitation Card -->
-                <div class="store-card app-card p-7 bg-zinc-950 text-white border-2 border-red-600 flex flex-col justify-between relative overflow-hidden" data-city="all">
+                <div class="store-card app-card p-7 bg-zinc-950 text-white border-2 border-red-600 flex flex-col justify-between relative overflow-hidden">
                     <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-red-600/25 rounded-full blur-2xl"></div>
                     
                     <div class="space-y-4 relative z-10">
@@ -436,18 +421,35 @@
                                 Sell Seven Series in Your Store
                             </h3>
                             <p class="text-zinc-400 text-sm mt-2 leading-relaxed">
-                                Do you have a clothing shop or multi-brand boutique? Partner with us to stock Seven Series authentic denim with verified wholesale prices and promotional materials.
+                                Partner with us to stock Seven Series authentic denim in your boutique with verified wholesale rates and promotional displays.
                             </p>
                         </div>
                     </div>
 
                     <div class="pt-6 relative z-10">
                         <a href="/b2b" class="w-full py-3.5 bg-red-600 hover:bg-red-700 text-white font-bold text-xs uppercase tracking-wider rounded-full text-center block transition-all shadow-lg shadow-red-600/30">
-                            Apply for Store Dealership &rarr;
+                            Apply for Dealership &rarr;
                         </a>
                     </div>
                 </div>
 
+            </div>
+
+            <!-- Full Directory Teaser Bar -->
+            <div class="p-4 sm:p-5 rounded-2xl bg-slate-50 border border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-red-100 text-red-600 flex items-center justify-center shrink-0">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/></svg>
+                    </div>
+                    <div>
+                        <h4 class="text-sm font-extrabold text-zinc-950">Looking for our complete list of stores across Nepal?</h4>
+                        <p class="text-xs text-zinc-500">Filter by city (Kathmandu, Lalitpur, Pokhara, Butwal, Biratnagar) and interact with our live map.</p>
+                    </div>
+                </div>
+
+                <a href="{{ route('stores') }}" class="shrink-0 px-5 py-2.5 rounded-full bg-zinc-900 hover:bg-red-600 text-white font-bold text-xs uppercase tracking-wider transition-all shadow-sm">
+                    View All Stores on Dedicated Page &rarr;
+                </a>
             </div>
 
         </section>
@@ -504,7 +506,7 @@
                     </div>
 
                     <div class="p-6 pt-0">
-                        <a href="#stores" class="w-full py-3 bg-slate-900 hover:bg-red-600 text-white font-bold text-xs uppercase tracking-wider rounded-full text-center block transition-colors">
+                        <a href="{{ route('stores') }}" class="w-full py-3 bg-slate-900 hover:bg-red-600 text-white font-bold text-xs uppercase tracking-wider rounded-full text-center block transition-colors">
                             Find in Nearest Store
                         </a>
                     </div>
@@ -539,7 +541,7 @@
                     </div>
 
                     <div class="p-6 pt-0">
-                        <a href="#stores" class="w-full py-3 bg-slate-900 hover:bg-red-600 text-white font-bold text-xs uppercase tracking-wider rounded-full text-center block transition-colors">
+                        <a href="{{ route('stores') }}" class="w-full py-3 bg-slate-900 hover:bg-red-600 text-white font-bold text-xs uppercase tracking-wider rounded-full text-center block transition-colors">
                             Find in Nearest Store
                         </a>
                     </div>
@@ -574,7 +576,7 @@
                     </div>
 
                     <div class="p-6 pt-0">
-                        <a href="#stores" class="w-full py-3 bg-slate-900 hover:bg-red-600 text-white font-bold text-xs uppercase tracking-wider rounded-full text-center block transition-colors">
+                        <a href="{{ route('stores') }}" class="w-full py-3 bg-slate-900 hover:bg-red-600 text-white font-bold text-xs uppercase tracking-wider rounded-full text-center block transition-colors">
                             Find in Nearest Store
                         </a>
                     </div>
