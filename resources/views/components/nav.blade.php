@@ -87,26 +87,35 @@
         <div class="w-full px-4 sm:px-6 lg:px-10 xl:px-12 flex items-center justify-between">
             
             <!-- Left: Brand Logo -->
-            <a href="/" class="flex items-center gap-3 group shrink-0">
-                <img src="{{ asset('images/brand/logo-light.png') }}" alt="Seven Series Denim" class="h-8 sm:h-9 w-auto object-contain transition-transform group-hover:scale-105">
+            <a href="/" class="flex items-center gap-2 group shrink-0">
+                <img src="{{ asset('images/brand/logo-light.png') }}" alt="Seven Series Denim" class="h-7 sm:h-9 w-auto object-contain transition-transform group-hover:scale-105">
             </a>
 
             <!-- Right: Quick Direct Actions -->
-            <div class="flex items-center gap-2 sm:gap-4 shrink-0">
-                <a href="/#stores" @click.prevent="scrollTo('stores')" class="inline-flex items-center gap-1.5 text-xs font-bold text-zinc-700 hover:text-red-600 transition-colors py-2 px-3 rounded-full hover:bg-zinc-100">
-                    <svg class="w-4 h-4 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-                    <span class="hidden sm:inline">Store Locator</span>
-                    <span class="sm:hidden">Stores</span>
+            <div class="flex items-center gap-1.5 sm:gap-3 shrink-0">
+                <!-- Dedicated Brand Kit Button (prominent on top for quick access) -->
+                <a href="{{ route('brandkit') }}" 
+                   class="inline-flex items-center gap-1.5 text-xs font-bold transition-all py-1.5 sm:py-2 px-2.5 sm:px-3.5 rounded-full {{ request()->is('brandkit*') || request()->is('brand-kit*') ? 'bg-red-600 text-white shadow-sm' : 'text-zinc-800 hover:text-red-600 bg-red-50/80 hover:bg-red-100/80 border border-red-200/80' }}"
+                   title="Official Brand Kit & Press Assets">
+                    <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-red-600 {{ request()->is('brandkit*') || request()->is('brand-kit*') ? 'text-white' : '' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                    </svg>
+                    <span>Brand Kit</span>
                 </a>
 
-                <a href="/contact" class="inline-flex items-center gap-1.5 text-xs font-bold text-zinc-700 hover:text-red-600 transition-colors py-2 px-3 rounded-full hover:bg-zinc-100 {{ request()->is('contact*') ? 'text-red-600 font-extrabold bg-red-50' : '' }}">
+                <a href="/#stores" @click.prevent="scrollTo('stores')" class="hidden md:inline-flex items-center gap-1.5 text-xs font-bold text-zinc-700 hover:text-red-600 transition-colors py-2 px-3 rounded-full hover:bg-zinc-100">
+                    <svg class="w-4 h-4 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                    <span>Store Locator</span>
+                </a>
+
+                <a href="/contact" class="hidden sm:inline-flex items-center gap-1.5 text-xs font-bold text-zinc-700 hover:text-red-600 transition-colors py-2 px-3 rounded-full hover:bg-zinc-100 {{ request()->is('contact*') ? 'text-red-600 font-extrabold bg-red-50' : '' }}">
                     <svg class="w-4 h-4 text-zinc-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
                     <span>Contact</span>
                 </a>
 
-                <a href="/b2b" class="inline-flex items-center gap-1.5 px-4 sm:px-5 py-2 sm:py-2.5 rounded-full text-xs font-black uppercase tracking-wider text-white bg-red-600 hover:bg-red-700 shadow-md shadow-red-600/25 transition-all hover:scale-105 active:scale-95">
-                    <span>Wholesale B2B</span>
-                    <span class="text-xs">&rarr;</span>
+                <a href="/b2b" class="inline-flex items-center gap-1.5 px-3 sm:px-5 py-1.5 sm:py-2.5 rounded-full text-xs font-black uppercase tracking-wider text-white bg-red-600 hover:bg-red-700 shadow-md shadow-red-600/25 transition-all hover:scale-105 active:scale-95">
+                    <span class="sm:hidden">B2B</span>
+                    <span class="hidden sm:inline">Wholesale B2B &rarr;</span>
                 </a>
             </div>
 

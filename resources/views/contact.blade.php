@@ -3,13 +3,13 @@
 
     <x-nav transparent="true" />
 
-    <main class="min-h-screen pt-24 sm:pt-28 pb-36 px-4 sm:px-6 lg:px-10 xl:px-12 w-full space-y-10 sm:space-y-14">
+    <main class="min-h-screen pt-20 sm:pt-28 pb-32 sm:pb-36 px-3.5 sm:px-6 lg:px-10 xl:px-12 w-full max-w-full overflow-hidden space-y-8 sm:space-y-14">
 
         <!-- ========================================================================= -->
         <!-- CONTACT HERO HEADER -->
         <!-- ========================================================================= -->
         <section class="relative">
-            <div class="app-card p-6 sm:p-10 lg:p-12 relative overflow-hidden bg-gradient-to-br from-white via-slate-50 to-red-50/20 border border-slate-200 shadow-xl">
+            <div class="app-card p-4 sm:p-8 lg:p-12 relative overflow-hidden bg-gradient-to-br from-white via-slate-50 to-red-50/20 border border-slate-200 shadow-xl">
                 <div class="absolute -right-20 -top-20 w-96 h-96 bg-red-600/10 rounded-full blur-3xl pointer-events-none"></div>
 
                 <div class="max-w-3xl space-y-4 relative z-10">
@@ -19,7 +19,7 @@
                         <span class="text-zinc-400 font-mono text-[10px]">| SEVEN SERIES</span>
                     </div>
 
-                    <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-zinc-950 uppercase leading-none">
+                    <h1 class="text-2xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-zinc-950 uppercase leading-tight break-words">
                         GET IN TOUCH WITH OUR <br>
                         <span class="text-red-600">GARMENT FACTORY.</span>
                     </h1>
@@ -40,7 +40,7 @@
             <div class="lg:col-span-7 space-y-6">
 
                 <!-- 1. Factory Location Card -->
-                <div class="app-card p-6 sm:p-8 bg-white border border-slate-200 shadow-md space-y-4">
+                <div class="app-card p-4 sm:p-7 bg-white border border-slate-200 shadow-md space-y-4">
                     <div class="flex items-start gap-4">
                         <div class="w-12 h-12 rounded-2xl bg-red-50 text-red-600 flex items-center justify-center shrink-0 border border-red-100 shadow-xs">
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
@@ -74,7 +74,7 @@
                 <div class="grid sm:grid-cols-2 gap-4">
                     
                     <!-- Official Email Card -->
-                    <div class="app-card p-6 bg-white border border-slate-200 shadow-xs space-y-3" x-data="{ copied: false }">
+                    <div class="app-card p-4 sm:p-6 bg-white border border-slate-200 shadow-xs space-y-3" x-data="{ copied: false }">
                         <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center border border-blue-100">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
                         </div>
@@ -96,7 +96,7 @@
                     </div>
 
                     <!-- Factory Hours Card -->
-                    <div class="app-card p-6 bg-white border border-slate-200 shadow-xs space-y-3">
+                    <div class="app-card p-4 sm:p-6 bg-white border border-slate-200 shadow-xs space-y-3">
                         <div class="w-10 h-10 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center border border-amber-100">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                         </div>
@@ -187,7 +187,7 @@
                     }
                 }
             }">
-                <div class="app-card p-6 sm:p-8 bg-white border border-slate-200 shadow-xl space-y-6 sticky top-28">
+                <div class="app-card p-4 sm:p-7 lg:p-8 bg-white border border-slate-200 shadow-xl space-y-5 sm:space-y-6 sticky top-28">
                     
                     <div class="space-y-1">
                         <span class="text-[10px] font-black uppercase tracking-wider text-red-600">DIRECT INQUIRY</span>

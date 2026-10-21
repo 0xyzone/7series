@@ -2,6 +2,7 @@
     'title' => null,
     'description' => null,
     'image' => null,
+    'imageAlt' => null,
 ])
 
 <!DOCTYPE html>
@@ -9,14 +10,17 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
 
     @php
         $pageTitle = $title ?? 'Seven Series Garment Industry | Authentic Denim Jeans & Clothing Factory';
         $pageDescription = $description ?? 'Seven Series crafts authentic heavyweight denim jeans and casual apparel. Supplying bulk wholesale orders to retailers and welcoming shoppers at official brand stores.';
-        $rawImage = $image ?? asset('images/og-cover.jpg');
+        $rawImage = $image ?? asset('images/og-home.jpg');
         $pageImage = str_starts_with($rawImage, 'http') ? $rawImage : url($rawImage);
+        $pageImageAlt = $imageAlt ?? 'Seven Series Big Logo with Screenshot of the Homepage Denim Jeans Showcase';
         $currentUrl = url()->current();
+        $isPng = str_ends_with(strtolower($pageImage), '.png');
+        $imageType = $isPng ? 'image/png' : 'image/jpeg';
 
         $isLocal = \App\Helpers\FaviconHelper::isLocal();
         $favIco = \App\Helpers\FaviconHelper::getFaviconIcoUrl();
@@ -37,10 +41,10 @@
     <meta property="og:description" content="{{ $pageDescription }}">
     <meta property="og:image" content="{{ $pageImage }}">
     <meta property="og:image:secure_url" content="{{ $pageImage }}">
-    <meta property="og:image:type" content="image/jpeg">
+    <meta property="og:image:type" content="{{ $imageType }}">
     <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="675">
-    <meta property="og:image:alt" content="Seven Series Authentic Denim Jeans Craftsmanship">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="{{ $pageImageAlt }}">
     <meta property="og:locale" content="en_US">
 
     <!-- Twitter / X -->
@@ -49,7 +53,7 @@
     <meta name="twitter:title" content="{{ $pageTitle }}">
     <meta name="twitter:description" content="{{ $pageDescription }}">
     <meta name="twitter:image" content="{{ $pageImage }}">
-    <meta name="twitter:image:alt" content="Seven Series Authentic Denim Jeans">
+    <meta name="twitter:image:alt" content="{{ $pageImageAlt }}">
 
     <!-- Brand Favicons & Icons (Red for 7series.com.np production, White for local setup) -->
     <link rel="icon" type="image/x-icon" href="{{ $favIco }}">
@@ -82,11 +86,18 @@
         }
 
         .app-card {
-            border-radius: 24px;
+            border-radius: 20px;
             background: #ffffff;
             border: 1px solid rgba(226, 232, 240, 0.9);
             box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.04), 0 8px 10px -6px rgba(0, 0, 0, 0.02);
             transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            max-width: 100%;
+        }
+
+        @media (min-width: 640px) {
+            .app-card {
+                border-radius: 24px;
+            }
         }
 
         .app-card:hover {

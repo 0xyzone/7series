@@ -3,7 +3,7 @@
 
     <x-nav />
 
-    <main class="pt-32 pb-24 max-w-7xl mx-auto px-6" x-data="{
+    <main class="pt-24 sm:pt-32 pb-24 max-w-7xl mx-auto px-3.5 sm:px-6 w-full max-w-full overflow-hidden" x-data="{
         selectedCategory: 'all',
         inquiryModalOpen: false,
         activeProduct: null,
@@ -13,13 +13,13 @@
         }
     }">
         <!-- Page Header -->
-        <div class="mb-16 border-b border-zinc-200 pb-12">
+        <div class="mb-12 sm:mb-16 border-b border-zinc-200 pb-8 sm:pb-12">
             <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-100 border border-red-200 text-red-600 text-xs font-black tracking-widest uppercase mb-4">
                 <span>B2B WHOLESALE & BULK PRODUCTION</span>
             </div>
             <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
                 <div>
-                    <h1 class="text-5xl md:text-6xl font-black tracking-tight text-zinc-950 uppercase">
+                    <h1 class="text-3xl sm:text-5xl md:text-6xl font-black tracking-tight text-zinc-950 uppercase leading-tight break-words">
                         2026 INDUSTRIAL <span class="text-red-600">LINE SHEET.</span>
                     </h1>
                     <p class="text-zinc-600 font-medium max-w-2xl text-base mt-2">

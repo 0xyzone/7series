@@ -95,6 +95,7 @@ class BrandKitController extends Controller
                 'resolution' => 'Press-Ready Vector',
                 'filename' => 'seven-series-vector-sheet.pdf',
                 'path' => 'brand-assets/seven-series-vector-sheet.pdf',
+                'preview_path' => 'brand-assets/seven-series-vector-sheet-preview.svg',
                 'description' => 'Original Adobe Illustrator master artwork sheet containing all vector variants and curves for industrial screen printing and tailoring.',
                 'background_class' => 'bg-slate-100 border border-slate-300',
             ],

@@ -3,7 +3,7 @@
 
     <x-nav />
 
-    <main class="pt-28 sm:pt-32 pb-24 max-w-7xl mx-auto px-4 sm:px-6" x-data="{
+    <main class="pt-24 sm:pt-32 pb-24 max-w-7xl mx-auto px-3.5 sm:px-6 w-full max-w-full overflow-hidden" x-data="{
         selectedCategory: 'all',
         inquiryModalOpen: false,
         activeProduct: '',
@@ -20,7 +20,7 @@
             </div>
             <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
                 <div>
-                    <h1 class="text-3xl sm:text-5xl md:text-6xl font-black tracking-tight text-zinc-950 uppercase leading-tight">
+                    <h1 class="text-3xl sm:text-5xl md:text-6xl font-black tracking-tight text-zinc-950 uppercase leading-tight break-words">
                         WHOLESALE & <span class="text-red-600">RETAIL SUPPLY.</span>
                     </h1>
                     <p class="text-zinc-600 font-medium max-w-2xl text-sm sm:text-base mt-3 leading-relaxed">
@@ -97,7 +97,7 @@
                                 </div>
                             </div>
 
-                            <div class="p-8 space-y-4">
+                            <div class="p-5 sm:p-8 space-y-4">
                                 <div class="flex justify-between items-baseline">
                                     <h3 class="text-xl font-black uppercase tracking-tight text-zinc-950">{{ $offering->title }}</h3>
                                     @if($offering->fob_price_range)
@@ -118,12 +118,12 @@
                             </div>
                         </div>
 
-                        <div class="p-8 pt-0 flex gap-3">
+                        <div class="p-5 sm:p-8 pt-0 flex flex-col sm:flex-row gap-2 sm:gap-3">
                             <button type="button" @click="openInquiry('{{ $offering->title }}')" 
                                     class="flex-1 py-3.5 bg-red-600 hover:bg-red-700 text-white font-black text-xs uppercase tracking-widest rounded-xl transition-all text-center">
                                 Request Swatch & Specs
                             </button>
-                            <a href="#rfq" class="py-3.5 px-4 bg-zinc-100 hover:bg-zinc-200 text-zinc-950 font-black text-xs uppercase tracking-widest rounded-xl transition-colors">
+                            <a href="#rfq" class="py-3.5 px-4 bg-zinc-100 hover:bg-zinc-200 text-zinc-950 font-black text-xs uppercase tracking-widest rounded-xl transition-colors text-center">
                                 RFQ
                             </a>
                         </div>
@@ -150,7 +150,7 @@
 
             <div class="grid md:grid-cols-3 gap-8">
                 <!-- Tier 1 -->
-                <div class="p-8 rounded-3xl bg-white border-2 border-zinc-200 space-y-4 shadow-sm">
+                <div class="p-5 sm:p-8 rounded-3xl bg-white border-2 border-zinc-200 space-y-4 shadow-sm">
                     <span class="text-xs font-black text-zinc-400 uppercase tracking-widest">Tier 01</span>
                     <h3 class="text-2xl font-black text-zinc-950">Boutique Stockist</h3>
                     <div class="text-2xl font-black text-red-600">250 – 999 units</div>
@@ -163,7 +163,7 @@
                 </div>
 
                 <!-- Tier 2 -->
-                <div class="p-8 rounded-3xl bg-zinc-950 text-white border-2 border-red-600 space-y-4 shadow-2xl relative">
+                <div class="p-5 sm:p-8 rounded-3xl bg-zinc-950 text-white border-2 border-red-600 space-y-4 shadow-2xl relative">
                     <div class="absolute -top-3 left-6 px-3 py-0.5 bg-red-600 text-[9px] font-black uppercase tracking-widest text-white rounded-full">
                         RECOMMENDED
                     </div>
@@ -179,7 +179,7 @@
                 </div>
 
                 <!-- Tier 3 -->
-                <div class="p-8 rounded-3xl bg-white border-2 border-zinc-200 space-y-4 shadow-sm">
+                <div class="p-5 sm:p-8 rounded-3xl bg-white border-2 border-zinc-200 space-y-4 shadow-sm">
                     <span class="text-xs font-black text-zinc-400 uppercase tracking-widest">Tier 03</span>
                     <h3 class="text-2xl font-black text-zinc-950">Enterprise Private Label</h3>
                     <div class="text-2xl font-black text-red-600">5,000+ units</div>
@@ -194,7 +194,7 @@
         </div>
 
         <!-- RFQ Section -->
-        <div id="rfq" class="max-w-4xl mx-auto rounded-3xl bg-white border-2 border-zinc-200 p-8 sm:p-12 shadow-2xl"
+        <div id="rfq" class="max-w-4xl mx-auto rounded-3xl bg-white border-2 border-zinc-200 p-5 sm:p-8 md:p-12 shadow-2xl"
              x-data="{
                 companyName: '',
                 contactName: '',

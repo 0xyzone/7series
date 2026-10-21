@@ -1,19 +1,22 @@
-<x-layout>
+<x-layout 
+    :image="asset('images/og-brandkit.png')" 
+    imageAlt="Seven Series Brand Kit - Big Logo on Red Background"
+>
     <x-slot:title>Brand Kit & Visual Guidelines | Seven Series Denim</x-slot>
 
     <x-nav transparent="true" />
 
-    <main class="min-h-screen pt-24 sm:pt-28 pb-36 px-4 sm:px-6 lg:px-10 xl:px-12 w-full space-y-12 sm:space-y-16"
+    <main class="min-h-screen pt-20 sm:pt-28 pb-32 sm:pb-36 px-3.5 sm:px-6 lg:px-10 xl:px-12 w-full max-w-full overflow-hidden space-y-10 sm:space-y-16"
           x-data="{ activeCategory: 'all', copiedText: '' }">
 
         <!-- ========================================================================= -->
         <!-- BRANDKIT HERO HEADER -->
         <!-- ========================================================================= -->
         <section class="relative">
-            <div class="app-card p-6 sm:p-10 lg:p-12 relative overflow-hidden bg-gradient-to-br from-white via-slate-50 to-red-50/20 border border-slate-200 shadow-xl">
+            <div class="app-card p-4 sm:p-8 lg:p-12 relative overflow-hidden bg-gradient-to-br from-white via-slate-50 to-red-50/20 border border-slate-200 shadow-xl">
                 <div class="absolute -right-20 -top-20 w-96 h-96 bg-red-600/10 rounded-full blur-3xl pointer-events-none"></div>
 
-                <div class="max-w-4xl space-y-6 relative z-10">
+                <div class="max-w-4xl space-y-4 sm:space-y-6 relative z-10">
                     <div class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-slate-900 text-white text-xs font-black tracking-wider uppercase shadow-sm">
                         <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
                         <span>OFFICIAL BRAND IDENTITY & MEDIA ASSETS</span>
@@ -21,11 +24,11 @@
                     </div>
 
                     <div class="space-y-3">
-                        <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-zinc-950 uppercase leading-none">
+                        <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-zinc-950 uppercase leading-none break-words">
                             SEVEN SERIES <br>
                             <span class="text-red-600">BRAND KIT & GUIDELINES.</span>
                         </h1>
-                        <p class="text-zinc-600 text-base sm:text-lg leading-relaxed font-normal max-w-2xl">
+                        <p class="text-zinc-600 text-sm sm:text-lg leading-relaxed font-normal max-w-2xl">
                             Download official high-resolution vector logos, color specifications, typography rules, and brand guidelines for retail partners, press, and co-branded publications.
                         </p>
                     </div>
@@ -78,14 +81,14 @@
                     
                     <div>
                         <!-- Preview Container -->
-                        <div class="h-44 rounded-2xl {{ $asset['background_class'] }} flex items-center justify-center p-6 relative overflow-hidden group-hover:scale-[1.01] transition-transform">
-                            <img src="{{ asset($asset['path']) }}" alt="{{ $asset['name'] }}" class="max-h-full max-w-full object-contain filter drop-shadow-sm">
+                        <div class="h-44 sm:h-48 rounded-2xl {{ $asset['background_class'] }} flex items-center justify-center pt-9 pb-3 px-4 relative overflow-hidden group-hover:scale-[1.01] transition-transform">
+                            <img src="{{ asset($asset['preview_path'] ?? $asset['path']) }}" alt="{{ $asset['name'] }}" class="max-h-24 sm:max-h-28 max-w-[85%] object-contain filter drop-shadow-sm">
                             
                             <!-- Badges -->
-                            <div class="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-md text-white text-[10px] font-mono font-bold uppercase tracking-wider">
+                            <div class="absolute top-2.5 left-2.5 px-2.5 py-0.5 rounded-full bg-black/60 backdrop-blur-md text-white text-[9px] sm:text-[10px] font-mono font-bold uppercase tracking-wider">
                                 {{ $asset['format'] }}
                             </div>
-                            <div class="absolute top-3 right-3 px-2 py-0.5 rounded-md bg-white/80 backdrop-blur-md text-zinc-800 text-[10px] font-bold">
+                            <div class="absolute top-2.5 right-2.5 px-2 py-0.5 rounded-md bg-white/80 backdrop-blur-md text-zinc-800 text-[9px] sm:text-[10px] font-bold">
                                 {{ $asset['resolution'] }}
                             </div>
                         </div>
@@ -187,20 +190,20 @@
                 <p class="text-sm text-zinc-500 pt-1">Modern, geometric, and sturdy sans-serif chosen to reflect industrial durability and precision crafting.</p>
             </div>
 
-            <div class="app-card p-6 sm:p-10 bg-white border border-slate-200 shadow-md space-y-8">
+            <div class="app-card p-4 sm:p-8 lg:p-10 bg-white border border-slate-200 shadow-md space-y-6 sm:space-y-8">
                 
                 <!-- Specimen Row -->
-                <div class="grid lg:grid-cols-12 gap-8 items-center border-b border-zinc-100 pb-8">
+                <div class="grid lg:grid-cols-12 gap-6 sm:gap-8 items-center border-b border-zinc-100 pb-6 sm:pb-8">
                     <div class="lg:col-span-5 space-y-2">
                         <span class="text-xs font-black text-red-600 uppercase tracking-wider">HEADINGS & TITLES</span>
-                        <h3 class="text-xl font-bold text-zinc-950">Outfit 800 (ExtraBold) & 900 (Black)</h3>
+                        <h3 class="text-lg sm:text-xl font-bold text-zinc-950">Outfit 800 (ExtraBold) & 900 (Black)</h3>
                         <p class="text-xs text-zinc-500 leading-relaxed">
                             Always set in uppercase with tight letter spacing (<code class="font-mono text-zinc-800">tracking-tight</code>) and leading between 1.0 and 1.1 for confident brand statements.
                         </p>
                     </div>
 
-                    <div class="lg:col-span-7 bg-zinc-50 p-6 rounded-2xl border border-zinc-200">
-                        <p class="text-3xl sm:text-4xl font-extrabold text-zinc-950 uppercase tracking-tight leading-none">
+                    <div class="lg:col-span-7 bg-zinc-50 p-4 sm:p-6 rounded-2xl border border-zinc-200">
+                        <p class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-zinc-950 uppercase tracking-tight leading-none break-words">
                             AUTHENTIC HEAVYWEIGHT DENIM CLOTHING.
                         </p>
                     </div>
@@ -248,7 +251,7 @@
             <div class="grid md:grid-cols-2 gap-6">
                 
                 <!-- DO'S -->
-                <div class="app-card p-6 bg-emerald-50/50 border border-emerald-200 shadow-sm space-y-4">
+                <div class="app-card p-4 sm:p-6 bg-emerald-50/50 border border-emerald-200 shadow-sm space-y-4">
                     <div class="flex items-center gap-2 text-emerald-800 font-extrabold text-sm uppercase tracking-wider">
                         <svg class="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                         <span>Recommended Logo Practices (Do's)</span>
@@ -275,7 +278,7 @@
                 </div>
 
                 <!-- DON'TS -->
-                <div class="app-card p-6 bg-red-50/50 border border-red-200 shadow-sm space-y-4">
+                <div class="app-card p-4 sm:p-6 bg-red-50/50 border border-red-200 shadow-sm space-y-4">
                     <div class="flex items-center gap-2 text-red-800 font-extrabold text-sm uppercase tracking-wider">
                         <svg class="w-5 h-5 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                         <span>Unacceptable Modifications (Don'ts)</span>
@@ -308,7 +311,7 @@
         <!-- ========================================================================= -->
         <!-- SECTION 5: PARTNER & MEDIA INQUIRIES -->
         <!-- ========================================================================= -->
-        <section class="app-card p-6 sm:p-10 bg-zinc-950 text-white relative overflow-hidden">
+        <section class="app-card p-5 sm:p-8 lg:p-10 bg-zinc-950 text-white relative overflow-hidden">
             <div class="absolute -right-20 -bottom-20 w-80 h-80 bg-red-600/20 rounded-full blur-3xl"></div>
 
             <div class="max-w-3xl space-y-4 relative z-10">
@@ -322,8 +325,8 @@
 
                 <div class="pt-2 flex flex-wrap items-center gap-4">
                     <a href="mailto:samparka@7series.com.np?subject=Brand%20Assets%20%26%20Co-Branding%20Inquiry" 
-                       class="inline-flex items-center gap-2 px-6 py-3 bg-red-600 hover:bg-red-700 text-white text-xs font-black uppercase tracking-wider rounded-full shadow-lg shadow-red-600/30 transition-all">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                       class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 sm:px-6 py-3 bg-red-600 hover:bg-red-700 text-white text-xs font-black uppercase tracking-wider rounded-full shadow-lg shadow-red-600/30 transition-all text-center break-all sm:break-normal">
+                        <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
                         <span>Contact Brand Desk: samparka@7series.com.np</span>
                     </a>
                     <a href="/contact" class="inline-flex items-center gap-1.5 text-xs font-bold text-zinc-300 hover:text-white underline">

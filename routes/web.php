@@ -21,6 +21,9 @@ Route::get('/contact', function () {
 Route::post('/contact', [\App\Http\Controllers\WholesaleController::class, 'submitContact'])->name('contact.submit');
 
 Route::get('/brandkit', [\App\Http\Controllers\BrandKitController::class, 'index'])->name('brandkit');
+Route::get('/brand-kit', function () {
+    return redirect()->route('brandkit');
+});
 Route::get('/brandkit/download', [\App\Http\Controllers\BrandKitController::class, 'downloadZip'])->name('brandkit.download');
 Route::get('/brand-guidelines', function () {
     return redirect()->route('brandkit');

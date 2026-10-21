@@ -1,9 +1,12 @@
-<x-layout>
+<x-layout 
+    :image="asset('images/og-home.jpg')" 
+    imageAlt="Seven Series Big Logo with Screenshot of the Homepage Denim Jeans Showcase"
+>
     <x-slot:title>Seven Series | Authentic Denim Clothing Brand & Garment Factory</x-slot>
 
     <x-nav transparent="true" />
 
-    <main class="min-h-screen pt-24 sm:pt-28 pb-36 px-4 sm:px-6 lg:px-10 xl:px-12 w-full space-y-12 sm:space-y-16">
+    <main class="min-h-screen pt-20 sm:pt-28 pb-32 sm:pb-36 px-3.5 sm:px-6 lg:px-10 xl:px-12 w-full max-w-full overflow-hidden space-y-10 sm:space-y-16">
 
         <!-- ========================================================================= -->
         <!-- SECTION 1: HERO AUTHENTIC DENIM JEANS SHOWCASE -->
@@ -11,7 +14,7 @@
         <section id="hero" class="scroll-mt-28 relative">
             
             <!-- Main Hero Board -->
-            <div class="app-card p-6 sm:p-10 lg:p-12 relative overflow-hidden bg-gradient-to-br from-white via-slate-50/50 to-blue-50/30 border border-slate-200 shadow-xl">
+            <div class="app-card p-4 sm:p-8 lg:p-12 relative overflow-hidden bg-gradient-to-br from-white via-slate-50/50 to-blue-50/30 border border-slate-200 shadow-xl">
                 
                 <!-- Ambient Denim Aura -->
                 <div class="absolute -right-20 -top-20 w-96 h-96 bg-blue-900/10 rounded-full blur-3xl pointer-events-none" data-parallax="0.15"></div>
@@ -31,11 +34,11 @@
 
                         <!-- Big Clear Headline -->
                         <div class="space-y-2">
-                            <h1 class="text-4xl sm:text-6xl xl:text-7xl font-extrabold tracking-tight text-zinc-950 uppercase leading-[1.02]">
+                            <h1 class="text-3xl sm:text-5xl lg:text-6xl xl:text-7xl font-extrabold tracking-tight text-zinc-950 uppercase leading-[1.05] break-words">
                                 AUTHENTIC HEAVY <br>
                                 <span class="text-blue-950">DENIM JEANS.</span>
                             </h1>
-                            <p class="text-base sm:text-xl font-bold text-zinc-600 tracking-tight flex items-center gap-2">
+                            <p class="text-sm sm:text-xl font-bold text-zinc-600 tracking-tight flex flex-wrap items-center gap-2">
                                 <span class="inline-block w-2.5 h-2.5 rounded-full bg-red-600 shrink-0"></span>
                                 <span>14.5 oz Raw Shuttle-Loom Cotton &bull; Built Tough to Last for Years</span>
                             </p>
@@ -83,30 +86,30 @@
                         <div class="app-card rounded-3xl overflow-hidden border border-slate-200 bg-white shadow-2xl">
                             
                             <!-- Denim Selector Pills Header -->
-                            <div class="px-3 sm:px-4 py-2.5 bg-slate-900 text-white flex items-center justify-between text-xs overflow-x-auto no-scrollbar gap-2">
+                            <div class="px-2.5 sm:px-4 py-2 sm:py-2.5 bg-slate-900 text-white flex items-center justify-between text-xs overflow-x-auto no-scrollbar gap-1.5 sm:gap-2">
                                 <div class="flex items-center gap-1.5 shrink-0">
                                     <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
-                                    <span class="text-[11px] font-black uppercase tracking-wider text-zinc-200">SEVEN SERIES DENIM</span>
+                                    <span class="text-[10px] sm:text-[11px] font-black uppercase tracking-wider text-zinc-200"><span class="hidden xs:inline">SEVEN SERIES </span>DENIM</span>
                                 </div>
-                                <div class="flex items-center gap-1 shrink-0 bg-slate-800 p-0.5 rounded-full text-[10px] font-bold">
+                                <div class="flex items-center gap-0.5 sm:gap-1 shrink-0 bg-slate-800 p-0.5 rounded-full text-[9px] sm:text-[10px] font-bold">
                                     <button type="button" @click="activeCut = 'raw'" 
                                         :class="activeCut === 'raw' ? 'bg-red-600 text-white' : 'text-zinc-300 hover:text-white'" 
-                                        class="px-2.5 py-1 rounded-full transition-all">
+                                        class="px-2 sm:px-2.5 py-1 rounded-full transition-all">
                                         Raw Indigo
                                     </button>
                                     <button type="button" @click="activeCut = 'black'" 
                                         :class="activeCut === 'black' ? 'bg-red-600 text-white' : 'text-zinc-300 hover:text-white'" 
-                                        class="px-2.5 py-1 rounded-full transition-all">
+                                        class="px-2 sm:px-2.5 py-1 rounded-full transition-all">
                                         Black
                                     </button>
                                     <button type="button" @click="activeCut = 'wash'" 
                                         :class="activeCut === 'wash' ? 'bg-red-600 text-white' : 'text-zinc-300 hover:text-white'" 
-                                        class="px-2.5 py-1 rounded-full transition-all">
+                                        class="px-2 sm:px-2.5 py-1 rounded-full transition-all">
                                         Factory Wash
                                     </button>
                                     <button type="button" @click="activeCut = 'lookbook'" 
                                         :class="activeCut === 'lookbook' ? 'bg-red-600 text-white' : 'text-zinc-300 hover:text-white'" 
-                                        class="px-2.5 py-1 rounded-full transition-all">
+                                        class="px-2 sm:px-2.5 py-1 rounded-full transition-all">
                                         Fit Look
                                     </button>
                                 </div>
@@ -237,19 +240,19 @@
             </div>
 
             <!-- 4 Rounded App Metric Widgets -->
-            <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-6">
                 
                 <!-- Metric 1 -->
-                <div class="app-card p-4 sm:p-6 bg-white space-y-2.5 sm:space-y-3">
+                <div class="app-card p-3 sm:p-5 lg:p-6 bg-white space-y-2 sm:space-y-3">
                     <div class="flex items-center justify-between text-xs text-zinc-500 font-medium">
                         <span class="truncate">Loom Weight</span>
                         <span class="w-2 h-2 rounded-full bg-red-600 shrink-0"></span>
                     </div>
                     <div>
-                        <div class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-zinc-950">
+                        <div class="text-xl sm:text-2xl lg:text-4xl font-extrabold text-zinc-950">
                             <span class="stat-counter" data-target="14.5" data-decimals="1" data-suffix=" oz">14.5 oz</span>
                         </div>
-                        <p class="text-[11px] sm:text-xs text-zinc-500 mt-1 truncate">Heavy raw shuttle denim</p>
+                        <p class="text-[10px] sm:text-xs text-zinc-500 mt-1 line-clamp-2 leading-tight">Heavy raw shuttle denim</p>
                     </div>
                     <div class="w-full bg-zinc-100 h-1.5 rounded-full overflow-hidden">
                         <div class="bg-red-600 h-full rounded-full w-[85%]"></div>
@@ -257,16 +260,16 @@
                 </div>
 
                 <!-- Metric 2 -->
-                <div class="app-card p-4 sm:p-6 bg-white space-y-2.5 sm:space-y-3">
+                <div class="app-card p-3 sm:p-5 lg:p-6 bg-white space-y-2 sm:space-y-3">
                     <div class="flex items-center justify-between text-xs text-zinc-500 font-medium">
                         <span class="truncate">Factory Output</span>
                         <span class="w-2 h-2 rounded-full bg-red-600 shrink-0"></span>
                     </div>
                     <div>
-                        <div class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-red-600">
+                        <div class="text-xl sm:text-2xl lg:text-4xl font-extrabold text-red-600">
                             <span class="stat-counter" data-target="480000" data-decimals="0" data-suffix="+">480,000+</span>
                         </div>
-                        <p class="text-[11px] sm:text-xs text-zinc-500 mt-1 truncate">Monthly denim production</p>
+                        <p class="text-[10px] sm:text-xs text-zinc-500 mt-1 line-clamp-2 leading-tight">Monthly denim production</p>
                     </div>
                     <div class="w-full bg-zinc-100 h-1.5 rounded-full overflow-hidden">
                         <div class="bg-red-600 h-full rounded-full w-[95%]"></div>
@@ -274,16 +277,16 @@
                 </div>
 
                 <!-- Metric 3 -->
-                <div class="app-card p-4 sm:p-6 bg-white space-y-2.5 sm:space-y-3">
+                <div class="app-card p-3 sm:p-5 lg:p-6 bg-white space-y-2 sm:space-y-3">
                     <div class="flex items-center justify-between text-xs text-zinc-500 font-medium">
                         <span class="truncate">Cotton Purity</span>
                         <span class="w-2 h-2 rounded-full bg-green-600 shrink-0"></span>
                     </div>
                     <div>
-                        <div class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-zinc-950">
+                        <div class="text-xl sm:text-2xl lg:text-4xl font-extrabold text-zinc-950">
                             <span class="stat-counter" data-target="100" data-decimals="0" data-suffix="%">100%</span>
                         </div>
-                        <p class="text-[11px] sm:text-xs text-zinc-500 mt-1 truncate">Pure ring-spun staple</p>
+                        <p class="text-[10px] sm:text-xs text-zinc-500 mt-1 line-clamp-2 leading-tight">Pure ring-spun staple</p>
                     </div>
                     <div class="w-full bg-zinc-100 h-1.5 rounded-full overflow-hidden">
                         <div class="bg-green-600 h-full rounded-full w-full"></div>
@@ -291,16 +294,16 @@
                 </div>
 
                 <!-- Metric 4 -->
-                <div class="app-card p-4 sm:p-6 bg-white space-y-2.5 sm:space-y-3">
+                <div class="app-card p-3 sm:p-5 lg:p-6 bg-white space-y-2 sm:space-y-3">
                     <div class="flex items-center justify-between text-xs text-zinc-500 font-medium">
                         <span class="truncate">Indigo Baths</span>
                         <span class="w-2 h-2 rounded-full bg-red-600 shrink-0"></span>
                     </div>
                     <div>
-                        <div class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-zinc-950">
+                        <div class="text-xl sm:text-2xl lg:text-4xl font-extrabold text-zinc-950">
                             <span class="stat-counter" data-target="12" data-decimals="0" data-suffix=" Dips">12 Dips</span>
                         </div>
-                        <p class="text-[11px] sm:text-xs text-zinc-500 mt-1 truncate">Rope dye saturation</p>
+                        <p class="text-[10px] sm:text-xs text-zinc-500 mt-1 line-clamp-2 leading-tight">Rope dye saturation</p>
                     </div>
                     <div class="w-full bg-zinc-100 h-1.5 rounded-full overflow-hidden">
                         <div class="bg-red-600 h-full rounded-full w-[80%]"></div>
