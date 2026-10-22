@@ -235,41 +235,97 @@ html.dark .daemon-widget-card {
     gap: 1.25rem;
 }
 
-.daemon-3d-box {
-    width: 110px;
-    height: 110px;
+/* --- Daemon Telemetry Beacon (Replaces clunky black box) --- */
+.daemon-telemetry-beacon {
+    width: 64px;
+    height: 64px;
     flex-shrink: 0;
-    border-radius: 1rem;
-    overflow: hidden;
+    border-radius: 1.25rem;
     position: relative;
-    background: #0c0a09;
-    border: 1px solid rgba(120, 113, 108, 0.3);
-    box-shadow: inset 0 2px 6px rgba(0,0,0,0.6);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.daemon-3d-canvas {
-    width: 100% !important;
-    height: 100% !important;
-    display: block;
-    cursor: grab;
+.daemon-telemetry-beacon.online {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.16) 0%, rgba(5, 150, 105, 0.06) 100%);
+    border: 1px solid rgba(16, 185, 129, 0.45);
+    box-shadow: 0 4px 16px rgba(16, 185, 129, 0.15);
 }
 
-.daemon-3d-canvas:active {
-    cursor: grabbing;
+.daemon-telemetry-beacon.offline {
+    background: linear-gradient(135deg, rgba(229, 30, 43, 0.16) 0%, rgba(185, 28, 28, 0.06) 100%);
+    border: 1px solid rgba(229, 30, 43, 0.4);
+    box-shadow: 0 4px 16px rgba(229, 30, 43, 0.12);
 }
 
-.daemon-3d-label {
+.beacon-halo {
     position: absolute;
-    bottom: 4px;
-    left: 0;
-    right: 0;
-    text-align: center;
-    font-size: 8px;
-    font-weight: 800;
-    letter-spacing: 0.15em;
-    color: #a8a29e;
+    inset: -3px;
+    border-radius: 1.35rem;
     pointer-events: none;
+}
+
+.daemon-telemetry-beacon.online .beacon-halo {
+    border: 1px solid rgba(16, 185, 129, 0.6);
+    animation: beacon-pulse-green 2.5s infinite ease-in-out;
+}
+
+.daemon-telemetry-beacon.offline .beacon-halo {
+    border: 1px solid rgba(229, 30, 43, 0.45);
+    animation: beacon-pulse-red 3s infinite ease-in-out;
+}
+
+@keyframes beacon-pulse-green {
+    0%, 100% { transform: scale(1); opacity: 0.6; }
+    50% { transform: scale(1.08); opacity: 0.15; }
+}
+
+@keyframes beacon-pulse-red {
+    0%, 100% { transform: scale(1); opacity: 0.45; }
+    50% { transform: scale(1.06); opacity: 0.1; }
+}
+
+.beacon-inner-core {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.beacon-icon {
+    width: 22px !important;
+    height: 22px !important;
+    transition: transform 0.2s ease;
+}
+
+.daemon-telemetry-beacon.online .beacon-icon {
+    color: #10b981;
+    filter: drop-shadow(0 0 6px rgba(16, 185, 129, 0.6));
+}
+
+.daemon-telemetry-beacon.offline .beacon-icon {
+    color: #e51e2b;
+    filter: drop-shadow(0 0 4px rgba(229, 30, 43, 0.4));
+}
+
+.beacon-tag {
+    font-size: 8px;
+    font-weight: 900;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
+    margin-top: 3px;
+    line-height: 1;
+}
+
+.daemon-telemetry-beacon.online .beacon-tag {
+    color: #34d399;
+}
+
+.daemon-telemetry-beacon.offline .beacon-tag {
+    color: #f87171;
 }
 
 .daemon-info-section {

@@ -2,11 +2,24 @@
     <div wire:poll.10s class="daemon-widget-card">
         <div class="daemon-widget-inner">
 
-            {{-- Left: Interactive 3D WebGL Server Node & Info --}}
+            {{-- Left: Branded Daemon Telemetry Node & System Health --}}
             <div class="daemon-left-section">
-                <div wire:ignore class="daemon-3d-box" id="threejs-daemon-container">
-                    <canvas id="threejs-daemon-canvas" class="daemon-3d-canvas"></canvas>
-                    <div class="daemon-3d-label">3D CORE</div>
+                <div class="daemon-telemetry-beacon {{ $this->reverbRunning ? 'online' : 'offline' }}">
+                    <div class="beacon-halo"></div>
+                    <div class="beacon-inner-core">
+                        @if ($this->reverbRunning)
+                            {{-- Online Glowing Signal Pulse Icon --}}
+                            <svg class="beacon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                            </svg>
+                        @else
+                            {{-- Standby Daemon Icon --}}
+                            <svg class="beacon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.636 18.364a9 9 0 010-12.728m12.728 0a9 9 0 010 12.728m-9.9-2.828a5 5 0 010-7.072m7.072 0a5 5 0 010 7.072M12 12h.01" />
+                            </svg>
+                        @endif
+                    </div>
+                    <span class="beacon-tag">{{ $this->reverbRunning ? 'LIVE' : 'STANDBY' }}</span>
                 </div>
 
                 <div class="daemon-info-section">
@@ -132,162 +145,5 @@
             </div>
 
         </div>
-
-        {{-- Embedded Three.js 3D WebGL Engine --}}
-        <script>
-            (function() {
-                function initDaemon3D() {
-                    const canvas = document.getElementById('threejs-daemon-canvas');
-                    if (!canvas) return;
-
-                    const isRunning = {{ $this->reverbRunning ? 'true' : 'false' }};
-
-                    if (typeof THREE === 'undefined') {
-                        if (!document.getElementById('threejs-cdn-script')) {
-                            const script = document.createElement('script');
-                            script.id = 'threejs-cdn-script';
-                            script.src = 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js';
-                            script.onload = () => buildScene(canvas, isRunning);
-                            document.head.appendChild(script);
-                        } else {
-                            setTimeout(() => {
-                                if (typeof THREE !== 'undefined') buildScene(canvas, isRunning);
-                            }, 100);
-                        }
-                    } else {
-                        buildScene(canvas, isRunning);
-                    }
-                }
-
-                function buildScene(canvas, isRunning) {
-                    if (canvas._threeInitialized) {
-                        if (canvas._threeSetState) canvas._threeSetState(isRunning);
-                        return;
-                    }
-                    canvas._threeInitialized = true;
-
-                    const width = 110;
-                    const height = 110;
-
-                    const scene = new THREE.Scene();
-                    const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
-                    camera.position.z = 4.2;
-
-                    let renderer;
-                    try {
-                        renderer = new THREE.WebGLRenderer({
-                            canvas: canvas,
-                            alpha: true,
-                            antialias: true,
-                            powerPreference: 'high-performance'
-                        });
-                        renderer.setSize(width, height);
-                        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-                    } catch (e) {
-                        return;
-                    }
-
-                    // Lighting
-                    const ambient = new THREE.AmbientLight(0xffffff, 0.9);
-                    scene.add(ambient);
-
-                    const dirLight = new THREE.DirectionalLight(0xffffff, 1.2);
-                    dirLight.position.set(3, 4, 5);
-                    scene.add(dirLight);
-
-                    // Core Mesh
-                    const coreGeo = new THREE.IcosahedronGeometry(1.05, 1);
-                    const coreMat = new THREE.MeshStandardMaterial({
-                        color: isRunning ? 0x10b981 : 0xe51e2b,
-                        wireframe: true,
-                        roughness: 0.3,
-                        metalness: 0.8,
-                    });
-                    const core = new THREE.Mesh(coreGeo, coreMat);
-                    scene.add(core);
-
-                    // Inner Glow Sphere
-                    const innerGeo = new THREE.SphereGeometry(0.7, 16, 16);
-                    const innerMat = new THREE.MeshBasicMaterial({
-                        color: isRunning ? 0x34d399 : 0xf87171,
-                        transparent: true,
-                        opacity: 0.25,
-                    });
-                    const inner = new THREE.Mesh(innerGeo, innerMat);
-                    scene.add(inner);
-
-                    // Outer Orbit Particles
-                    const partCount = 45;
-                    const partGeo = new THREE.BufferGeometry();
-                    const partPos = new Float32Array(partCount * 3);
-                    for (let i = 0; i < partCount; i++) {
-                        const radius = 1.45 + Math.random() * 0.5;
-                        const theta = Math.random() * Math.PI * 2;
-                        const phi = Math.acos((Math.random() * 2) - 1);
-                        partPos[i * 3] = radius * Math.sin(phi) * Math.cos(theta);
-                        partPos[i * 3 + 1] = radius * Math.sin(phi) * Math.sin(theta);
-                        partPos[i * 3 + 2] = radius * Math.cos(phi);
-                    }
-                    partGeo.setAttribute('position', new THREE.BufferAttribute(partPos, 3));
-                    const partMat = new THREE.PointsMaterial({
-                        color: isRunning ? 0x6ee7b7 : 0xfca5a5,
-                        size: 0.07,
-                        transparent: true,
-                        opacity: 0.85
-                    });
-                    const particles = new THREE.Points(partGeo, partMat);
-                    scene.add(particles);
-
-                    // Mouse Interaction
-                    let isDragging = false;
-                    let prevMouseX = 0;
-                    let prevMouseY = 0;
-
-                    canvas.addEventListener('mousedown', (e) => {
-                        isDragging = true;
-                        prevMouseX = e.clientX;
-                        prevMouseY = e.clientY;
-                    });
-
-                    window.addEventListener('mouseup', () => { isDragging = false; });
-                    window.addEventListener('mousemove', (e) => {
-                        if (!isDragging) return;
-                        const dx = e.clientX - prevMouseX;
-                        const dy = e.clientY - prevMouseY;
-                        core.rotation.y += dx * 0.02;
-                        core.rotation.x += dy * 0.02;
-                        prevMouseX = e.clientX;
-                        prevMouseY = e.clientY;
-                    });
-
-                    canvas._threeSetState = function(running) {
-                        coreMat.color.setHex(running ? 0x10b981 : 0xe51e2b);
-                        innerMat.color.setHex(running ? 0x34d399 : 0xf87171);
-                        partMat.color.setHex(running ? 0x6ee7b7 : 0xfca5a5);
-                    };
-
-                    // Animation Loop
-                    let reqId;
-                    function animate() {
-                        reqId = requestAnimationFrame(animate);
-                        core.rotation.y += 0.012;
-                        core.rotation.x += 0.006;
-                        particles.rotation.y -= 0.005;
-                        particles.rotation.z += 0.003;
-                        renderer.render(scene, camera);
-                    }
-                    animate();
-                }
-
-                if (document.readyState === 'loading') {
-                    document.addEventListener('DOMContentLoaded', initDaemon3D);
-                } else {
-                    initDaemon3D();
-                }
-
-                document.addEventListener('livewire:initialized', initDaemon3D);
-                document.addEventListener('livewire:navigated', initDaemon3D);
-            })();
-        </script>
     </div>
 </x-filament-widgets::widget>
