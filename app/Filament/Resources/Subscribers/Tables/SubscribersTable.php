@@ -43,8 +43,8 @@ class SubscribersTable
                 ])->space(3),
             ])
             ->recordActions([
-                ViewAction::make()->slideOver(),
-                EditAction::make()->slideOver(),
+                ViewAction::make()->slideOver()->modalWidth('3xl'),
+                EditAction::make()->slideOver()->modalWidth('3xl'),
                 DeleteAction::make(),
             ])
             ->toolbarActions([

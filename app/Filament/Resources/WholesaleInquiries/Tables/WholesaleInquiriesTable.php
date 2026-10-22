@@ -26,58 +26,59 @@ class WholesaleInquiriesTable
                 'md' => 2,
                 'xl' => 3,
             ])
+            ->defaultSort('created_at', 'desc')
             ->columns([
                 Stack::make([
-                    // Header: Company Name
-                    TextColumn::make('company_name')
-                        ->searchable()
-                        ->weight('bold')
-                        ->size('base')
-                        ->icon('heroicon-o-building-office-2')
-                        ->wrap(),
-
-                    // Contact Info Line
+                    // 1. Company Header & Business Type
                     Split::make([
-                        TextColumn::make('contact_name')
+                        TextColumn::make('company_name')
                             ->searchable()
-                            ->icon('heroicon-o-user')
-                            ->color('gray')
-                            ->size('xs')
+                            ->weight('bold')
+                            ->size('lg')
+                            ->icon('heroicon-m-building-office-2')
                             ->wrap(),
+
                         TextColumn::make('business_type')
                             ->badge()
                             ->color('primary')
                             ->grow(false),
                     ]),
 
-                    // Communication Details
-                    Split::make([
-                        TextColumn::make('email')
-                            ->icon('heroicon-o-envelope')
-                            ->color('gray')
-                            ->size('xs')
-                            ->wrap(),
-                        TextColumn::make('phone')
-                            ->icon('heroicon-o-phone')
-                            ->color('gray')
-                            ->size('xs')
-                            ->wrap(),
-                    ]),
+                    // 2. Contact Person
+                    TextColumn::make('contact_name')
+                        ->searchable()
+                        ->icon('heroicon-m-user')
+                        ->color('gray')
+                        ->size('xs'),
 
-                    // Volume & Series
+                    // 3. Email & Phone (Un-squished full-width rows)
+                    TextColumn::make('email')
+                        ->icon('heroicon-m-envelope')
+                        ->color('gray')
+                        ->size('xs')
+                        ->copyable(),
+
+                    TextColumn::make('phone')
+                        ->icon('heroicon-m-phone')
+                        ->color('gray')
+                        ->size('xs')
+                        ->copyable(),
+
+                    // 4. Volume & Series Badges
                     Split::make([
                         TextColumn::make('target_volume')
                             ->badge()
                             ->color('warning')
-                            ->icon('heroicon-o-archive-box')
+                            ->icon('heroicon-m-archive-box')
                             ->grow(false),
+
                         TextColumn::make('product_series')
                             ->badge()
                             ->color('info')
                             ->grow(false),
                     ]),
 
-                    // Status Dropdown Full Width
+                    // 5. Status Dropdown
                     SelectColumn::make('status')
                         ->options([
                             'new' => 'New Inquiry',
@@ -90,27 +91,39 @@ class WholesaleInquiriesTable
                         ])
                         ->selectablePlaceholder(false),
 
-                    // Sample Toggle & Date
-                    Split::make([
-                        ToggleColumn::make('sample_requested')
-                            ->label('Sample Needed')
-                            ->grow(false),
-                        TextColumn::make('created_at')
-                            ->dateTime('M d, Y · h:i A')
-                            ->color('gray')
-                            ->size('xs')
-                            ->grow(false),
+                    // 6. Inset Control Panel with Labeled Sample Toggle & Timestamp
+                    Panel::make([
+                        Stack::make([
+                            Split::make([
+                                TextColumn::make('sample_label')
+                                    ->getStateUsing(fn ($record) => $record->sample_requested ? 'Fabric Sample Required' : 'Standard Inquiry')
+                                    ->description(fn ($record) => $record->sample_requested ? 'Dispatch physical garment swatches' : 'Commercial inquiry only')
+                                    ->icon('heroicon-m-swatch')
+                                    ->iconColor(fn ($record) => $record->sample_requested ? 'danger' : 'gray')
+                                    ->size('xs')
+                                    ->weight('bold'),
+
+                                ToggleColumn::make('sample_requested')
+                                    ->grow(false),
+                            ]),
+
+                            TextColumn::make('created_at')
+                                ->dateTime('M d, Y · h:i A')
+                                ->color('gray')
+                                ->size('xs')
+                                ->icon('heroicon-m-calendar'),
+                        ])->space(2),
                     ]),
 
-                    // Notes
+                    // 7. Notes Preview
                     TextColumn::make('notes')
                         ->label('Notes')
-                        ->limit(120)
+                        ->limit(100)
                         ->wrap()
                         ->placeholder('No additional notes.')
                         ->color('gray')
                         ->size('xs'),
-                ])->space(2),
+                ])->space(3),
             ])
             ->filters([
                 SelectFilter::make('status')
@@ -132,8 +145,8 @@ class WholesaleInquiriesTable
                     ]),
             ])
             ->recordActions([
-                ViewAction::make()->slideOver(),
-                EditAction::make()->slideOver(),
+                ViewAction::make()->slideOver()->modalWidth('3xl'),
+                EditAction::make()->slideOver()->modalWidth('3xl'),
                 DeleteAction::make(),
             ])
             ->toolbarActions([

@@ -54,6 +54,7 @@ class MukhiyaPanelProvider extends PanelProvider
                 \Filament\View\PanelsRenderHook::HEAD_END,
                 fn () => new \Illuminate\Support\HtmlString('
                     <link rel="stylesheet" href="' . asset('css/filament-theme.css') . '?v=' . filemtime(public_path('css/filament-theme.css')) . '">
+                    <script src="' . asset('js/filament-card-3d.js') . '?v=' . filemtime(public_path('js/filament-card-3d.js')) . '" defer></script>
                     <script>
                     (function() {
                         var h = window.location.hostname;

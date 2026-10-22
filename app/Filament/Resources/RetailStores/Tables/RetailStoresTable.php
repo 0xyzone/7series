@@ -51,7 +51,7 @@ class RetailStoresTable
                             'class' => 'object-cover rounded-xl w-full shadow-sm mb-1',
                         ]),
 
-                    // 2. Category, City & Order Chips
+                    // 2. Category & Order Chips Row
                     Split::make([
                         TextColumn::make('store_type')
                             ->badge()
@@ -73,6 +73,16 @@ class RetailStoresTable
                             })
                             ->grow(false),
 
+                        TextColumn::make('sort_order')
+                            ->badge()
+                            ->color('gray')
+                            ->prefix('#')
+                            ->alignEnd()
+                            ->grow(false),
+                    ]),
+
+                    // 3. City & Landmark Row
+                    Split::make([
                         TextColumn::make('city')
                             ->badge()
                             ->color('info')
@@ -80,15 +90,16 @@ class RetailStoresTable
                             ->searchable()
                             ->grow(false),
 
-                        TextColumn::make('sort_order')
-                            ->badge()
+                        TextColumn::make('landmark')
+                            ->size('xs')
                             ->color('gray')
-                            ->prefix('Priority #')
-                            ->alignEnd()
-                            ->grow(false),
+                            ->icon('heroicon-m-sparkles')
+                            ->formatStateUsing(fn ($state) => filled($state) ? 'Near: ' . $state : null)
+                            ->placeholder('Central Area')
+                            ->wrap(),
                     ]),
 
-                    // 3. Store Name & Landmark
+                    // 4. Store Name & Address
                     TextColumn::make('name')
                         ->searchable()
                         ->weight('bold')
@@ -96,36 +107,25 @@ class RetailStoresTable
                         ->icon('heroicon-m-building-storefront')
                         ->wrap(),
 
-                    TextColumn::make('landmark')
-                        ->size('xs')
-                        ->color('gray')
-                        ->icon('heroicon-m-map')
-                        ->formatStateUsing(fn ($state) => filled($state) ? 'Near: ' . $state : null)
-                        ->placeholder('Central commercial zone')
-                        ->wrap(),
-
-                    // 4. Address & Timings
                     TextColumn::make('address')
                         ->icon('heroicon-m-map-pin')
                         ->color('gray')
                         ->size('xs')
                         ->wrap(),
 
-                    Split::make([
-                        TextColumn::make('phone')
-                            ->icon('heroicon-m-phone')
-                            ->color('gray')
-                            ->size('xs')
-                            ->placeholder('No phone listed')
-                            ->wrap(),
+                    // 5. Contact & Timings (Dedicated full-width rows to prevent character wrapping)
+                    TextColumn::make('phone')
+                        ->icon('heroicon-m-phone')
+                        ->color('gray')
+                        ->size('xs')
+                        ->copyable()
+                        ->placeholder('No telephone listed'),
 
-                        TextColumn::make('operating_hours')
-                            ->icon('heroicon-m-clock')
-                            ->color('gray')
-                            ->size('xs')
-                            ->placeholder('10:00 AM – 8:00 PM')
-                            ->grow(false),
-                    ]),
+                    TextColumn::make('operating_hours')
+                        ->icon('heroicon-m-clock')
+                        ->color('gray')
+                        ->size('xs')
+                        ->placeholder('10:00 AM – 8:00 PM'),
 
                     // 5. Mobile App Settings Control Panel with Clear Dynamic Labels
                     Panel::make([
