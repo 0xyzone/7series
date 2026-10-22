@@ -16,6 +16,7 @@ class CompanySetting extends Model
         'state',
         'directions_note',
         'google_maps_url',
+        'google_maps_api_key',
         'primary_email',
         'email_note',
         'primary_phone',

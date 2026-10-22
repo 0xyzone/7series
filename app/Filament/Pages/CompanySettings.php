@@ -29,6 +29,7 @@ class CompanySettings extends Page
     public string $state = '';
     public string $directions_note = '';
     public string $google_maps_url = '';
+    public string $google_maps_api_key = '';
     public string $primary_email = '';
     public string $email_note = '';
     public string $primary_phone = '';
@@ -48,6 +49,7 @@ class CompanySettings extends Page
         $this->state = (string) $settings->state;
         $this->directions_note = (string) $settings->directions_note;
         $this->google_maps_url = (string) $settings->google_maps_url;
+        $this->google_maps_api_key = (string) $settings->google_maps_api_key;
         $this->primary_email = (string) $settings->primary_email;
         $this->email_note = (string) $settings->email_note;
         $this->primary_phone = (string) $settings->primary_phone;
@@ -103,6 +105,7 @@ class CompanySettings extends Page
             'state' => $this->state,
             'directions_note' => $this->directions_note,
             'google_maps_url' => $this->google_maps_url,
+            'google_maps_api_key' => $this->google_maps_api_key,
             'primary_email' => $this->primary_email,
             'email_note' => $this->email_note,
             'primary_phone' => $this->primary_phone,

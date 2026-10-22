@@ -155,7 +155,7 @@
                     <div class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-slate-900 text-white text-xs font-black tracking-wider uppercase shadow-sm">
                         <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
                         <span>STORE LOCATOR & AUTHORIZED PARTNERS</span>
-                        <span class="text-zinc-400 font-mono text-[10px]">| NEPAL</span>
+                        <span class="text-zinc-400 font-mono text-[10px]">NEPAL</span>
                     </div>
 
                     <h1 class="text-2xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-zinc-950 uppercase leading-tight break-words">

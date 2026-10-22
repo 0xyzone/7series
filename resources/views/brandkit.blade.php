@@ -20,7 +20,6 @@
                     <div class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-slate-900 text-white text-xs font-black tracking-wider uppercase shadow-sm">
                         <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
                         <span>OFFICIAL BRAND IDENTITY & MEDIA ASSETS</span>
-                        <span class="text-zinc-400 font-mono text-[10px]">| VER. 2.4</span>
                     </div>
 
                     <div class="space-y-3">

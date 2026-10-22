@@ -143,9 +143,23 @@
                     </div>
 
                     <div>
-                        <label class="block font-bold text-zinc-700 dark:text-zinc-300 mb-1">Direct Google Maps URL</label>
-                        <input type="text" wire:model="google_maps_url"
+                        <label class="block font-bold text-zinc-700 dark:text-zinc-300 mb-1">Direct Google Maps Navigation Link</label>
+                        <input type="text" wire:model="google_maps_url" placeholder="https://maps.google.com/?q=..."
                                class="w-full px-3.5 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 text-zinc-900 dark:text-white font-medium focus:bg-white focus:outline-none focus:ring-2 focus:ring-red-600">
+                    </div>
+
+                    <div>
+                        <div class="flex items-center justify-between mb-1">
+                            <label class="block font-bold text-zinc-700 dark:text-zinc-300">Google Maps API Key <span class="text-xs font-normal text-zinc-400">(Optional)</span></label>
+                            <a href="https://console.cloud.google.com/google/maps-apis/credentials" target="_blank" class="text-[11px] font-bold text-red-600 hover:underline">
+                                Get from Google Cloud Console &rarr;
+                            </a>
+                        </div>
+                        <input type="text" wire:model="google_maps_api_key" placeholder="AIzaSy..."
+                               class="w-full px-3.5 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 text-zinc-900 dark:text-white font-mono text-xs focus:bg-white focus:outline-none focus:ring-2 focus:ring-red-600">
+                        <p class="text-[11px] text-zinc-500 mt-1">
+                            Optional. The public website currently uses Leaflet.js with CartoDB Voyager tiles (free, no quota limits, no credit card required). You only need a Google Maps API Key if you want Google-branded dynamic tiles or Google Places autocomplete.
+                        </p>
                     </div>
                 </div>
             </div>
