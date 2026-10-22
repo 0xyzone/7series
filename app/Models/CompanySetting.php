@@ -79,4 +79,44 @@ class CompanySetting extends Model
 
         return $setting;
     }
+
+    /**
+     * Generate 100% Free Google Maps Embed URL without any API keys or billing.
+     */
+    public function getGoogleMapsEmbedUrl(?int $pinIndex = null): string
+    {
+        // If a specific pin is selected
+        if ($pinIndex !== null && !empty($this->map_pins[$pinIndex])) {
+            $pin = $this->map_pins[$pinIndex];
+            if (!empty($pin['latitude']) && !empty($pin['longitude'])) {
+                return 'https://maps.google.com/maps?q=' . urlencode($pin['latitude'] . ',' . $pin['longitude']) . '&hl=en&z=15&output=embed';
+            }
+            if (!empty($pin['address'])) {
+                return 'https://maps.google.com/maps?q=' . urlencode($pin['address'] . ', Nepal') . '&t=&z=15&ie=UTF8&iwloc=&output=embed';
+            }
+        }
+
+        // If primary pin exists with coordinates
+        if (!empty($this->map_pins) && is_array($this->map_pins)) {
+            foreach ($this->map_pins as $pin) {
+                if (!empty($pin['is_primary']) && !empty($pin['latitude']) && !empty($pin['longitude'])) {
+                    return 'https://maps.google.com/maps?q=' . urlencode($pin['latitude'] . ',' . $pin['longitude']) . '&hl=en&z=15&output=embed';
+                }
+            }
+        }
+
+        // If custom embed iframe or embed url is provided in google_maps_url
+        if (!empty($this->google_maps_url)) {
+            if (preg_match('/src="([^"]+)"/', $this->google_maps_url, $matches)) {
+                return $matches[1];
+            }
+            if (str_contains($this->google_maps_url, 'output=embed') || str_contains($this->google_maps_url, 'google.com/maps/embed')) {
+                return $this->google_maps_url;
+            }
+        }
+
+        // Default query using factory address and city
+        $query = trim(($this->primary_address ?? 'Sitapaila') . ', ' . ($this->city ?? 'Kathmandu') . ', Nepal');
+        return 'https://maps.google.com/maps?q=' . urlencode($query) . '&t=&z=15&ie=UTF8&iwloc=&output=embed';
+    }
 }

@@ -10,9 +10,7 @@
 
     <x-nav transparent="true" />
 
-    <!-- Leaflet CSS & JS for Custom Interactive Map -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
 
     <main class="min-h-screen pt-6 sm:pt-10 pb-32 sm:pb-40 px-4 sm:px-8 lg:px-12 xl:px-16 w-full max-w-full overflow-x-hidden space-y-8 sm:space-y-12 lg:space-y-14"
           x-data="{ mobileTab: 'info' }">
@@ -209,105 +207,34 @@
 
                 </div>
 
-                <!-- 3. BRANDED INTERACTIVE LEAFLET MAP WITH DYNAMIC FILAMENT PINS -->
-                <div class="app-card p-4 sm:p-7 bg-white border border-slate-200 shadow-md space-y-4"
+                <!-- 3. OFFICIAL 100% FREE GOOGLE MAP EMBED (NO API KEY OR BILLING REQUIRED) -->
+                <div class="app-card p-6 sm:p-8 bg-white border border-slate-200 shadow-md space-y-5"
                      x-data="{
-                         pins: {{ Js::from($company->map_pins ?? []) }},
                          activePinIndex: 0,
-                         map: null,
-                         markers: [],
-                         init() {
-                             this.$nextTick(() => {
-                                 if (!document.getElementById('brand-contact-map')) return;
-
-                                 const defaultCenter = (this.pins.length > 0 && this.pins[0].latitude) 
-                                     ? [parseFloat(this.pins[0].latitude), parseFloat(this.pins[0].longitude)] 
-                                     : [27.7125, 85.2850];
-
-                                 this.map = L.map('brand-contact-map', {
-                                     zoomControl: true,
-                                     scrollWheelZoom: false,
-                                     tap: false
-                                 }).setView(defaultCenter, 14);
-
-                                 // CartoDB Voyager Tiles (clean, non-clustered, light aesthetic)
-                                 L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
-                                     attribution: '&copy; <a href=\'https://www.openstreetmap.org/copyright\'>OSM</a> &copy; <a href=\'https://carto.com/\'>CARTO</a>',
-                                     subdomains: 'abcd',
-                                     maxZoom: 19
-                                 }).addTo(this.map);
-
-                                 const bounds = [];
-
-                                 this.pins.forEach((pin, index) => {
-                                     if (pin.latitude && pin.longitude) {
-                                         const latLng = [parseFloat(pin.latitude), parseFloat(pin.longitude)];
-                                         bounds.push(latLng);
-
-                                         const customIcon = L.divIcon({
-                                             className: 'brand-map-pin',
-                                             html: `<div class='relative flex items-center justify-center'>
-                                                     <span class='absolute w-8 h-8 rounded-full bg-red-400 opacity-40 animate-ping'></span>
-                                                     <div class='relative w-9 h-9 rounded-full bg-red-600 shadow-xl flex items-center justify-center border-2 border-white text-white'>
-                                                         <svg class='w-4 h-4' fill='currentColor' viewBox='0 0 24 24'>
-                                                             <path d='M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z'/>
-                                                         </svg>
-                                                     </div>
-                                                 </div>`,
-                                             iconSize: [36, 36],
-                                             iconAnchor: [18, 36],
-                                             popupAnchor: [0, -36]
-                                         });
-
-                                         const marker = L.marker(latLng, { icon: customIcon }).addTo(this.map);
-                                         marker.bindPopup(`
-                                             <div class='p-2.5 max-w-[240px] sm:max-w-xs space-y-1.5 font-sans'>
-                                                 <div class='flex items-center gap-1.5'>
-                                                     <span class='px-2 py-0.5 rounded-full bg-red-600 text-white text-[9px] font-black uppercase'>${pin.type || 'FACILITY'}</span>
-                                                     ${pin.is_primary ? '<span class=\'px-2 py-0.5 rounded-full bg-zinc-900 text-white text-[9px] font-bold\'>PRIMARY</span>' : ''}
-                                                 </div>
-                                                 <h4 class='text-sm font-extrabold text-zinc-950 leading-tight'>${pin.title}</h4>
-                                                 <p class='text-xs text-zinc-600 leading-snug'>${pin.address || ''}</p>
-                                                 ${pin.phone ? `<a href='tel:${pin.phone}' class='text-xs text-red-600 font-bold block pt-0.5'>${pin.phone}</a>` : ''}
-                                                 ${pin.google_maps_url ? `<a href='${pin.google_maps_url}' target='_blank' class='inline-block mt-1.5 px-3 py-1 bg-zinc-900 text-white text-[10px] font-bold rounded-full'>Open in Google Maps &rarr;</a>` : ''}
-                                             </div>
-                                         `);
-
-                                         this.markers.push(marker);
-                                     }
-                                 });
-
-                                 if (bounds.length > 1) {
-                                     this.map.fitBounds(bounds, { padding: [40, 40], maxZoom: 15 });
-                                 } else if (bounds.length === 1) {
-                                     this.map.setView(bounds[0], 14);
-                                 }
-
-                                 // Open primary marker popup
-                                 if (this.markers.length > 0) {
-                                     setTimeout(() => this.markers[0].openPopup(), 400);
-                                 }
-                             });
-                         },
+                         pins: {{ Js::from($company->map_pins ?? []) }},
+                         embedUrls: [
+                             @foreach($company->map_pins ?? [] as $pinIdx => $pin)
+                                 {{ Js::from($company->getGoogleMapsEmbedUrl($pinIdx)) }},
+                             @endforeach
+                         ],
+                         currentEmbedUrl: '{{ $company->getGoogleMapsEmbedUrl() }}',
                          selectPin(index) {
                              this.activePinIndex = index;
-                             if (this.pins[index] && this.map) {
-                                 const lat = parseFloat(this.pins[index].latitude);
-                                 const lng = parseFloat(this.pins[index].longitude);
-                                 this.map.flyTo([lat, lng], 15, { duration: 1.2 });
-                                 if (this.markers[index]) {
-                                     this.markers[index].openPopup();
-                                 }
+                             if (this.embedUrls[index]) {
+                                 this.currentEmbedUrl = this.embedUrls[index];
                              }
                          }
                      }">
                     
-                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                         <div>
-                            <span class="text-[10px] font-black uppercase tracking-wider text-red-600">INTERACTIVE LOCATION MAP</span>
-                            <h3 class="text-base sm:text-lg font-bold text-zinc-950">Official Facility & Office Pins</h3>
+                            <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-50 text-[10px] font-mono font-bold text-emerald-700 border border-emerald-200 mb-1">
+                                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                                <span>OFFICIAL GOOGLE MAP &bull; 100% FREE</span>
+                            </div>
+                            <h3 class="text-base sm:text-xl font-bold text-zinc-950">Factory Premises & Live Navigation</h3>
                         </div>
-                        <span class="self-start sm:self-auto px-2.5 py-0.5 rounded-full bg-red-50 text-[10px] font-mono font-bold text-red-700 border border-red-200">
+                        <span class="self-start sm:self-auto px-3 py-1 rounded-full bg-zinc-100 text-[11px] font-mono font-bold text-zinc-800 border border-zinc-200">
                             {{ count($company->map_pins ?? []) }} Verified Location{{ count($company->map_pins ?? []) > 1 ? 's' : '' }}
                         </span>
                     </div>
@@ -318,8 +245,8 @@
                             @foreach($company->map_pins as $idx => $pin)
                                 <button type="button" @click="selectPin({{ $idx }})"
                                         :class="activePinIndex === {{ $idx }} ? 'bg-red-600 text-white shadow-sm' : 'bg-zinc-100 text-zinc-700 hover:bg-zinc-200'"
-                                        class="shrink-0 whitespace-nowrap px-3 py-1.5 rounded-full text-xs font-bold transition-all flex items-center gap-1.5">
-                                    <span class="w-1.5 h-1.5 rounded-full" :class="activePinIndex === {{ $idx }} ? 'bg-white' : 'bg-red-600'"></span>
+                                        class="shrink-0 whitespace-nowrap px-3.5 py-2 rounded-full text-xs font-bold transition-all flex items-center gap-2">
+                                    <span class="w-2 h-2 rounded-full" :class="activePinIndex === {{ $idx }} ? 'bg-white' : 'bg-red-600'"></span>
                                     <span>{{ $pin['title'] ?? 'Pin ' . ($idx + 1) }}</span>
                                     @if(!empty($pin['type']))
                                         <span class="opacity-75 text-[10px]">({{ $pin['type'] }})</span>
@@ -329,19 +256,30 @@
                         </div>
                     @endif
 
-                    <!-- Leaflet Map Container (Responsive Height for Mobile) -->
-                    <div class="h-64 sm:h-80 md:h-[380px] w-full rounded-2xl overflow-hidden border border-zinc-200 relative bg-zinc-100 shadow-inner">
-                        <div id="brand-contact-map" class="w-full h-full z-10"></div>
-                        <div class="absolute bottom-2.5 left-2.5 right-2.5 sm:right-auto z-20 bg-white/95 backdrop-blur-md px-3 py-1.5 rounded-full border border-zinc-200 shadow-sm text-[10px] sm:text-[11px] font-bold text-zinc-800 flex items-center gap-1.5 pointer-events-none truncate">
-                            <span class="w-2 h-2 rounded-full bg-red-600 animate-pulse shrink-0"></span>
-                            <span class="truncate">{{ $company->primary_address ?? 'Sitapaila Factory Floor' }}</span>
+                    <!-- Official Free Google Map Embed Container -->
+                    <div class="h-72 sm:h-96 md:h-[420px] w-full rounded-2xl overflow-hidden border border-zinc-200 relative bg-zinc-100 shadow-inner">
+                        <iframe 
+                            :src="currentEmbedUrl" 
+                            class="w-full h-full border-0" 
+                            allowfullscreen="" 
+                            loading="lazy" 
+                            referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
+
+                        <div class="absolute bottom-3 left-3 right-3 sm:right-auto z-10 bg-white/95 backdrop-blur-md px-3.5 py-2 rounded-full border border-zinc-200 shadow-md text-xs font-bold text-zinc-900 flex items-center gap-2 pointer-events-none truncate">
+                            <span class="w-2.5 h-2.5 rounded-full bg-red-600 animate-pulse shrink-0"></span>
+                            <span class="truncate" x-text="pins[activePinIndex]?.address || '{{ $company->primary_address ?? 'Sitapaila Factory Floor' }}'"></span>
                         </div>
                     </div>
 
-                    <div class="pt-1 flex flex-col sm:flex-row sm:items-center justify-between gap-1 text-[11px] sm:text-xs text-zinc-500">
-                        <span>Brand-styled map &bull; Drag to pan &bull; Pinch to zoom</span>
-                        <a href="{{ route('stores') }}" class="font-bold text-red-600 hover:underline">
-                            View all retail stores &rarr;
+                    <div class="pt-1 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs text-zinc-500">
+                        <span class="flex items-center gap-1.5">
+                            <svg class="w-4 h-4 text-emerald-600 shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                            <span>Official Google Map &bull; Drag, zoom, satellite & street view &bull; Free forever</span>
+                        </span>
+                        <a href="{{ $mapsUrl }}" target="_blank" rel="noopener noreferrer" class="font-bold text-red-600 hover:underline inline-flex items-center gap-1">
+                            <span>Open in Google Maps App</span>
+                            <span>&rarr;</span>
                         </a>
                     </div>
                 </div>

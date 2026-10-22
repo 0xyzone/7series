@@ -241,38 +241,26 @@
                         </div>
                     </div>
 
-                    {{-- Google Maps Link & API Key --}}
-                    <div class="cs-field" style="padding-top: 0.5rem; border-top: 1px solid rgba(120, 113, 108, 0.15);">
-                        <label class="cs-label">
-                            <span>Direct Google Maps Navigation Link</span>
-                        </label>
-                        <div class="cs-input-group">
-                            <span class="cs-input-icon">
-                                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                                </svg>
-                            </span>
-                            <input type="text" wire:model="google_maps_url" placeholder="https://maps.google.com/?q=Padma+Colony+Sitapaila+Kathmandu" class="cs-input has-icon" />
-                        </div>
-                    </div>
-
-                    <div class="cs-field">
+                    {{-- 100% Free Google Maps Embed & Location --}}
+                    <div class="cs-field" style="padding-top: 0.75rem; border-top: 1px solid rgba(120, 113, 108, 0.15);">
                         <div class="cs-label">
-                            <span>Google Maps API Key <span style="font-weight: normal; text-transform: none; color: #78716c;">(optional)</span></span>
-                            <a href="https://console.cloud.google.com/google/maps-apis/credentials" target="_blank" rel="noopener noreferrer" style="color: #e51e2b; font-weight: 700; text-decoration: none; font-size: 0.72rem;">
-                                Google Cloud Console &rarr;
-                            </a>
+                            <span>Google Maps Location & Free Embed URL</span>
+                            <span style="display: inline-flex; align-items: center; gap: 0.35rem; font-size: 0.68rem; font-weight: 800; color: #10b981; background: rgba(16, 185, 129, 0.12); padding: 0.2rem 0.55rem; border-radius: 9999px; border: 1px solid rgba(16, 185, 129, 0.3);">
+                                <span class="cs-badge-dot" style="background: #10b981; box-shadow: 0 0 6px #10b981;"></span>
+                                100% FREE &bull; NO API KEY REQUIRED
+                            </span>
                         </div>
                         <div class="cs-input-group">
                             <span class="cs-input-icon">
                                 <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                                 </svg>
                             </span>
-                            <input type="text" wire:model="google_maps_api_key" placeholder="AIzaSy..." class="cs-input has-icon" />
+                            <input type="text" wire:model="google_maps_url" placeholder="https://maps.google.com/?q=Padma+Colony+Sitapaila+Kathmandu (or paste Google Maps embed iframe)" class="cs-input has-icon" />
                         </div>
-                        <p class="cs-subtext">
-                            Optional. Leaflet.js with CartoDB Voyager tiles is enabled by default with zero quota limits and high performance.
+                        <p class="cs-subtext" style="color: #10b981; font-weight: 600;">
+                            &check; 100% Free Official Google Map embed is active on the Contact Us page. Zero billing, zero credit cards, and zero API keys required.
                         </p>
                     </div>
                 </div>
