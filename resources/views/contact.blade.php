@@ -8,10 +8,6 @@
 <x-layout>
     <x-slot:title>Contact Us & Factory Location | {{ $company->company_name ?? 'Seven Series Garment Industry' }}</x-slot>
 
-    <x-nav transparent="true" />
-
-
-
     <main class="min-h-screen pt-6 sm:pt-10 pb-32 sm:pb-40 px-4 sm:px-8 lg:px-12 xl:px-16 w-full max-w-full overflow-x-hidden space-y-8 sm:space-y-12 lg:space-y-14"
           x-data="{ mobileTab: 'info' }">
 

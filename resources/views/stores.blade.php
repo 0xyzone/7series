@@ -1,12 +1,6 @@
 <x-layout>
     <x-slot:title>Official Retail Stores & Store Locator | Seven Series Garment Industry</x-slot>
 
-    <x-nav transparent="true" />
-
-    <!-- Leaflet CSS & JS for Custom Interactive Store Map -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-
     <main class="min-h-screen pt-6 sm:pt-10 pb-32 sm:pb-36 px-3.5 sm:px-6 lg:px-10 xl:px-12 w-full max-w-full overflow-hidden space-y-8 sm:space-y-12"
           x-data="{
               search: '',

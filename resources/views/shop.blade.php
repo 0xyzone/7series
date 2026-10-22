@@ -1,8 +1,6 @@
 <x-layout>
     <x-slot:title>Wholesale Line Sheet & Catalog - Seven Series Garment Industry</x-slot>
 
-    <x-nav />
-
     <main class="pt-32 pb-20 max-w-7xl mx-auto px-6">
         <div class="mb-12">
             <div class="inline-block px-3 py-1 bg-red-100 border border-red-200 rounded-full text-red-600 text-xs font-black tracking-widest uppercase mb-3">

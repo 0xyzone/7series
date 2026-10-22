@@ -336,6 +336,7 @@ export function initHero3D() {
     let clock = new THREE.Clock();
 
     function renderLoop() {
+        if (!canvas || !canvas.isConnected) return;
         requestAnimationFrame(renderLoop);
         if (!isVisible) return;
 

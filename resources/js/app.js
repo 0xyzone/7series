@@ -1,8 +1,9 @@
 import './bootstrap';
 import { initHero3D } from './hero-3d';
 import { initMotionExperience } from './motion-experience';
+import { initSpaNavigation } from './spa-navigation';
 
-// Initialize Three.js 3D Engine & Motion Design when DOM is ready
+// Initialize Three.js 3D Engine, Motion Design, and SPA Navigation when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
     try {
         initHero3D();
@@ -14,6 +15,12 @@ document.addEventListener('DOMContentLoaded', () => {
         initMotionExperience();
     } catch (e) {
         console.warn('Motion design initialization:', e);
+    }
+
+    try {
+        initSpaNavigation();
+    } catch (e) {
+        console.warn('SPA navigation initialization:', e);
     }
 });
 

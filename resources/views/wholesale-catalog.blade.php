@@ -1,8 +1,6 @@
 <x-layout>
     <x-slot:title>Wholesale Line Sheet & Catalog | Seven Series Garment Industry</x-slot>
 
-    <x-nav />
-
     <main class="pt-6 sm:pt-10 pb-24 max-w-7xl mx-auto px-3.5 sm:px-6 w-full max-w-full overflow-hidden" x-data="{
         selectedCategory: 'all',
         inquiryModalOpen: false,

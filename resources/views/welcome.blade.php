@@ -4,8 +4,6 @@
 >
     <x-slot:title>Seven Series | Authentic Denim Clothing Brand & Garment Factory</x-slot>
 
-    <x-nav transparent="true" />
-
     <main class="min-h-screen pt-6 sm:pt-10 pb-32 sm:pb-36 px-3.5 sm:px-6 lg:px-10 xl:px-12 w-full max-w-full overflow-hidden space-y-10 sm:space-y-16">
 
         <!-- ========================================================================= -->

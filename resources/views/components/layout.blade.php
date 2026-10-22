@@ -66,6 +66,9 @@
 
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=poppins:300,400,500,600,700,800,900|inter:400,500,600,700|space-grotesk:500,700" rel="stylesheet" />
+    <!-- Leaflet CSS & JS for Interactive Map Support -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <style>
@@ -143,7 +146,14 @@
 <body
     class="bg-white text-zinc-950 font-sans antialiased selection:bg-red-600 selection:text-white overflow-x-hidden">
     <x-preloader />
-    {{ $slot }}
+
+    <div id="app-viewport">
+        <div id="app-page-view">
+            {{ $slot }}
+        </div>
+    </div>
+
+    <x-nav />
 </body>
 
 </html>

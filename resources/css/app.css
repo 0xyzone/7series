@@ -142,5 +142,56 @@ html, body {
     box-sizing: border-box;
 }
 
+/* =========================================================================
+   NATIVE MOBILE APP NAVIGATION & SLIDING HIGHLIGHTER DOCK
+   ========================================================================= */
+.nav-dock-item {
+    transition: color 0.22s ease, transform 0.22s cubic-bezier(0.2, 0.9, 0.3, 1);
+    -webkit-tap-highlight-color: transparent;
+    cursor: pointer;
+    touch-action: manipulation;
+}
 
+.nav-dock-item:not(.active) {
+    color: #52525b;
+}
 
+.nav-dock-item:not(.active):hover {
+    color: #18181b;
+}
+
+.nav-dock-item:not(.active) .nav-dock-logo {
+    color: #e51e2b;
+}
+
+.nav-dock-item:not(.active) .nav-dock-icon {
+    color: #52525b;
+}
+
+.nav-dock-item.active {
+    color: #ffffff !important;
+    transform: scale(1.05);
+}
+
+.nav-dock-item.active .nav-dock-logo,
+.nav-dock-item.active .nav-dock-icon,
+.nav-dock-item.active .nav-dock-label {
+    color: #ffffff !important;
+}
+
+.nav-dock-item:active {
+    transform: scale(0.94);
+}
+
+/* App Viewport Container for Hardware-Accelerated Slide Transitions */
+#app-viewport {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+#app-page-view {
+    width: 100%;
+    min-height: 100vh;
+}
