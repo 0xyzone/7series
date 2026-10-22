@@ -30,6 +30,21 @@ class RetailStore extends Model
         'sort_order' => 'integer',
     ];
 
+    protected $appends = [
+        'image_url',
+    ];
+
+    public function getImageUrlAttribute(): ?string
+    {
+        if (empty($this->image)) {
+            return null;
+        }
+        if (str_starts_with($this->image, 'http') || str_starts_with($this->image, 'images/')) {
+            return asset($this->image);
+        }
+        return asset('storage/' . $this->image);
+    }
+
     protected static function boot()
     {
         parent::boot();

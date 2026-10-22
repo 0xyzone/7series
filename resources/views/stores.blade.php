@@ -67,15 +67,15 @@
                                     bounds.push(latLng);
                                     const marker = L.marker(latLng, { icon: createCustomIcon(true) }).addTo(this.map);
                                     marker.bindPopup(`
-                                        <div class='p-3 max-w-xs space-y-2 font-sans'>
+                                        <div class='p-3 max-w-xs space-y-1 font-sans'>
                                             <div class='flex items-center gap-2'>
                                                 <span class='px-2 py-0.5 rounded-full bg-red-600 text-white text-[9px] font-black uppercase'>${pin.type || 'FACTORY'}</span>
                                                 <span class='text-[10px] font-bold text-zinc-500'>Headquarters</span>
                                             </div>
                                             <h4 class='text-sm font-extrabold text-zinc-950 leading-tight'>${pin.title}</h4>
-                                            <p class='text-xs text-zinc-600 leading-snug'>${pin.address || ''}</p>
-                                            ${pin.phone ? `<a href='tel:${pin.phone}' class='text-xs text-red-600 font-bold block pt-1'>${pin.phone}</a>` : ''}
-                                            ${pin.google_maps_url ? `<a href='${pin.google_maps_url}' target='_blank' class='inline-block mt-2 px-3 py-1 bg-zinc-900 text-white text-[10px] font-bold rounded-full'>Open in Google Maps &rarr;</a>` : ''}
+                                            <span class='text-xs text-zinc-600 leading-snug'>${pin.address || ''}</span>
+                                            ${pin.phone ? `<a href='tel:${pin.phone}' class='text-xs !text-red-600 font-bold block'>${pin.phone}</a>` : ''}
+                                            ${pin.google_maps_url ? `<a href='${pin.google_maps_url}' target='_blank' class='inline-block mt-1 px-2 py-1 bg-zinc-900 !text-white text-[10px] font-bold rounded-full no-underline'>Open in Google Maps &rarr;</a>` : ''}
                                         </div>
                                     `);
                                     this.markers['factory_' + index] = marker;
@@ -91,15 +91,15 @@
                                     bounds.push(latLng);
                                     const marker = L.marker(latLng, { icon: createCustomIcon(store.store_type === 'flagship') }).addTo(this.map);
                                     marker.bindPopup(`
-                                        <div class='p-3 max-w-xs space-y-2 font-sans'>
+                                        <div class='p-2 max-w-xs space-y-1 font-sans'>
                                             <div class='flex items-center gap-2'>
                                                 <span class='px-2 py-0.5 rounded-full ${store.store_type === 'flagship' ? 'bg-red-600 text-white' : 'bg-zinc-800 text-white'} text-[9px] font-black uppercase'>${store.store_type || 'RETAIL'}</span>
                                                 <span class='text-[10px] font-bold text-zinc-500'>${store.city}</span>
                                             </div>
                                             <h4 class='text-sm font-extrabold text-zinc-950 leading-tight'>${store.name}</h4>
                                             <p class='text-xs text-zinc-600 leading-snug'>${store.address}${store.landmark ? ` (Near ${store.landmark})` : ''}</p>
-                                            ${store.phone ? `<a href='tel:${store.phone}' class='text-xs text-red-600 font-bold block pt-1'>${store.phone}</a>` : ''}
-                                            ${store.google_maps_url ? `<a href='${store.google_maps_url}' target='_blank' class='inline-block mt-2 px-3 py-1 bg-red-600 text-white text-[10px] font-bold rounded-full'>Get Directions &rarr;</a>` : ''}
+                                            ${store.phone ? `<a href='tel:${store.phone}' class='text-xs text-red-600 font-bold block'>${store.phone}</a>` : ''}
+                                            ${store.google_maps_url ? `<a href='${store.google_maps_url}' target='_blank' class='inline-block mt-1 px-2 bg-red-600 text-white text-[10px] font-bold rounded-full'>Get Directions &rarr;</a>` : ''}
                                         </div>
                                     `);
                                     this.markers['store_' + store.id] = marker;
@@ -369,6 +369,15 @@
                         :class="activeStoreId === store.id ? 'ring-2 ring-red-600 bg-red-50/10' : ''">
 
                         <div class="space-y-4">
+                            <template x-if="store.image_url || store.image">
+                                <div class="relative h-44 -mx-5 -mt-5 sm:-mx-7 sm:-mt-7 mb-4 overflow-hidden rounded-t-2xl bg-zinc-100 border-b border-zinc-100">
+                                    <img :src="store.image_url || (store.image.startsWith('http') || store.image.startsWith('images/') ? store.image : '/storage/' + store.image)"
+                                        :alt="store.name"
+                                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                                    <div class="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent"></div>
+                                </div>
+                            </template>
+
                             <div class="flex items-center justify-between">
                                 <span class="px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider"
                                     :class="store.store_type === 'flagship' ? 'bg-red-600 text-white' :

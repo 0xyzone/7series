@@ -354,6 +354,13 @@
                         <div class="store-card app-card p-5 sm:p-7 flex flex-col justify-between group">
                             
                             <div class="space-y-4">
+                                @if($store->image_url)
+                                    <div class="relative h-44 -mx-5 -mt-5 sm:-mx-7 sm:-mt-7 mb-4 overflow-hidden rounded-t-2xl bg-zinc-100 border-b border-zinc-100">
+                                        <img src="{{ $store->image_url }}" alt="{{ $store->name }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                                        <div class="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent"></div>
+                                    </div>
+                                @endif
+
                                 <div class="flex items-center justify-between">
                                     <span class="px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider {{ $store->store_type === 'flagship' ? 'bg-red-600 text-white' : 'bg-red-50 text-red-600 border border-red-200' }}">
                                         {{ str_replace('_', ' ', strtoupper($store->store_type)) }}
