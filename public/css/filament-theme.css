@@ -1452,26 +1452,487 @@ html.dark .sys-input {
     gap: 1.5rem !important;
 }
 
-/* Company Settings Page Fluid Spacing */
-.cs-form-wrapper {
+/* =========================================================================
+   COMPANY SETTINGS PAGE DESIGN SYSTEM (.cs-*)
+   ========================================================================= */
+
+.cs-page-container {
     display: flex;
     flex-direction: column;
-    gap: 2.5rem;
-    padding-bottom: 5rem;
+    gap: 2rem;
+    padding-bottom: 6rem;
+    max-width: 100%;
+    box-sizing: border-box;
 }
 
-.cs-field-stack {
+/* Banner */
+.cs-banner {
+    border-radius: 1.5rem;
+    padding: 2.25rem 2.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    box-sizing: border-box;
+    position: relative;
+    overflow: hidden;
+}
+
+@media (min-width: 1024px) {
+    .cs-banner {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
+}
+
+html:not(.dark) .cs-banner {
+    background: linear-gradient(135deg, #ffffff 0%, #faf8f5 100%);
+    border: 1px solid rgba(214, 211, 209, 0.9);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+}
+
+html.dark .cs-banner {
+    background: linear-gradient(135deg, #1c1917 0%, #12100e 100%);
+    border: 1px solid rgba(68, 64, 60, 0.7);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+}
+
+.cs-banner-glow {
+    position: absolute;
+    right: -3rem;
+    bottom: -3rem;
+    width: 18rem;
+    height: 18rem;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(229, 30, 43, 0.2) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.cs-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.35rem 0.85rem;
+    border-radius: 9999px;
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    background: rgba(229, 30, 43, 0.12);
+    color: #e51e2b;
+    border: 1px solid rgba(229, 30, 43, 0.25);
+    width: fit-content;
+}
+
+.cs-badge-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #e51e2b;
+    box-shadow: 0 0 8px #e51e2b;
+    animation: daemon-pulse 1.8s infinite;
+}
+
+.cs-banner-title {
+    font-size: 1.45rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+    margin: 0.5rem 0 0.35rem 0;
+    line-height: 1.25;
+}
+
+html:not(.dark) .cs-banner-title { color: #1c1917; }
+html.dark .cs-banner-title { color: #ffffff; }
+
+.cs-banner-desc {
+    font-size: 0.82rem;
+    color: #78716c;
+    margin: 0;
+    max-width: 680px;
+    line-height: 1.6;
+}
+
+/* 2-Column Section Grid */
+.cs-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+}
+
+@media (min-width: 1024px) {
+    .cs-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+/* Section Card */
+.cs-card {
+    border-radius: 1.25rem;
+    padding: 2rem;
     display: flex;
     flex-direction: column;
     gap: 1.75rem;
-    padding-top: 0.5rem;
+    box-sizing: border-box;
 }
 
-.cs-field-item {
+html:not(.dark) .cs-card {
+    background: #ffffff;
+    border: 1px solid rgba(214, 211, 209, 0.8);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+}
+
+html.dark .cs-card {
+    background: linear-gradient(135deg, #1c1917 0%, #151312 100%);
+    border: 1px solid rgba(68, 64, 60, 0.6);
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.3);
+}
+
+.cs-card-header {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid rgba(120, 113, 108, 0.15);
+}
+
+.cs-card-title {
+    font-size: 1.05rem;
+    font-weight: 800;
+    margin: 0;
+    letter-spacing: -0.01em;
+}
+
+html:not(.dark) .cs-card-title { color: #1c1917; }
+html.dark .cs-card-title { color: #f5f5f4; }
+
+.cs-card-sub {
+    font-size: 0.75rem;
+    color: #78716c;
+    margin: 0.2rem 0 0 0;
+}
+
+/* Form Stack & Field Rows */
+.cs-form-stack {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 1.5rem;
 }
+
+.cs-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+}
+
+.cs-row-2 {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+}
+
+@media (min-width: 640px) {
+    .cs-row-2 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+.cs-row-3 {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+}
+
+@media (min-width: 768px) {
+    .cs-row-3 {
+        grid-template-columns: 2fr 1fr;
+    }
+}
+
+.cs-label {
+    font-size: 0.72rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+html:not(.dark) .cs-label { color: #44403c; }
+html.dark .cs-label { color: #a8a29e; }
+
+.cs-req {
+    color: #e51e2b;
+    margin-left: 0.25rem;
+}
+
+.cs-input-group {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.cs-input-icon {
+    position: absolute;
+    left: 0.85rem;
+    pointer-events: none;
+    color: #78716c;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cs-input-icon svg {
+    width: 16px !important;
+    height: 16px !important;
+}
+
+.cs-input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border-radius: 0.75rem;
+    font-size: 0.84rem;
+    font-weight: 500;
+    border: 1px solid rgba(120, 113, 108, 0.35);
+    outline: none;
+    transition: all 0.2s ease;
+    box-sizing: border-box;
+}
+
+.cs-input.has-icon {
+    padding-left: 2.6rem;
+}
+
+html:not(.dark) .cs-input {
+    background: #fcfbf9;
+    color: #1c1917;
+}
+
+html:not(.dark) .cs-input:focus {
+    background: #ffffff;
+    border-color: #e51e2b;
+    box-shadow: 0 0 0 3px rgba(229, 30, 43, 0.12);
+}
+
+html.dark .cs-input {
+    background: rgba(24, 22, 20, 0.8);
+    color: #f5f5f4;
+    border-color: rgba(68, 64, 60, 0.8);
+}
+
+html.dark .cs-input:focus {
+    background: #141210;
+    border-color: #e51e2b;
+    box-shadow: 0 0 0 3px rgba(229, 30, 43, 0.2);
+}
+
+.cs-subtext {
+    font-size: 0.72rem;
+    color: #78716c;
+    margin: 0.25rem 0 0 0;
+    line-height: 1.4;
+}
+
+/* Map Pins Repeater */
+.cs-pin-card {
+    border-radius: 1rem;
+    padding: 1.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    box-sizing: border-box;
+    transition: all 0.2s ease;
+}
+
+html:not(.dark) .cs-pin-card {
+    background: #faf8f5;
+    border: 1px solid rgba(214, 211, 209, 0.7);
+}
+
+html.dark .cs-pin-card {
+    background: rgba(28, 25, 23, 0.5);
+    border: 1px solid rgba(68, 64, 60, 0.6);
+}
+
+.cs-pin-card.is-primary {
+    border-color: rgba(229, 30, 43, 0.6);
+}
+
+html:not(.dark) .cs-pin-card.is-primary {
+    background: rgba(254, 242, 242, 0.5);
+}
+
+html.dark .cs-pin-card.is-primary {
+    background: rgba(69, 10, 10, 0.25);
+}
+
+.cs-pin-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(120, 113, 108, 0.15);
+}
+
+.cs-pin-card-header-left {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.cs-pin-num {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    font-weight: 800;
+}
+
+html:not(.dark) .cs-pin-num {
+    background: #1c1917;
+    color: #ffffff;
+}
+
+html.dark .cs-pin-num {
+    background: #f5f5f4;
+    color: #1c1917;
+}
+
+.cs-pin-title-text {
+    font-size: 0.95rem;
+    font-weight: 800;
+}
+
+html:not(.dark) .cs-pin-title-text { color: #1c1917; }
+html.dark .cs-pin-title-text { color: #ffffff; }
+
+.cs-badge-primary-pin {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.2rem 0.55rem;
+    border-radius: 9999px;
+    font-size: 0.68rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    background: rgba(229, 30, 43, 0.12);
+    color: #e51e2b;
+    border: 1px solid rgba(229, 30, 43, 0.3);
+}
+
+/* Sticky Action Bar */
+.cs-sticky-bar {
+    position: sticky;
+    bottom: 1.5rem;
+    z-index: 30;
+    padding: 1.25rem 2rem;
+    border-radius: 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    box-sizing: border-box;
+}
+
+html:not(.dark) .cs-sticky-bar {
+    background: rgba(255, 255, 255, 0.92);
+    border: 1px solid rgba(214, 211, 209, 0.9);
+    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.08);
+}
+
+html.dark .cs-sticky-bar {
+    background: rgba(24, 22, 20, 0.92);
+    border: 1px solid rgba(68, 64, 60, 0.8);
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5);
+}
+
+.cs-sticky-info {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.78rem;
+    color: #78716c;
+}
+
+.cs-btn-save {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.8rem 1.75rem;
+    border-radius: 0.75rem;
+    font-size: 0.84rem;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: #ffffff;
+    background: linear-gradient(135deg, #e51e2b 0%, #b91c1c 100%);
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 16px rgba(229, 30, 43, 0.35);
+    transition: all 0.2s ease;
+}
+
+.cs-btn-save:hover {
+    background: linear-gradient(135deg, #f43f5e 0%, #dc2626 100%);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(229, 30, 43, 0.45);
+}
+
+.cs-btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.45rem 0.85rem;
+    border-radius: 0.625rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    border: 1px solid rgba(120, 113, 108, 0.35);
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+html:not(.dark) .cs-btn-secondary {
+    color: #44403c;
+}
+html:not(.dark) .cs-btn-secondary:hover {
+    background: #f5f4f0;
+}
+
+html.dark .cs-btn-secondary {
+    color: #d6d3d1;
+}
+html.dark .cs-btn-secondary:hover {
+    background: rgba(68, 64, 60, 0.4);
+}
+
+.cs-btn-danger {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.45rem 0.85rem;
+    border-radius: 0.625rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #ef4444;
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    background: rgba(239, 68, 68, 0.08);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.cs-btn-danger:hover {
+    background: rgba(239, 68, 68, 0.18);
+}
+
 
 
 

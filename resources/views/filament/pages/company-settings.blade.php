@@ -1,362 +1,433 @@
 <x-filament-panels::page>
-    <form wire:submit.prevent="save" class="space-y-10 lg:space-y-12 pb-24">
+    <form wire:submit.prevent="save" class="cs-page-container">
         
-        {{-- Top Description & Action Banner with generous breathing room --}}
-        <div class="rounded-3xl bg-gradient-to-r from-zinc-950 via-zinc-900 to-zinc-950 text-white p-8 sm:p-10 border border-zinc-800/80 shadow-2xl relative overflow-hidden">
-            <div class="absolute -right-12 -bottom-12 w-64 h-64 bg-red-600/20 rounded-full blur-3xl pointer-events-none"></div>
-            <div class="absolute left-1/2 top-0 w-96 h-32 bg-red-500/10 rounded-full blur-3xl pointer-events-none"></div>
+        {{-- Top Description & Action Banner --}}
+        <div class="cs-banner">
+            <div class="cs-banner-glow"></div>
             
-            <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6 relative z-10">
-                <div class="space-y-3">
-                    <div class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-red-600/20 text-red-400 text-xs font-mono font-bold tracking-wider uppercase border border-red-500/30">
-                        <span class="w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse"></span>
-                        <span>COMPANY & PUBLIC CONTACT SETTINGS</span>
-                    </div>
-                    <h2 class="text-2xl sm:text-3xl font-black uppercase tracking-tight text-white pt-1">
-                        Brand Identity, Factory Premises & Map Pins
-                    </h2>
-                    <p class="text-sm text-zinc-400 max-w-3xl leading-relaxed">
-                        Control public contact details, manufacturing plant coordinates, operating hours, and interactive map pins displayed across the Contact Us page, footer, and store locator.
-                    </p>
+            <div style="position: relative; z-index: 2;">
+                <div class="cs-badge">
+                    <span class="cs-badge-dot"></span>
+                    <span>COMPANY & PUBLIC CONTACT SETTINGS</span>
                 </div>
+                <h2 class="cs-banner-title">
+                    Brand Identity, Factory Premises & Map Pins
+                </h2>
+                <p class="cs-banner-desc">
+                    Control public contact details, manufacturing plant coordinates, operating hours, and interactive map pins displayed across the Contact Us page, footer, and store locator.
+                </p>
+            </div>
 
-                <div class="shrink-0 flex items-center gap-3 pt-2 lg:pt-0">
-                    <x-filament::button type="submit" size="xl" color="primary" icon="heroicon-m-check">
-                        <span wire:loading.remove wire:target="save">Save All Settings</span>
-                        <span wire:loading wire:target="save">Saving...</span>
-                    </x-filament::button>
-                </div>
+            <div style="position: relative; z-index: 2; flex-shrink: 0;">
+                <button type="submit" class="cs-btn-save">
+                    <svg wire:loading.remove wire:target="save" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
+                    </svg>
+                    <svg wire:loading wire:target="save" class="animate-spin" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" stroke-dasharray="31.415, 31.415" stroke-linecap="round" fill="none" />
+                    </svg>
+                    <span wire:loading.remove wire:target="save">Save All Settings</span>
+                    <span wire:loading wire:target="save">Saving...</span>
+                </button>
             </div>
         </div>
 
-        {{-- 2-Column Grid: Section 1 & Section 2 with generous gaps --}}
-        <div class="grid grid-cols-1 xl:grid-cols-2 gap-8 lg:gap-10 items-start">
+        {{-- 2-Column Responsive Grid: Section 1 & Section 2 --}}
+        <div class="cs-grid">
             
             {{-- Section 1: Corporate Identity & Communications --}}
-            <x-filament::section icon="heroicon-o-building-office-2">
-                <x-slot name="heading">
-                    Corporate Identity & Correspondence
-                </x-slot>
-                <x-slot name="description">
-                    Official trading brand name, contact channels, and customer hotline numbers.
-                </x-slot>
+            <div class="cs-card">
+                <div class="cs-card-header">
+                    <div class="sys-icon-badge red">
+                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="cs-card-title">Corporate Identity & Correspondence</h3>
+                        <p class="cs-card-sub">Official trading brand name, contact channels, and customer hotline numbers.</p>
+                    </div>
+                </div>
 
-                <div class="space-y-6 pt-4">
+                <div class="cs-form-stack">
                     {{-- Company Name --}}
-                    <div class="space-y-2">
-                        <label class="fi-fo-field-wrp-label inline-flex items-center gap-x-1.5 text-xs font-bold uppercase tracking-wider text-gray-700 dark:text-gray-300">
-                            <span>Company Name</span>
-                            <span class="text-danger-600 dark:text-danger-400 font-bold">*</span>
+                    <div class="cs-field">
+                        <label class="cs-label">
+                            <span>Company Name <span class="cs-req">*</span></span>
                         </label>
-                        <x-filament::input.wrapper prefix-icon="heroicon-m-building-office">
-                            <x-filament::input type="text" wire:model="company_name" required placeholder="Seven Series Garment Industry" />
-                        </x-filament::input.wrapper>
+                        <div class="cs-input-group">
+                            <span class="cs-input-icon">
+                                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                                </svg>
+                            </span>
+                            <input type="text" wire:model="company_name" required placeholder="Seven Series Garment Industry" class="cs-input has-icon" />
+                        </div>
                     </div>
 
                     {{-- Brand Tagline --}}
-                    <div class="space-y-2">
-                        <label class="fi-fo-field-wrp-label inline-flex items-center gap-x-1.5 text-xs font-bold uppercase tracking-wider text-gray-700 dark:text-gray-300">
+                    <div class="cs-field">
+                        <label class="cs-label">
                             <span>Brand Slogan / Tagline</span>
                         </label>
-                        <x-filament::input.wrapper prefix-icon="heroicon-m-sparkles">
-                            <x-filament::input type="text" wire:model="tagline" placeholder="Authentic Denim Clothing Brand & Garment Factory" />
-                        </x-filament::input.wrapper>
+                        <div class="cs-input-group">
+                            <span class="cs-input-icon">
+                                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+                                </svg>
+                            </span>
+                            <input type="text" wire:model="tagline" placeholder="Authentic Denim Clothing Brand & Garment Factory" class="cs-input has-icon" />
+                        </div>
                     </div>
 
                     {{-- Email & Phone Grid --}}
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-7">
-                        <div class="space-y-2">
-                            <label class="fi-fo-field-wrp-label inline-flex items-center gap-x-1.5 text-xs font-bold uppercase tracking-wider text-gray-700 dark:text-gray-300">
-                                <span>Official Email</span>
-                                <span class="text-danger-600 dark:text-danger-400 font-bold">*</span>
+                    <div class="cs-row-2">
+                        <div class="cs-field">
+                            <label class="cs-label">
+                                <span>Official Email <span class="cs-req">*</span></span>
                             </label>
-                            <x-filament::input.wrapper prefix-icon="heroicon-m-envelope">
-                                <x-filament::input type="email" wire:model="primary_email" required placeholder="samparka@7series.com.np" />
-                            </x-filament::input.wrapper>
+                            <div class="cs-input-group">
+                                <span class="cs-input-icon">
+                                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                    </svg>
+                                </span>
+                                <input type="email" wire:model="primary_email" required placeholder="samparka@7series.com.np" class="cs-input has-icon" />
+                            </div>
                         </div>
 
-                        <div class="space-y-2">
-                            <label class="fi-fo-field-wrp-label inline-flex items-center gap-x-1.5 text-xs font-bold uppercase tracking-wider text-gray-700 dark:text-gray-300">
-                                <span>Factory Hotline Phone</span>
-                                <span class="text-danger-600 dark:text-danger-400 font-bold">*</span>
+                        <div class="cs-field">
+                            <label class="cs-label">
+                                <span>Factory Hotline Phone <span class="cs-req">*</span></span>
                             </label>
-                            <x-filament::input.wrapper prefix-icon="heroicon-m-phone">
-                                <x-filament::input type="text" wire:model="primary_phone" required placeholder="+977 9801234567" />
-                            </x-filament::input.wrapper>
+                            <div class="cs-input-group">
+                                <span class="cs-input-icon">
+                                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                                    </svg>
+                                </span>
+                                <input type="text" wire:model="primary_phone" required placeholder="+977 9801234567" class="cs-input has-icon" />
+                            </div>
                         </div>
                     </div>
 
                     {{-- WhatsApp Hotline & Email Helper Note --}}
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-7">
-                        <div class="space-y-2">
-                            <label class="fi-fo-field-wrp-label inline-flex items-center gap-x-1.5 text-xs font-bold uppercase tracking-wider text-gray-700 dark:text-gray-300">
+                    <div class="cs-row-2">
+                        <div class="cs-field">
+                            <label class="cs-label">
                                 <span>WhatsApp Dispatch Number</span>
                             </label>
-                            <x-filament::input.wrapper prefix-icon="heroicon-m-chat-bubble-left-right">
-                                <x-filament::input type="text" wire:model="whatsapp_number" placeholder="+977 9801234567" />
-                            </x-filament::input.wrapper>
+                            <div class="cs-input-group">
+                                <span class="cs-input-icon">
+                                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                                    </svg>
+                                </span>
+                                <input type="text" wire:model="whatsapp_number" placeholder="+977 9801234567" class="cs-input has-icon" />
+                            </div>
                         </div>
 
-                        <div class="space-y-2">
-                            <label class="fi-fo-field-wrp-label inline-flex items-center gap-x-1.5 text-xs font-bold uppercase tracking-wider text-gray-700 dark:text-gray-300">
+                        <div class="cs-field">
+                            <label class="cs-label">
                                 <span>Email Helper Subtext</span>
                             </label>
-                            <x-filament::input.wrapper prefix-icon="heroicon-m-information-circle">
-                                <x-filament::input type="text" wire:model="email_note" placeholder="For wholesale pricing and inquiries." />
-                            </x-filament::input.wrapper>
+                            <div class="cs-input-group">
+                                <span class="cs-input-icon">
+                                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                </span>
+                                <input type="text" wire:model="email_note" placeholder="For wholesale pricing and inquiries." class="cs-input has-icon" />
+                            </div>
                         </div>
                     </div>
                 </div>
-            </x-filament::section>
+            </div>
 
             {{-- Section 2: Physical Factory Premises & Timings --}}
-            <x-filament::section icon="heroicon-o-map-pin">
-                <x-slot name="heading">
-                    Manufacturing Plant & Timings
-                </x-slot>
-                <x-slot name="description">
-                    Physical factory location, industrial freight access, and operating hours.
-                </x-slot>
+            <div class="cs-card">
+                <div class="cs-card-header">
+                    <div class="sys-icon-badge green">
+                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="cs-card-title">Manufacturing Plant & Timings</h3>
+                        <p class="cs-card-sub">Physical factory location, industrial freight access, and operating hours.</p>
+                    </div>
+                </div>
 
-                <div class="space-y-6 pt-4">
+                <div class="cs-form-stack">
                     {{-- Primary Address --}}
-                    <div class="space-y-2">
-                        <label class="fi-fo-field-wrp-label inline-flex items-center gap-x-1.5 text-xs font-bold uppercase tracking-wider text-gray-700 dark:text-gray-300">
-                            <span>Factory Street Address</span>
-                            <span class="text-danger-600 dark:text-danger-400 font-bold">*</span>
+                    <div class="cs-field">
+                        <label class="cs-label">
+                            <span>Factory Street Address <span class="cs-req">*</span></span>
                         </label>
-                        <x-filament::input.wrapper prefix-icon="heroicon-m-map-pin">
-                            <x-filament::input type="text" wire:model="primary_address" required placeholder="Near Padma Colony Main Entrance, Sitapaila" />
-                        </x-filament::input.wrapper>
+                        <div class="cs-input-group">
+                            <span class="cs-input-icon">
+                                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                                </svg>
+                            </span>
+                            <input type="text" wire:model="primary_address" required placeholder="Near Padma Colony Main Entrance, Sitapaila" class="cs-input has-icon" />
+                        </div>
                     </div>
 
                     {{-- City & State --}}
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-7">
-                        <div class="space-y-2">
-                            <label class="fi-fo-field-wrp-label inline-flex items-center gap-x-1.5 text-xs font-bold uppercase tracking-wider text-gray-700 dark:text-gray-300">
-                                <span>City</span>
-                                <span class="text-danger-600 dark:text-danger-400 font-bold">*</span>
+                    <div class="cs-row-2">
+                        <div class="cs-field">
+                            <label class="cs-label">
+                                <span>City <span class="cs-req">*</span></span>
                             </label>
-                            <x-filament::input.wrapper>
-                                <x-filament::input type="text" wire:model="city" required placeholder="Kathmandu" />
-                            </x-filament::input.wrapper>
+                            <input type="text" wire:model="city" required placeholder="Kathmandu" class="cs-input" />
                         </div>
 
-                        <div class="space-y-2">
-                            <label class="fi-fo-field-wrp-label inline-flex items-center gap-x-1.5 text-xs font-bold uppercase tracking-wider text-gray-700 dark:text-gray-300">
-                                <span>State / Region</span>
-                                <span class="text-danger-600 dark:text-danger-400 font-bold">*</span>
+                        <div class="cs-field">
+                            <label class="cs-label">
+                                <span>State / Region <span class="cs-req">*</span></span>
                             </label>
-                            <x-filament::input.wrapper>
-                                <x-filament::input type="text" wire:model="state" required placeholder="Bagmati Province, Nepal" />
-                            </x-filament::input.wrapper>
+                            <input type="text" wire:model="state" required placeholder="Bagmati Province, Nepal" class="cs-input" />
                         </div>
                     </div>
 
                     {{-- Directions Note --}}
-                    <div class="space-y-2">
-                        <label class="fi-fo-field-wrp-label inline-flex items-center gap-x-1.5 text-xs font-bold uppercase tracking-wider text-gray-700 dark:text-gray-300">
+                    <div class="cs-field">
+                        <label class="cs-label">
                             <span>Directions & Freight Loading Note</span>
                         </label>
-                        <x-filament::input.wrapper prefix-icon="heroicon-m-truck">
-                            <x-filament::input type="text" wire:model="directions_note" placeholder="Easily accessible from Sitapaila Chowk, Ring Road. Direct freight bay." />
-                        </x-filament::input.wrapper>
+                        <div class="cs-input-group">
+                            <span class="cs-input-icon">
+                                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0" />
+                                </svg>
+                            </span>
+                            <input type="text" wire:model="directions_note" placeholder="Easily accessible from Sitapaila Chowk, Ring Road. Direct freight bay." class="cs-input has-icon" />
+                        </div>
                     </div>
 
                     {{-- Operating Hours & Weekend Note --}}
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-7">
-                        <div class="space-y-2">
-                            <label class="fi-fo-field-wrp-label inline-flex items-center gap-x-1.5 text-xs font-bold uppercase tracking-wider text-gray-700 dark:text-gray-300">
+                    <div class="cs-row-2">
+                        <div class="cs-field">
+                            <label class="cs-label">
                                 <span>Operating Hours</span>
                             </label>
-                            <x-filament::input.wrapper prefix-icon="heroicon-m-clock">
-                                <x-filament::input type="text" wire:model="operating_hours" placeholder="Sunday – Friday: 09:00 – 18:00" />
-                            </x-filament::input.wrapper>
+                            <div class="cs-input-group">
+                                <span class="cs-input-icon">
+                                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                </span>
+                                <input type="text" wire:model="operating_hours" placeholder="Sunday – Friday: 09:00 – 18:00" class="cs-input has-icon" />
+                            </div>
                         </div>
 
-                        <div class="space-y-2">
-                            <label class="fi-fo-field-wrp-label inline-flex items-center gap-x-1.5 text-xs font-bold uppercase tracking-wider text-gray-700 dark:text-gray-300">
+                        <div class="cs-field">
+                            <label class="cs-label">
                                 <span>Weekend / Maintenance Note</span>
                             </label>
-                            <x-filament::input.wrapper prefix-icon="heroicon-m-wrench-screwdriver">
-                                <x-filament::input type="text" wire:model="operating_hours_note" placeholder="Saturday: Factory Closed" />
-                            </x-filament::input.wrapper>
+                            <div class="cs-input-group">
+                                <span class="cs-input-icon">
+                                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                    </svg>
+                                </span>
+                                <input type="text" wire:model="operating_hours_note" placeholder="Saturday: Factory Closed" class="cs-input has-icon" />
+                            </div>
                         </div>
                     </div>
 
-                    {{-- Google Maps URL & API Key --}}
-                    <div class="space-y-5 pt-2 border-t border-gray-100 dark:border-gray-800">
-                        <div class="space-y-2">
-                            <label class="fi-fo-field-wrp-label inline-flex items-center gap-x-1.5 text-xs font-bold uppercase tracking-wider text-gray-700 dark:text-gray-300">
-                                <span>Direct Google Maps Navigation Link</span>
-                            </label>
-                            <x-filament::input.wrapper prefix-icon="heroicon-m-arrow-top-right-on-square">
-                                <x-filament::input type="text" wire:model="google_maps_url" placeholder="https://maps.google.com/?q=Padma+Colony+Sitapaila+Kathmandu" />
-                            </x-filament::input.wrapper>
+                    {{-- Google Maps Link & API Key --}}
+                    <div class="cs-field" style="padding-top: 0.5rem; border-top: 1px solid rgba(120, 113, 108, 0.15);">
+                        <label class="cs-label">
+                            <span>Direct Google Maps Navigation Link</span>
+                        </label>
+                        <div class="cs-input-group">
+                            <span class="cs-input-icon">
+                                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                                </svg>
+                            </span>
+                            <input type="text" wire:model="google_maps_url" placeholder="https://maps.google.com/?q=Padma+Colony+Sitapaila+Kathmandu" class="cs-input has-icon" />
                         </div>
+                    </div>
 
-                        <div class="space-y-2">
-                            <div class="flex items-center justify-between">
-                                <label class="fi-fo-field-wrp-label inline-flex items-center gap-x-1.5 text-xs font-bold uppercase tracking-wider text-gray-700 dark:text-gray-300">
-                                    <span>Google Maps API Key <span class="text-[11px] font-normal lowercase text-gray-400 dark:text-gray-500">(optional)</span></span>
-                                </label>
-                                <a href="https://console.cloud.google.com/google/maps-apis/credentials" target="_blank" rel="noopener noreferrer" class="text-xs font-bold text-primary-600 dark:text-primary-400 hover:underline inline-flex items-center gap-1">
-                                    <span>Google Cloud Console</span>
-                                    <span>&rarr;</span>
-                                </a>
-                            </div>
-                            <x-filament::input.wrapper prefix-icon="heroicon-m-key">
-                                <x-filament::input type="text" wire:model="google_maps_api_key" placeholder="AIzaSy..." />
-                            </x-filament::input.wrapper>
-                            <p class="text-xs text-gray-500 dark:text-gray-400 leading-relaxed pt-1">
-                                Optional. Leaflet.js with CartoDB Voyager tiles is enabled by default with zero quota limits and high performance.
-                            </p>
+                    <div class="cs-field">
+                        <div class="cs-label">
+                            <span>Google Maps API Key <span style="font-weight: normal; text-transform: none; color: #78716c;">(optional)</span></span>
+                            <a href="https://console.cloud.google.com/google/maps-apis/credentials" target="_blank" rel="noopener noreferrer" style="color: #e51e2b; font-weight: 700; text-decoration: none; font-size: 0.72rem;">
+                                Google Cloud Console &rarr;
+                            </a>
                         </div>
+                        <div class="cs-input-group">
+                            <span class="cs-input-icon">
+                                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
+                                </svg>
+                            </span>
+                            <input type="text" wire:model="google_maps_api_key" placeholder="AIzaSy..." class="cs-input has-icon" />
+                        </div>
+                        <p class="cs-subtext">
+                            Optional. Leaflet.js with CartoDB Voyager tiles is enabled by default with zero quota limits and high performance.
+                        </p>
                     </div>
                 </div>
-            </x-filament::section>
+            </div>
 
         </div>
 
-        {{-- Section 3: Interactive Map Pins (Multiple Locations) with spacious cards --}}
-        <x-filament::section icon="heroicon-o-map">
-            <x-slot name="heading">
-                Interactive Map Pins (Multiple Locations)
-            </x-slot>
-            <x-slot name="description">
-                Manage location pins rendered on the interactive map. Visitors can switch between pins or view contact details.
-            </x-slot>
-            <x-slot name="headerEnd">
-                <x-filament::button wire:click="addPin" type="button" size="md" icon="heroicon-m-plus" color="gray">
-                    Add Location Pin
-                </x-filament::button>
-            </x-slot>
+        {{-- Section 3: Interactive Map Pins (Multiple Locations) --}}
+        <div class="cs-card">
+            <div class="cs-card-header" style="justify-content: space-between;">
+                <div style="display: flex; align-items: center; gap: 0.85rem;">
+                    <div class="sys-icon-badge red">
+                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="cs-card-title">Interactive Map Pins (Multiple Locations)</h3>
+                        <p class="cs-card-sub">Manage location pins rendered on the interactive map. Visitors can switch between pins or view contact details.</p>
+                    </div>
+                </div>
 
-            <div class="space-y-8 pt-4">
+                <div>
+                    <button wire:click="addPin" type="button" class="cs-btn-secondary">
+                        <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                        </svg>
+                        <span>Add Location Pin</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="cs-form-stack">
                 @forelse($map_pins as $index => $pin)
-                    <div class="p-6 sm:p-8 rounded-2xl border {{ !empty($pin['is_primary']) ? 'border-primary-500/80 bg-primary-50/20 dark:bg-primary-950/20' : 'border-gray-200 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-900/40' }} space-y-6 transition-all shadow-xs">
+                    <div class="cs-pin-card {{ !empty($pin['is_primary']) ? 'is-primary' : '' }}">
                         
                         {{-- Pin Header Card --}}
-                        <div class="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-gray-200 dark:border-gray-800">
-                            <div class="flex items-center gap-3">
-                                <span class="w-7 h-7 rounded-full bg-gray-900 text-white dark:bg-gray-100 dark:text-gray-900 flex items-center justify-center text-xs font-mono font-bold shadow-xs">
-                                    {{ $index + 1 }}
-                                </span>
-                                <span class="font-extrabold text-base text-gray-900 dark:text-white">
-                                    {{ $pin['title'] ?? 'Unnamed Location Pin' }}
-                                </span>
+                        <div class="cs-pin-card-header">
+                            <div class="cs-pin-card-header-left">
+                                <span class="cs-pin-num">{{ $index + 1 }}</span>
+                                <span class="cs-pin-title-text">{{ $pin['title'] ?? 'Unnamed Location Pin' }}</span>
                                 @if(!empty($pin['is_primary']))
-                                    <x-filament::badge color="primary">
-                                        Primary Location
-                                    </x-filament::badge>
+                                    <span class="cs-badge-primary-pin">Primary Location</span>
                                 @endif
                             </div>
 
-                            <div class="flex items-center gap-3">
+                            <div style="display: flex; align-items: center; gap: 0.5rem;">
                                 @if(empty($pin['is_primary']))
-                                    <x-filament::button wire:click="setPrimaryPin({{ $index }})" type="button" size="xs" color="gray">
+                                    <button wire:click="setPrimaryPin({{ $index }})" type="button" class="cs-btn-secondary">
                                         Make Primary
-                                    </x-filament::button>
+                                    </button>
                                 @endif
-                                <x-filament::button wire:click="removePin({{ $index }})" type="button" size="xs" color="danger" icon="heroicon-m-trash">
-                                    Remove Pin
-                                </x-filament::button>
+                                <button wire:click="removePin({{ $index }})" type="button" class="cs-btn-danger">
+                                    <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                    </svg>
+                                    <span>Delete</span>
+                                </button>
                             </div>
                         </div>
 
                         {{-- Pin Form Row 1: Title & Type --}}
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-7">
-                            <div class="space-y-2">
-                                <label class="fi-fo-field-wrp-label inline-flex items-center gap-x-1.5 text-xs font-bold uppercase tracking-wider text-gray-700 dark:text-gray-300">
-                                    <span>Pin Title</span>
-                                    <span class="text-danger-600 dark:text-danger-400 font-bold">*</span>
+                        <div class="cs-row-2">
+                            <div class="cs-field">
+                                <label class="cs-label">
+                                    <span>Pin Title <span class="cs-req">*</span></span>
                                 </label>
-                                <x-filament::input.wrapper prefix-icon="heroicon-m-tag">
-                                    <x-filament::input type="text" wire:model="map_pins.{{ $index }}.title" required placeholder="e.g. Sitapaila Manufacturing Plant" />
-                                </x-filament::input.wrapper>
+                                <input type="text" wire:model="map_pins.{{ $index }}.title" required placeholder="e.g. Sitapaila Manufacturing Plant" class="cs-input" />
                             </div>
 
-                            <div class="space-y-2">
-                                <label class="fi-fo-field-wrp-label inline-flex items-center gap-x-1.5 text-xs font-bold uppercase tracking-wider text-gray-700 dark:text-gray-300">
+                            <div class="cs-field">
+                                <label class="cs-label">
                                     <span>Facility Type</span>
                                 </label>
-                                <x-filament::input.wrapper prefix-icon="heroicon-m-building-office">
-                                    <x-filament::input type="text" wire:model="map_pins.{{ $index }}.type" placeholder="e.g. Factory, Showroom, Central Warehouse" />
-                                </x-filament::input.wrapper>
+                                <input type="text" wire:model="map_pins.{{ $index }}.type" placeholder="e.g. Factory, Showroom, Central Warehouse" class="cs-input" />
                             </div>
                         </div>
 
                         {{-- Pin Form Row 2: Latitude & Longitude --}}
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-7">
-                            <div class="space-y-2">
-                                <label class="fi-fo-field-wrp-label inline-flex items-center gap-x-1.5 text-xs font-bold uppercase tracking-wider text-gray-700 dark:text-gray-300">
-                                    <span>Latitude</span>
-                                    <span class="text-danger-600 dark:text-danger-400 font-bold">*</span>
+                        <div class="cs-row-2">
+                            <div class="cs-field">
+                                <label class="cs-label">
+                                    <span>Latitude <span class="cs-req">*</span></span>
                                 </label>
-                                <x-filament::input.wrapper prefix-icon="heroicon-m-globe-alt">
-                                    <x-filament::input type="number" step="any" wire:model="map_pins.{{ $index }}.latitude" required placeholder="27.7125" />
-                                </x-filament::input.wrapper>
+                                <div class="cs-input-group">
+                                    <span class="cs-input-icon">
+                                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                        </svg>
+                                    </span>
+                                    <input type="number" step="any" wire:model="map_pins.{{ $index }}.latitude" required placeholder="27.7125" class="cs-input has-icon" />
+                                </div>
                             </div>
 
-                            <div class="space-y-2">
-                                <label class="fi-fo-field-wrp-label inline-flex items-center gap-x-1.5 text-xs font-bold uppercase tracking-wider text-gray-700 dark:text-gray-300">
-                                    <span>Longitude</span>
-                                    <span class="text-danger-600 dark:text-danger-400 font-bold">*</span>
+                            <div class="cs-field">
+                                <label class="cs-label">
+                                    <span>Longitude <span class="cs-req">*</span></span>
                                 </label>
-                                <x-filament::input.wrapper prefix-icon="heroicon-m-globe-alt">
-                                    <x-filament::input type="number" step="any" wire:model="map_pins.{{ $index }}.longitude" required placeholder="85.2850" />
-                                </x-filament::input.wrapper>
+                                <div class="cs-input-group">
+                                    <span class="cs-input-icon">
+                                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                        </svg>
+                                    </span>
+                                    <input type="number" step="any" wire:model="map_pins.{{ $index }}.longitude" required placeholder="85.2850" class="cs-input has-icon" />
+                                </div>
                             </div>
                         </div>
 
                         {{-- Pin Form Row 3: Landmark Address & Direct Phone --}}
-                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-7">
-                            <div class="sm:col-span-2 space-y-2">
-                                <label class="fi-fo-field-wrp-label inline-flex items-center gap-x-1.5 text-xs font-bold uppercase tracking-wider text-gray-700 dark:text-gray-300">
+                        <div class="cs-row-3">
+                            <div class="cs-field">
+                                <label class="cs-label">
                                     <span>Address / Landmark Details</span>
                                 </label>
-                                <x-filament::input.wrapper prefix-icon="heroicon-m-map-pin">
-                                    <x-filament::input type="text" wire:model="map_pins.{{ $index }}.address" placeholder="Near Padma Colony Main Gate, Sitapaila, Kathmandu" />
-                                </x-filament::input.wrapper>
+                                <input type="text" wire:model="map_pins.{{ $index }}.address" placeholder="Near Padma Colony Main Gate, Sitapaila, Kathmandu" class="cs-input" />
                             </div>
 
-                            <div class="space-y-2">
-                                <label class="fi-fo-field-wrp-label inline-flex items-center gap-x-1.5 text-xs font-bold uppercase tracking-wider text-gray-700 dark:text-gray-300">
+                            <div class="cs-field">
+                                <label class="cs-label">
                                     <span>Direct Phone Number</span>
                                 </label>
-                                <x-filament::input.wrapper prefix-icon="heroicon-m-phone">
-                                    <x-filament::input type="text" wire:model="map_pins.{{ $index }}.phone" placeholder="+977 9801234567" />
-                                </x-filament::input.wrapper>
+                                <input type="text" wire:model="map_pins.{{ $index }}.phone" placeholder="+977 9801234567" class="cs-input" />
                             </div>
                         </div>
 
                     </div>
                 @empty
-                    <div class="py-14 text-center border-2 border-dashed border-gray-200 dark:border-gray-800 rounded-3xl">
-                        <div class="w-12 h-12 mx-auto rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-gray-400 mb-3">
-                            <x-filament::icon icon="heroicon-o-map-pin" class="w-6 h-6" />
-                        </div>
-                        <p class="text-sm font-bold text-gray-600 dark:text-gray-300">No custom pins added yet.</p>
-                        <p class="text-xs text-gray-400 mt-1">Add branch showrooms, regional warehouses, or depot locations.</p>
-                        <x-filament::button wire:click="addPin" type="button" size="md" color="primary" class="mt-4">
-                            Add Default Factory Pin
-                        </x-filament::button>
+                    <div style="padding: 3rem 1.5rem; text-align: center; border-radius: 1rem; border: 2px dashed rgba(120, 113, 108, 0.25);">
+                        <p style="font-size: 0.85rem; font-weight: 700; color: #78716c; margin: 0 0 0.5rem 0;">No custom map pins recorded yet.</p>
+                        <button wire:click="addPin" type="button" class="cs-btn-secondary">
+                            Add Factory Location Pin
+                        </button>
                     </div>
                 @endforelse
             </div>
-        </x-filament::section>
+        </div>
 
-        {{-- Bottom Spacious Floating Save Bar with Backdrop Blur --}}
-        <div class="sticky bottom-6 z-20 flex items-center justify-between p-4 sm:p-5 rounded-2xl bg-white/90 dark:bg-zinc-900/90 backdrop-blur-xl border border-gray-200/80 dark:border-zinc-800/80 shadow-2xl">
-            <div class="hidden sm:flex items-center gap-2.5 text-xs text-gray-600 dark:text-gray-400">
-                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                <span>All company information and map pins synchronize instantly to the live website.</span>
+        {{-- Bottom Spacious Floating Save Bar with Glassmorphic Backdrop Blur --}}
+        <div class="cs-sticky-bar">
+            <div class="cs-sticky-info">
+                <span class="cs-badge-dot" style="margin-right: 0.35rem;"></span>
+                <span>All changes synchronize immediately across the live Contact Us page and Store Locator.</span>
             </div>
-            <div class="w-full sm:w-auto flex justify-end">
-                <x-filament::button type="submit" size="xl" color="primary" icon="heroicon-m-check" class="shadow-xl">
+            <div>
+                <button type="submit" class="cs-btn-save">
+                    <svg wire:loading.remove wire:target="save" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
+                    </svg>
+                    <svg wire:loading wire:target="save" class="animate-spin" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" stroke-dasharray="31.415, 31.415" stroke-linecap="round" fill="none" />
+                    </svg>
                     <span wire:loading.remove wire:target="save">Save All Settings</span>
                     <span wire:loading wire:target="save">Saving Settings...</span>
-                </x-filament::button>
+                </button>
             </div>
         </div>
 
