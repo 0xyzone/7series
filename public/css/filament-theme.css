@@ -1,24 +1,27 @@
-@import url('https://fonts.bunny.net/css?family=plus-jakarta-sans:400,500,600,700,800|space-grotesk:500,700');
+@import url("https://fonts.bunny.net/css?family=plus-jakarta-sans:400,500,600,700,800|space-grotesk:500,700");
 
 :root {
-    --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-    --font-mono: 'Space Grotesk', monospace;
+    --font-sans:
+        "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-mono: "Space Grotesk", monospace;
     --theme-warm-light: #faf8f5;
     --theme-warm-card-light: #ffffff;
     --theme-warm-dark: #12100f;
     --theme-warm-card-dark: #1c1917;
-    --theme-primary: #E51E2B;
+    --theme-primary: #e51e2b;
     --theme-primary-hover: #c41320;
 }
 
-body, .fi-body {
+body,
+.fi-body {
     font-family: var(--font-sans) !important;
     letter-spacing: -0.01em;
 }
 
 /* Mobile safe area padding for bottom dock */
 @media (max-width: 768px) {
-    body, .fi-body {
+    body,
+    .fi-body {
         padding-bottom: 5.5rem !important;
     }
 }
@@ -41,13 +44,13 @@ html.dark .fi-body {
 
 .fi-sidebar-item-active .fi-sidebar-item-button {
     background-color: rgba(229, 30, 43, 0.08) !important;
-    color: #E51E2B !important;
+    color: #e51e2b !important;
     font-weight: 700 !important;
-    border-left: 3px solid #E51E2B !important;
+    border-left: 3px solid #e51e2b !important;
 }
 
 .fi-sidebar-item-active .fi-sidebar-item-icon {
-    color: #E51E2B !important;
+    color: #e51e2b !important;
 }
 
 /* Header & Topbar */
@@ -70,8 +73,8 @@ html.dark .fi-body {
 
 /* Buttons */
 .fi-btn-primary {
-    background-color: #E51E2B !important;
-    border-color: #E51E2B !important;
+    background-color: #e51e2b !important;
+    border-color: #e51e2b !important;
     font-weight: 700 !important;
     text-transform: uppercase !important;
     letter-spacing: 0.05em !important;
@@ -118,7 +121,9 @@ html.dark .fi-body {
     border-radius: 1.25rem !important;
     border: 1px solid rgba(120, 113, 108, 0.2) !important;
     padding: 1.25rem !important;
-    transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease !important;
 }
 
 html:not(.dark) .fi-ta-record {
@@ -251,13 +256,21 @@ html.dark .daemon-widget-card {
 }
 
 .daemon-telemetry-beacon.online {
-    background: linear-gradient(135deg, rgba(16, 185, 129, 0.16) 0%, rgba(5, 150, 105, 0.06) 100%);
+    background: linear-gradient(
+        135deg,
+        rgba(16, 185, 129, 0.16) 0%,
+        rgba(5, 150, 105, 0.06) 100%
+    );
     border: 1px solid rgba(16, 185, 129, 0.45);
     box-shadow: 0 4px 16px rgba(16, 185, 129, 0.15);
 }
 
 .daemon-telemetry-beacon.offline {
-    background: linear-gradient(135deg, rgba(229, 30, 43, 0.16) 0%, rgba(185, 28, 28, 0.06) 100%);
+    background: linear-gradient(
+        135deg,
+        rgba(229, 30, 43, 0.16) 0%,
+        rgba(185, 28, 28, 0.06) 100%
+    );
     border: 1px solid rgba(229, 30, 43, 0.4);
     box-shadow: 0 4px 16px rgba(229, 30, 43, 0.12);
 }
@@ -280,13 +293,27 @@ html.dark .daemon-widget-card {
 }
 
 @keyframes beacon-pulse-green {
-    0%, 100% { transform: scale(1); opacity: 0.6; }
-    50% { transform: scale(1.08); opacity: 0.15; }
+    0%,
+    100% {
+        transform: scale(1);
+        opacity: 0.6;
+    }
+    50% {
+        transform: scale(1.08);
+        opacity: 0.15;
+    }
 }
 
 @keyframes beacon-pulse-red {
-    0%, 100% { transform: scale(1); opacity: 0.45; }
-    50% { transform: scale(1.06); opacity: 0.1; }
+    0%,
+    100% {
+        transform: scale(1);
+        opacity: 0.45;
+    }
+    50% {
+        transform: scale(1.06);
+        opacity: 0.1;
+    }
 }
 
 .beacon-inner-core {
@@ -390,8 +417,15 @@ html.dark .daemon-widget-card {
 }
 
 @keyframes daemon-pulse {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.4; transform: scale(0.85); }
+    0%,
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.4;
+        transform: scale(0.85);
+    }
 }
 
 .daemon-title {
@@ -401,8 +435,12 @@ html.dark .daemon-widget-card {
     letter-spacing: -0.02em;
 }
 
-html:not(.dark) .daemon-title { color: #1c1917; }
-html.dark .daemon-title { color: #f5f5f4; }
+html:not(.dark) .daemon-title {
+    color: #1c1917;
+}
+html.dark .daemon-title {
+    color: #f5f5f4;
+}
 
 .daemon-desc {
     font-size: 0.75rem;
@@ -455,8 +493,12 @@ html.dark .daemon-chip {
     color: #e5e5e5;
 }
 
-html:not(.dark) .daemon-chip-val { color: #1c1917; }
-.daemon-chip-val.highlight { color: #10b981 !important; }
+html:not(.dark) .daemon-chip-val {
+    color: #1c1917;
+}
+.daemon-chip-val.highlight {
+    color: #10b981 !important;
+}
 
 /* Daemon Buttons */
 .daemon-btn-group {
@@ -518,7 +560,6 @@ html:not(.dark) .daemon-chip-val { color: #1c1917; }
     transform: none !important;
     box-shadow: none !important;
 }
-
 
 @keyframes spin {
     from {
@@ -598,8 +639,12 @@ html.dark .daemon-btn-icon {
     margin: 0;
 }
 
-html:not(.dark) .inquiries-feed-title { color: #1c1917; }
-html.dark .inquiries-feed-title { color: #f5f5f4; }
+html:not(.dark) .inquiries-feed-title {
+    color: #1c1917;
+}
+html.dark .inquiries-feed-title {
+    color: #f5f5f4;
+}
 
 .inquiries-feed-title-dot {
     width: 8px;
@@ -675,8 +720,12 @@ html.dark .inquiry-card-item {
     white-space: nowrap;
 }
 
-html:not(.dark) .inquiry-company-name { color: #1c1917; }
-html.dark .inquiry-company-name { color: #f5f5f4; }
+html:not(.dark) .inquiry-company-name {
+    color: #1c1917;
+}
+html.dark .inquiry-company-name {
+    color: #f5f5f4;
+}
 
 .inquiry-contact-row {
     display: flex;
@@ -900,8 +949,12 @@ html.dark .telemetry-widget-card {
     letter-spacing: 0.06em;
 }
 
-html:not(.dark) .telemetry-header { color: #1c1917; }
-html.dark .telemetry-header { color: #f5f5f4; }
+html:not(.dark) .telemetry-header {
+    color: #1c1917;
+}
+html.dark .telemetry-header {
+    color: #f5f5f4;
+}
 
 .telemetry-header a {
     font-size: 0.72rem;
@@ -1024,8 +1077,12 @@ html.dark .sys-supervisor-banner {
     letter-spacing: -0.01em;
 }
 
-html:not(.dark) .sys-banner-title { color: #1c1917; }
-html.dark .sys-banner-title { color: #f5f5f4; }
+html:not(.dark) .sys-banner-title {
+    color: #1c1917;
+}
+html.dark .sys-banner-title {
+    color: #f5f5f4;
+}
 
 .sys-banner-desc {
     font-size: 0.78rem;
@@ -1147,8 +1204,12 @@ html.dark .sys-card {
     margin: 0;
 }
 
-html:not(.dark) .sys-card-title { color: #1c1917; }
-html.dark .sys-card-title { color: #f5f5f4; }
+html:not(.dark) .sys-card-title {
+    color: #1c1917;
+}
+html.dark .sys-card-title {
+    color: #f5f5f4;
+}
 
 .sys-card-sub {
     font-size: 0.7rem;
@@ -1197,8 +1258,12 @@ html.dark .sys-metric-cell {
     margin: 0;
 }
 
-html:not(.dark) .sys-metric-cell-val { color: #1c1917; }
-html.dark .sys-metric-cell-val { color: #f5f5f4; }
+html:not(.dark) .sys-metric-cell-val {
+    color: #1c1917;
+}
+html.dark .sys-metric-cell-val {
+    color: #f5f5f4;
+}
 
 /* Terminal Logs Box */
 .sys-terminal-wrap {
@@ -1276,8 +1341,12 @@ html.dark .sys-metric-cell-val { color: #f5f5f4; }
     margin: 0;
 }
 
-html:not(.dark) .sys-paired-num { color: #1c1917; }
-html.dark .sys-paired-num { color: #f5f5f4; }
+html:not(.dark) .sys-paired-num {
+    color: #1c1917;
+}
+html.dark .sys-paired-num {
+    color: #f5f5f4;
+}
 
 .sys-paired-desc {
     font-size: 0.72rem;
@@ -1504,7 +1573,11 @@ html.dark .cs-banner {
     width: 18rem;
     height: 18rem;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(229, 30, 43, 0.2) 0%, transparent 70%);
+    background: radial-gradient(
+        circle,
+        rgba(229, 30, 43, 0.2) 0%,
+        transparent 70%
+    );
     pointer-events: none;
 }
 
@@ -1542,8 +1615,12 @@ html.dark .cs-banner {
     line-height: 1.25;
 }
 
-html:not(.dark) .cs-banner-title { color: #1c1917; }
-html.dark .cs-banner-title { color: #ffffff; }
+html:not(.dark) .cs-banner-title {
+    color: #1c1917;
+}
+html.dark .cs-banner-title {
+    color: #ffffff;
+}
 
 .cs-banner-desc {
     font-size: 0.82rem;
@@ -1603,8 +1680,12 @@ html.dark .cs-card {
     letter-spacing: -0.01em;
 }
 
-html:not(.dark) .cs-card-title { color: #1c1917; }
-html.dark .cs-card-title { color: #f5f5f4; }
+html:not(.dark) .cs-card-title {
+    color: #1c1917;
+}
+html.dark .cs-card-title {
+    color: #f5f5f4;
+}
 
 .cs-card-sub {
     font-size: 0.75rem;
@@ -1659,8 +1740,12 @@ html.dark .cs-card-title { color: #f5f5f4; }
     justify-content: space-between;
 }
 
-html:not(.dark) .cs-label { color: #44403c; }
-html.dark .cs-label { color: #a8a29e; }
+html:not(.dark) .cs-label {
+    color: #44403c;
+}
+html.dark .cs-label {
+    color: #a8a29e;
+}
 
 .cs-req {
     color: #e51e2b;
@@ -1786,8 +1871,10 @@ html.dark .cs-pin-card.is-primary {
 
 .cs-pin-num {
     width: 24px;
-    height: 24px;
-    border-radius: 50%;
+    flex-grow: 1;
+    flex-shrink: 0;
+    aspect-ratio: 1/1;
+    border-radius: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1810,8 +1897,12 @@ html.dark .cs-pin-num {
     font-weight: 800;
 }
 
-html:not(.dark) .cs-pin-title-text { color: #1c1917; }
-html.dark .cs-pin-title-text { color: #ffffff; }
+html:not(.dark) .cs-pin-title-text {
+    color: #1c1917;
+}
+html.dark .cs-pin-title-text {
+    color: #ffffff;
+}
 
 .cs-badge-primary-pin {
     display: inline-flex;
@@ -1940,12 +2031,16 @@ html.dark .cs-btn-secondary:hover {
     /* Ensure all Filament pages clear the bottom floating dock */
     .fi-main,
     .fi-page {
-        padding-bottom: calc(85px + env(safe-area-inset-bottom, 8px)) !important;
+        padding-bottom: calc(
+            85px + env(safe-area-inset-bottom, 8px)
+        ) !important;
     }
 
     .cs-page-container {
         gap: 1.25rem;
-        padding-bottom: calc(180px + env(safe-area-inset-bottom, 12px)) !important;
+        padding-bottom: calc(
+            180px + env(safe-area-inset-bottom, 12px)
+        ) !important;
     }
 
     .cs-banner {
