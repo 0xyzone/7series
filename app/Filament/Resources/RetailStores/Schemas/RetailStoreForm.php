@@ -106,6 +106,20 @@ class RetailStoreForm
                             ->prefixIcon('heroicon-m-map-pin')
                             ->placeholder('https://maps.app.goo.gl/... or https://maps.google.com/?q=...')
                             ->helperText('Shareable Google Maps link for the customer "Get Directions" button.'),
+
+                        TextInput::make('latitude')
+                            ->label('Latitude GPS Coordinate')
+                            ->numeric()
+                            ->step(0.0000001)
+                            ->placeholder('e.g. 27.7042')
+                            ->helperText('GPS latitude for map pin placement (defaults by city if left blank).'),
+
+                        TextInput::make('longitude')
+                            ->label('Longitude GPS Coordinate')
+                            ->numeric()
+                            ->step(0.0000001)
+                            ->placeholder('e.g. 85.3130')
+                            ->helperText('GPS longitude for map pin placement (defaults by city if left blank).'),
                     ])->columns(2),
 
                 Section::make('Contact & Business Hours')
