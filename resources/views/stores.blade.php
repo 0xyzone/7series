@@ -1,5 +1,44 @@
 <x-layout>
     <x-slot:title>Official Retail Stores & Store Locator | Seven Series Garment Industry</x-slot>
+    <style>
+        .compact-store-popup .leaflet-popup-content-wrapper {
+            border-radius: 14px !important;
+            padding: 0 !important;
+            box-shadow: 0 10px 25px -4px rgba(0, 0, 0, 0.25), 0 4px 6px -2px rgba(0, 0, 0, 0.1) !important;
+            border: 1px solid rgba(0, 0, 0, 0.08) !important;
+            overflow: hidden !important;
+        }
+        .compact-store-popup .leaflet-popup-content {
+            margin: 8px 10px !important;
+            line-height: 1.3 !important;
+            max-width: 220px !important;
+        }
+        .compact-store-popup .leaflet-popup-tip-container {
+            margin-top: -1px !important;
+        }
+        .compact-store-popup a.leaflet-popup-close-button {
+            top: 5px !important;
+            right: 5px !important;
+            padding: 2px !important;
+            color: #71717a !important;
+            font-size: 15px !important;
+            line-height: 12px !important;
+            width: 16px !important;
+            height: 16px !important;
+            border-radius: 9999px !important;
+            background: rgba(0, 0, 0, 0.06) !important;
+        }
+        .compact-store-popup a.leaflet-popup-close-button:hover {
+            color: #e51e2b !important;
+            background: rgba(229, 30, 43, 0.15) !important;
+        }
+        @media (max-width: 640px) {
+            .compact-store-popup .leaflet-popup-content {
+                margin: 7px 9px !important;
+                max-width: 200px !important;
+            }
+        }
+    </style>
 
     <script>
         window.storesLocator = function(storesData, factoryPinsData) {
@@ -58,6 +97,13 @@
                         };
 
                         const bounds = [];
+                        const popupOptions = {
+                            maxWidth: 220,
+                            minWidth: 180,
+                            className: 'compact-store-popup',
+                            autoPanPadding: [25, 25],
+                            closeButton: true
+                        };
 
                         // Add Factory Pins from Company Settings
                         if (Array.isArray(this.factoryPins)) {
@@ -67,17 +113,19 @@
                                     bounds.push(latLng);
                                     const marker = L.marker(latLng, { icon: createCustomIcon(true) }).addTo(this.map);
                                     marker.bindPopup(`
-                                        <div class='p-3 max-w-xs space-y-1 font-sans'>
-                                            <div class='flex items-center gap-2'>
-                                                <span class='px-2 py-0.5 rounded-full bg-red-600 text-white text-[9px] font-black uppercase'>${pin.type || 'FACTORY'}</span>
-                                                <span class='text-[10px] font-bold text-zinc-500'>Headquarters</span>
+                                        <div class='p-1 space-y-1 font-sans text-left'>
+                                            <div class='flex items-center justify-between gap-1'>
+                                                <span class='px-2 py-0.5 rounded-full bg-red-600 text-white text-[8px] font-black uppercase tracking-wider'>${pin.type || 'FACTORY'}</span>
+                                                <span class='text-[10px] font-bold text-zinc-500'>HQ</span>
                                             </div>
-                                            <h4 class='text-sm font-extrabold text-zinc-950 leading-tight'>${pin.title}</h4>
-                                            <span class='text-xs text-zinc-600 leading-snug'>${pin.address || ''}</span>
-                                            ${pin.phone ? `<a href='tel:${pin.phone}' class='text-xs !text-red-600 font-bold block'>${pin.phone}</a>` : ''}
-                                            ${pin.google_maps_url ? `<a href='${pin.google_maps_url}' target='_blank' class='inline-block mt-1 px-2 py-1 bg-zinc-900 !text-white text-[10px] font-bold rounded-full no-underline'>Open in Google Maps &rarr;</a>` : ''}
+                                            <h4 class='text-xs font-black text-zinc-950 leading-tight line-clamp-1'>${pin.title}</h4>
+                                            <span class='text-[10px] text-zinc-600 leading-tight block line-clamp-2'>${pin.address || ''}</span>
+                                            <div class='pt-1 flex items-center gap-1.5'>
+                                                ${pin.phone ? `<a href='tel:${pin.phone}' class='px-2 py-0.5 bg-zinc-100 hover:bg-zinc-200 text-zinc-900 text-[10px] font-bold rounded-full no-underline'>📞 Call</a>` : ''}
+                                                ${pin.google_maps_url ? `<a href='${pin.google_maps_url}' target='_blank' class='px-2.5 py-0.5 bg-zinc-900 hover:bg-red-600 !text-white text-[10px] font-bold rounded-full no-underline flex-1 text-center'>Maps &rarr;</a>` : ''}
+                                            </div>
                                         </div>
-                                    `);
+                                    `, popupOptions);
                                     this.markers['factory_' + index] = marker;
                                 }
                             });
@@ -91,19 +139,21 @@
                                     bounds.push(latLng);
                                     const marker = L.marker(latLng, { icon: createCustomIcon(store.store_type === 'flagship') }).addTo(this.map);
                                     marker.bindPopup(`
-                                        <div class='p-2 max-w-xs space-y-1 font-sans'>
-                                            ${store.image_url ? `<img src='${store.image_url}' alt='${store.name}' class='w-full h-24 object-cover rounded-lg mb-1.5 shadow-xs'>` : ''}
-                                            <div class='flex items-center gap-2'>
-                                                <span class='px-2 py-0.5 rounded-full ${store.store_type === 'flagship' ? 'bg-red-600 text-white' : 'bg-zinc-800 text-white'} text-[9px] font-black uppercase'>${(store.store_type || 'RETAIL').toUpperCase().replace('_', ' ')}</span>
-                                                <span class='text-[10px] font-bold text-zinc-500'>${store.city}</span>
+                                        <div class='p-1 space-y-1 font-sans text-left'>
+                                            <div class='flex items-center justify-between gap-1'>
+                                                <span class='px-2 py-0.5 rounded-full ${store.store_type === 'flagship' ? 'bg-red-600 text-white' : 'bg-zinc-800 text-white'} text-[8px] font-black uppercase tracking-wider'>
+                                                    ${(store.store_type || 'RETAIL').toUpperCase().replace('_', ' ')}
+                                                </span>
+                                                <span class='text-[10px] font-bold text-zinc-500 truncate'>${store.city}</span>
                                             </div>
-                                            <h4 class='text-sm font-extrabold text-zinc-950 leading-tight'>${store.name}</h4>
-                                            <p class='text-xs text-zinc-600 leading-snug'>${store.address}${store.landmark ? ` (Near ${store.landmark})` : ''}</p>
-                                            ${store.operating_hours ? `<span class='text-[10px] text-zinc-500 font-medium block'>🕒 ${store.operating_hours}</span>` : ''}
-                                            ${store.phone ? `<a href='tel:${store.phone}' class='text-xs !text-red-600 font-bold block pt-0.5'>📞 ${store.phone}</a>` : ''}
-                                            ${store.google_maps_url ? `<a href='${store.google_maps_url}' target='_blank' class='inline-block mt-1 px-3 py-1 bg-zinc-900 !text-white text-[10px] font-bold rounded-full no-underline hover:bg-red-600 transition-colors'>Get Directions &rarr;</a>` : ''}
+                                            <h4 class='text-xs font-black text-zinc-950 leading-tight line-clamp-1'>${store.name}</h4>
+                                            <p class='text-[10px] text-zinc-600 leading-tight line-clamp-2'>${store.address}${store.landmark ? ` (Near ${store.landmark})` : ''}</p>
+                                            <div class='pt-1 flex items-center gap-1.5'>
+                                                ${store.phone ? `<a href='tel:${store.phone}' class='px-2 py-0.5 bg-zinc-100 hover:bg-zinc-200 text-zinc-900 text-[10px] font-bold rounded-full no-underline'>📞 Call</a>` : ''}
+                                                ${store.google_maps_url ? `<a href='${store.google_maps_url}' target='_blank' class='px-2.5 py-0.5 bg-red-600 hover:bg-red-700 !text-white text-[10px] font-bold rounded-full no-underline flex-1 text-center'>Directions &rarr;</a>` : ''}
+                                            </div>
                                         </div>
-                                    `);
+                                    `, popupOptions);
                                     this.markers['store_' + store.id] = marker;
                                 }
                             });
@@ -273,7 +323,7 @@
 
             <!-- Leaflet Container -->
             <div class="app-card overflow-hidden border border-zinc-200 shadow-md relative bg-zinc-100 rounded-2xl">
-                <div id="stores-map" class="w-full h-80 sm:h-96 md:h-[420px] z-10"></div>
+                <div id="stores-map" class="w-full h-[400px] sm:h-96 md:h-[440px] z-10"></div>
                 <div
                     class="p-3 bg-white border-t border-zinc-100 flex flex-wrap items-center justify-between gap-2 text-xs">
                     <span class="text-zinc-500">Scroll to zoom • Click any pin to view store contact details &
