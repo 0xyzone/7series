@@ -13,7 +13,7 @@ class ListUsers extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            CreateAction::make()->slideOver()->modalWidth('7xl'),
+            CreateAction::make()->modalWidth('7xl'),
         ];
     }
 }
