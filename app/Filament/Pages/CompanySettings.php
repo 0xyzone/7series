@@ -10,11 +10,11 @@ use Filament\Support\Icons\Heroicon;
 
 class CompanySettings extends Page
 {
-    protected static ?string $navigationLabel = 'Company & Map Settings';
+    protected static ?string $navigationLabel = 'Company Settings';
 
-    protected static ?string $title = 'Company & Map Pin Settings';
+    protected static ?string $title = 'Company & Map Settings';
 
-    protected static \UnitEnum|string|null $navigationGroup = 'B2B Operations';
+    protected static \UnitEnum|string|null $navigationGroup = null;
 
     protected static ?int $navigationSort = 1;
 
