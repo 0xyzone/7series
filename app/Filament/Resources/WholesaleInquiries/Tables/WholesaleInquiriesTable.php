@@ -24,6 +24,7 @@ class WholesaleInquiriesTable
             ->contentGrid([
                 'sm' => 1,
                 'md' => 2,
+                'xl' => 3,
             ])
             ->defaultSort('created_at', 'desc')
             ->columns([
