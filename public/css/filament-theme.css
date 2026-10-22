@@ -410,6 +410,26 @@ html.dark .fi-ta-content-grid .fi-ta-record-checkbox {
 }
 
 /* =========================================================================
+   FULL WIDTH FILAMENT PANEL & EXPANSIVE DESKTOP CANVAS
+   Enables 100% viewport coverage when sidebar is collapsed/expanded
+   ========================================================================= */
+.fi-main,
+.fi-main.fi-width-full {
+    max-width: 100% !important;
+    width: 100% !important;
+}
+
+.fi-page {
+    max-width: 100% !important;
+    width: 100% !important;
+}
+
+.fi-ta-content-grid {
+    width: 100% !important;
+    max-width: 100% !important;
+}
+
+/* =========================================================================
    7SERIES CUSTOM DASHBOARD WIDGETS DESIGN SYSTEM
    Robust, framework-agnostic CSS styles that render flawlessly without Tailwind
    ========================================================================= */
