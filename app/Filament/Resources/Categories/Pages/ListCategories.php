@@ -13,7 +13,7 @@ class ListCategories extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            CreateAction::make()->modalWidth('7xl'),
+            CreateAction::make()->slideOver()->modalWidth('7xl'),
         ];
     }
 }

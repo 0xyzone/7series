@@ -34,14 +34,13 @@ class UsersTable
                             ->wrap(),
                         TextColumn::make('roles.name')
                             ->badge()
-                            ->color(fn (string $state): string => match ($state) {
+                            ->color(fn(string $state): string => match ($state) {
                                 'super_admin' => 'danger',
                                 'panel_user' => 'info',
                                 default => 'primary',
                             })
                             ->grow(false),
                     ]),
-
                     Split::make([
                         TextColumn::make('email')
                             ->icon('heroicon-o-envelope')
@@ -49,13 +48,12 @@ class UsersTable
                             ->wrap()
                             ->copyable(),
                     ]),
-
                     Split::make([
                         TextColumn::make('email_verified_at')
                             ->label('Verified')
-                            ->formatStateUsing(fn ($state) => $state ? 'Verified' : 'Unverified')
+                            ->formatStateUsing(fn($state) => $state ? 'Verified' : 'Unverified')
                             ->badge()
-                            ->color(fn ($record) => $record->email_verified_at ? 'success' : 'warning'),
+                            ->color(fn($record) => $record->email_verified_at ? 'success' : 'warning'),
                         TextColumn::make('created_at')
                             ->dateTime('M d, Y')
                             ->color('gray')
@@ -68,8 +66,8 @@ class UsersTable
                     ->relationship('roles', 'name'),
             ])
             ->recordActions([
-                ViewAction::make()->modalWidth('7xl'),
-                EditAction::make()->modalWidth('7xl'),
+                ViewAction::make()->slideOver()->modalWidth('7xl'),
+                EditAction::make()->slideOver()->modalWidth('7xl'),
                 DeleteAction::make(),
             ])
             ->toolbarActions([

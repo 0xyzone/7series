@@ -197,7 +197,7 @@ class RoleResource extends Resource
                 //
             ])
             ->recordActions([
-                EditAction::make()->modalWidth('7xl'),
+                EditAction::make()->slideOver()->modalWidth('7xl'),
                 DeleteAction::make(),
             ])
             ->toolbarActions([
