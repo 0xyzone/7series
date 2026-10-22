@@ -243,7 +243,7 @@
 
                     {{-- 100% Free Google Maps Embed & Location --}}
                     <div class="cs-field" style="padding-top: 0.75rem; border-top: 1px solid rgba(120, 113, 108, 0.15);">
-                        <div class="cs-label">
+                        <div class="cs-label" style="display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; justify-content: space-between;">
                             <span>Google Maps Location & Free Embed URL</span>
                             <span style="display: inline-flex; align-items: center; gap: 0.35rem; font-size: 0.68rem; font-weight: 800; color: #10b981; background: rgba(16, 185, 129, 0.12); padding: 0.2rem 0.55rem; border-radius: 9999px; border: 1px solid rgba(16, 185, 129, 0.3);">
                                 <span class="cs-badge-dot" style="background: #10b981; box-shadow: 0 0 6px #10b981;"></span>
@@ -270,7 +270,7 @@
 
         {{-- Section 3: Interactive Map Pins (Multiple Locations) --}}
         <div class="cs-card">
-            <div class="cs-card-header" style="justify-content: space-between;">
+            <div class="cs-card-header" style="justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
                 <div style="display: flex; align-items: center; gap: 0.85rem;">
                     <div class="sys-icon-badge red">
                         <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">

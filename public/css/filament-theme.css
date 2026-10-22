@@ -1933,6 +1933,66 @@ html.dark .cs-btn-secondary:hover {
     background: rgba(239, 68, 68, 0.18);
 }
 
+/* =========================================================================
+   RESPONSIVE ADJUSTMENTS: MOBILE DOCK & COMPANY SETTINGS
+   ========================================================================= */
+@media (max-width: 768px) {
+    /* Ensure all Filament pages clear the bottom floating dock */
+    .fi-main,
+    .fi-page {
+        padding-bottom: calc(85px + env(safe-area-inset-bottom, 8px)) !important;
+    }
 
+    .cs-page-container {
+        gap: 1.25rem;
+        padding-bottom: calc(180px + env(safe-area-inset-bottom, 12px)) !important;
+    }
 
+    .cs-banner {
+        padding: 1.25rem 1.25rem;
+        border-radius: 1.25rem;
+        gap: 1rem;
+    }
 
+    .cs-banner-title {
+        font-size: 1.25rem;
+        line-height: 1.3;
+    }
+
+    .cs-banner-desc {
+        font-size: 0.8rem;
+    }
+
+    .cs-card {
+        padding: 1.25rem 1rem;
+        border-radius: 1rem;
+        gap: 1.25rem;
+    }
+
+    .cs-sticky-bar {
+        /* Sit cleanly ABOVE the fixed mobile bottom dock (dock is ~62px + safe-area) */
+        bottom: calc(76px + env(safe-area-inset-bottom, 10px));
+        margin: 0;
+        padding: 0.85rem 1rem;
+        border-radius: 1rem;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.75rem;
+        z-index: 45;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+    }
+
+    .cs-sticky-info {
+        justify-content: center;
+        text-align: center;
+        font-size: 0.72rem;
+        line-height: 1.35;
+    }
+
+    .cs-sticky-bar .cs-btn-save {
+        width: 100%;
+        justify-content: center;
+        padding: 0.85rem 1.25rem;
+        font-size: 0.85rem;
+    }
+}
