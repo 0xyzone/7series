@@ -15,7 +15,7 @@ class ListRoles extends ListRecords
     protected function getActions(): array
     {
         return [
-            CreateAction::make()->slideOver(),
+            CreateAction::make()->slideOver()->modalWidth('7xl'),
         ];
     }
 }

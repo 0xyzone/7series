@@ -68,8 +68,8 @@ class UsersTable
                     ->relationship('roles', 'name'),
             ])
             ->recordActions([
-                ViewAction::make()->slideOver()->modalWidth('3xl'),
-                EditAction::make()->slideOver()->modalWidth('3xl'),
+                ViewAction::make()->slideOver()->modalWidth('7xl'),
+                EditAction::make()->slideOver()->modalWidth('7xl'),
                 DeleteAction::make(),
             ])
             ->toolbarActions([

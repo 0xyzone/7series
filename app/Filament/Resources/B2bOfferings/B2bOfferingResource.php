@@ -145,8 +145,8 @@ class B2bOfferingResource extends Resource
                 //
             ])
             ->recordActions([
-                \Filament\Actions\ViewAction::make()->slideOver(),
-                EditAction::make()->slideOver(),
+                \Filament\Actions\ViewAction::make()->slideOver()->modalWidth('7xl'),
+                EditAction::make()->slideOver()->modalWidth('7xl'),
                 \Filament\Actions\DeleteAction::make(),
             ])
             ->toolbarActions([

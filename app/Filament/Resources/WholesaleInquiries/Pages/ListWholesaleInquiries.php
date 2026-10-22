@@ -13,7 +13,7 @@ class ListWholesaleInquiries extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            CreateAction::make()->slideOver(),
+            CreateAction::make()->slideOver()->modalWidth('7xl'),
         ];
     }
 }

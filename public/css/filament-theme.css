@@ -281,7 +281,23 @@ html.dark .fi-ta-record .fi-ta-actions button:hover {
 .fi-ta-record .fi-ta-actions [wire\\:click*="delete"]:hover,
 .fi-ta-record .fi-ta-actions [color="danger"]:hover {
     background: rgba(239, 68, 68, 0.15) !important;
-    border-color: rgba(239, 68, 68, 0.5) !important;
+}
+
+/* Generous 7XL Desktop Slide-over & Modal Coverage */
+.fi-modal-window.fi-width-7xl,
+.fi-modal-window.max-w-7xl,
+.fi-modal-window[class*="7xl"] {
+    max-width: 80rem !important;
+    width: 90vw !important;
+}
+
+@media (min-width: 1536px) {
+    .fi-modal-window.fi-width-7xl,
+    .fi-modal-window.max-w-7xl,
+    .fi-modal-window[class*="7xl"] {
+        max-width: 85rem !important;
+        width: 85vw !important;
+    }
 }
 
 /* =========================================================================

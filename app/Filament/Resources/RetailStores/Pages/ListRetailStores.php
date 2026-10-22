@@ -13,7 +13,7 @@ class ListRetailStores extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            CreateAction::make()->slideOver()->modalWidth('3xl'),
+            CreateAction::make()->slideOver()->modalWidth('7xl'),
         ];
     }
 }
