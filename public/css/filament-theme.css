@@ -1366,4 +1366,56 @@ html.dark .sys-input {
     color: #78716c;
 }
 
+/* =========================================================================
+   DASHBOARD & PAGE BREATHING ROOM ENHANCEMENTS
+   Ensures spacious, uncluttered layouts with generous whitespace
+   ========================================================================= */
+
+.fi-widgets {
+    gap: 1.75rem !important;
+}
+
+@media (min-width: 1024px) {
+    .fi-widgets {
+        gap: 2.25rem !important;
+    }
+}
+
+.fi-wi-widget {
+    margin-bottom: 0.5rem;
+}
+
+.daemon-widget-card {
+    padding: 1.75rem 2rem !important;
+    margin-bottom: 0.5rem;
+}
+
+.inquiries-feed-container {
+    padding: 1.75rem 2rem !important;
+    border-radius: 1.25rem;
+    gap: 1.5rem !important;
+}
+
+/* Company Settings Page Fluid Spacing */
+.cs-form-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+    padding-bottom: 5rem;
+}
+
+.cs-field-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+    padding-top: 0.5rem;
+}
+
+.cs-field-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+
 

@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 
-    <main class="min-h-screen pt-4 sm:pt-8 pb-28 sm:pb-36 px-3 sm:px-6 lg:px-10 xl:px-12 w-full max-w-full overflow-x-hidden space-y-6 sm:space-y-10"
+    <main class="min-h-screen pt-6 sm:pt-10 pb-32 sm:pb-40 px-4 sm:px-8 lg:px-12 xl:px-16 w-full max-w-full overflow-x-hidden space-y-8 sm:space-y-12 lg:space-y-14"
           x-data="{ mobileTab: 'info' }">
 
         <!-- ========================================================================= -->
@@ -118,14 +118,14 @@
         <!-- ========================================================================= -->
         <!-- CONTACT INFORMATION & MESSAGE FORM GRID -->
         <!-- ========================================================================= -->
-        <section class="grid lg:grid-cols-12 gap-6 sm:gap-8 items-start">
+        <section class="grid lg:grid-cols-12 gap-8 lg:gap-12 items-start">
             
             <!-- Left: Factory & Contact Details (7 cols) -->
-            <div class="lg:col-span-7 space-y-6"
+            <div class="lg:col-span-7 space-y-8"
                  :class="mobileTab === 'info' ? 'block' : 'hidden lg:block'">
 
                 <!-- 1. Factory Location Card (Dynamic) -->
-                <div class="app-card p-4 sm:p-7 bg-white border border-slate-200 shadow-md space-y-4">
+                <div class="app-card p-6 sm:p-8 bg-white border border-slate-200 shadow-md space-y-6">
                     <div class="flex items-start gap-3.5 sm:gap-4">
                         <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-red-50 text-red-600 flex items-center justify-center shrink-0 border border-red-100 shadow-xs">
                             <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
@@ -397,9 +397,9 @@
                     }
                 }
             }">
-                <div class="app-card p-4 sm:p-7 lg:p-8 bg-white border border-slate-200 shadow-xl space-y-5 sm:space-y-6 lg:sticky lg:top-8">
+                <div class="app-card p-6 sm:p-8 lg:p-10 bg-white border border-slate-200 shadow-xl space-y-6 sm:space-y-8 lg:sticky lg:top-8">
                     
-                    <div class="space-y-1">
+                    <div class="space-y-1.5">
                         <span class="text-[10px] font-black uppercase tracking-wider text-red-600">DIRECT INQUIRY</span>
                         <h2 class="text-xl sm:text-2xl font-extrabold text-zinc-950 uppercase tracking-tight">Send Us a Message</h2>
                         <p class="text-xs text-zinc-500">
@@ -441,31 +441,31 @@
                         </div>
                     </template>
 
-                    <form @submit.prevent="submitForm()" class="space-y-4">
+                    <form @submit.prevent="submitForm()" class="space-y-5 sm:space-y-6">
                         
                         <!-- Full Name -->
-                        <div class="space-y-1">
+                        <div class="space-y-2">
                             <label class="block text-xs font-bold text-zinc-800 uppercase tracking-wider">Your Full Name <span class="text-red-600">*</span></label>
                             <input type="text" x-model="form.name" required placeholder="e.g. Ramesh Shrestha"
                                    class="w-full px-4 py-3 sm:py-2.5 rounded-xl border border-zinc-200 bg-zinc-50 text-base sm:text-sm font-medium text-zinc-900 focus:bg-white focus:border-red-600 focus:outline-none transition-colors">
                         </div>
 
                         <!-- Email Address -->
-                        <div class="space-y-1">
+                        <div class="space-y-2">
                             <label class="block text-xs font-bold text-zinc-800 uppercase tracking-wider">Email Address <span class="text-red-600">*</span></label>
                             <input type="email" x-model="form.email" required placeholder="e.g. ramesh@store.com"
                                    class="w-full px-4 py-3 sm:py-2.5 rounded-xl border border-zinc-200 bg-zinc-50 text-base sm:text-sm font-medium text-zinc-900 focus:bg-white focus:border-red-600 focus:outline-none transition-colors">
                         </div>
 
                         <!-- Phone / WhatsApp Number -->
-                        <div class="space-y-1">
+                        <div class="space-y-2">
                             <label class="block text-xs font-bold text-zinc-800 uppercase tracking-wider">Phone / WhatsApp Number</label>
                             <input type="tel" x-model="form.phone" placeholder="e.g. +977-9800000000"
                                    class="w-full px-4 py-3 sm:py-2.5 rounded-xl border border-zinc-200 bg-zinc-50 text-base sm:text-sm font-medium text-zinc-900 focus:bg-white focus:border-red-600 focus:outline-none transition-colors">
                         </div>
 
                         <!-- Inquiry Category -->
-                        <div class="space-y-1">
+                        <div class="space-y-2">
                             <label class="block text-xs font-bold text-zinc-800 uppercase tracking-wider">Inquiry Topic</label>
                             <select x-model="form.subject" class="w-full px-4 py-3 sm:py-2.5 rounded-xl border border-zinc-200 bg-zinc-50 text-base sm:text-sm font-medium text-zinc-900 focus:bg-white focus:border-red-600 focus:outline-none transition-colors">
                                 <option value="Factory & Wholesale Supply">Factory & Wholesale Supply</option>
@@ -477,7 +477,7 @@
                         </div>
 
                         <!-- Message -->
-                        <div class="space-y-1">
+                        <div class="space-y-2">
                             <label class="block text-xs font-bold text-zinc-800 uppercase tracking-wider">Message Details <span class="text-red-600">*</span></label>
                             <textarea x-model="form.message" required rows="4" placeholder="Tell us your quantity requirements, questions, or visit schedule..."
                                       class="w-full px-4 py-3 sm:py-2.5 rounded-xl border border-zinc-200 bg-zinc-50 text-base sm:text-sm font-medium text-zinc-900 focus:bg-white focus:border-red-600 focus:outline-none transition-colors resize-none"></textarea>
