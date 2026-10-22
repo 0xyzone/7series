@@ -48,3 +48,38 @@ Route::get('/newsletter/unsubscribe/{email}', [\App\Http\Controllers\NewsletterC
     ->name('newsletter.unsubscribe')
     ->middleware('signed');
 
+if (app()->environment('local')) {
+    Route::get('/_dev/reload-check', function () {
+        $dirs = [
+            app_path('Filament'),
+            app_path('Models'),
+            app_path('Http'),
+            app_path('Providers'),
+            app_path('Services'),
+            resource_path('views'),
+            resource_path('css'),
+            resource_path('js'),
+            public_path('css'),
+            public_path('js'),
+            base_path('routes'),
+        ];
+        $latest = 0;
+        foreach ($dirs as $dir) {
+            if (!is_dir($dir)) continue;
+            $iterator = new \RecursiveIteratorIterator(
+                new \RecursiveDirectoryIterator($dir, \FilesystemIterator::SKIP_DOTS)
+            );
+            foreach ($iterator as $file) {
+                if ($file->isFile()) {
+                    $mtime = $file->getMTime();
+                    if ($mtime > $latest) {
+                        $latest = $mtime;
+                    }
+                }
+            }
+        }
+        return response()->json(['timestamp' => $latest])
+            ->header('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0');
+    });
+}
+

@@ -26,13 +26,29 @@ export default defineConfig({
     plugins: [
         laravel({
             input: ['resources/css/app.css', 'resources/js/app.js'],
-            refresh: true,
+            refresh: [
+                'app/Filament/**',
+                'app/Http/**',
+                'app/Livewire/**',
+                'app/Models/**',
+                'app/Providers/**',
+                'app/Services/**',
+                'resources/views/**',
+                'resources/css/**',
+                'resources/js/**',
+                'public/css/**',
+                'public/js/**',
+                'routes/**',
+            ],
         }),
         tailwindcss(),
     ],
     server: {
-        host: '7series',
+        host: '0.0.0.0',
         cors: true,
+        hmr: {
+            host: '7series',
+        },
         https: activeSsl
             ? {
                   key: fs.readFileSync(activeSsl.key),
@@ -40,7 +56,9 @@ export default defineConfig({
               }
             : false,
         watch: {
-            ignored: ['**/storage/framework/views/**'],
+            usePolling: true,
+            interval: 500,
+            ignored: ['**/storage/framework/views/**', '**/node_modules/**'],
         },
     },
 });
