@@ -1102,18 +1102,39 @@ html:has(.fi-sidebar-open) .mobile-dock-wrapper,
 }
 
 .mobile-dock-inner {
+    position: relative;
     pointer-events: auto;
     margin: 0 12px 10px 12px;
-    padding: 6px 8px;
+    padding: 6px 6px;
     border-radius: 1.25rem;
     display: flex;
     align-items: center;
     justify-content: space-around;
-    background: rgba(20, 18, 16, 0.92);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(68, 64, 60, 0.5);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    background: rgba(20, 18, 16, 0.94);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(68, 64, 60, 0.55);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.55);
+    overflow: hidden;
+}
+
+.mobile-dock-active-pill {
+    position: absolute;
+    top: 5px;
+    bottom: 5px;
+    left: 0;
+    width: 0;
+    border-radius: 0.9rem;
+    background: linear-gradient(135deg, #E51E2B 0%, #b91c1c 100%);
+    box-shadow: 0 4px 18px rgba(229, 30, 43, 0.55);
+    pointer-events: none;
+    z-index: 1;
+    transform: translate3d(0, 0, 0);
+    opacity: 0;
+    will-change: transform, width;
+    transition: transform 0.38s cubic-bezier(0.22, 1, 0.36, 1),
+                width 0.38s cubic-bezier(0.22, 1, 0.36, 1),
+                opacity 0.2s ease;
 }
 
 .mobile-dock-item {
@@ -1121,41 +1142,65 @@ html:has(.fi-sidebar-open) .mobile-dock-wrapper,
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 4px 10px;
-    border-radius: 0.75rem;
+    padding: 5px 6px;
+    border-radius: 0.85rem;
     text-decoration: none;
     position: relative;
+    z-index: 2;
     color: #a8a29e;
-    transition: all 0.2s ease;
+    transition: color 0.2s ease, transform 0.15s ease;
+    flex: 1;
+    min-width: 0;
+    text-align: center;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.mobile-dock-item:active {
+    transform: scale(0.92);
 }
 
 .mobile-dock-item.active {
-    color: #f87171;
-    font-weight: 700;
+    color: #ffffff !important;
+    font-weight: 800;
+}
+
+.mobile-dock-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease;
+}
+
+.mobile-dock-item.active .mobile-dock-icon svg {
+    color: #ffffff !important;
+    filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.35));
+    transform: scale(1.08);
 }
 
 .mobile-dock-icon svg {
-    width: 20px !important;
-    height: 20px !important;
-    max-width: 20px !important;
-    max-height: 20px !important;
+    width: 19px !important;
+    height: 19px !important;
+    max-width: 19px !important;
+    max-height: 19px !important;
     display: block;
+    transition: transform 0.2s ease, color 0.2s ease;
 }
 
 .mobile-dock-label {
-    font-size: 10px;
+    font-size: 9.5px;
     margin-top: 2px;
     letter-spacing: -0.01em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    transition: color 0.2s ease, font-weight 0.2s ease;
 }
 
-.mobile-dock-pip {
-    position: absolute;
-    bottom: -2px;
-    width: 4px;
-    height: 4px;
-    border-radius: 50%;
-    background: #e51e2b;
-    box-shadow: 0 0 6px #e51e2b;
+.mobile-dock-item.active .mobile-dock-label {
+    color: #ffffff !important;
+    font-weight: 800;
 }
 
 /* =========================================================================

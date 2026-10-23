@@ -33,6 +33,10 @@ class MukhiyaPanelProvider extends PanelProvider
             ->maxContentWidth(Width::Full)
             ->sidebarCollapsibleOnDesktop()
             ->collapsibleNavigationGroups()
+            ->spa(true, hasPrefetching: true)
+            ->spaUrlExceptions([
+                url('/'),
+            ])
             ->colors([
                 'primary' => [
                     50 => '#fef2f2',

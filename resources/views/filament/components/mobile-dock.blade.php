@@ -50,17 +50,104 @@
      x-transition:leave-start="opacity-100 translate-y-0"
      x-transition:leave-end="opacity-0 translate-y-8">
     <div class="mobile-dock-inner">
+        <!-- Smooth Sliding Active Highlighter Pill -->
+        <div id="filament-dock-active-pill"
+             class="mobile-dock-active-pill"
+             aria-hidden="true"></div>
+
         @foreach($navItems as $item)
             <a href="{{ $item['url'] }}"
+               @if($item['url'] !== url('/')) wire:navigate @endif
+               data-dock-url="{{ $item['url'] }}"
                class="mobile-dock-item {{ $item['active'] ? 'active' : '' }}">
                 <div class="mobile-dock-icon">
                     {!! $item['icon'] !!}
                 </div>
                 <span class="mobile-dock-label">{{ $item['label'] }}</span>
-                @if($item['active'])
-                    <span class="mobile-dock-pip"></span>
-                @endif
             </a>
         @endforeach
     </div>
 </div>
+
+<script>
+(function() {
+    function getDockPill() {
+        return document.getElementById('filament-dock-active-pill');
+    }
+
+    function syncFilamentPill(immediate = false) {
+        const dock = document.querySelector('.mobile-dock-inner');
+        const pill = getDockPill();
+        if (!dock || !pill) return;
+
+        const currentPath = window.location.pathname.replace(/\/+$/, '') || '/';
+        const items = Array.from(dock.querySelectorAll('.mobile-dock-item'));
+        
+        // Find matching active item based on current URL path
+        let activeItem = null;
+        for (const item of items) {
+            const itemUrl = item.getAttribute('href') || item.getAttribute('data-dock-url');
+            if (!itemUrl) continue;
+            try {
+                const itemPath = new URL(itemUrl, window.location.origin).pathname.replace(/\/+$/, '') || '/';
+                if (itemPath === currentPath) {
+                    activeItem = item;
+                    break;
+                }
+                if (itemPath !== '/mukhiya' && itemPath !== '/' && currentPath.startsWith(itemPath)) {
+                    activeItem = item;
+                }
+            } catch (_) {}
+        }
+
+        if (!activeItem) {
+            activeItem = dock.querySelector('.mobile-dock-item.active');
+        }
+
+        if (!activeItem) {
+            pill.style.opacity = '0';
+            return;
+        }
+
+        items.forEach(i => i.classList.toggle('active', i === activeItem));
+
+        const dockRect = dock.getBoundingClientRect();
+        const itemRect = activeItem.getBoundingClientRect();
+        const x = itemRect.left - dockRect.left;
+        const width = itemRect.width;
+
+        if (width <= 0) return;
+
+        if (immediate) {
+            pill.style.transition = 'none';
+            pill.style.transform = `translate3d(${x}px, 0, 0)`;
+            pill.style.width = `${width}px`;
+            pill.style.opacity = '1';
+            pill.offsetHeight;
+            pill.style.transition = '';
+        } else {
+            pill.style.transform = `translate3d(${x}px, 0, 0)`;
+            pill.style.width = `${width}px`;
+            pill.style.opacity = '1';
+        }
+    }
+
+    // Interactive immediate slide on click/tap
+    document.addEventListener('click', function(e) {
+        const item = e.target.closest('.mobile-dock-item');
+        if (!item) return;
+        const dock = document.querySelector('.mobile-dock-inner');
+        if (!dock || !dock.contains(item)) return;
+
+        dock.querySelectorAll('.mobile-dock-item').forEach(i => i.classList.remove('active'));
+        item.classList.add('active');
+        syncFilamentPill(false);
+    });
+
+    window.addEventListener('resize', () => syncFilamentPill(true));
+    document.addEventListener('livewire:navigated', () => syncFilamentPill(false));
+    document.addEventListener('DOMContentLoaded', () => setTimeout(() => syncFilamentPill(true), 50));
+    setTimeout(() => syncFilamentPill(true), 80);
+    setTimeout(() => syncFilamentPill(false), 280);
+})();
+</script>
