@@ -144,9 +144,66 @@
         syncFilamentPill(false);
     });
 
+    // Global Modal & Slide-Over Detection
+    function checkOpenModals() {
+        const dock = document.querySelector('.mobile-dock-wrapper');
+        if (!dock) return;
+
+        const openModal = document.querySelector('.fi-modal.fi-modal-open') ||
+                          document.querySelector('.fi-modal-slide-over.fi-modal-open') ||
+                          document.querySelector('.fi-modal:not([style*="display: none"]) .fi-modal-window-ctn') ||
+                          document.querySelector('.fi-modal-window-ctn:not([style*="display: none"])') ||
+                          document.querySelector('.fi-modal[x-show="isOpen"]:not([style*="display: none"])');
+
+        const hasModal = !!openModal;
+        document.body.classList.toggle('has-fi-modal-open', hasModal);
+        dock.classList.toggle('dock-hidden-by-modal', hasModal);
+    }
+
+    // Modal lifecycle listeners
+    window.addEventListener('x-modal-opened', () => {
+        checkOpenModals();
+        setTimeout(checkOpenModals, 30);
+        setTimeout(checkOpenModals, 100);
+    });
+
+    window.addEventListener('modal-closed', () => {
+        setTimeout(checkOpenModals, 50);
+        setTimeout(checkOpenModals, 200);
+    });
+
+    window.addEventListener('open-modal', () => {
+        setTimeout(checkOpenModals, 20);
+        setTimeout(checkOpenModals, 80);
+    });
+
+    window.addEventListener('close-modal', () => {
+        setTimeout(checkOpenModals, 50);
+        setTimeout(checkOpenModals, 200);
+    });
+
+    // Observer for instantaneous modal DOM insertions and visibility changes
+    try {
+        const modalObserver = new MutationObserver(() => {
+            checkOpenModals();
+        });
+        modalObserver.observe(document.body, {
+            childList: true,
+            subtree: true,
+            attributes: true,
+            attributeFilter: ['class', 'style']
+        });
+    } catch (_) {}
+
     window.addEventListener('resize', () => syncFilamentPill(true));
-    document.addEventListener('livewire:navigated', () => syncFilamentPill(false));
-    document.addEventListener('DOMContentLoaded', () => setTimeout(() => syncFilamentPill(true), 50));
+    document.addEventListener('livewire:navigated', () => {
+        syncFilamentPill(false);
+        checkOpenModals();
+    });
+    document.addEventListener('DOMContentLoaded', () => {
+        setTimeout(() => syncFilamentPill(true), 50);
+        checkOpenModals();
+    });
     setTimeout(() => syncFilamentPill(true), 80);
     setTimeout(() => syncFilamentPill(false), 280);
 })();
