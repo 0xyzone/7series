@@ -154,7 +154,7 @@ export function createStoresLocator(storesData, factoryPinsData) {
                             const latLng = [parseFloat(pin.latitude), parseFloat(pin.longitude)];
                             bounds.push(latLng);
                             const marker = L.marker(latLng, { icon: createPinIcon('factory') }).addTo(this.map);
-                            const mapsUrl = pin.google_maps_url || `https://maps.google.com/?q=${latLng[0]},${latLng[1]}`;
+                            const mapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${latLng[0]},${latLng[1]}`;
 
                             marker.bindPopup(`
                                 <div class="p-2 space-y-1.5 font-sans text-left">
@@ -185,7 +185,7 @@ export function createStoresLocator(storesData, factoryPinsData) {
                             bounds.push(latLng);
                             const isFlagship = store.store_type === 'flagship';
                             const marker = L.marker(latLng, { icon: createPinIcon(isFlagship ? 'flagship' : 'stockist') }).addTo(this.map);
-                            const mapsUrl = store.google_maps_url || `https://maps.google.com/?q=${latLng[0]},${latLng[1]}`;
+                            const mapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${latLng[0]},${latLng[1]}`;
 
                             marker.bindPopup(`
                                 <div class="p-2 space-y-1.5 font-sans text-left">
@@ -377,7 +377,7 @@ export function createContactMap(pinsData) {
                             bounds.push(latLng);
 
                             const marker = L.marker(latLng, { icon: createPinIcon('factory') }).addTo(this.map);
-                            const gmapsUrl = pin.google_maps_url || `https://maps.google.com/?q=${lat},${lng}`;
+                            const gmapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`;
 
                             marker.bindPopup(`
                                 <div class="p-2 space-y-1.5 font-sans text-left">

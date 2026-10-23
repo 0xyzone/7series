@@ -40,6 +40,22 @@ html.dark .fi-body {
 /* Sidebar Custom Warm Styling */
 .fi-sidebar {
     border-right: 1px solid rgba(120, 113, 108, 0.15) !important;
+    scroll-padding-bottom: calc(110px + env(safe-area-inset-bottom, 20px)) !important;
+}
+
+/* Ensure the sidebar navigation menu can be scrolled completely above any bottom dock or screen edge */
+.fi-sidebar-nav,
+.fi-sidebar-nav-groups {
+    padding-bottom: calc(110px + env(safe-area-inset-bottom, 20px)) !important;
+}
+
+/* Ensure mobile sidebar overlay and drawer sit comfortably above any bottom elements */
+.fi-sidebar.fi-sidebar-open {
+    z-index: 60 !important;
+}
+
+.fi-sidebar-close-overlay {
+    z-index: 55 !important;
 }
 
 .fi-sidebar-item-active .fi-sidebar-item-button {
@@ -1062,12 +1078,24 @@ html.dark .inquiry-select {
     bottom: 0;
     left: 0;
     right: 0;
-    z-index: 50;
+    z-index: 45;
     pointer-events: none;
     padding-bottom: env(safe-area-inset-bottom, 8px);
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease, visibility 0.25s;
 }
 
-@media (min-width: 768px) {
+/* When the sidebar drawer is open on mobile, smoothly hide the bottom floating dock */
+body:has(.fi-sidebar-open) .mobile-dock-wrapper,
+html:has(.fi-sidebar-open) .mobile-dock-wrapper,
+.fi-sidebar-open ~ .mobile-dock-wrapper,
+.mobile-dock-wrapper[style*="display: none"] {
+    transform: translateY(150%) !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    visibility: hidden !important;
+}
+
+@media (min-width: 1024px) {
     .mobile-dock-wrapper {
         display: none !important;
     }

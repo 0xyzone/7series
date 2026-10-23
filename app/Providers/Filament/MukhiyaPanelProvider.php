@@ -98,6 +98,12 @@ class MukhiyaPanelProvider extends PanelProvider
             ->pages([
                 Dashboard::class,
             ])
+            ->navigationItems([
+                \Filament\Navigation\NavigationItem::make('Homepage')
+                    ->url(fn () => url('/'))
+                    ->icon(\Filament\Support\Icons\Heroicon::OutlinedGlobeAlt)
+                    ->sort(-10),
+            ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\Filament\Widgets')
             ->widgets([
                 \App\Filament\Widgets\ThreeJsDaemonWidget::class,

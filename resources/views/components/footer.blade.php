@@ -1,5 +1,5 @@
-<footer class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-24">
-    <div class="app-card p-5 sm:p-10 lg:p-12 overflow-hidden bg-white border border-zinc-200/90 shadow-xl space-y-10 sm:space-y-12">
+<footer class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 mb-24 w-full max-w-full min-w-0 overflow-x-hidden">
+    <div class="app-card p-4 sm:p-8 lg:p-12 overflow-hidden bg-white border border-zinc-200/90 shadow-xl space-y-8 sm:space-y-12 w-full max-w-full min-w-0">
         <div class="grid lg:grid-cols-12 gap-10 lg:gap-16">
             
             <!-- Brand Column -->

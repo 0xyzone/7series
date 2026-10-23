@@ -360,8 +360,8 @@
                         </div>
 
                         <div class="pt-6 flex items-center gap-2">
-                            <template x-if="store.google_maps_url">
-                                <a :href="store.google_maps_url" target="_blank" rel="noopener noreferrer"
+                            <template x-if="store.google_maps_url || (store.latitude && store.longitude)">
+                                <a :href="store.google_maps_url || ('https://www.google.com/maps/dir/?api=1&destination=' + store.latitude + ',' + store.longitude)" target="_blank" rel="noopener noreferrer"
                                     class="flex-1 py-2.5 bg-zinc-100 hover:bg-red-600 hover:text-white text-zinc-900 font-bold text-xs uppercase tracking-wider rounded-full text-center block transition-all shadow-xs">
                                     Open Maps &rarr;
                                 </a>
