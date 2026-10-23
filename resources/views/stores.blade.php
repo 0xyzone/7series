@@ -103,11 +103,19 @@
                 </div>
 
                 <div class="max-w-3xl space-y-4 relative z-10">
-                    <div
-                        class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-slate-900 text-white text-xs font-black tracking-wider uppercase shadow-sm">
-                        <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
-                        <span>STORE LOCATOR & AUTHORIZED PARTNERS</span>
-                        <span class="text-zinc-400 font-mono text-[10px]">NEPAL</span>
+                    <div class="flex flex-wrap items-center gap-2">
+                        <div
+                            class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-slate-900 text-white text-xs font-black tracking-wider uppercase shadow-sm">
+                            <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
+                            <span>STORE LOCATOR & AUTHORIZED PARTNERS</span>
+                            <span class="text-zinc-400 font-mono text-[10px]">NEPAL</span>
+                        </div>
+                        <a href="{{ $company->google_review_url ?: 'https://g.page/r/CWwuPiVj3QleEBM/review' }}" target="_blank" rel="noopener noreferrer"
+                            class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/30 hover:border-amber-500 text-zinc-900 hover:bg-amber-500/20 transition-all text-xs font-bold group shadow-xs">
+                            <span class="text-amber-500">★★★★★</span>
+                            <span class="font-extrabold text-zinc-800">5.0 on Google</span>
+                            <span class="text-amber-700 font-extrabold group-hover:underline">Review Factory &rarr;</span>
+                        </a>
                     </div>
 
                     <h1
@@ -283,17 +291,25 @@
                             </div>
                         </div>
 
-                        <div class="pt-6 flex items-center gap-2">
-                            @if (!empty($company->google_maps_url))
-                                <a href="{{ $company->google_maps_url }}" target="_blank" rel="noopener noreferrer"
-                                    class="flex-1 py-2.5 bg-red-600 hover:bg-red-700 text-white font-bold text-xs uppercase tracking-wider rounded-full text-center block transition-all shadow-sm">
-                                    Google Maps &rarr;
-                                </a>
-                            @endif
-                            <button type="button" @click="focusFactory(0, 27.7125, 85.2850)"
-                                class="px-4 py-2.5 rounded-full border border-red-300 text-xs font-bold text-red-700 hover:bg-red-100/70 transition-colors">
-                                Pin on Map
-                            </button>
+                        <div class="pt-5 space-y-2">
+                            <div class="flex items-center gap-2">
+                                @if (!empty($company->google_maps_url))
+                                    <a href="{{ $company->google_maps_url }}" target="_blank" rel="noopener noreferrer"
+                                        class="flex-1 py-2.5 bg-red-600 hover:bg-red-700 text-white font-bold text-xs uppercase tracking-wider rounded-full text-center block transition-all shadow-sm">
+                                        Google Maps &rarr;
+                                    </a>
+                                @endif
+                                <button type="button" @click="focusFactory(0, 27.7125, 85.2850)"
+                                    class="px-4 py-2.5 rounded-full border border-red-300 text-xs font-bold text-red-700 hover:bg-red-100/70 transition-colors">
+                                    Pin on Map
+                                </button>
+                            </div>
+                            <a href="{{ $company->google_review_url ?: 'https://g.page/r/CWwuPiVj3QleEBM/review' }}" target="_blank" rel="noopener noreferrer"
+                                class="w-full py-2 bg-amber-500/10 hover:bg-amber-500/20 text-zinc-900 border border-amber-300/80 font-bold text-[11px] uppercase tracking-wider rounded-full text-center flex items-center justify-center gap-1.5 transition-all">
+                                <span class="text-amber-500 text-xs tracking-tight">★★★★★</span>
+                                <span class="text-zinc-800">Review Plant on Google Maps</span>
+                                <span class="text-zinc-400">&rarr;</span>
+                            </a>
                         </div>
                     </div>
                 @endif

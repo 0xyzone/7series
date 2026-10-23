@@ -304,6 +304,36 @@
                                 class="cs-input has-icon" />
                         </div>
                     </div>
+
+                    {{-- Google Maps Customer Review Link --}}
+                    <div class="cs-field">
+                        <div style="display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; margin-bottom: 0.35rem;">
+                            <label class="cs-label" style="margin-bottom: 0;">
+                                <span>Google Maps Review Request Link</span>
+                            </label>
+                            @if (!empty($google_review_url))
+                                <a href="{{ $google_review_url }}" target="_blank" rel="noopener noreferrer"
+                                    style="display: inline-flex; align-items: center; gap: 0.35rem; font-size: 0.68rem; font-weight: 800; color: #eab308; background: rgba(234, 179, 8, 0.12); padding: 0.2rem 0.55rem; border-radius: 9999px; border: 1px solid rgba(234, 179, 8, 0.3); text-decoration: none;">
+                                    <span>★ Test Review Link</span>
+                                    <span>&rarr;</span>
+                                </a>
+                            @endif
+                        </div>
+                        <div class="cs-input-group">
+                            <span class="cs-input-icon">
+                                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+                                </svg>
+                            </span>
+                            <input type="text" wire:model="google_review_url"
+                                placeholder="https://g.page/r/CWwuPiVj3QleEBM/review"
+                                class="cs-input has-icon" />
+                        </div>
+                        <p style="font-size: 0.72rem; color: #a1a1aa; margin-top: 0.3rem;">
+                            Direct short link where customers and retailers can leave 5-star reviews on Google Maps. Integrated into the Contact page, Footer, and Store Locator.
+                        </p>
+                    </div>
                 </div>
             </div>
 

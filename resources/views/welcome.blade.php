@@ -340,6 +340,14 @@
                         <span>Open Full Store Locator & Map</span>
                         <span>&rarr;</span>
                     </a>
+                    @php
+                        $welcomeReviewUrl = ($company ?? null)?->google_review_url ?: 'https://g.page/r/CWwuPiVj3QleEBM/review';
+                    @endphp
+                    <a href="{{ $welcomeReviewUrl }}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-1.5 px-4 py-3 rounded-full bg-amber-50 hover:bg-amber-100 text-zinc-900 border border-amber-300 text-xs font-bold uppercase tracking-wider transition-all shadow-xs w-full sm:w-auto text-center group">
+                        <span class="text-amber-500">★★★★★</span>
+                        <span class="font-extrabold text-zinc-800">5.0 on Google</span>
+                        <span class="text-zinc-400 group-hover:text-zinc-600">&rarr;</span>
+                    </a>
                     <a href="/b2b" class="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-full bg-zinc-950 hover:bg-zinc-800 text-white text-xs font-bold uppercase tracking-wider transition-all shadow-sm w-full sm:w-auto text-center">
                         <span>Sell in Your Shop</span>
                     </a>
@@ -677,7 +685,7 @@
                             </div>
                         </div>
 
-                        <div class="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+                        <div class="pt-2 flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-3">
                             <a href="/b2b" class="inline-flex items-center justify-center gap-2 px-6 sm:px-7 py-3.5 bg-red-600 hover:bg-red-700 text-white text-xs font-bold uppercase tracking-wider rounded-full shadow-lg shadow-red-600/30 transition-all text-center">
                                 <span>Go to Wholesale Portal & Request Pricing</span>
                                 <span>&rarr;</span>
@@ -685,6 +693,11 @@
                             <a href="/contact" class="inline-flex items-center justify-center gap-2 px-5 py-3.5 bg-zinc-900 hover:bg-zinc-800 border border-zinc-700 text-white text-xs font-bold uppercase tracking-wider rounded-full transition-all text-center">
                                 <svg class="w-4 h-4 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
                                 <span>Factory Location & Contact Us</span>
+                            </a>
+                            <a href="{{ $welcomeReviewUrl }}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-1.5 px-5 py-3.5 bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 text-white text-xs font-bold uppercase tracking-wider rounded-full transition-all text-center group">
+                                <span class="text-amber-400">★★★★★</span>
+                                <span class="text-zinc-200 group-hover:text-amber-300">Rate Plant on Google Maps</span>
+                                <span class="text-zinc-400">&rarr;</span>
                             </a>
                         </div>
                     </div>

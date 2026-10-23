@@ -98,9 +98,20 @@
                             {{ $footerCompany->primary_email ?? 'samparka@7series.com.np' }}
                         </a>
                     </p>
-                    <div class="pt-1">
+                    <div class="pt-1 flex flex-wrap items-center gap-2">
                         <a href="/contact" class="inline-flex items-center gap-1 text-[11px] font-bold text-zinc-800 hover:text-red-600 underline">
                             View Factory Location & Send Message &rarr;
+                        </a>
+                    </div>
+                    @php
+                        $reviewUrl = $footerCompany->google_review_url ?: 'https://g.page/r/CWwuPiVj3QleEBM/review';
+                    @endphp
+                    <div class="pt-1">
+                        <a href="{{ $reviewUrl }}" target="_blank" rel="noopener noreferrer"
+                            class="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-amber-500/10 border border-amber-500/30 text-zinc-900 hover:border-amber-500 hover:bg-amber-500/20 transition-all group shadow-xs">
+                            <span class="flex items-center text-amber-500 text-xs tracking-tight">★★★★★</span>
+                            <span class="text-[11px] font-extrabold text-zinc-800 group-hover:text-amber-700">Review Us on Google</span>
+                            <span class="text-[10px] text-zinc-400 group-hover:text-zinc-600">&rarr;</span>
                         </a>
                     </div>
                 </div>

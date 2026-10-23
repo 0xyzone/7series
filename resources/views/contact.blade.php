@@ -11,6 +11,7 @@
         : "https://www.google.com/maps/dir/?api=1&destination={$factoryLat},{$factoryLng}";
     $linktreeUrl = $company->linktree_url ?: 'https://linktr.ee/sevenseries';
     $linktreeQrPath = $company->linktree_qr_path ?: 'images/sevenseries linktree.svg';
+    $googleReviewUrl = $company->google_review_url ?: 'https://g.page/r/CWwuPiVj3QleEBM/review';
     $socialLinks = is_array($company->social_links) ? $company->social_links : [];
 @endphp
 <x-layout>
@@ -32,10 +33,18 @@
                 </div>
 
                 <div class="max-w-3xl space-y-2.5 sm:space-y-3 relative z-10 min-w-0">
-                    <div
-                        class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-900 text-white text-[10px] sm:text-[11px] font-black tracking-wider uppercase shadow-xs">
-                        <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
-                        <span>FACTORY LOCATION & CONTACT</span>
+                    <div class="flex flex-wrap items-center gap-2">
+                        <div
+                            class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-900 text-white text-[10px] sm:text-[11px] font-black tracking-wider uppercase shadow-xs">
+                            <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
+                            <span>FACTORY LOCATION & CONTACT</span>
+                        </div>
+                        <a href="{{ $googleReviewUrl }}" target="_blank" rel="noopener noreferrer"
+                            class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 hover:border-amber-500 text-zinc-900 hover:bg-amber-500/20 transition-all text-[10px] sm:text-[11px] font-bold group shadow-xs">
+                            <span class="text-amber-500">★★★★★</span>
+                            <span class="font-extrabold text-zinc-800">5.0 on Google Maps</span>
+                            <span class="text-amber-700 font-extrabold group-hover:underline">Review Us &rarr;</span>
+                        </a>
                     </div>
 
                     <h1
@@ -387,12 +396,20 @@
                             <span class="w-2 h-2 rounded-full bg-emerald-500 shrink-0"></span>
                             <span class="truncate">Clean 2D Map &bull; Live Navigation</span>
                         </span>
-                        <a :href="pins && pins[activePinIndex] && pins[activePinIndex].latitude && pins[activePinIndex].longitude ? ('https://www.google.com/maps/dir/?api=1&destination=' + pins[activePinIndex].latitude + ',' + pins[activePinIndex].longitude) : '{{ $mapsUrl }}'"
-                            target="_blank" rel="noopener noreferrer"
-                            class="font-bold text-blue-600 hover:text-blue-700 hover:underline inline-flex items-center gap-1 transition-colors shrink-0">
-                            <span>Open in Google Maps</span>
-                            <span>&rarr;</span>
-                        </a>
+                        <div class="flex items-center gap-3 shrink-0">
+                            <a href="{{ $googleReviewUrl }}" target="_blank" rel="noopener noreferrer"
+                                class="font-bold text-amber-600 hover:text-amber-700 hover:underline inline-flex items-center gap-1 transition-colors">
+                                <span class="text-amber-500">★</span>
+                                <span>Rate on Google</span>
+                            </a>
+                            <span class="text-zinc-300">•</span>
+                            <a :href="pins && pins[activePinIndex] && pins[activePinIndex].latitude && pins[activePinIndex].longitude ? ('https://www.google.com/maps/dir/?api=1&destination=' + pins[activePinIndex].latitude + ',' + pins[activePinIndex].longitude) : '{{ $mapsUrl }}'"
+                                target="_blank" rel="noopener noreferrer"
+                                class="font-bold text-blue-600 hover:text-blue-700 hover:underline inline-flex items-center gap-1 transition-colors">
+                                <span>Open in Google Maps</span>
+                                <span>&rarr;</span>
+                            </a>
+                        </div>
                     </div>
                 </div>
 
@@ -477,6 +494,72 @@
                                             d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                                     </svg>
                                     <span>Download QR Code</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4.5 GOOGLE MAPS REVIEWS & RATING CARD -->
+                <div class="app-card p-4 sm:p-6 lg:p-8 bg-gradient-to-br from-white via-amber-50/20 to-orange-50/30 border border-amber-200/80 shadow-md space-y-5 sm:space-y-6 relative overflow-hidden w-full max-w-full min-w-0">
+                    <div class="absolute -right-16 -top-16 w-56 h-56 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 relative z-10 w-full min-w-0">
+                        <div class="min-w-0">
+                            <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-amber-100/80 text-[10px] font-black uppercase tracking-wider text-amber-900 border border-amber-200 mb-1">
+                                <span class="text-amber-500 text-xs">★★★★★</span>
+                                <span>GOOGLE MAPS VERIFIED RATING</span>
+                            </div>
+                            <h3 class="text-base sm:text-2xl font-extrabold text-zinc-950 break-words">
+                                Rate Our Denim Craftsmanship on Google Maps
+                            </h3>
+                        </div>
+
+                        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-2xl bg-white border border-amber-200 shadow-xs shrink-0 self-start sm:self-auto">
+                            <div class="flex text-amber-400 text-sm tracking-tighter">★★★★★</div>
+                            <div class="text-left border-l border-zinc-200 pl-2">
+                                <span class="block text-xs font-black text-zinc-950 leading-tight">5.0 / 5.0</span>
+                                <span class="block text-[9px] font-bold text-zinc-400 uppercase tracking-wider">Garment Factory</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid sm:grid-cols-12 gap-5 sm:gap-6 items-center relative z-10 w-full min-w-0">
+                        <!-- Rating Graphic / Google Badge -->
+                        <div class="sm:col-span-4 flex flex-col items-center justify-center p-5 rounded-2xl bg-white border border-amber-100 shadow-sm text-center">
+                            <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-amber-400 to-amber-600 text-white flex items-center justify-center text-xl font-black shadow-md shadow-amber-500/20 mb-3">
+                                <svg class="w-7 h-7" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14.5v-9l6 4.5-6 4.5z"/>
+                                </svg>
+                            </div>
+                            <div class="text-xs font-black text-zinc-900">Seven Series Garment Plant</div>
+                            <div class="text-[11px] text-zinc-500 font-medium">Sitapaila, Kathmandu</div>
+                            <div class="flex items-center gap-1 text-amber-500 text-xs mt-1.5">
+                                ★★★★★
+                                <span class="text-[10px] text-zinc-400 font-bold ml-1">(Google Reviews)</span>
+                            </div>
+                        </div>
+
+                        <!-- Info & Actions -->
+                        <div class="sm:col-span-8 space-y-3.5 w-full min-w-0">
+                            <p class="text-xs sm:text-sm text-zinc-600 leading-relaxed font-normal">
+                                Have you visited our Sitapaila factory, tried on our denim cuts, or partnered with Seven Series for wholesale retail? Your honest Google review helps retailers and denim lovers discover authentic Nepali garment manufacturing.
+                            </p>
+
+                            <div class="flex flex-col sm:flex-row gap-2.5 pt-1 w-full">
+                                <a href="{{ $googleReviewUrl }}" target="_blank" rel="noopener noreferrer"
+                                    class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-amber-500 hover:bg-amber-600 text-zinc-950 text-xs font-black uppercase tracking-wider transition-all shadow-md shadow-amber-500/30 active:scale-95 text-center">
+                                    <span class="text-zinc-950">★</span>
+                                    <span>Write a Google Review</span>
+                                    <span>&rarr;</span>
+                                </a>
+                                <a href="{{ $mapsUrl }}" target="_blank" rel="noopener noreferrer"
+                                    class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-4 py-3 rounded-full bg-white hover:bg-zinc-100 text-zinc-800 text-xs font-bold border border-zinc-200 transition-all shadow-xs text-center">
+                                    <svg class="w-3.5 h-3.5 text-zinc-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                                    </svg>
+                                    <span>View Location on Maps</span>
                                 </a>
                             </div>
                         </div>

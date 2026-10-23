@@ -4,7 +4,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     $retailStores = \App\Models\RetailStore::active()->get();
-    return view('welcome', compact('retailStores'));
+    $company = \App\Models\CompanySetting::getSettings();
+    return view('welcome', compact('retailStores', 'company'));
 })->name('home');
 
 Route::get('/b2b', [\App\Http\Controllers\WholesaleController::class, 'b2b'])->name('b2b');

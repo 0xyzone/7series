@@ -31,6 +31,7 @@ class CompanySettings extends Page
     public string $state = '';
     public string $directions_note = '';
     public string $google_maps_url = '';
+    public string $google_review_url = '';
     public string $google_maps_api_key = '';
     public string $primary_email = '';
     public string $email_note = '';
@@ -55,6 +56,7 @@ class CompanySettings extends Page
         $this->state = (string) $settings->state;
         $this->directions_note = (string) $settings->directions_note;
         $this->google_maps_url = (string) $settings->google_maps_url;
+        $this->google_review_url = (string) ($settings->google_review_url ?: 'https://g.page/r/CWwuPiVj3QleEBM/review');
         $this->google_maps_api_key = (string) $settings->google_maps_api_key;
         $this->primary_email = (string) $settings->primary_email;
         $this->email_note = (string) $settings->email_note;
@@ -139,6 +141,7 @@ class CompanySettings extends Page
             'company_name' => 'required|string|max:255',
             'primary_email' => 'required|email|max:255',
             'primary_phone' => 'required|string|max:100',
+            'google_review_url' => 'nullable|url|max:500',
             'linktree_url' => 'nullable|url|max:500',
             'qr_upload' => 'nullable|file|mimes:svg,png,jpg,jpeg,webp|max:5120',
         ]);
@@ -160,6 +163,7 @@ class CompanySettings extends Page
             'state' => $this->state,
             'directions_note' => $this->directions_note,
             'google_maps_url' => $this->google_maps_url,
+            'google_review_url' => $this->google_review_url,
             'google_maps_api_key' => $this->google_maps_api_key,
             'primary_email' => $this->primary_email,
             'email_note' => $this->email_note,
