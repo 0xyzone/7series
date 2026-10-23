@@ -524,37 +524,44 @@
                         </div>
                     </div>
 
-                    <div class="grid sm:grid-cols-12 gap-5 sm:gap-6 items-center relative z-10 w-full min-w-0">
+                    <div class="relative z-10 w-full" style="display: flex; flex-direction: row; flex-wrap: wrap; gap: 1.5rem; align-items: center; justify-content: space-between;">
                         <!-- Rating Graphic / Google Badge -->
-                        <div class="sm:col-span-4 flex flex-col items-center justify-center p-5 rounded-2xl bg-white border border-amber-100 shadow-sm text-center">
-                            <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-amber-400 to-amber-600 text-white flex items-center justify-center text-xl font-black shadow-md shadow-amber-500/20 mb-3">
-                                <svg class="w-7 h-7" viewBox="0 0 24 24" fill="currentColor">
-                                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14.5v-9l6 4.5-6 4.5z"/>
+                        <div class="p-5 rounded-2xl bg-white border border-amber-100 shadow-sm text-center"
+                            style="flex: 0 0 220px; width: 220px; max-width: 100%; box-sizing: border-box; margin: 0 auto;">
+                            <div class="rounded-2xl bg-white border border-zinc-100 shadow-sm flex items-center justify-center mb-3"
+                                style="width: 52px; height: 52px; margin: 0 auto 0.75rem auto;">
+                                <svg style="width: 28px; height: 28px;" viewBox="0 0 24 24">
+                                    <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+                                    <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                                    <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z" fill="#FBBC05"/>
+                                    <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" fill="#EA4335"/>
                                 </svg>
                             </div>
-                            <div class="text-xs font-black text-zinc-900">Seven Series Garment Plant</div>
-                            <div class="text-[11px] text-zinc-500 font-medium">Sitapaila, Kathmandu</div>
-                            <div class="flex items-center gap-1 text-amber-500 text-xs mt-1.5">
-                                ★★★★★
-                                <span class="text-[10px] text-zinc-400 font-bold ml-1">(Google Reviews)</span>
+                            <div class="text-xs font-black text-zinc-900 leading-snug">Seven Series Garment Plant</div>
+                            <div class="text-[11px] text-zinc-500 font-medium mt-0.5">Sitapaila, Kathmandu</div>
+                            <div class="flex items-center justify-center gap-1 text-amber-500 text-xs mt-2 font-bold">
+                                <span>★★★★★</span>
+                                <span class="text-[10px] text-zinc-400 font-bold ml-0.5">(Google Reviews)</span>
                             </div>
                         </div>
 
                         <!-- Info & Actions -->
-                        <div class="sm:col-span-8 space-y-3.5 w-full min-w-0">
-                            <p class="text-xs sm:text-sm text-zinc-600 leading-relaxed font-normal">
+                        <div class="space-y-3.5" style="flex: 1 1 320px; min-width: 260px; max-width: 100%; box-sizing: border-box;">
+                            <p class="text-xs sm:text-sm text-zinc-600 leading-relaxed font-normal" style="margin: 0;">
                                 Have you visited our Sitapaila factory, tried on our denim cuts, or partnered with Seven Series for wholesale retail? Your honest Google review helps retailers and denim lovers discover authentic Nepali garment manufacturing.
                             </p>
 
-                            <div class="flex flex-col sm:flex-row gap-2.5 pt-1 w-full">
+                            <div style="display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; padding-top: 0.25rem;">
                                 <a href="{{ $googleReviewUrl }}" target="_blank" rel="noopener noreferrer"
-                                    class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-amber-500 hover:bg-amber-600 text-zinc-950 text-xs font-black uppercase tracking-wider transition-all shadow-md shadow-amber-500/30 active:scale-95 text-center">
-                                    <span class="text-zinc-950">★</span>
+                                    class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-amber-500 hover:bg-amber-600 text-zinc-950 text-xs font-black uppercase tracking-wider transition-all shadow-md shadow-amber-500/30 active:scale-95 text-center"
+                                    style="text-decoration: none;">
+                                    <span class="text-zinc-950 font-bold">★</span>
                                     <span>Write a Google Review</span>
                                     <span>&rarr;</span>
                                 </a>
                                 <a href="{{ $mapsUrl }}" target="_blank" rel="noopener noreferrer"
-                                    class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-4 py-3 rounded-full bg-white hover:bg-zinc-100 text-zinc-800 text-xs font-bold border border-zinc-200 transition-all shadow-xs text-center">
+                                    class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-4 py-3 rounded-full bg-white hover:bg-zinc-100 text-zinc-800 text-xs font-bold border border-zinc-200 transition-all shadow-xs text-center"
+                                    style="text-decoration: none;">
                                     <svg class="w-3.5 h-3.5 text-zinc-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
