@@ -32,6 +32,8 @@ class CompanySettings extends Page
     public string $directions_note = '';
     public string $google_maps_url = '';
     public string $google_review_url = '';
+    public string $google_place_id = '';
+    public ?string $google_reviews_widget_code = '';
     public string $google_maps_api_key = '';
     public string $primary_email = '';
     public string $email_note = '';
@@ -57,6 +59,8 @@ class CompanySettings extends Page
         $this->directions_note = (string) $settings->directions_note;
         $this->google_maps_url = (string) $settings->google_maps_url;
         $this->google_review_url = (string) ($settings->google_review_url ?: 'https://g.page/r/CWwuPiVj3QleEBM/review');
+        $this->google_place_id = (string) ($settings->google_place_id ?: 'ChIJtSIuawAj6zkRbC4-JWPdCV4');
+        $this->google_reviews_widget_code = (string) ($settings->google_reviews_widget_code ?? '');
         $this->google_maps_api_key = (string) $settings->google_maps_api_key;
         $this->primary_email = (string) $settings->primary_email;
         $this->email_note = (string) $settings->email_note;
@@ -142,6 +146,8 @@ class CompanySettings extends Page
             'primary_email' => 'required|email|max:255',
             'primary_phone' => 'required|string|max:100',
             'google_review_url' => 'nullable|url|max:500',
+            'google_place_id' => 'nullable|string|max:255',
+            'google_reviews_widget_code' => 'nullable|string',
             'linktree_url' => 'nullable|url|max:500',
             'qr_upload' => 'nullable|file|mimes:svg,png,jpg,jpeg,webp|max:5120',
         ]);
@@ -164,6 +170,8 @@ class CompanySettings extends Page
             'directions_note' => $this->directions_note,
             'google_maps_url' => $this->google_maps_url,
             'google_review_url' => $this->google_review_url,
+            'google_place_id' => $this->google_place_id ?: 'ChIJtSIuawAj6zkRbC4-JWPdCV4',
+            'google_reviews_widget_code' => $this->google_reviews_widget_code,
             'google_maps_api_key' => $this->google_maps_api_key,
             'primary_email' => $this->primary_email,
             'email_note' => $this->email_note,

@@ -751,6 +751,11 @@
 
         </section>
 
+        <!-- ========================================================================= -->
+        <!-- VERIFIED GOOGLE MAPS CUSTOMER & RETAILER REVIEWS SHOWCASE -->
+        <!-- ========================================================================= -->
+        <x-google-reviews :company="$company" />
+
     </main>
 
     <x-footer />

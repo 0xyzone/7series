@@ -334,6 +334,49 @@
                             Direct short link where customers and retailers can leave 5-star reviews on Google Maps. Integrated into the Contact page, Footer, and Store Locator.
                         </p>
                     </div>
+
+                    {{-- Google Place ID (For Widget / API Providers) --}}
+                    <div class="cs-field" x-data="{ copiedPlaceId: false }">
+                        <div style="display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; margin-bottom: 0.35rem;">
+                            <label class="cs-label" style="margin-bottom: 0;">
+                                <span>Google Maps Place ID</span>
+                            </label>
+                            <button type="button"
+                                @click="navigator.clipboard.writeText($wire.google_place_id || 'ChIJtSIuawAj6zkRbC4-JWPdCV4'); copiedPlaceId = true; setTimeout(() => copiedPlaceId = false, 2500)"
+                                style="display: inline-flex; align-items: center; gap: 0.35rem; font-size: 0.68rem; font-weight: 800; color: #0284c7; background: rgba(2, 132, 199, 0.12); padding: 0.2rem 0.55rem; border-radius: 9999px; border: 1px solid rgba(2, 132, 199, 0.3); cursor: pointer;">
+                                <span x-text="copiedPlaceId ? 'Copied ID!' : 'Copy Place ID'"></span>
+                            </button>
+                        </div>
+                        <div class="cs-input-group">
+                            <span class="cs-input-icon">
+                                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                                </svg>
+                            </span>
+                            <input type="text" wire:model="google_place_id"
+                                placeholder="ChIJtSIuawAj6zkRbC4-JWPdCV4"
+                                class="cs-input has-icon font-mono" />
+                        </div>
+                        <p style="font-size: 0.72rem; color: #a1a1aa; margin-top: 0.3rem;">
+                            Unique identifier for Seven Series on Google Maps (<strong>ChIJtSIuawAj6zkRbC4-JWPdCV4</strong>). Paste this into Elfsight, Trustindex, or Google Places API to connect your reviews.
+                        </p>
+                    </div>
+
+                    {{-- Google Reviews Embed Widget Code (Third-Party Widget) --}}
+                    <div class="cs-field">
+                        <label class="cs-label">
+                            <span>Google Reviews Embed Widget Code (Elfsight / Trustindex / etc.)</span>
+                        </label>
+                        <textarea wire:model="google_reviews_widget_code" rows="3"
+                            placeholder="e.g. <div class=&quot;elfsight-app-xxx&quot; data-elfsight-app-lazy></div><script src=&quot;https://static.elfsight.com/platform/platform.js&quot; async></script>"
+                            class="cs-input font-mono" style="font-size: 0.78rem; resize: vertical; line-height: 1.4;"></textarea>
+                        <p style="font-size: 0.72rem; color: #a1a1aa; margin-top: 0.3rem;">
+                            Paste your free Google Reviews embed code from widget providers (such as <strong>Elfsight</strong> or <strong>Trustindex</strong>). When provided, it renders directly in the reviews section on the Homepage and Contact page. If empty, our built-in curated Google Reviews layout is displayed automatically.
+                        </p>
+                    </div>
                 </div>
             </div>
 
