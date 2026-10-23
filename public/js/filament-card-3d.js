@@ -1,6 +1,6 @@
 /**
  * Seven Series Mukhiya Panel — 3D Perspective Card Tilt & Micro-Motion
- * High-performance 60fps spring interaction using transform3d & requestAnimationFrame
+ * High-performance 60fps interaction with absolute stability on action buttons
  */
 (function() {
     'use strict';
@@ -9,7 +9,7 @@
         return;
     }
 
-    const maxRotation = 4; // degrees
+    const maxRotation = 3.5; // gentle degrees
     const perspective = 1200;
 
     function initCard(card) {
@@ -35,8 +35,9 @@
 
             const isResting = Math.abs(targetRotateX - currentRotateX) < 0.05 && Math.abs(targetRotateY - currentRotateY) < 0.05;
 
-            if (isHovered || !isResting) {
-                card.style.transform = `perspective(${perspective}px) rotateX(${currentRotateX.toFixed(2)}deg) rotateY(${currentRotateY.toFixed(2)}deg) translateZ(8px) translateY(${isHovered ? '-4px' : '0px'})`;
+            if (isHovered && !isResting) {
+                // Subtle rotation ONLY — NEVER use translateY or translateZ which moves buttons away from the cursor
+                card.style.transform = `perspective(${perspective}px) rotateX(${currentRotateX.toFixed(2)}deg) rotateY(${currentRotateY.toFixed(2)}deg)`;
                 rafId = requestAnimationFrame(updateSpring);
             } else {
                 card.style.transform = '';
@@ -44,12 +45,27 @@
             }
         }
 
-        card.addEventListener('mouseenter', () => {
+        card.addEventListener('mouseenter', (e) => {
+            if (e.target && e.target.closest && e.target.closest('.fi-ta-actions, button, a, input, select, label, .fi-dropdown, .fi-ta-record-checkbox')) {
+                isHovered = false;
+                card.style.transform = '';
+                return;
+            }
             isHovered = true;
             if (!rafId) rafId = requestAnimationFrame(updateSpring);
         }, { passive: true });
 
         card.addEventListener('mousemove', (e) => {
+            // Freeze card transform when hovering action buttons or interactive controls to prevent cursor jitter
+            if (e.target && e.target.closest && e.target.closest('.fi-ta-actions, button, a, input, select, label, .fi-dropdown, .fi-ta-record-checkbox')) {
+                isHovered = false;
+                targetRotateX = 0;
+                targetRotateY = 0;
+                card.style.transform = '';
+                return;
+            }
+
+            isHovered = true;
             const rect = card.getBoundingClientRect();
             if (rect.width === 0 || rect.height === 0) return;
 
@@ -68,23 +84,21 @@
 
         card.addEventListener('mouseleave', () => {
             isHovered = false;
-        }, { passive: true });
-
-        // Mobile touch handling
-        card.addEventListener('touchstart', () => {
-            isHovered = true;
-            targetRotateX = 1;
+            targetRotateX = 0;
             targetRotateY = 0;
-            if (!rafId) rafId = requestAnimationFrame(updateSpring);
+            card.style.transform = '';
         }, { passive: true });
 
-        card.addEventListener('touchend', () => {
-            isHovered = false;
-        }, { passive: true });
-
-        card.addEventListener('touchcancel', () => {
-            isHovered = false;
-        }, { passive: true });
+        // Ensure actions area completely silences 3D transforms
+        const actionsArea = card.querySelector('.fi-ta-actions');
+        if (actionsArea) {
+            actionsArea.addEventListener('mouseenter', () => {
+                isHovered = false;
+                targetRotateX = 0;
+                targetRotateY = 0;
+                card.style.transform = '';
+            }, { passive: true });
+        }
     }
 
     function scanCards() {
