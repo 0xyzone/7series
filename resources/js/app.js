@@ -1,14 +1,22 @@
 import './bootstrap';
+import './stores-locator';
 import { initHero3D } from './hero-3d';
+import { initAmbient3D } from './ambient-3d';
 import { initMotionExperience } from './motion-experience';
 import { initSpaNavigation } from './spa-navigation';
 
-// Initialize Three.js 3D Engine, Motion Design, and SPA Navigation when DOM is ready
+// Initialize Three.js 3D Engine, Ambient 3D Aesthetic Scene, Motion Design, and SPA Navigation when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
     try {
         initHero3D();
     } catch (e) {
-        console.warn('Three.js 3D initialization:', e);
+        console.warn('Three.js Hero 3D initialization:', e);
+    }
+
+    try {
+        initAmbient3D();
+    } catch (e) {
+        console.warn('Ambient 3D scene initialization:', e);
     }
 
     try {

@@ -40,174 +40,50 @@
         }
     </style>
 
+
     <script>
-        window.storesLocator = function(storesData, factoryPinsData) {
-            return {
-                search: '',
-                selectedCity: 'all',
-                stores: storesData || [],
-                factoryPins: factoryPinsData || [],
-                activeStoreId: null,
-                map: null,
-                markers: {},
-                initMap() {
-                    this.$nextTick(() => {
-                        const mapContainer = document.getElementById('stores-map');
-                        if (!mapContainer || typeof L === 'undefined') return;
-
-                        // Reset existing map instance to prevent Leaflet container re-init error
-                        if (this.map) {
-                            try {
-                                this.map.remove();
-                            } catch (_) {}
-                            this.map = null;
-                        }
-
-                        // Default center: Kathmandu Valley
-                        this.map = L.map('stores-map', {
-                            zoomControl: true,
-                            scrollWheelZoom: false
-                        }).setView([27.7125, 85.3100], 12);
-
-                        // Official Free Google Maps Tiles (100% Free, zero billing, zero watermarks)
-                        L.tileLayer('https://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
-                            maxZoom: 20,
-                            subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
-                            attribution: '&copy; Google Maps'
-                        }).addTo(this.map);
-
-                        const createCustomIcon = (isFlagship = false) => {
-                            const fill = isFlagship ? '#ED1C24' : '#18181B';
-                            const ring = isFlagship ? '#FCA5A5' : '#D4D4D8';
-                            return L.divIcon({
-                                className: 'custom-store-pin',
-                                html: `<div class='relative flex items-center justify-center'>
-                                        <span class='absolute w-8 h-8 rounded-full opacity-40 animate-ping' style='background-color: ${ring};'></span>
-                                        <div class='relative w-8 h-8 rounded-full shadow-lg flex items-center justify-center border-2 border-white text-white' style='background-color: ${fill};'>
-                                            <svg class='w-4 h-4' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
-                                                <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z'/>
-                                                <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M15 11a3 3 0 11-6 0 3 3 0 016 0z'/>
-                                            </svg>
-                                        </div>
-                                    </div>`,
-                                iconSize: [32, 32],
-                                iconAnchor: [16, 32],
-                                popupAnchor: [0, -32]
-                            });
-                        };
-
-                        const bounds = [];
-                        const popupOptions = {
-                            maxWidth: 220,
-                            minWidth: 180,
-                            className: 'compact-store-popup',
-                            autoPanPadding: [25, 25],
-                            closeButton: true
-                        };
-
-                        // Add Factory Pins from Company Settings
-                        if (Array.isArray(this.factoryPins)) {
-                            this.factoryPins.forEach((pin, index) => {
-                                if (pin.latitude && pin.longitude) {
-                                    const latLng = [parseFloat(pin.latitude), parseFloat(pin.longitude)];
-                                    bounds.push(latLng);
-                                    const marker = L.marker(latLng, { icon: createCustomIcon(true) }).addTo(this.map);
-                                    marker.bindPopup(`
-                                        <div class='p-1 space-y-1 font-sans text-left'>
-                                            <div class='flex items-center justify-between gap-1'>
-                                                <span class='px-2 py-0.5 rounded-full bg-red-600 text-white text-[8px] font-black uppercase tracking-wider'>${pin.type || 'FACTORY'}</span>
-                                                <span class='text-[10px] font-bold text-zinc-500'>HQ</span>
-                                            </div>
-                                            <h4 class='text-xs font-black text-zinc-950 leading-tight line-clamp-1'>${pin.title}</h4>
-                                            <span class='text-[10px] text-zinc-600 leading-tight block line-clamp-2'>${pin.address || ''}</span>
-                                            <div class='pt-1 flex items-center gap-1.5'>
-                                                ${pin.phone ? `<a href='tel:${pin.phone}' class='px-2 py-0.5 bg-zinc-100 hover:bg-zinc-200 text-zinc-900 text-[10px] font-bold rounded-full no-underline'>📞 Call</a>` : ''}
-                                                ${pin.google_maps_url ? `<a href='${pin.google_maps_url}' target='_blank' class='px-2.5 py-0.5 bg-zinc-900 hover:bg-red-600 !text-white text-[10px] font-bold rounded-full no-underline flex-1 text-center'>Maps &rarr;</a>` : ''}
-                                            </div>
-                                        </div>
-                                    `, popupOptions);
-                                    this.markers['factory_' + index] = marker;
-                                }
-                            });
-                        }
-
-                        // Add Retail Stores
-                        if (Array.isArray(this.stores)) {
-                            this.stores.forEach((store) => {
-                                if (store.latitude && store.longitude) {
-                                    const latLng = [parseFloat(store.latitude), parseFloat(store.longitude)];
-                                    bounds.push(latLng);
-                                    const marker = L.marker(latLng, { icon: createCustomIcon(store.store_type === 'flagship') }).addTo(this.map);
-                                    marker.bindPopup(`
-                                        <div class='p-1 space-y-1 font-sans text-left'>
-                                            <div class='flex items-center justify-between gap-1'>
-                                                <span class='px-2 py-0.5 rounded-full ${store.store_type === 'flagship' ? 'bg-red-600 text-white' : 'bg-zinc-800 text-white'} text-[8px] font-black uppercase tracking-wider'>
-                                                    ${(store.store_type || 'RETAIL').toUpperCase().replace('_', ' ')}
-                                                </span>
-                                                <span class='text-[10px] font-bold text-zinc-500 truncate'>${store.city}</span>
-                                            </div>
-                                            <h4 class='text-xs font-black text-zinc-950 leading-tight line-clamp-1'>${store.name}</h4>
-                                            <p class='text-[10px] text-zinc-600 leading-tight line-clamp-2'>${store.address}${store.landmark ? ` (Near ${store.landmark})` : ''}</p>
-                                            <div class='pt-1 flex items-center gap-1.5'>
-                                                ${store.phone ? `<a href='tel:${store.phone}' class='px-2 py-0.5 bg-zinc-100 hover:bg-zinc-200 text-zinc-900 text-[10px] font-bold rounded-full no-underline'>📞 Call</a>` : ''}
-                                                ${store.google_maps_url ? `<a href='${store.google_maps_url}' target='_blank' class='px-2.5 py-0.5 bg-red-600 hover:bg-red-700 !text-white text-[10px] font-bold rounded-full no-underline flex-1 text-center'>Directions &rarr;</a>` : ''}
-                                            </div>
-                                        </div>
-                                    `, popupOptions);
-                                    this.markers['store_' + store.id] = marker;
-                                }
-                            });
-                        }
-
-                        if (bounds.length > 0) {
-                            this.map.fitBounds(bounds, { padding: [40, 40], maxZoom: 14 });
-                        }
-                    });
-                },
-                focusStore(id, lat, lng) {
-                    this.activeStoreId = id;
-                    if (this.map && lat && lng) {
-                        this.map.flyTo([lat, lng], 16, { duration: 1.2 });
-                        const key = 'store_' + id;
-                        if (this.markers[key]) {
-                            this.markers[key].openPopup();
-                        }
-                        const sec = document.getElementById('stores-map-section');
-                        if (sec) sec.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        if (!window.storesLocator) {
+            window.storesLocator = function(stores, factoryPins) {
+                return {
+                    search: '',
+                    selectedCity: 'all',
+                    stores: stores || [],
+                    factoryPins: factoryPins || [],
+                    activeStoreId: null,
+                    map: null,
+                    markers: {},
+                    isMapReady: false,
+                    initMap() {
+                        const wait = setInterval(() => {
+                            if (window.createStoresLocatorEngine) {
+                                clearInterval(wait);
+                                const real = window.createStoresLocatorEngine(this.stores, this.factoryPins);
+                                Object.assign(this, real);
+                                this.mountMap();
+                            }
+                        }, 40);
+                    },
+                    resetMap() { if (this.map) this.map.setView([27.7125, 85.3100], 12); },
+                    focusStore(id, lat, lng) {
+                        this.activeStoreId = id;
+                        if (this.map && lat && lng) this.map.flyTo([lat, lng], 16);
+                    },
+                    focusFactory(idx, lat, lng) {
+                        if (this.map && lat && lng) this.map.flyTo([lat, lng], 16);
+                    },
+                    filteredStores() {
+                        return (this.stores || []).filter(store => {
+                            const matchCity = this.selectedCity === 'all' || (store.city && store.city.toLowerCase() === this.selectedCity.toLowerCase());
+                            const query = (this.search || '').trim().toLowerCase();
+                            const matchSearch = !query || 
+                                (store.name && store.name.toLowerCase().includes(query)) || 
+                                (store.address && store.address.toLowerCase().includes(query)) ||
+                                (store.city && store.city.toLowerCase().includes(query));
+                            return matchCity && matchSearch;
+                        });
                     }
-                },
-                focusFactory(index, lat, lng) {
-                    if (this.map && lat && lng) {
-                        this.map.flyTo([lat, lng], 16, { duration: 1.2 });
-                        const key = 'factory_' + index;
-                        if (this.markers[key]) {
-                            this.markers[key].openPopup();
-                        }
-                        const sec = document.getElementById('stores-map-section');
-                        if (sec) sec.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    }
-                },
-                filteredStores() {
-                    return this.stores.filter(store => {
-                        const matchCity = this.selectedCity === 'all' || store.city.toLowerCase() === this.selectedCity.toLowerCase();
-                        const query = this.search.trim().toLowerCase();
-                        const matchSearch = !query || 
-                            store.name.toLowerCase().includes(query) || 
-                            (store.address && store.address.toLowerCase().includes(query)) ||
-                            (store.landmark && store.landmark.toLowerCase().includes(query)) ||
-                            (store.city && store.city.toLowerCase().includes(query));
-                        return matchCity && matchSearch;
-                    });
-                }
+                };
             };
-        };
-
-        if (window.Alpine) {
-            Alpine.data('storesLocator', window.storesLocator);
-        } else {
-            document.addEventListener('alpine:init', () => {
-                Alpine.data('storesLocator', window.storesLocator);
-            });
         }
     </script>
 
@@ -309,27 +185,34 @@
                     <span class="text-[10px] font-black uppercase tracking-wider text-red-600">GEOGRAPHIC MAP</span>
                     <h2 class="text-xl sm:text-2xl font-extrabold text-zinc-950">Store & Factory Pin Locations</h2>
                 </div>
-                <div class="flex items-center gap-3 text-xs font-bold text-zinc-500">
-                    <span class="inline-flex items-center gap-1.5">
-                        <span class="w-3 h-3 rounded-full bg-red-600"></span>
+                <div class="flex flex-wrap items-center gap-2.5 text-xs font-bold text-zinc-600">
+                    <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-red-50 text-red-700 border border-red-200 text-[11px]">
+                        <span class="w-2.5 h-2.5 rounded-full bg-red-600"></span>
                         <span>Flagship / Factory</span>
+                        <span class="text-amber-500 font-bold">★</span>
                     </span>
-                    <span class="inline-flex items-center gap-1.5">
-                        <span class="w-3 h-3 rounded-full bg-zinc-900"></span>
+                    <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-zinc-100 text-zinc-800 border border-zinc-200 text-[11px]">
+                        <span class="w-2.5 h-2.5 rounded-full bg-zinc-900"></span>
                         <span>Authorized Stockist</span>
+                    </span>
+                    <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-blue-50 text-blue-700 border border-blue-200 text-[11px]">
+                        <svg class="w-3 h-3 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                        <span>Live Route</span>
                     </span>
                 </div>
             </div>
 
             <!-- Leaflet Container -->
-            <div class="app-card overflow-hidden border border-zinc-200 shadow-md relative bg-zinc-100 rounded-2xl">
+            <div class="app-card overflow-hidden border border-zinc-200 shadow-md relative bg-zinc-100 rounded-2xl brand-2d-map">
                 <div id="stores-map" class="w-full h-[400px] sm:h-96 md:h-[440px] z-10"></div>
                 <div
                     class="p-3 bg-white border-t border-zinc-100 flex flex-wrap items-center justify-between gap-2 text-xs">
-                    <span class="text-zinc-500">Scroll to zoom • Click any pin to view store contact details &
-                        directions</span>
-                    <button type="button" @click="map && map.setView([27.7125, 85.3100], 12)"
-                        class="text-red-600 font-bold hover:underline">
+                    <span class="text-zinc-500 flex items-center gap-1.5">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500 shrink-0"></span>
+                        <span>Clean 2D Map • Scroll to zoom • Click any pin to view store contact details & directions</span>
+                    </span>
+                    <button type="button" @click="resetMap()"
+                        class="text-red-600 hover:text-red-700 font-bold hover:underline transition-colors">
                         Reset Map View
                     </button>
                 </div>

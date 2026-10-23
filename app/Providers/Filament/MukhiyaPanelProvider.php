@@ -86,6 +86,10 @@ class MukhiyaPanelProvider extends PanelProvider
                 </script>')
             )
             ->renderHook(
+                \Filament\View\PanelsRenderHook::USER_MENU_BEFORE,
+                fn () => view('filament.components.reverb-topbar')
+            )
+            ->renderHook(
                 \Filament\View\PanelsRenderHook::BODY_END,
                 fn () => view('filament.components.mobile-dock')
             )

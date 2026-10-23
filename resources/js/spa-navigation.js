@@ -157,6 +157,17 @@ function runPageLifecycle(url) {
     } catch (e) {
         console.warn('Motion experience re-init:', e);
     }
+
+    // 4. Invalidate and refresh any active interactive map
+    const mapEl = document.getElementById('stores-map') || document.getElementById('contact-map');
+    if (mapEl) {
+        setTimeout(() => {
+            window.dispatchEvent(new Event('resize'));
+        }, 120);
+        setTimeout(() => {
+            window.dispatchEvent(new Event('resize'));
+        }, 360);
+    }
 }
 
 /**
@@ -255,13 +266,6 @@ export async function navigateSpa(targetUrl, options = {}) {
         viewport.style.position = 'relative';
         viewport.style.overflow = 'hidden';
         viewport.appendChild(incomingView);
-
-        // Pre-init Alpine tree on incoming nodes before animation completes
-        if (window.Alpine) {
-            try {
-                window.Alpine.initTree(incomingView);
-            } catch (_) {}
-        }
 
         // Force browser layout reflow
         incomingView.offsetHeight;

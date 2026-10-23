@@ -195,3 +195,104 @@ html, body {
     width: 100%;
     min-height: 100vh;
 }
+
+/* =========================================================================
+   CLEAN 2D BRAND MAP SYSTEM (Seven Series Red, Black, White, Gold, Blue)
+   ========================================================================= */
+.brand-2d-map {
+    position: relative;
+    background-color: #f8fafc;
+}
+
+/* Grayscale + contrast filter for clean architectural 2D paper map */
+.brand-2d-map .leaflet-tile-pane {
+    filter: grayscale(100%) contrast(106%) brightness(99%);
+}
+
+.dark .brand-2d-map .leaflet-tile-pane {
+    filter: invert(100%) hue-rotate(180deg) grayscale(85%) contrast(110%) brightness(90%);
+}
+
+/* Sleek Minimalist Zoom Controls */
+.brand-2d-map .leaflet-bar {
+    border: 1px solid #e4e4e7 !important;
+    border-radius: 12px !important;
+    overflow: hidden !important;
+    box-shadow: 0 4px 12px -2px rgba(0, 0, 0, 0.08) !important;
+    background: #ffffff !important;
+}
+
+.brand-2d-map .leaflet-bar a {
+    background-color: #ffffff !important;
+    color: #18181b !important;
+    font-size: 15px !important;
+    font-weight: 800 !important;
+    width: 34px !important;
+    height: 34px !important;
+    line-height: 34px !important;
+    border-bottom: 1px solid #f4f4f5 !important;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.brand-2d-map .leaflet-bar a:hover {
+    background-color: #e51e2b !important;
+    color: #ffffff !important;
+}
+
+/* Minimalist Unobtrusive Attribution */
+.brand-2d-map .leaflet-control-attribution {
+    background: rgba(255, 255, 255, 0.9) !important;
+    backdrop-filter: blur(6px);
+    color: #71717a !important;
+    font-size: 10px !important;
+    padding: 3px 8px !important;
+    border-top-left-radius: 8px !important;
+    border: 1px solid rgba(228, 228, 231, 0.6);
+    border-bottom: none;
+    border-right: none;
+}
+
+.brand-2d-map .leaflet-control-attribution a {
+    color: #52525b !important;
+    font-weight: 600 !important;
+    text-decoration: none !important;
+}
+
+.brand-2d-map .leaflet-control-attribution a:hover {
+    color: #e51e2b !important;
+    text-decoration: underline !important;
+}
+
+/* Compact Brand Store Popup */
+.compact-store-popup .leaflet-popup-content-wrapper {
+    background: #ffffff !important;
+    color: #18181b !important;
+    border-radius: 16px !important;
+    padding: 0 !important;
+    box-shadow: 0 16px 32px -8px rgba(0, 0, 0, 0.16), 0 4px 12px -2px rgba(0, 0, 0, 0.08) !important;
+    border: 1px solid #e4e4e7 !important;
+    overflow: hidden !important;
+}
+
+.compact-store-popup .leaflet-popup-content {
+    margin: 10px 12px !important;
+    line-height: 1.4 !important;
+}
+
+.compact-store-popup .leaflet-popup-tip {
+    background: #ffffff !important;
+    box-shadow: 0 6px 12px -2px rgba(0, 0, 0, 0.1) !important;
+}
+
+.compact-store-popup .leaflet-popup-close-button {
+    color: #a1a1aa !important;
+    padding: 6px 8px !important;
+    font-size: 16px !important;
+    font-weight: bold !important;
+    transition: color 0.15s ease !important;
+}
+
+.compact-store-popup .leaflet-popup-close-button:hover {
+    color: #e51e2b !important;
+}
+

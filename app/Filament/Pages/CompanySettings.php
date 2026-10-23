@@ -7,9 +7,11 @@ use BackedEnum;
 use Filament\Notifications\Notification;
 use Filament\Pages\Page;
 use Filament\Support\Icons\Heroicon;
+use Livewire\WithFileUploads;
 
 class CompanySettings extends Page
 {
+    use WithFileUploads;
     protected static ?string $navigationLabel = 'Company Settings';
 
     protected static ?string $title = 'Company & Map Settings';
@@ -36,6 +38,10 @@ class CompanySettings extends Page
     public string $whatsapp_number = '';
     public string $operating_hours = '';
     public string $operating_hours_note = '';
+    public string $linktree_url = '';
+    public string $linktree_qr_path = '';
+    public $qr_upload = null;
+    public array $social_links = [];
     public array $map_pins = [];
 
     public function mount(): void
@@ -56,7 +62,29 @@ class CompanySettings extends Page
         $this->whatsapp_number = (string) $settings->whatsapp_number;
         $this->operating_hours = (string) $settings->operating_hours;
         $this->operating_hours_note = (string) $settings->operating_hours_note;
+        $this->linktree_url = (string) ($settings->linktree_url ?: 'https://linktr.ee/sevenseries');
+        $this->linktree_qr_path = (string) ($settings->linktree_qr_path ?: 'images/sevenseries linktree.svg');
+        $this->social_links = is_array($settings->social_links) ? $settings->social_links : [];
         $this->map_pins = is_array($settings->map_pins) ? $settings->map_pins : [];
+    }
+
+    public function addSocialLink(): void
+    {
+        $this->social_links[] = [
+            'platform' => 'Instagram',
+            'url' => 'https://',
+            'handle' => '@',
+            'label' => 'Official Channel',
+            'is_active' => true,
+        ];
+    }
+
+    public function removeSocialLink(int $index): void
+    {
+        if (isset($this->social_links[$index])) {
+            unset($this->social_links[$index]);
+            $this->social_links = array_values($this->social_links);
+        }
     }
 
     public function addPin(): void
@@ -88,13 +116,40 @@ class CompanySettings extends Page
         }
     }
 
+    public function resetQrToDefault(): void
+    {
+        $this->linktree_qr_path = 'images/sevenseries linktree.svg';
+        $this->qr_upload = null;
+
+        $settings = CompanySetting::getSettings();
+        $settings->update([
+            'linktree_qr_path' => $this->linktree_qr_path,
+        ]);
+
+        Notification::make()
+            ->title('Reset to Default QR')
+            ->body('Restored official vector asset: images/sevenseries linktree.svg')
+            ->info()
+            ->send();
+    }
+
     public function save(): void
     {
         $this->validate([
             'company_name' => 'required|string|max:255',
             'primary_email' => 'required|email|max:255',
             'primary_phone' => 'required|string|max:100',
+            'linktree_url' => 'nullable|url|max:500',
+            'qr_upload' => 'nullable|file|mimes:svg,png,jpg,jpeg,webp|max:5120',
         ]);
+
+        if ($this->qr_upload) {
+            $ext = $this->qr_upload->getClientOriginalExtension() ?: 'svg';
+            $filename = 'linktree_qr_' . time() . '.' . $ext;
+            $path = $this->qr_upload->storeAs('images/qr', $filename, 'public');
+            $this->linktree_qr_path = 'storage/' . $path;
+            $this->qr_upload = null;
+        }
 
         $settings = CompanySetting::getSettings();
         $settings->update([
@@ -112,12 +167,15 @@ class CompanySettings extends Page
             'whatsapp_number' => $this->whatsapp_number,
             'operating_hours' => $this->operating_hours,
             'operating_hours_note' => $this->operating_hours_note,
+            'linktree_url' => $this->linktree_url,
+            'linktree_qr_path' => $this->linktree_qr_path,
+            'social_links' => array_values($this->social_links),
             'map_pins' => array_values($this->map_pins),
         ]);
 
         Notification::make()
             ->title('Company settings updated successfully!')
-            ->body('Public Contact Us page, dynamic map pins, and footer details updated.')
+            ->body('Public Contact Us page, Social Links, Linktree QR Hub, dynamic map pins, and footer updated.')
             ->success()
             ->send();
     }

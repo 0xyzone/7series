@@ -66,9 +66,6 @@
 
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=poppins:300,400,500,600,700,800,900|inter:400,500,600,700|space-grotesk:500,700" rel="stylesheet" />
-    <!-- Leaflet CSS & JS for Interactive Map Support -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @if (app()->environment('local'))
@@ -93,11 +90,14 @@
 
         .app-card {
             border-radius: 20px;
-            background: #ffffff;
             border: 1px solid rgba(226, 232, 240, 0.9);
             box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.04), 0 8px 10px -6px rgba(0, 0, 0, 0.02);
             transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
             max-width: 100%;
+        }
+
+        .app-card:not([class*="bg-"]) {
+            background-color: #ffffff;
         }
 
         @media (min-width: 640px) {
@@ -147,10 +147,13 @@
 </head>
 
 <body
-    class="bg-white text-zinc-950 font-sans antialiased selection:bg-red-600 selection:text-white overflow-x-hidden">
+    class="bg-white text-zinc-950 font-sans antialiased selection:bg-red-600 selection:text-white overflow-x-clip">
     <x-preloader />
 
-    <div id="app-viewport">
+    <!-- Ambient 3D Brand Symbol Depth Canvas -->
+    <canvas id="ambient-3d-canvas" class="pointer-events-none fixed inset-0 z-0 w-full h-full opacity-70 transition-opacity duration-700"></canvas>
+
+    <div id="app-viewport" class="relative z-10">
         <div id="app-page-view">
             {{ $slot }}
         </div>

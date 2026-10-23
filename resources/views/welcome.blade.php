@@ -652,8 +652,8 @@
         <!-- ========================================================================= -->
         <section id="factory" class="scroll-mt-28 space-y-6 pt-6">
             
-            <div class="app-card p-5 sm:p-10 bg-zinc-950 text-white relative overflow-hidden">
-                <div class="absolute -right-20 -bottom-20 w-80 h-80 bg-red-600/20 rounded-full blur-3xl"></div>
+            <div class="app-card p-5 sm:p-10 !bg-zinc-950 !border-zinc-800 text-white relative overflow-hidden">
+                <div class="absolute -right-20 -bottom-20 w-80 h-80 bg-red-600/20 rounded-full blur-3xl pointer-events-none"></div>
 
                 <div class="grid lg:grid-cols-12 gap-8 items-center relative z-10">
                     

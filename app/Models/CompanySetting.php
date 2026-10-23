@@ -23,11 +23,15 @@ class CompanySetting extends Model
         'whatsapp_number',
         'operating_hours',
         'operating_hours_note',
+        'social_links',
+        'linktree_url',
+        'linktree_qr_path',
         'map_pins',
     ];
 
     protected $casts = [
         'map_pins' => 'array',
+        'social_links' => 'array',
     ];
 
     /**
@@ -52,6 +56,38 @@ class CompanySetting extends Model
                 'whatsapp_number' => '+977 9801234567',
                 'operating_hours' => 'Sunday – Friday: 09:00 – 18:00',
                 'operating_hours_note' => 'Saturday: Factory Closed (Machinery Maintenance & Dispatch Prep)',
+                'linktree_url' => 'https://linktr.ee/sevenseries',
+                'linktree_qr_path' => 'images/sevenseries linktree.svg',
+                'social_links' => [
+                    [
+                        'platform' => 'Instagram',
+                        'url' => 'https://instagram.com/sevenseries.np',
+                        'handle' => '@sevenseries.np',
+                        'label' => 'Official Brand Feed',
+                        'is_active' => true,
+                    ],
+                    [
+                        'platform' => 'Facebook',
+                        'url' => 'https://facebook.com/sevenseriesnp',
+                        'handle' => 'Seven Series Official',
+                        'label' => 'Announcements & Community',
+                        'is_active' => true,
+                    ],
+                    [
+                        'platform' => 'TikTok',
+                        'url' => 'https://tiktok.com/@sevenseries',
+                        'handle' => '@sevenseries',
+                        'label' => 'Behind The Seams & Factory Clips',
+                        'is_active' => true,
+                    ],
+                    [
+                        'platform' => 'YouTube',
+                        'url' => 'https://youtube.com/@sevenseries',
+                        'handle' => 'Seven Series Denim',
+                        'label' => 'Denim Weaving & Craft Videos',
+                        'is_active' => true,
+                    ],
+                ],
                 'map_pins' => [
                     [
                         'title' => 'Sitapaila Main Manufacturing Plant',
@@ -75,48 +111,92 @@ class CompanySetting extends Model
                     ],
                 ],
             ]);
+        } else {
+            // Ensure linktree defaults if currently empty
+            if (empty($setting->linktree_url)) {
+                $setting->linktree_url = 'https://linktr.ee/sevenseries';
+            }
+            if (empty($setting->linktree_qr_path)) {
+                $setting->linktree_qr_path = 'images/sevenseries linktree.svg';
+            }
+            if (empty($setting->social_links)) {
+                $setting->social_links = [
+                    [
+                        'platform' => 'Instagram',
+                        'url' => 'https://instagram.com/sevenseries.np',
+                        'handle' => '@sevenseries.np',
+                        'label' => 'Official Brand Feed',
+                        'is_active' => true,
+                    ],
+                    [
+                        'platform' => 'Facebook',
+                        'url' => 'https://facebook.com/sevenseriesnp',
+                        'handle' => 'Seven Series Official',
+                        'label' => 'Announcements & Community',
+                        'is_active' => true,
+                    ],
+                    [
+                        'platform' => 'TikTok',
+                        'url' => 'https://tiktok.com/@sevenseries',
+                        'handle' => '@sevenseries',
+                        'label' => 'Behind The Seams & Factory Clips',
+                        'is_active' => true,
+                    ],
+                    [
+                        'platform' => 'YouTube',
+                        'url' => 'https://youtube.com/@sevenseries',
+                        'handle' => 'Seven Series Denim',
+                        'label' => 'Denim Weaving & Craft Videos',
+                        'is_active' => true,
+                    ],
+                ];
+                $setting->saveQuietly();
+            }
         }
 
         return $setting;
     }
 
     /**
-     * Generate 100% Free Google Maps Embed URL without any API keys or billing.
+     * Generate 100% Free Map Embed URL without any Google API keys or billing restrictions.
      */
     public function getGoogleMapsEmbedUrl(?int $pinIndex = null): string
     {
-        // If a specific pin is selected
-        if ($pinIndex !== null && !empty($this->map_pins[$pinIndex])) {
-            $pin = $this->map_pins[$pinIndex];
-            if (!empty($pin['latitude']) && !empty($pin['longitude'])) {
-                return 'https://maps.google.com/maps?q=' . urlencode($pin['latitude'] . ',' . $pin['longitude']) . '&hl=en&z=15&output=embed';
-            }
-            if (!empty($pin['address'])) {
-                return 'https://maps.google.com/maps?q=' . urlencode($pin['address'] . ', Nepal') . '&t=&z=15&ie=UTF8&iwloc=&output=embed';
-            }
-        }
-
-        // If primary pin exists with coordinates
-        if (!empty($this->map_pins) && is_array($this->map_pins)) {
-            foreach ($this->map_pins as $pin) {
-                if (!empty($pin['is_primary']) && !empty($pin['latitude']) && !empty($pin['longitude'])) {
-                    return 'https://maps.google.com/maps?q=' . urlencode($pin['latitude'] . ',' . $pin['longitude']) . '&hl=en&z=15&output=embed';
-                }
-            }
-        }
-
-        // If custom embed iframe or embed url is provided in google_maps_url
+        // If custom embed iframe or embed url is explicitly provided in settings
         if (!empty($this->google_maps_url)) {
             if (preg_match('/src="([^"]+)"/', $this->google_maps_url, $matches)) {
                 return $matches[1];
             }
-            if (str_contains($this->google_maps_url, 'output=embed') || str_contains($this->google_maps_url, 'google.com/maps/embed')) {
+            if (str_contains($this->google_maps_url, 'output=embed') || str_contains($this->google_maps_url, 'google.com/maps/embed') || str_contains($this->google_maps_url, 'openstreetmap.org')) {
                 return $this->google_maps_url;
             }
         }
 
-        // Default query using factory address and city
-        $query = trim(($this->primary_address ?? 'Sitapaila') . ', ' . ($this->city ?? 'Kathmandu') . ', Nepal');
-        return 'https://maps.google.com/maps?q=' . urlencode($query) . '&t=&z=15&ie=UTF8&iwloc=&output=embed';
+        $lat = 27.7125;
+        $lng = 85.2850;
+
+        // If a specific pin is selected
+        if ($pinIndex !== null && !empty($this->map_pins[$pinIndex])) {
+            $pin = $this->map_pins[$pinIndex];
+            if (!empty($pin['latitude']) && !empty($pin['longitude'])) {
+                $lat = (float) $pin['latitude'];
+                $lng = (float) $pin['longitude'];
+            }
+        } elseif (!empty($this->map_pins) && is_array($this->map_pins)) {
+            foreach ($this->map_pins as $pin) {
+                if (!empty($pin['is_primary']) && !empty($pin['latitude']) && !empty($pin['longitude'])) {
+                    $lat = (float) $pin['latitude'];
+                    $lng = (float) $pin['longitude'];
+                    break;
+                }
+            }
+        }
+
+        $minLng = round($lng - 0.012, 5);
+        $minLat = round($lat - 0.008, 5);
+        $maxLng = round($lng + 0.012, 5);
+        $maxLat = round($lat + 0.008, 5);
+
+        return "https://www.openstreetmap.org/export/embed.html?bbox={$minLng}%2C{$minLat}%2C{$maxLng}%2C{$maxLat}&layer=mapnik&marker={$lat}%2C{$lng}";
     }
 }

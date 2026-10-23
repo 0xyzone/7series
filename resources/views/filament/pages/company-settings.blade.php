@@ -309,6 +309,204 @@
 
         </div>
 
+        {{-- Section: Social Media Channels & Public Profiles --}}
+        <div class="cs-card">
+            <div class="cs-card-header" style="justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
+                <div style="display: flex; align-items: center; gap: 0.85rem;">
+                    <div class="sys-icon-badge red">
+                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="cs-card-title">Official Social Media Links & Channels</h3>
+                        <p class="cs-card-sub">Manage multiple brand social profiles (Instagram, TikTok, Facebook, YouTube, etc.) displayed in the dedicated Contact Us social section.</p>
+                    </div>
+                </div>
+
+                <div>
+                    <button wire:click="addSocialLink" type="button" class="cs-btn-secondary">
+                        <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                        </svg>
+                        <span>Add Social Link</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="cs-form-stack">
+                @forelse($social_links as $index => $social)
+                    <div class="cs-pin-card">
+                        <div class="cs-pin-card-header">
+                            <div class="cs-pin-card-header-left">
+                                <span class="cs-pin-num">{{ $index + 1 }}</span>
+                                <span class="cs-pin-title-text">{{ $social['platform'] ?? 'Social Platform' }}</span>
+                                <span class="cs-badge-primary-pin" style="background: rgba(229, 30, 43, 0.1); color: #E51E2B; border-color: rgba(229, 30, 43, 0.25);">
+                                    {{ $social['handle'] ?? '@handle' }}
+                                </span>
+                            </div>
+
+                            <div>
+                                <button wire:click="removeSocialLink({{ $index }})" type="button" class="cs-btn-danger">
+                                    <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                    </svg>
+                                    <span>Delete</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="cs-row-3">
+                            <div class="cs-field">
+                                <label class="cs-label"><span>Platform <span class="cs-req">*</span></span></label>
+                                <select wire:model="social_links.{{ $index }}.platform" class="cs-input" style="height: 42px;">
+                                    <option value="Instagram">Instagram</option>
+                                    <option value="Facebook">Facebook</option>
+                                    <option value="TikTok">TikTok</option>
+                                    <option value="YouTube">YouTube</option>
+                                    <option value="WhatsApp">WhatsApp</option>
+                                    <option value="LinkedIn">LinkedIn</option>
+                                    <option value="X">X (Twitter)</option>
+                                    <option value="Pinterest">Pinterest</option>
+                                    <option value="Custom">Custom Channel</option>
+                                </select>
+                            </div>
+
+                            <div class="cs-field">
+                                <label class="cs-label"><span>Handle / Username</span></label>
+                                <input type="text" wire:model="social_links.{{ $index }}.handle" placeholder="e.g. @sevenseries.np" class="cs-input" />
+                            </div>
+
+                            <div class="cs-field">
+                                <label class="cs-label"><span>Descriptive Label</span></label>
+                                <input type="text" wire:model="social_links.{{ $index }}.label" placeholder="e.g. Behind The Scenes & Fit Reels" class="cs-input" />
+                            </div>
+                        </div>
+
+                        <div class="cs-field">
+                            <label class="cs-label"><span>Destination URL <span class="cs-req">*</span></span></label>
+                            <div class="cs-input-group">
+                                <span class="cs-input-icon">
+                                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                                    </svg>
+                                </span>
+                                <input type="url" wire:model="social_links.{{ $index }}.url" placeholder="https://instagram.com/sevenseries.np" class="cs-input has-icon" />
+                            </div>
+                        </div>
+                    </div>
+                @empty
+                    <div style="padding: 2.5rem 1.5rem; text-align: center; border-radius: 1rem; border: 2px dashed rgba(120, 113, 108, 0.25);">
+                        <p style="font-size: 0.85rem; font-weight: 700; color: #78716c; margin: 0 0 0.5rem 0;">No social media links configured yet.</p>
+                        <button wire:click="addSocialLink" type="button" class="cs-btn-secondary">
+                            Add First Social Channel
+                        </button>
+                    </div>
+                @endforelse
+            </div>
+        </div>
+
+        {{-- Section: Linktree Hub & Official Factory QR Code Asset --}}
+        <div class="cs-card">
+            <div class="cs-card-header">
+                <div class="sys-icon-badge green">
+                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z" />
+                    </svg>
+                </div>
+                <div>
+                    <h3 class="cs-card-title">Factory Linktree Hub & Official QR Code</h3>
+                    <p class="cs-card-sub">Configure the factory Linktree URL and vector QR SVG asset rendered in the Contact Us page Linktree showcase card.</p>
+                </div>
+            </div>
+
+            <div class="cs-form-stack">
+                <div class="cs-grid" style="grid-template-columns: 1fr; gap: 1.5rem;">
+                    <div style="display: flex; flex-direction: column; md:flex-row; gap: 1.5rem; align-items: flex-start;">
+                        
+                        {{-- QR Preview Card --}}
+                        <div style="width: 140px; height: 140px; flex-shrink: 0; background: #ffffff; padding: 10px; border-radius: 16px; border: 2px solid rgba(226, 232, 240, 0.9); box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05); display: flex; align-items: center; justify-content: center; position: relative;">
+                            @if($qr_upload && method_exists($qr_upload, 'temporaryUrl') && in_array(strtolower($qr_upload->getClientOriginalExtension()), ['png', 'jpg', 'jpeg', 'webp']))
+                                <img src="{{ $qr_upload->temporaryUrl() }}" alt="Preview Uploaded QR" style="width: 100%; height: 100%; object-fit: contain;">
+                            @else
+                                <img src="{{ asset($linktree_qr_path ?: 'images/sevenseries linktree.svg') }}" alt="Seven Series Linktree QR Code" style="width: 100%; height: 100%; object-fit: contain;">
+                            @endif
+                        </div>
+
+                        {{-- Linktree Settings Fields --}}
+                        <div style="flex: 1; width: 100%; display: flex; flex-direction: column; gap: 1rem;">
+                            <div class="cs-field">
+                                <label class="cs-label">
+                                    <span>Factory Linktree URL <span class="cs-req">*</span></span>
+                                </label>
+                                <div class="cs-input-group">
+                                    <span class="cs-input-icon">
+                                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                                        </svg>
+                                    </span>
+                                    <input type="url" wire:model="linktree_url" required
+                                        placeholder="https://linktr.ee/sevenseries" class="cs-input has-icon" />
+                                </div>
+                            </div>
+
+                            {{-- File Upload for Linktree QR Code --}}
+                            <div class="cs-field">
+                                <label class="cs-label">
+                                    <span>Upload Linktree QR Asset (File) <span class="cs-req">*</span></span>
+                                </label>
+                                
+                                <div style="border: 2px dashed rgba(229, 30, 43, 0.35); background: rgba(254, 242, 242, 0.4); border-radius: 14px; padding: 1.25rem; text-align: center; cursor: pointer; transition: all 0.2s;"
+                                     onclick="document.getElementById('qr_upload_input').click()">
+                                    <input type="file" id="qr_upload_input" wire:model="qr_upload" accept=".svg,.png,.jpg,.jpeg,.webp" style="display: none;" />
+                                    
+                                    <div style="display: flex; flex-direction: column; align-items: center; gap: 0.5rem;">
+                                        <div style="width: 38px; height: 38px; border-radius: 10px; background: rgba(229, 30, 43, 0.1); color: #e51e2b; display: flex; align-items: center; justify-content: center;">
+                                            <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                                            </svg>
+                                        </div>
+                                        <div>
+                                            <span style="font-size: 0.82rem; font-weight: 700; color: #18181b;">Click to choose or replace QR code file</span>
+                                            <p style="font-size: 0.72rem; color: #71717a; margin-top: 2px;">Supports vector .SVG, .PNG, .JPG, .WebP (Max 5MB)</p>
+                                        </div>
+                                        
+                                        <div wire:loading wire:target="qr_upload" style="margin-top: 0.4rem; font-size: 0.75rem; color: #e51e2b; font-weight: 700;">
+                                            ⏳ Uploading file... please wait
+                                        </div>
+                                        
+                                        @if($qr_upload)
+                                            <div style="margin-top: 0.4rem; display: inline-flex; align-items: center; gap: 0.5rem; padding: 4px 10px; background: #ecfdf5; border: 1px solid #a7f3d0; border-radius: 9999px; font-size: 0.75rem; color: #065f46; font-weight: 700;">
+                                                <span>✓ Selected: {{ $qr_upload->getClientOriginalName() }}</span>
+                                            </div>
+                                        @endif
+                                    </div>
+                                </div>
+                                
+                                <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 0.6rem; flex-wrap: wrap; gap: 0.5rem;">
+                                    <span style="font-size: 0.72rem; color: #78716c;">
+                                        Active Asset: <code>{{ $linktree_qr_path ?: 'images/sevenseries linktree.svg' }}</code>
+                                    </span>
+                                    <button type="button" wire:click="resetQrToDefault" class="cs-btn-secondary" style="font-size: 0.72rem; padding: 4px 10px; height: auto;">
+                                        Reset to Default Factory QR
+                                    </button>
+                                </div>
+                                @error('qr_upload')
+                                    <span style="font-size: 0.75rem; color: #dc2626; font-weight: 700; margin-top: 0.25rem; display: block;">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
         {{-- Section 3: Interactive Map Pins (Multiple Locations) --}}
         <div class="cs-card">
             <div class="cs-card-header" style="justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
