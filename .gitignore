@@ -140,3 +140,4 @@ dist
 public/hot
 vendor/
 whatsapp-gateway/auth_info/
+.phpunit.result.cache

@@ -215,6 +215,7 @@ return [
         'prefix' => 'view',
         'exclude' => [
             Dashboard::class,
+            \Joaopaulolndev\FilamentEditProfile\Pages\EditProfilePage::class,
         ],
     ],
 

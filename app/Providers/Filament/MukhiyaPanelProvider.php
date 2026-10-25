@@ -2,6 +2,7 @@
 
 namespace App\Providers\Filament;
 
+use Filament\Actions\Action;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -19,6 +20,8 @@ use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use Joaopaulolndev\FilamentEditProfile\FilamentEditProfilePlugin;
+use Joaopaulolndev\FilamentEditProfile\Pages\EditProfilePage;
 
 class MukhiyaPanelProvider extends PanelProvider
 {
@@ -120,11 +123,32 @@ class MukhiyaPanelProvider extends PanelProvider
                 \Filament\Navigation\NavigationGroup::make('Marketing & Growth'),
                 \Filament\Navigation\NavigationGroup::make('Access Control'),
             ])
+            ->userMenuItems([
+                'profile' => Action::make('profile')
+                    ->label(fn () => auth()->user()?->name ?? 'Profile')
+                    ->url(fn (): string => EditProfilePage::getUrl())
+                    ->icon('heroicon-m-user-circle'),
+            ])
             ->plugins([
                 \BezhanSalleh\FilamentShield\FilamentShieldPlugin::make()
                     ->navigationGroup('Access Control')
                     ->navigationSort(2)
                     ->navigationIcon(\Filament\Support\Icons\Heroicon::OutlinedShieldCheck),
+                FilamentEditProfilePlugin::make()
+                    ->slug('my-profile')
+                    ->setTitle('My Profile')
+                    ->setNavigationLabel('My Profile')
+                    ->setNavigationGroup('Access Control')
+                    ->setIcon('heroicon-o-user-circle')
+                    ->setSort(10)
+                    ->shouldRegisterNavigation(true)
+                    ->shouldShowDeleteAccountForm(false)
+                    ->shouldShowBrowserSessionsForm()
+                    ->shouldShowAvatarForm(
+                        value: true,
+                        directory: 'avatars',
+                        rules: 'mimes:jpeg,png,webp,jpg|max:2048'
+                    ),
             ])
             ->middleware([
                 EncryptCookies::class,
