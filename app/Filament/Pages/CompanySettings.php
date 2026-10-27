@@ -141,16 +141,26 @@ class CompanySettings extends Page
 
     public function save(): void
     {
-        $this->validate([
-            'company_name' => 'required|string|max:255',
-            'primary_email' => 'required|email|max:255',
-            'primary_phone' => 'required|string|max:100',
-            'google_review_url' => 'nullable|url|max:500',
-            'google_place_id' => 'nullable|string|max:255',
-            'google_reviews_widget_code' => 'nullable|string',
-            'linktree_url' => 'nullable|url|max:500',
-            'qr_upload' => 'nullable|file|mimes:svg,png,jpg,jpeg,webp|max:5120',
-        ]);
+        try {
+            $this->validate([
+                'company_name' => 'required|string|max:255',
+                'primary_email' => 'required|email|max:255',
+                'primary_phone' => 'required|string|max:100',
+                'google_review_url' => 'nullable|url|max:500',
+                'google_place_id' => 'nullable|string|max:255',
+                'google_reviews_widget_code' => 'nullable|string',
+                'linktree_url' => 'nullable|url|max:500',
+                'qr_upload' => 'nullable|file|mimes:svg,png,jpg,jpeg,webp|max:5120',
+            ]);
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            Notification::make()
+                ->title('Unable to save settings')
+                ->body(collect($e->errors())->flatten()->first() ?? 'Please check the required fields.')
+                ->danger()
+                ->send();
+
+            throw $e;
+        }
 
         if ($this->qr_upload) {
             $ext = $this->qr_upload->getClientOriginalExtension() ?: 'svg';
